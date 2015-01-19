@@ -18,6 +18,7 @@ body{
 .left-div {
     position: relative;
     padding: 0 0 0 6px;
+    max-width: 33%;
     width: 33%;
     height: 94%;
     float:left;
@@ -44,6 +45,22 @@ body{
     resize: none;
     border: none;
 }
-input {
-    margin: 4px;
+
+.tabs-buttons {
+    position: absolute;
+    left: 33%;
+    width: 67%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tab {
+    border-left: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 20%;
+    height: 80%;
 }
