@@ -91,7 +91,7 @@ input, textarea, button {
     position: relative;
     width: 19%;
     top: 12%;
-    height: 94%;
+    height: 88%;
     background-color: #fff;
 }
 
@@ -141,4 +141,12 @@ input, textarea, button {
     left: 1%;
     width: 98%;
     background-color: #eee;
+}
+
+.bottomWhite {
+    position: absolute;
+    height: 2px;
+    background-color: #fff;
+    top: 100%;
+    width: 100%;
 }
