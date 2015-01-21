@@ -67,7 +67,7 @@ input, textarea {
     width: 19%;
     top: 20%;
     height: 80%;
-    background-color: white;
+    background-color: #eee;
 }
 
 .left-tab {
@@ -78,7 +78,7 @@ input, textarea {
     width: 19%;
     top: 20%;
     height: 80%;
-    background-color: white;
+    background-color: #eee;
 }
 
 .chosenTab {
@@ -91,3 +91,11 @@ input, textarea {
     height: 94%;
     background-color: #fff;
 }
+
+.contentDiv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+
