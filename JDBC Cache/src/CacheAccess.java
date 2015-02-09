@@ -74,6 +74,80 @@ public class CacheAccess{
              return null;
          }
      }
+
+    public void deleteUser(User user){
+        Statement stmt;
+        //ResultSet rs;
+        String sql="DELETE * FROM USER WHERE UID = " + user.getID() + ";";
+
+        establishConnection();
+
+        //TODO: Create Statement for the connection "conn"
+        try{
+            stmt=conn.createStatement();
+
+            //TODO: Execute The Query
+            stmt.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUser(User user) {
+        Statement stmt;
+        //ResultSet rs;
+        String temp = "";
+        String sql = "UPDATE USER" + "SET " + temp + " WHERE UID = " + user.getID() + ";";
+
+        establishConnection();
+
+        //TODO: Create Statement for the connection "conn"
+        try {
+            stmt=conn.createStatement();
+            User u = selectUser(user.getID());
+
+            if(!(u.getName() == user.getName())) {
+                temp = "Name = " + user.getName();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getType() == user.getType())) {
+                temp = "Type = " + user.getType();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getLogin() == user.getLogin())) {
+                temp = "Login = " + user.getLogin();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getPassword() == user.getPassword())) {
+                temp = "Password = " + user.getPassword();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getEmail() == user.getEmail())) {
+                temp = "Email = " + user.getEmail();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getJobTitle() == user.getJobTitle())) {
+                temp = "JobTitle = " + user.getJobTitle();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getWorkPlace() == user.getWorkPlace())) {
+                temp = "WorkPlace = " + user.getWorkPlace();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getProjects() == user.getProjects())) {
+                temp = "Projects = " + user.getProjects();
+                stmt.executeUpdate(sql);
+            }
+            if(!(u.getDocuments() == user.getDocuments())) {
+                temp = "Documents = " + user.getDocuments();
+                stmt.executeUpdate(sql);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
  }
 
 
