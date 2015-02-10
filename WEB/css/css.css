@@ -14,7 +14,7 @@ input, textarea, button {
 }
 
 .maindiv{
-    border: 4px solid #ac4;
+    border: 2px solid #ac4;
     width: 98%;
     top: 9%;
     height: 85%;
@@ -110,8 +110,10 @@ input, textarea, button {
     border: 2px solid #ac4;
     height: 70%;
     top: 15%;
+    min-width: 120px;
     width: 10%;
-    left: 85%;
+    right: 5%;
+    float: right;
     background-color: #eee;
 }
 
