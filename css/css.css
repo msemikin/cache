@@ -1,0 +1,154 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body{
+    overflow: hidden;
+    padding: 0;
+}
+
+input, textarea, button {
+        outline: none;
+}
+
+.maindiv{
+    border: 2px solid #ac4;
+    width: 98%;
+    top: 9%;
+    height: 85%;
+    left: 1%;
+    align-items: center;
+    position: absolute;
+}
+
+.left-div {
+    position: relative;
+    padding: 0 0 0 6px;
+    width: 33%;
+    height: 94%;
+    float:left;
+    border-right: 2px solid #ac4;
+}
+
+.right-div {
+    position: relative;
+    width: 67%;
+    height: 94%;
+    float: right;
+}
+
+.topper {
+    height: 6%;
+    position: relative;
+    border-bottom: 2px solid #ac4;
+}
+
+.main-text {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    resize: none;
+    border: none;
+}
+
+.tabs-buttons {
+    position: absolute;
+    left: 33%;
+    width: 67%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tab {
+    border-left: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 20%;
+    height: 80%;
+    background-color: #eee;
+}
+
+.left-tab {
+    border-left: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    border-right: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 20%;
+    height: 80%;
+    background-color: #eee;
+}
+
+.chosenTab {
+    border-left: 1px solid #ac4;
+    border-right: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 12%;
+    height: 88%;
+    background-color: #fff;
+}
+
+.contentDiv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tab, .left-tab, .sendButton-nonactive {
+    cursor: pointer;
+}
+
+.sendButton-nonactive {
+    position: relative;
+    border: 2px solid #ac4;
+    height: 70%;
+    top: 15%;
+    min-width: 120px;
+    width: 10%;
+    right: 5%;
+    float: right;
+    background-color: #eee;
+}
+
+.sendButton-nonactive:hover {
+    background-color: #fff;
+}
+
+.footerDiv {
+    position: absolute;
+    height: 6%;
+    top: 94%;
+    width: 98%;
+    left: 1%;
+    background-color: #eee;
+}
+
+.sender {
+    font: 12pt/10pt sans-serif;
+    color: #a0c040;
+    vertical-align: middle;
+}
+
+.headerDiv {
+    position: absolute;
+    height: 9%;
+    top: 0;
+    left: 1%;
+    width: 98%;
+    background-color: #eee;
+}
+
+.bottomWhite {
+    position: absolute;
+    height: 2px;
+    background-color: #fff;
+    top: 100%;
+    width: 100%;
+}
