@@ -13,6 +13,25 @@ window.onload = function() {
         }
         tabs[i].appendChild(bordWhite);
     }
+
+    var field = document.getElementById('file-field');
+    field.onchange = function (e) {
+        jDoc.read(e.target.files[0], {
+            success:
+            function (parsedFile) {
+                var canvas = document.getElementById("pages-container");
+                canvas.innerHTML = "";
+                canvas.appendChild(parsedFile.html());
+                var textLikeObject = parsedFile.data();
+                console.log(textLikeObject);
+            },
+
+            error:
+            function (error) {
+                console.log(error);
+            }
+        });
+    };
 }
 
 function changeTab() {
