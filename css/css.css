@@ -27,7 +27,7 @@ input, textarea, button {
 
 .right-div {
     position: relative;
-    width: 67%;
+    width: 60%;
     height: 94%;
     float: right;
 }
@@ -48,8 +48,8 @@ input, textarea, button {
 
 .tabs-buttons {
     position: absolute;
-    left: 33%;
-    width: 67%;
+    right: 0px;
+    width: 60%;
     height: 100%;
     display: inline-flex;
     flex-direction: row;
@@ -188,8 +188,8 @@ input, textarea, button {
 }
 
 .pages-container {
-    position: relative;
-    padding: 0 0 0 6px;
+    position: absolute;
+    padding:0px;
     width: 40%;
     height: 94%;
     float:left;
