@@ -13,7 +13,20 @@ window.onload = function() {
         }
         tabs[i].appendChild(bordWhite);
     }
-
+    function getSelectionText() {
+        var text = "";
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.selection && document.selection.type != "Control") {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+    $(document).ready(function (){
+        $('#pages-container').mouseup(function (e){
+            alert(getSelectionText())
+        })
+    });
     var field = document.getElementById('file-field');
     field.onchange = function (e) {
         jDoc.read(e.target.files[0], {
