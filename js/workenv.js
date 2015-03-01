@@ -23,7 +23,7 @@ window.onload = function() {
         return text;
     }
     $(document).ready(function (){
-        $('#pages-container').mouseup(function (e){
+        $('#pages-container').dblclick(function (e){
             alert(getSelectionText())
         })
     });

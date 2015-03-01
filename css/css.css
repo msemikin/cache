@@ -190,7 +190,7 @@ input, textarea, button {
 .pages-container {
     position: relative;
     padding: 0 0 0 6px;
-    width: 33%;
+    width: 40%;
     height: 94%;
     float:left;
     overflow: auto;
