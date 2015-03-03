@@ -1,0 +1,199 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body{
+    overflow: hidden;
+    padding: 0;
+}
+
+input, textarea, button {
+        outline: none;
+}
+
+.maindiv{
+    border: 2px solid #ac4;
+    width: 98%;
+    top: 9%;
+    height: 85%;
+    left: 1%;
+    align-items: center;
+    position: absolute;
+}
+
+
+
+.right-div {
+    position: relative;
+    width: 60%;
+    height: 94%;
+    float: right;
+}
+
+.topper {
+    height: 6%;
+    position: relative;
+    border-bottom: 2px solid #ac4;
+}
+
+.main-text {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    resize: none;
+    border: none;
+}
+
+.tabs-buttons {
+    position: absolute;
+    right: 0px;
+    width: 60%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tab {
+    border-left: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 20%;
+    height: 80%;
+    background-color: #eee;
+}
+
+
+.chosenTab {
+    border-left: 1px solid #ac4;
+    border-right: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 12%;
+    height: 88%;
+    background-color: #fff;
+}
+
+.contentDiv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tab, .left-tab, .sendButton-nonactive, .openbutton {
+    cursor: pointer;
+}
+
+.sendButton-nonactive {
+    position: relative;
+    border: 2px solid #ac4;
+    height: 70%;
+    top: 15%;
+    min-width: 120px;
+    width: 10%;
+    right: 5%;
+    float: right;
+    background-color: #eee;
+}
+
+.sendButton-nonactive:hover {
+    background-color: #fff;
+}
+
+.footerDiv {
+    position: absolute;
+    height: 6%;
+    top: 94%;
+    width: 98%;
+    left: 1%;
+    background-color: #eee;
+}
+
+.sender {
+    font: 12pt/10pt sans-serif;
+    color: #a0c040;
+    vertical-align: middle;
+}
+
+.headerDiv {
+    position: absolute;
+    height: 9%;
+    top: 0;
+    left: 1%;
+    width: 98%;
+    background-color: #eee;
+}
+
+.bottomWhite {
+    position: absolute;
+    height: 2px;
+    background-color: #fff;
+    top: 100%;
+    width: 100%;
+}
+
+.openbutton {
+    position: relative;
+    border: 2px solid #ac4;
+    height: 100%;
+    width: 100%;
+    float: right;
+    background-color: #eee;
+}
+.openbutton:hover {
+    background-color: #fff;
+}
+.file_upload{
+    display: block;
+    position: relative;
+    overflow: hidden;
+    font-size: 1em;
+    height: 70%;
+    top: 15%;
+    min-width: 120px;
+    width: 10%;
+    left: 5%;
+    float: left;
+    background-color: #eee;
+}
+
+.file_upload input{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(20);
+    opacity: 0;
+}
+
+.pages-container>div{
+        background-color: #fff;
+        margin: 0;
+}
+
+.left-tab {
+    border-left: 1px solid #ac4;
+    border-top: 1px solid #ac4;
+    border-right: 1px solid #ac4;
+    position: relative;
+    width: 19%;
+    top: 20%;
+    height: 80%;
+    background-color: #eee;
+}
+
+.pages-container {
+    position: absolute;
+    padding:0px;
+    width: 40%;
+    height: 94%;
+    float:left;
+    overflow: auto;
+    border-right: 2px solid #ac4;
+    background-color: grey;
+}
