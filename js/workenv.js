@@ -28,11 +28,29 @@ window.onload = function() {
         }
         return text;
     }
-    // $(document).ready(function (){
-    //     $('#pages-container').dblclick(function (e){
-    //         alert(getSelectionText())
-    //     })
-    // });
+    $(document).ready(function (){
+         $('#pages-container').click(function (e){
+             getSelectionHtml();
+         })
+    });
+    function getSelectionHtml() {
+        var html = "";
+        if (typeof window.getSelection != "undefined") {
+            var sel = window.getSelection();
+            if (sel.rangeCount) {
+                var container = document.createElement("div");
+                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                    container.appendChild(sel.getRangeAt(i).cloneContents());
+                }
+                html = container.innerHTML;
+            }
+        } else if (typeof document.selection != "undefined") {
+            if (document.selection.type == "Text") {
+                html = document.selection.createRange().htmlText;
+            }
+        }
+        alert(html);
+    }
     var field = document.getElementById('file-field');
     field.onchange = function (e) {
         jDoc.read(e.target.files[0], {
@@ -108,3 +126,6 @@ function processText(text, className){
 function wrapToTag(string, tag, className){
     return '<'+tag+' class="'+className+'"'+'>'+string+'</'+tag+'>';
 }
+
+
+
