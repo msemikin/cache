@@ -2,6 +2,12 @@ var tabs = document.getElementsByName("tab");
 var contentDivs = document.getElementsByName("contentDiv");
 
 window.onload = function() {
+
+    var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    initiateTextBox(sample, function(word){
+        window.alert(word);
+    });
+
     for (i = 0; i < tabs.length; i++){
         tabs[i].onclick = changeTab;
         var bordWhite = document.createElement('div');
@@ -22,11 +28,11 @@ window.onload = function() {
         }
         return text;
     }
-    $(document).ready(function (){
-        $('#pages-container').dblclick(function (e){
-            alert(getSelectionText())
-        })
-    });
+    // $(document).ready(function (){
+    //     $('#pages-container').dblclick(function (e){
+    //         alert(getSelectionText())
+    //     })
+    // });
     var field = document.getElementById('file-field');
     field.onchange = function (e) {
         jDoc.read(e.target.files[0], {
@@ -72,4 +78,33 @@ function changeTab() {
             }
         }
     }
+}
+
+
+function initiateTextBox(text, wordCallback){
+    var className = 'word';
+    var processed = processText(text,className);
+    $('#pages-container').html(processed);
+
+    $('.word').dblclick(
+        function(){
+            wordCallback($(this).text());
+        }
+    );
+}
+
+function processText(text, className){
+    
+    var dividers = ' ';
+    var words = text.split(dividers);
+
+    for (var i = 0; i < words.length; i++) {
+        words[i] = wrapToTag(words[i], 'span', className);
+    };
+
+    return words.join(' ');
+}
+
+function wrapToTag(string, tag, className){
+    return '<'+tag+' class="'+className+'"'+'>'+string+'</'+tag+'>';
 }
