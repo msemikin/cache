@@ -152,3 +152,34 @@ input, textarea, button {
     top: 100%;
     width: 100%;
 }
+
+.obectBox{
+    position: absolute;;
+    width: 35%;
+    padding: 7px;
+    padding-right: 20px;
+    border: solid 1px black;
+    left: 7%;
+    top: 25%;
+}
+.attributesBox{
+    position: absolute;
+    width: 35%;
+    padding: 7px;
+    padding-right: 20px;
+    border: solid 1px black;
+    left: 55%;
+    top: 25%;
+}
+.objectText
+{
+    position: absolute;
+    left: 7%;
+    top: 18%;
+}
+.attributesText
+{
+    position: absolute;
+    left: 55%;
+    top: 18%;
+}
