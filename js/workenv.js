@@ -3,10 +3,9 @@ var contentDivs = document.getElementsByName("contentDiv");
 
 window.onload = function() {
 
-    var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    initiateTextBox(sample, function(word){
-        window.alert(word);
-    });
+    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+    $('#pages-container').text(text);
 
     for (i = 0; i < tabs.length; i++){
         tabs[i].onclick = changeTab;
@@ -49,7 +48,13 @@ window.onload = function() {
                 html = document.selection.createRange().htmlText;
             }
         }
-        alert(html);
+        var intersection = FindIntersection(html, $('#pages-container').text());
+        if(intersection) {
+            html = $('#pages-container').text().slice(intersection.position,intersection.position + intersection.length);
+        }
+        if(html) {
+            window.alert(html)
+        }
     }
     var field = document.getElementById('file-field');
     field.onchange = function (e) {
@@ -98,34 +103,33 @@ function changeTab() {
     }
 }
 
-
-function initiateTextBox(text, wordCallback){
-    var className = 'word';
-    var processed = processText(text,className);
-    $('#pages-container').html(processed);
-
-    $('.word').dblclick(
-        function(){
-            wordCallback($(this).text());
+function FindIntersectionFromStart(a,b){
+    for(var i=a.length;i>0;i--){
+        d = a.substring(0,i);
+        j = b.indexOf(d);
+        if (j>=0){
+            return ({position:j,length:i});
         }
-    );
-}
+    }
 
-function processText(text, className){
+    return null;
+}
     
-    var dividers = ' ';
-    var words = text.split(dividers);
-
-    for (var i = 0; i < words.length; i++) {
-        words[i] = wrapToTag(words[i], 'span', className);
-    };
-
-    return words.join(' ');
+function FindIntersection(a,b){
+    var bestResult = null;
+    for(var i=0;i<a.length-1;i++){
+        var result = FindIntersectionFromStart(a.substring(i),b);
+        if (result){
+            if (!bestResult){
+                bestResult = result;
+            } else {
+                if (result.length>bestResult.length){
+                    bestResult = result;
+                }
+            }
+        }
+        if(bestResult && bestResult.length>=a.length-i)
+            break;
+    }
+    return bestResult;
 }
-
-function wrapToTag(string, tag, className){
-    return '<'+tag+' class="'+className+'"'+'>'+string+'</'+tag+'>';
-}
-
-
-
