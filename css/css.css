@@ -197,7 +197,7 @@ input, textarea, button {
     border-right: 2px solid #ac4;
     background-color: grey;
 }
-.obectBox{
+.attributesBox{
     position: absolute;;
     width: 35%;
     padding: 7px;
@@ -206,7 +206,7 @@ input, textarea, button {
     left: 7%;
     top: 25%;
 }
-.attributesBox{
+.obectBox{
     position: absolute;
     width: 35%;
     padding: 7px;
@@ -215,13 +215,13 @@ input, textarea, button {
     left: 55%;
     top: 25%;
 }
-.objectText
+.attributesText
 {
     position: absolute;
     left: 7%;
     top: 18%;
 }
-.attributesText
+.objectText
 {
     position: absolute;
     left: 55%;

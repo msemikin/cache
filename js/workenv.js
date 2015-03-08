@@ -4,8 +4,19 @@ var contentDivs = document.getElementsByName("contentDiv");
 window.onload = function() {
 
     var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+    /*if(document.getElementsById('obj').checked = 'true')
+        document.getElementsById('attr').checked = 'false';
+        else
+            document.getElementsByName('attr').checked = 'true';*/
+
     initiateTextBox(sample, function(word){
+
+
         window.alert(word);
+
+
+
     });
 
     for (i = 0; i < tabs.length; i++){
@@ -126,6 +137,12 @@ function processText(text, className){
 function wrapToTag(string, tag, className){
     return '<'+tag+' class="'+className+'"'+'>'+string+'</'+tag+'>';
 }
+function disabled(field) {
+ for (i=0; i<field.length; i++) { field[i].checked=false; }
+}
+
+
+
 
 
 
