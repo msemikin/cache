@@ -13800,7 +13800,7 @@
                             data = {};
                             cachedAttributesLength = exceptionsNodes[k].attributes.length;
                             for (j = 0; j < cachedAttributesLength; j++) {
-                                if (self.replaceAttributeNamespace(exceptionsNodes[i].attributes[j].name) == 'name') {
+                                /*if (self.replaceAttributeNamespace(exceptionsNodes[i].attributes[j].name) == 'name') {
                                     name = self.replaceAttributeNamespace(exceptionsNodes[i].attributes[j].name);
                                     result.latentStyles.exceptions[name] = data;
                                 }
@@ -13815,7 +13815,7 @@
                                         (isNaN(exceptionsNodes[i].attributes[j].value)) ? (
                                         exceptionsNodes[i].attributes[j].value || ''
                                     ) : +exceptionsNodes[i].attributes[j].value;
-                                }
+                                }*/
                             }
                         }
                     } else if (childrenNodes[i].localName === 'style') {
