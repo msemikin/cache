@@ -11,7 +11,7 @@ window.onload = function() {
     field = document.getElementById('file-field');
     var chars = new Array (',', '.', ';', '!', ':', ' ');
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD*/
     var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
     /*if(document.getElementsById('obj').checked = 'true')
@@ -19,19 +19,19 @@ window.onload = function() {
         else
             document.getElementsByName('attr').checked = 'true';*/
 
-    initiateTextBox(sample, function(word){
+    //initiateTextBox(sample, function(word){
 
 
-        window.alert(word);
+       // window.alert(word);
 
 
 
-    });
-=======
+   // });
+/*=======*/
     var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
     $('#pages-container').text(text);
->>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511
+/*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
 
     //
     for (i = 0; i < tabs.length; i++){
@@ -189,6 +189,25 @@ function isSpases (array)
     return true;
 }
 
+function linkedLists()
+{
+    var syncList1 = new syncList;
+
+    syncList1.dataList = {
+
+        'fly':{
+	       'fly_ps':'Attr1.1',
+	       'fly_tel':'Attr1.2',
+	       'fly_pl':'Attr1.3'
+	       },
+        'acer':{
+	       'acer_ps':'Attr2.1',
+	       'acer_tel':'Attr2.2'
+            }
+	   };
+        syncList1.sync("List1","List2");
+}
+
 
 //Переключение вкладок
 function changeTab() {
@@ -217,6 +236,7 @@ function changeTab() {
         }
     }
 }
+
 
 
 //Работа Семикина
@@ -261,4 +281,4 @@ function FindIntersection(a,b){
     }
     return bestResult;
 }*/
->>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511
+/*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
