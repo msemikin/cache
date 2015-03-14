@@ -198,21 +198,23 @@ input, textarea, button {
     background-color: grey;
 }
 .attributesBox{
-    position: absolute;;
-    width: 35%;
-    padding: 7px;
-    padding-right: 20px;
-    border: solid 1px black;
-    left: 7%;
-    top: 25%;
-}
-.obectBox{
     position: absolute;
     width: 35%;
     padding: 7px;
     padding-right: 20px;
     border: solid 1px black;
     left: 55%;
+    top: 25%;
+
+
+}
+.objectBox{
+    position: absolute;;
+    width: 35%;
+    padding: 7px;
+    padding-right: 20px;
+    border: solid 1px black;
+    left: 7%;
     top: 25%;
 }
 .attributesText
@@ -226,4 +228,16 @@ input, textarea, button {
     position: absolute;
     left: 55%;
     top: 18%;
+}
+.list
+{
+    overflow:  hidden;
+    border: 0px;
+    outline: none;
+}
+.wordBox
+{
+    position: absolute;
+    left: 7%;
+    top: 55%;
 }
