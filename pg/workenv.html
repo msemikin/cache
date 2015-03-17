@@ -9,8 +9,8 @@
     <script src="../js/jdoc.0.5.2.js" type="text/javascript"></script>
     <script src="../js/textbox.js" type="text/javascript"></script>
     <script src="../js/workenv.js" type="text/javascript"></script>
-    <script  src="../js/selectlinked.js" type="text/javascript"></script>
     <script  src="../js/textbox.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -33,19 +33,17 @@
         <div   id="div1" name="contentDiv">Анализ ПО
 
             <div class="objectText">
-                <input type="radio" name="attr"> Атрибуты
+                 Атрибуты
             </div>
 
              <div  class="attributesText">
-                <input type="radio" name="obj" > Объекты
+                 Объекты
             </div>
 
             <div class="objectBox">
 
 
-                <select class="list" size = "5" id="List1" onchange="linkedLists()">
-                    <option value="Obj1"> Object 1 </option>
-                    <option value="Obj2"> Object 2</option>
+                <select class="list" size = "5" id="List1" onclick = "clean('List2');addToAttrList()" >
                 </select>
             </div>
 
@@ -53,12 +51,16 @@
                <select class="list" size = "5" id="List2" >
                 </select>
             </div>
-            <div class = "wordBox">
+            <div class = "objWordBox">
                 <textarea id="wordTextBox" cols="30" rows="3" ></textarea>
-                <p><input type="button" value="in Box" onclick="putInBox('12345')"></p>
-                <p><input type="button" value="in List" onclick="putInList()"></p>
-
-
+<!--            <p><input type="button" value="in Box" onclick="putInBox('12345')"></p>-->
+                <p><input type="button" value="in List" onclick="addToObjectsList()"></p>
+                <input type="button" value="DeleteObj" onclick="deleteObject()">
+            </div>
+            <div class = "attrWordBox">
+                <textarea id="attrBox" cols="30" rows="3" ></textarea>
+                <p><input type="button" value="AttrInList" onclick="addAttrToObject();addToAttrList()"></p>
+                <input type="button" value="DeleteAttr" onclick="deleteAttribute()">
             </div>
 
         </div>

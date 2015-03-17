@@ -189,7 +189,7 @@ function isSpases (array)
     return true;
 }
 
-function linkedLists()
+/*function linkedLists()
 {
     var syncList1 = new syncList;
 
@@ -206,7 +206,7 @@ function linkedLists()
             }
 	   };
         syncList1.sync("List1","List2");
-}
+}*/
 
 
 //Переключение вкладок
