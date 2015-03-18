@@ -235,9 +235,16 @@ input, textarea, button {
     border: 0px;
     outline: none;
 }
-.wordBox
+.objWordBox
 {
     position: absolute;
     left: 7%;
+    top: 55%;
+}
+
+.attrWordBox
+{
+    position: absolute;
+    left: 55%;
     top: 55%;
 }

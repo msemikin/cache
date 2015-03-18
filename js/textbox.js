@@ -1,43 +1,110 @@
+
+var objects = new Array();
+
+
 function putInBox (val)
 {
     var TheTextBox = document.getElementById("wordTextBox");
     TheTextBox.value = val;
 }
 
-function putInList ()
+function addToObjectsList ()
 {
     var text = document.getElementById("wordTextBox").value;
     var select = document.getElementById("List1");
     select.options[select.options.length] = new Option(text);
+    var attributes = new Array();
+    var obj={
+        name: text,
+        attr: attributes
+    }
+    objects.push(obj);
 }
 
-function addToAttr(obj, atr)
+function addAttrToObject()
 {
-    var syncList1 = new syncList;
-
-    //var List1 = document.getElementById("List1");
-    //var List2 = document.getElementById("List2");
-    //select.options
-    // syncList1.dataList = { obj :{ obj
-
+    var objIndex = document.getElementById("List1").selectedIndex;
+    //var objIndex = document.getElementById("newBox1").value;
+    var attr = document.getElementById("attrBox").value;
+    var obj = objects[objIndex];
+    obj.attr.push(attr);
 }
 
-function linkedLists()
+function addToAttrList()
 {
-    var syncList1 = new syncList;
-
-    syncList1.dataList = {
-
-        'Obj1':{
-	       'Obj1_Attr1.1':'Attr1.1',
-	       'Obj1_Attr1.2':'Attr1.2',
-	       'Obj1_Attr1.3':'Attr1.3'
-	       },
-        'Obj2':{
-	       'Obj2_Attr2.1':'Attr2.1',
-	       'Obj2_Attr2.2':'Attr2.2'
-            }
-	   };
-        syncList1.sync("List1","List2");
+    var ind = document.getElementById("List1").selectedIndex;
+    var mas = objects[ind].attr;
+    var select = document.getElementById("List2");
+    clean('List2');
+    for(i = 0;i < mas.length;i++)
+    {
+        select.options[select.options.length] = new Option(mas[i]);
+    }
 }
+
+//добавить кнопочки удаления
+//на доработке,закоммичу позже
+function deleteObject()
+{
+    //debugger;
+    var select = document.getElementById("List1");
+    var objIndex = document.getElementById("List1").selectedIndex;
+    objects.splice(objIndex,1);
+    clean('List1');
+    clean('List2');
+    for(i = 0;i < objects.length;i++)
+    {
+        select.options[select.options.length] = new Option(objects[i]);
+    }
+
+}
+
+function deleteAttribute()
+{
+    //var select = document.getElementById("List2");
+    var attrIndex = document.getElementById("List2").selectedIndex;
+    objects.attr.splice(attrIndex,1);
+    addToAttrList();
+}
+
+function clean(list)
+{
+    var select = document.getElementById(list);
+    select.innerHTML = "";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
