@@ -37,29 +37,8 @@ cacheApp.controller("LoginController", ["$scope", "$http", function ($scope, $ht
 		});
 
 		responsePromise.success(function (data) {
-			if (data) {
-				// логин верный= student
-				$("#login_result").fadeTo(200, 0.1, function () {
-					$(this).html('Редирект.....').removeClass().addClass('success').fadeTo(900, 1,
-						function () {
-							document.location = '../pg/workenv.html';
-						});
-				});
-			} else if (data == 2) {
-				// логин верный= teacher
-				$("#login_result").fadeTo(200, 0.1, function () {
-					$(this).html('Редирект.....').removeClass().addClass('success').fadeTo(900, 1,
-						function () {
-							document.location = '../pg/teacherenv.html';
-						});
-				});
-			} else {
-				// логин неверный
-				$("#login_result").fadeTo(200, 0.1, function () {
-					$(this).html('Логин неверен ...').removeClass().addClass('error').fadeTo(900, 1);
-				});
-			}
-
+			window.alert(data.children[0].Id);
+			window.location = "http://localhost:57772/csp/test/pg/workenv.html";
 		});
 	};
 }]);
