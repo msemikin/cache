@@ -11,14 +11,17 @@ function putInBox (val)
 function addToObjectsList ()
 {
     var text = document.getElementById("wordTextBox").value;
-    var select = document.getElementById("List1");
-    select.options[select.options.length] = new Option(text);
-    var attributes = new Array();
-    var obj={
-        name: text,
-        attr: attributes
+    if (text.length != 0 && text.length != 1) {
+        var select = document.getElementById("List1");
+        select.options[select.options.length] = new Option(text);
+        var attributes = new Array();
+        var obj = {
+            name: text,
+            attr: attributes
+        }
+        objects.push(obj);
     }
-    objects.push(obj);
+
 }
 
 function addAttrToObject()
@@ -27,7 +30,9 @@ function addAttrToObject()
     //var objIndex = document.getElementById("newBox1").value;
     var attr = document.getElementById("attrBox").value;
     var obj = objects[objIndex];
-    obj.attr.push(attr);
+    if (attr.length != 0 && attr.length != 1) {
+        obj.attr.push(attr);
+    }
 }
 
 function addToAttrList()

@@ -46,7 +46,7 @@ window.onload = function() {
         tabs[i].appendChild(bordWhite);
     }
     //работа Семикина
-    /*function getSelectionText() {
+    function getSelectionText() {
         var text = "";
         if (window.getSelection) {
             text = window.getSelection().toString();
@@ -60,6 +60,44 @@ window.onload = function() {
              getSelectionHtml();
          })
     });
+    function addToObjectsList (text)
+    {
+        //var text = document.getElementById("wordTextBox").value;
+        if (text.length != 0 && text.length != 1) {
+            var select = document.getElementById("List1");
+            select.options[select.options.length] = new Option(text);
+            var attributes = new Array();
+            var obj = {
+                name: text,
+                attr: attributes
+            }
+            objects.push(obj);
+        }
+
+    }
+    function addAttrToObject(attr)
+    {
+        var objIndex = document.getElementById("List1").selectedIndex;
+        //var objIndex = document.getElementById("newBox1").value;
+        //var attr = document.getElementById("attrBox").value;
+        var obj = objects[objIndex];
+        if (attr.length != 0 && attr.length != 1) {
+            obj.attr.push(attr);
+        }
+    }
+
+    function addToAttrList()
+    {
+        var ind = document.getElementById("List1").selectedIndex;
+        var mas = objects[ind].attr;
+        var select = document.getElementById("List2");
+        clean('List2');
+        for(i = 0;i < mas.length;i++)
+        {
+            select.options[select.options.length] = new Option(mas[i]);
+        }
+    }
+
     function getSelectionHtml() {
         var html = "";
         if (typeof window.getSelection != "undefined") {
@@ -81,9 +119,22 @@ window.onload = function() {
             html = $('#pages-container').text().slice(intersection.position,intersection.position + intersection.length);
         }
         if(html) {
-            window.alert(html)
+            if (html.length > 40) {
+                window.alert("Размер текста не должен превышать 40 символов");
+                return;
+            }
+            var ind = document.getElementById("List1").selectedIndex;
+            if (ind == -1) {
+                addToObjectsList(html);
+				document.getElementById("List1").selectedIndex = -1;
+            }
+            else {
+                addAttrToObject(html);
+                addToAttrList();
+                document.getElementById("List1").selectedIndex = -1;
+            }
         }
-    }*/
+    }
 
     //Чтение документа
 
@@ -240,7 +291,7 @@ function changeTab() {
 
 
 //Работа Семикина
-/*function FindIntersectionFromStart(a,b){
+function FindIntersectionFromStart(a,b){
     for(var i=a.length;i>0;i--){
         d = a.substring(0,i);
         j = b.indexOf(d);
@@ -251,17 +302,10 @@ function changeTab() {
 
     return null;
 }
-<<<<<<< HEAD
+
 function disabled(field) {
  for (i=0; i<field.length; i++) { field[i].checked=false; }
 }
-
-
-
-
-
-
-=======
 
 function FindIntersection(a,b){
     var bestResult = null;
@@ -280,5 +324,5 @@ function FindIntersection(a,b){
             break;
     }
     return bestResult;
-}*/
+}
 /*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
