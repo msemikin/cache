@@ -126,6 +126,7 @@ window.onload = function() {
             var ind = document.getElementById("List1").selectedIndex;
             if (ind == -1) {
                 addToObjectsList(html);
+				document.getElementById("List1").selectedIndex = -1;
             }
             else {
                 addAttrToObject(html);
