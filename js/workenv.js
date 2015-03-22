@@ -60,6 +60,44 @@ window.onload = function() {
              getSelectionHtml();
          })
     });
+    function addToObjectsList (text)
+    {
+        //var text = document.getElementById("wordTextBox").value;
+        if (text.length != 0 && text.length != 1) {
+            var select = document.getElementById("List1");
+            select.options[select.options.length] = new Option(text);
+            var attributes = new Array();
+            var obj = {
+                name: text,
+                attr: attributes
+            }
+            objects.push(obj);
+        }
+
+    }
+    function addAttrToObject(attr)
+    {
+        var objIndex = document.getElementById("List1").selectedIndex;
+        //var objIndex = document.getElementById("newBox1").value;
+        //var attr = document.getElementById("attrBox").value;
+        var obj = objects[objIndex];
+        if (attr.length != 0 && attr.length != 1) {
+            obj.attr.push(attr);
+        }
+    }
+
+    function addToAttrList()
+    {
+        var ind = document.getElementById("List1").selectedIndex;
+        var mas = objects[ind].attr;
+        var select = document.getElementById("List2");
+        clean('List2');
+        for(i = 0;i < mas.length;i++)
+        {
+            select.options[select.options.length] = new Option(mas[i]);
+        }
+    }
+
     function getSelectionHtml() {
         var html = "";
         if (typeof window.getSelection != "undefined") {
@@ -81,7 +119,16 @@ window.onload = function() {
             html = $('#pages-container').text().slice(intersection.position,intersection.position + intersection.length);
         }
         if(html) {
-            window.alert(html)
+            var ind = document.getElementById("List1").selectedIndex;
+            if (ind == -1) {
+                addToObjectsList(html);
+                window.alert(html);
+            }
+            else {
+                addAttrToObject(html);
+                addToAttrList();
+                document.getElementById("List1").selectedIndex = -1;
+            }
         }
     }
 
