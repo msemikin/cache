@@ -119,10 +119,13 @@ window.onload = function() {
             html = $('#pages-container').text().slice(intersection.position,intersection.position + intersection.length);
         }
         if(html) {
+            if (html.length > 40) {
+                window.alert("Размер текста не должен превышать 40 символов");
+                return;
+            }
             var ind = document.getElementById("List1").selectedIndex;
             if (ind == -1) {
                 addToObjectsList(html);
-                window.alert(html);
             }
             else {
                 addAttrToObject(html);
