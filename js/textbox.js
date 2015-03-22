@@ -43,7 +43,6 @@ function addToAttrList()
 }
 
 //добавить кнопочки удаления
-//на доработке,закоммичу позже
 function deleteObject()
 {
     //debugger;
@@ -54,16 +53,19 @@ function deleteObject()
     clean('List2');
     for(i = 0;i < objects.length;i++)
     {
-        select.options[select.options.length] = new Option(objects[i]);
+        select.options[select.options.length] = new Option(objects[i].name);
     }
 
 }
 
 function deleteAttribute()
 {
-    //var select = document.getElementById("List2");
+    //debugger;
+    var select = document.getElementById("List2");
+    var objIndex = document.getElementById("List1").selectedIndex;
     var attrIndex = document.getElementById("List2").selectedIndex;
-    objects.attr.splice(attrIndex,1);
+
+    objects[objIndex].attr.splice(attrIndex,1);
     addToAttrList();
 }
 
@@ -73,6 +75,11 @@ function clean(list)
     select.innerHTML = "";
 }
 
+function cleanTextBox(name)
+{
+    var textBox = document.getElementById(name);
+    textBox.value = " ";
+}
 
 
 

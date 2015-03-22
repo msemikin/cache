@@ -54,12 +54,12 @@
             <div class = "objWordBox">
                 <textarea id="wordTextBox" cols="30" rows="3" ></textarea>
 <!--            <p><input type="button" value="in Box" onclick="putInBox('12345')"></p>-->
-                <p><input type="button" value="in List" onclick="addToObjectsList()"></p>
+                <p><input type="button" value="in List" onclick="addToObjectsList();cleanTextBox('wordTextBox')"></p>
                 <input type="button" value="DeleteObj" onclick="deleteObject()">
             </div>
             <div class = "attrWordBox">
                 <textarea id="attrBox" cols="30" rows="3" ></textarea>
-                <p><input type="button" value="AttrInList" onclick="addAttrToObject();addToAttrList()"></p>
+                <p><input type="button" value="AttrInList" onclick="addAttrToObject();addToAttrList();cleanTextBox('attrBox')"></p>
                 <input type="button" value="DeleteAttr" onclick="deleteAttribute()">
             </div>
 
