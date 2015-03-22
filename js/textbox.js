@@ -1,6 +1,6 @@
-
+//создавать селект в яваскрипте
 var objects = new Array();
-
+var listObjLen = objects.length;
 
 function putInBox (val)
 {
@@ -88,7 +88,30 @@ function cleanTextBox(name)
     textBox.value = " ";
 }
 
+function delButton()
+{
+    //debugger;
+    A=document.createElement("div");
+    add(A, 'button');
 
+    var select = document.getElementById("List1");
+    select.appendChild(A);
+}
+
+function add(elem, type) {
+    //Create an input type dynamically.
+    var element = document.createElement("input");
+    //Assign different attributes to the element.
+    element.type = type;
+    //element.id = '1';
+    element.setAttribute('class', 'delObjButton');
+    elem.appendChild(element);
+    //element.value = type; // Really? You want the default value to be the type string?
+    //element.name = type;  // And the name too?
+    //element.setAttribute("onclick", deleteObject());
+
+
+}
 
 
 

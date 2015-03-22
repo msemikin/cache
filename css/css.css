@@ -232,7 +232,7 @@ input, textarea, button {
 }
 .list
 {
-    overflow:  hidden;
+    overflow: hidden;
     border: 0px;
     outline: none;
 }
@@ -248,4 +248,15 @@ input, textarea, button {
     position: absolute;
     left: 55%;
     top: 55%;
+}
+.delButton
+{
+    position: absolute;
+    right: 18px;
+    background: none;
+    background-image:url('delButton.png');
+    outline: none;
+    width: 7%;
+    height: 7%
+    border: none;
 }
