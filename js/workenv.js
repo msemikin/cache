@@ -46,7 +46,7 @@ window.onload = function() {
         tabs[i].appendChild(bordWhite);
     }
     //работа Семикина
-    /*function getSelectionText() {
+    function getSelectionText() {
         var text = "";
         if (window.getSelection) {
             text = window.getSelection().toString();
@@ -83,7 +83,7 @@ window.onload = function() {
         if(html) {
             window.alert(html)
         }
-    }*/
+    }
 
     //Чтение документа
 
@@ -240,7 +240,7 @@ function changeTab() {
 
 
 //Работа Семикина
-/*function FindIntersectionFromStart(a,b){
+function FindIntersectionFromStart(a,b){
     for(var i=a.length;i>0;i--){
         d = a.substring(0,i);
         j = b.indexOf(d);
@@ -251,17 +251,10 @@ function changeTab() {
 
     return null;
 }
-<<<<<<< HEAD
+
 function disabled(field) {
  for (i=0; i<field.length; i++) { field[i].checked=false; }
 }
-
-
-
-
-
-
-=======
 
 function FindIntersection(a,b){
     var bestResult = null;
@@ -280,5 +273,5 @@ function FindIntersection(a,b){
             break;
     }
     return bestResult;
-}*/
+}
 /*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/

@@ -30,7 +30,9 @@ function addAttrToObject()
     //var objIndex = document.getElementById("newBox1").value;
     var attr = document.getElementById("attrBox").value;
     var obj = objects[objIndex];
-    obj.attr.push(attr);
+    if (attr.length != 0 && attr.length != 1) {
+        obj.attr.push(attr);
+    }
 }
 
 function addToAttrList()
