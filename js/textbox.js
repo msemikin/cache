@@ -33,6 +33,8 @@ function addAttrToObject()
 function addToAttrList()
 {
     var ind = document.getElementById("List1").selectedIndex;
+    if(ind = null)
+        alert('Выберите объект!');
     var mas = objects[ind].attr;
     var select = document.getElementById("List2");
     clean('List2');
