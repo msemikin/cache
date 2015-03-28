@@ -197,15 +197,6 @@ input, textarea, button {
     border-right: 2px solid #ac4;
     background-color: grey;
 }
-.obectBox{
-    position: absolute;;
-    width: 35%;
-    padding: 7px;
-    padding-right: 20px;
-    border: solid 1px black;
-    left: 7%;
-    top: 25%;
-}
 .attributesBox{
     position: absolute;
     width: 35%;
@@ -214,16 +205,58 @@ input, textarea, button {
     border: solid 1px black;
     left: 55%;
     top: 25%;
+	overflow-y:scroll;
+
 }
-.objectText
+.objectBox{
+    position: absolute;;
+    width: 35%;
+    padding: 7px;
+    padding-right: 20px;
+    border: solid 1px black;
+    left: 7%;
+    top: 25%;
+	overflow-y:scroll;
+}
+.attributesText
 {
     position: absolute;
     left: 7%;
     top: 18%;
 }
-.attributesText
+.objectText
 {
     position: absolute;
     left: 55%;
     top: 18%;
+}
+.list
+{
+    overflow: hidden;
+    border: 0px;
+    outline: none;
+}
+.objWordBox
+{
+    position: absolute;
+    left: 7%;
+    top: 55%;
+}
+
+.attrWordBox
+{
+    position: absolute;
+    left: 55%;
+    top: 55%;
+}
+.delButton
+{
+    position: absolute;
+    right: 18px;
+    background: none;
+    background-image:url('delButton.png');
+    outline: none;
+    width: 7%;
+    height: 7%
+    border: none;
 }
