@@ -1,0 +1,38 @@
+body{
+    margin:0px;
+}
+.border{
+    border-style: solid;
+    border-color:grey;
+    border-width: 1px
+}
+.container{
+    height: 500px;
+    display: flex;
+}
+.tools{
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+}
+.figures{
+    background-color:#dee0e2;
+    display: flex;
+    flex-direction:column;
+}
+.list{
+    flex-grow:2;
+}
+
+.canvas{
+    height: 100%;
+    flex-grow: 2;
+}
+.figure{
+    width:100px;
+    height:70px;
+    margin:10px;
+}
+.column{
+    
+}
