@@ -1,42 +1,83 @@
-body{
-    margin:0px;
+body {
+    margin: 0px;
 }
-.border{
+
+.border {
     border-style: solid;
-    border-color:grey;
+    border-color: grey;
     border-width: 1px
 }
-.container{
+
+.container {
     height: 500px;
     display: flex;
 }
-.tools{
-    padding:20px;
+
+.tools {
+    padding: 20px;
     display: flex;
     flex-direction: column;
 }
-.figures{
-    background-color:#dee0e2;
+
+.figures {
+    background-color: #dee0e2;
     display: flex;
-    flex-direction:column;
-}
-.list{
-    flex-grow:2;
+    flex-direction: column;
 }
 
-.canvas{
+.list {
+    flex-grow: 2;
+}
+
+.canvas {
     height: 100%;
     flex-grow: 2;
 }
-.canvas svg{
+
+.canvas svg {
     height: 100%;
-    width: 100%; 
+    width: 100%;
 }
-.figure{
-    width:100px;
-    height:70px;
-    margin:10px;
+
+.figure {
+    width: 100px;
+    height: 70px;
+    margin: 10px;
 }
-.column{
-    
+
+.column {}
+
+.dialog {
+    overflow: visible;
+    position: relative;
+    margin: auto;
+    margin-top: -400;
+    z-index: 1000;
+    height: 150px;
+    width: 300px;
+    background-color: rgba(128, 128, 128, 0.05);
+    box-shadow: 0px 0px 10px 0px grey;
+    display: flex;
+    flex-direction: column;
+}
+
+.entityName {
+    width: 250px;
+    height: 30px;
+    margin: auto;
+    margin-top: 0px;
+    padding: 3px;
+}
+
+.entityTitle {
+    margin: auto;
+}
+
+.entityNameButton {
+    height: 30px;
+    width: 100px;
+    background-color: skyblue;
+    margin: auto;
+    margin-right: 25px;
+    margin-top: 0px
 }
