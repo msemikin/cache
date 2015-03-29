@@ -85,6 +85,13 @@ body {
     width: 100px;
     background-color: skyblue;
     margin: auto;
-    margin-right: 25px;
+    margin-top: 0px
+}
+
+.entityNameDeleteButton {
+    height: 30px;
+    width: 100px;
+    background-color: skyblue;
+    margin: auto;
     margin-top: 0px
 }
