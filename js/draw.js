@@ -6,13 +6,37 @@ app.controller("drawController", function ($scope) {
         gridSize: 10,
         model: graph
     });
+    console.log(joint.shapes.basic);
+
     var figures = [];
     var focused = undefined;
 
-    $scope.initEntity = function () {
-        this.initAttribute();
-    };
+    paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
+        $scope.dialogValue = cellView.model.attributes.attrs.text.text;
+        $scope.openDialog();
+        focused = cellView;
+    });
+
     $scope.initAttribute = function () {
+        var ell = new joint.shapes.basic.Circle({
+            position: {
+                x: 50,
+                y: 70
+            },
+            size: {
+                width: 100,
+                height: 40
+            }
+        })
+        ell.attr({
+            text: {
+                text: 'Empty'
+            }
+        });
+        graph.addCell(ell);
+        figures.push(ell);
+    };
+    $scope.initEntity = function () {
         var rect = new joint.shapes.basic.Rect({
             position: {
                 x: 50,
@@ -23,21 +47,47 @@ app.controller("drawController", function ($scope) {
                 height: 40
             }
         })
+        rect.attr({
+            text: {
+                text: 'Empty'
+            }
+        });
         graph.addCell(rect);
         figures.push(rect);
     };
-
+    $scope.initAssociation = function () {
+        var rhombus = new joint.shapes.basic.Rhombus({
+            position: {
+                x: 50,
+                y: 70
+            },
+            size: {
+                width: 100,
+                height: 40
+            }
+        })
+        rhombus.attr({
+            text: {
+                text: 'Empty'
+            }
+        });
+        graph.addCell(rhombus);
+        figures.push(rhombus);
+    };
     $scope.dialogValue = undefined;
     $scope.dialogShow = false;
-    $scope.openDialog = function (oldValue) {
-        $scope.dialogValue = focused.attr("text");
+    $scope.openDialog = function () {
         $scope.$apply(function () {
             $scope.dialogShow = true;
         });
     };
     $scope.submitChange = function () {
         $scope.dialogShow = false;
-        focused.attr("text", this.dialogValue);
+        focused.model.attr({
+            text: {
+                text: $scope.dialogValue
+            }
+        });
     };
 
     //То самое удаление
@@ -50,4 +100,6 @@ app.controller("drawController", function ($scope) {
         var ind = figures.indexOf(focused);
         figures.splice(ind);
     }
+
+
 });
