@@ -60,6 +60,7 @@ body {
     margin: auto;
     width: 300px;
     margin-top: -400;
+    top: -300px;
     z-index: 1000;
     background-color: rgba(128, 128, 128, 0.05);
     box-shadow: 0px 0px 10px 0px black !important;
@@ -93,6 +94,13 @@ body {
     width: 100px;
     background-color: skyblue;
     margin: auto;
-    margin-right: 25px;
+    margin-top: 0px
+}
+
+.entityNameDeleteButton {
+    height: 30px;
+    width: 100px;
+    background-color: skyblue;
+    margin: auto;
     margin-top: 0px
 }

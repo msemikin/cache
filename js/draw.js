@@ -41,6 +41,25 @@ app.controller("drawController", function ($scope) {
         $scope.dialogShow = false;
         focused.attr("text", this.dialogValue);
     };
+
+
+
+
+
+    //То самое удаление
+    $scope.deleteObj = function () {
+        $scope.dialogShow = false;
+
+        //Нужно доработать (удаляет только текст, без фигуры)
+        focused.remove();
+
+        var ind = figures.indexOf(focused);
+        figures.splice(ind);
+    }
+
+
+
+
     var style = {
         fill: "white",
         stroke: "black",
@@ -52,7 +71,6 @@ app.controller("drawController", function ($scope) {
     var unfocusedStyle = {
         strokeWidth: 2
     };
-
 
     var start = function () {
         focus(this);
