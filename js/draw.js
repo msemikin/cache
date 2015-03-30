@@ -89,6 +89,9 @@ app.controller("drawController", function ($scope) {
             }
         });
     };
+    $scope.cancelChange = function () {
+        $scope.dialogShow = false;
+    };
 
     //То самое удаление
     $scope.deleteObj = function () {
