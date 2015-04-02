@@ -13,6 +13,7 @@ app.controller("drawController", function ($scope) {
     // dbl-click
     paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
         $scope.renameValue = cellView.model.attributes.attrs.text.text;
+        console.log(cellView.model.attributes);
         $scope.openOptions();
         focused = cellView;
     });
@@ -50,6 +51,27 @@ app.controller("drawController", function ($scope) {
             cellView.model.translate(100, 100);
         }
     });
+    // for resizing
+    paper.on("cell:pointerdown", function (cellView, evt, x, y) {
+        console.log(x + ", " + y);
+        var figpos = cellView.model.attributes.position;
+        var figsize = cellView.model.attributes.attrs.rect;
+        console.log(cellView.model.attributes.attrs.text);
+        console.log(isOnBorder(figpos.x, figpos.y, figsize.width, figsize.height, x, y));
+    });
+
+    function isOnBorder(figx, figy, figwidth, figheight, curx, cury) {
+        console.log(figheight);
+        if (Math.abs(figx - curx) < 10) {
+            return "left";
+        } else if (Math.abs(figy - cury) < 10) {
+            return "top";
+        } else if (Math.abs((curx - figx) - figwidth) < 10) {
+            return "right";
+        } else if (Math.abs((cury - figy) - figheight) < 10) {
+            return "bottom";
+        }
+    }
 
     $scope.initAttribute = function () {
         var ell = new joint.shapes.basic.Circle({
@@ -125,8 +147,15 @@ app.controller("drawController", function ($scope) {
         $scope.renameShow = true;
     };
     $scope.submitChange = function () {
+        var symbolLength = 5;
+        var width = symbolLength * $scope.renameValue.length + 75;
+        $scope.renameValue = $scope.renameValue.toLowerCase();
+        $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
         $scope.renameShow = false;
         focused.model.attr({
+            rect: {
+                width: width
+            },
             text: {
                 text: $scope.renameValue
             }
