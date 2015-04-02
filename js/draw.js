@@ -8,12 +8,11 @@ app.controller("drawController", function ($scope) {
     });
     console.log(joint.shapes.basic);
 
-    var figures = [];
     var focused = undefined;
 
     paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
-        $scope.dialogValue = cellView.model.attributes.attrs.text.text;
-        $scope.openDialog();
+        $scope.renameValue = cellView.model.attributes.attrs.text.text;
+        $scope.openOptions();
         focused = cellView;
     });
 
@@ -34,7 +33,6 @@ app.controller("drawController", function ($scope) {
             }
         });
         graph.addCell(ell);
-        figures.push(ell);
     };
     $scope.initEntity = function () {
         var rect = new joint.shapes.basic.Rect({
@@ -53,7 +51,6 @@ app.controller("drawController", function ($scope) {
             }
         });
         graph.addCell(rect);
-        figures.push(rect);
     };
     $scope.initAssociation = function () {
         var rhombus = new joint.shapes.basic.Rhombus({
@@ -72,37 +69,38 @@ app.controller("drawController", function ($scope) {
             }
         });
         graph.addCell(rhombus);
-        figures.push(rhombus);
     };
-    $scope.dialogValue = undefined;
-    $scope.dialogShow = false;
-    $scope.openDialog = function () {
+    $scope.optionsShow = false;
+    $scope.openOptions = function () {
         $scope.$apply(function () {
-            $scope.dialogShow = true;
-        });
+            $scope.optionsShow = true;
+        })
+    }
+
+    //То самое удаление
+    $scope.deleteObj = function () {
+        $scope.optionsShow = false;
+        focused.remove();
+    }
+
+    $scope.renameValue = undefined;
+    $scope.renameShow = false;
+    $scope.renameObj = function () {
+        $scope.optionsShow = false;
+        $scope.renameShow = true;
     };
     $scope.submitChange = function () {
-        $scope.dialogShow = false;
+        $scope.renameShow = false;
         focused.model.attr({
             text: {
-                text: $scope.dialogValue
+                text: $scope.renameValue
             }
         });
     };
     $scope.cancelChange = function () {
-        $scope.dialogShow = false;
+        $scope.renameShow = false;
     };
 
-    //То самое удаление
-    $scope.deleteObj = function () {
-        $scope.dialogShow = false;
-
-        //Нужно доработать (удаляет только текст, без фигуры)
-        focused.remove();
-
-        var ind = figures.indexOf(focused);
-        figures.splice(ind);
-    }
 
 
 });

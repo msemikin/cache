@@ -58,14 +58,27 @@ body {
     overflow: visible;
     position: relative;
     margin: auto;
-    width: 300px;
     margin-top: -400;
     top: -300px;
     z-index: 1000;
     background-color: rgba(128, 128, 128, 0.05);
-    box-shadow: 0px 0px 10px 0px black !important;
+    box-shadow: 0px 0px 10px 0px grey !important;
     display: flex;
     flex-direction: column;
+}
+
+.change-name {
+    width: 300px;
+}
+
+.options {
+    width: 200px;
+    display: flex;
+}
+
+.options input {
+    width: 165px;
+    margin: auto;
 }
 
 .dialog .panel-footer {
