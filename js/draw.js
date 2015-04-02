@@ -133,6 +133,9 @@ app.controller("drawController", function ($scope) {
             $scope.optionsShow = true;
         })
     }
+    $scope.closeOptions = function () {
+        $scope.optionsShow = false;
+    }
 
     //То самое удаление
     $scope.deleteObj = function () {
