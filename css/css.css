@@ -2,6 +2,11 @@
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+    outline: none;
+}
+
+*:focus {
+    outline: none;
 }
 
 body{
@@ -235,6 +240,7 @@ input, textarea, button {
     overflow: hidden;
     border: 0px;
     outline: none;
+    opacity: 0.85;
 }
 .objWordBox
 {

@@ -12,6 +12,7 @@ body {
 .drawer {
     height: 500px;
     display: flex;
+    flex-direction: row;
 }
 
 .tools {
@@ -117,3 +118,5 @@ body {
     margin: auto;
     margin-top: 0px
 }
+
+
