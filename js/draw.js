@@ -6,7 +6,6 @@ app.controller("drawController", function ($scope) {
         gridSize: 10,
         model: graph
     });
-    console.log(joint.shapes.basic);
 
     var focused = undefined;
 
