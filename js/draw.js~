@@ -52,14 +52,13 @@ app.controller("drawController", function ($scope) {
         }
     });
     // for resizing
-/*    paper.on("cell:pointerdown", function (cellView, evt, x, y) {
+    paper.on("cell:pointerdown", function (cellView, evt, x, y) {
         console.log(x + ", " + y);
         var figpos = cellView.model.attributes.position;
         var figsize = cellView.model.attributes.attrs.rect;
         console.log(cellView.model.attributes.attrs.text);
         console.log(isOnBorder(figpos.x, figpos.y, figsize.width, figsize.height, x, y));
     });
-*/
 
     function isOnBorder(figx, figy, figwidth, figheight, curx, cury) {
         console.log(figheight);
