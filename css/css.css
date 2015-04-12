@@ -266,3 +266,12 @@ input, textarea, button {
     height: 7%
     border: none;
 }
+.photo
+{
+    height: 40%;
+    width: 18%;
+    position: absolute;
+    top : 10%;
+    left: 4%;
+    border: 2px solid #ac4;
+}
