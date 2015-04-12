@@ -9,10 +9,10 @@ window.onload = function () {
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
-    var chars = new Array(',', '.', ';', '!', ':', ' ');
+    //var chars = new Array(',', '.', ';', '!', ':', ' ');
 
     /*<<<<<<< HEAD*/
-    var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    //var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
     /*if(document.getElementsById('obj').checked = 'true')
      document.getElementsById('attr').checked = 'false';
@@ -27,9 +27,9 @@ window.onload = function () {
 
     // });
     /*=======*/
-    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    //var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-    $('#pages-container').text(text);
+    //$('#pages-container').text(text);
     /*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
 
     //
@@ -276,6 +276,7 @@ function isSpases(array) {
 function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
+            if(j == 1) getList();
             tabs[j].setAttribute("class", "chosenTab");
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");
@@ -337,4 +338,13 @@ function FindIntersection(a, b) {
     }
     return bestResult;
 }
+
+function getList() {
+    var sel = document.getElementById("List3");
+    sel.innerHTML = "";
+    for (z = 0; z < objects.length; z++){
+        sel.options[z] = new Option(objects[z].name);
+    }
+}
+
 /*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
