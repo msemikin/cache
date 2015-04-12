@@ -13,6 +13,7 @@
 }
 .buttons
 {
+
     position: absolute;
     border: 2px solid #B5B5B5;
     height: 40px;
@@ -34,5 +35,6 @@
 {
     top: 55%;
 }
+
 
 
