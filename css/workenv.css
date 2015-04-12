@@ -42,3 +42,33 @@
 .tabName {
     text-align: center;
 }
+
+.controlPanel{
+  width: 20%;
+  height: 100%;
+  border: none;
+  font-size: 15px;
+  float:left;
+  margin-right: 3px;
+  margin-top: 5%;
+}
+#cont {
+	width: 40%;
+    height: 50%;
+	margin-left: 60%;
+	margin-right: 0%;
+}
+
+#userName {
+  font-weight: bold;
+    width: 30%;
+}
+
+#icon {
+    background-image: url('icon/no_avatar.gif');
+    background-size:cover;
+    width: 10%;
+    height: 170%;
+  margin-top: 1%;
+
+}
