@@ -89,7 +89,7 @@ input, textarea, button {
     height: 100%;
 }
 
-.tab, .left-tab, .sendButton-nonactive, .openbutton {
+.tab, .left-tab, .sendButton-nonactive, .openbutton, .logoutButton, #icon, #userNameText {
     cursor: pointer;
 }
 
@@ -125,6 +125,9 @@ input, textarea, button {
 }
 
 .headerDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     position: absolute;
     height: 9%;
     top: 0;
