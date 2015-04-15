@@ -28,24 +28,15 @@
 <body>
     <!-- Header -->
     <div class="headerDiv">
-     <div id='cont'>
-	<div class="controlPanel" id="icon">
-
-	</div>
-	<div class="controlPanel" id="userName">
-	  Student
-	</div>
-	<div class="controlPanel">
-	  <button id="settingsButton" class="openbutton">
-                <font class="sender">Settings</font>
-            </button>
-	</div>
-	<div class="controlPanel">
-	  <button id="logOut" class="openbutton">
-                <font class="sender" onclick="location.href='login.html'">Logout</font>
-            </button>
-	</div>
-</div>
+         <div class="icondiv">
+            <div id="icon"  onclick="location.href='projects.html'"></div>
+            <div class="userTextDiv" id="userName">
+                <h3 id="userNameText" onclick="location.href='projects.html'">Student</h3>
+            </div>
+        </div>
+          <button id="logOut" class="logoutButton" onclick="location.href='login.html'">
+            <font class="sender">Выйти</font>
+          </button>
     </div>
     <!-- Working environment -->
     <div class="maindiv">
