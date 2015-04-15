@@ -2,11 +2,6 @@
 var objects = new Array();
 var listObjLen = objects.length;
 
-function putInBox (val)
-{
-    var TheTextBox = document.getElementById("wordTextBox");
-    TheTextBox.value = val;
-}
 
 function addToObjectsList ()
 {
@@ -27,7 +22,6 @@ function addToObjectsList ()
 function addAttrToObject()
 {
     var objIndex = document.getElementById("List1").selectedIndex;
-    //var objIndex = document.getElementById("newBox1").value;
     var attr = document.getElementById("attrBox").value;
     var obj = objects[objIndex];
     if (attr.length != 0 && attr.length != 1) {
@@ -49,31 +43,23 @@ function addToAttrList()
     }
 }
 
-//добавить кнопочки удаления
 function deleteObject()
 {
-    //debugger;
     var select = document.getElementById("List1");
     var objIndex = document.getElementById("List1").selectedIndex;
     objects.splice(objIndex,1);
-    clean('List1');
+    console.log("delete");
+    select[objIndex].remove();
     clean('List2');
-    for(i = 0;i < objects.length;i++)
-    {
-        select.options[select.options.length] = new Option(objects[i].name);
-    }
-
 }
 
 function deleteAttribute()
 {
-    //debugger;
     var select = document.getElementById("List2");
     var objIndex = document.getElementById("List1").selectedIndex;
     var attrIndex = document.getElementById("List2").selectedIndex;
-
+    select[attrIndex].remove();
     objects[objIndex].attr.splice(attrIndex,1);
-    addToAttrList();
 }
 
 function clean(list)
@@ -87,36 +73,6 @@ function cleanTextBox(name)
     var textBox = document.getElementById(name);
     textBox.value = " ";
 }
-
-function delButton()
-{
-    //debugger;
-    A=document.createElement("div");
-    add(A, 'button');
-
-    var select = document.getElementById("List1");
-    select.appendChild(A);
-}
-
-function add(elem, type) {
-    //Create an input type dynamically.
-    var element = document.createElement("input");
-    //Assign different attributes to the element.
-    element.type = type;
-    //element.id = '1';
-    element.setAttribute('class', 'delObjButton');
-    elem.appendChild(element);
-    //element.value = type; // Really? You want the default value to be the type string?
-    //element.name = type;  // And the name too?
-    //element.setAttribute("onclick", deleteObject());
-
-
-}
-
-
-
-
-
 
 
 

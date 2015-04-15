@@ -60,7 +60,10 @@ window.onload = function () {
             getSelectionHtml();
         })
     });
-    function addToObjectsList(text) {
+
+
+
+    /*function addToObjectsList(text) {
         //var text = document.getElementById("wordTextBox").value;
         if (text.length != 0 && text.length != 1) {
             var select = document.getElementById("List1");
@@ -73,9 +76,9 @@ window.onload = function () {
             objects.push(obj);
         }
 
-    }
+    }*/
 
-    function addAttrToObject(attr) {
+    /*function addAttrToObject(attr) {
         var objIndex = document.getElementById("List1").selectedIndex;
         //var objIndex = document.getElementById("newBox1").value;
         //var attr = document.getElementById("attrBox").value;
@@ -83,8 +86,9 @@ window.onload = function () {
         if (attr.length != 0 && attr.length != 1) {
             obj.attr.push(attr);
         }
-    }
-    function addToAttrList() {
+    }*/
+
+    /*function addToAttrList() {
         var ind = document.getElementById("List1").selectedIndex;
         index = ind;
         var mas = objects[ind].attr;
@@ -93,26 +97,23 @@ window.onload = function () {
         for (i = 0; i < mas.length; i++) {
             select.options[select.options.length] = new Option(mas[i]);
         }
-    }
+    }*/
+
+
     $(function(){
         $("#List1").bind("dblclick", function(){
             var element = $("#List1 option:selected");
-            element.remove();
+            deleteObject();
             clean('List2');
         });
     });
+
     $(function(){
         $("#List2").bind("dblclick", function(){
-            var element = $("#List2 option:selected");
-            var objIndex = document.getElementById("List1").selectedIndex;
-            var obj = objects[index];
-            var attrIndex = document.getElementById("List2").selectedIndex;
-            var attrToRemove = obj.attr[attrIndex];
-            var i = obj.attr.indexOf(attrToRemove);
-            obj.attr.splice(i,1);
-            element.remove();
+            deleteAttribute();
         });
     });
+
     function getSelectionHtml() {
         var html = "";
         if (typeof window.getSelection != "undefined") {
