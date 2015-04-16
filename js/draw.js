@@ -1,4 +1,6 @@
 var app = angular.module("cache", []);
+var objD = new Array();
+
 app.controller("drawController", function ($scope) {
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
@@ -92,6 +94,9 @@ app.controller("drawController", function ($scope) {
         graph.addCell(ell);
     };
     $scope.initEntity = function () {
+        var list = document.getElementById("List3");
+        var ind = list.selectedIndex;
+        var txt = list[ind].text;
         var rect = new joint.shapes.basic.Rect({
             position: {
                 x: 100,
@@ -104,9 +109,14 @@ app.controller("drawController", function ($scope) {
         })
         rect.attr({
             text: {
-                text: 'Empty'
+                text: txt
             }
         });
+
+        list[ind].remove();
+        var delInd = objSt.indexOf(txt);
+        if (delInd > -1) objSt.splice(delInd,1);
+        objD.push(txt);
         graph.addCell(rect);
     };
     $scope.initAssociation = function () {

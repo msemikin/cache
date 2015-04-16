@@ -1,6 +1,7 @@
 //создавать селект в яваскрипте
 var objects = new Array();
 var listObjLen = objects.length;
+var objSt = new Array();
 
 
 function addToObjectsList ()
@@ -15,6 +16,7 @@ function addToObjectsList ()
             attr: attributes
         }
         objects.push(obj);
+        objSt.push(text);
     }
 
 }
@@ -46,9 +48,10 @@ function addToAttrList()
 function deleteObject()
 {
     var select = document.getElementById("List1");
-    var objIndex = document.getElementById("List1").selectedIndex;
+    var objIndex = select.selectedIndex;
+    var delIn = objSt.indexOf(select[objIndex].text);
+    if (delIn > -1) objSt.splice(delIn,1);
     objects.splice(objIndex,1);
-    console.log("delete");
     select[objIndex].remove();
     clean('List2');
 }
@@ -71,7 +74,7 @@ function clean(list)
 function cleanTextBox(name)
 {
     var textBox = document.getElementById(name);
-    textBox.value = " ";
+    textBox.value = "";
 }
 
 

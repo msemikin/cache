@@ -302,7 +302,6 @@ function changeTab() {
 }
 
 
-//Работа Семикина
 function FindIntersectionFromStart(a, b) {
     for (var i = a.length; i > 0; i--) {
         d = a.substring(0, i);
@@ -343,8 +342,8 @@ function FindIntersection(a, b) {
 function getList() {
     var sel = document.getElementById("List3");
     sel.innerHTML = "";
-    for (z = 0; z < objects.length; z++){
-        sel.options[z] = new Option(objects[z].name);
+    for (z = 0; z < objSt.length; z++){
+        sel.options[z] = new Option(objSt[z]);
     }
 }
 
