@@ -34,10 +34,10 @@
             <input type="text" style="float: left; margin-left: 6px; border: none;"></input>
             <div class="tabs-buttons">
                 <div name="tab" class="chosenTab">
-                    <h5 class="tabName">Анализ ПО</h3>
+                    <h5 class="tabName">Анализ ПО</h5>
                 </div>
                 <div name="tab" class="tab">
-                    <h5 class="tabName">Диаграмма ER</h3>
+                    <h5 class="tabName">Диаграмма ER</h5>
                 </div>
                 <div name="tab" class="tab"></div>
                 <div name="tab" class="tab"></div>
@@ -102,16 +102,25 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="column">
-                                        <button class="figure btn btn-default" ng-click="initEntity()">Сущность</button>
-                                        <button class="figure btn btn-default" ng-click="initAttribute()">Атрибут</button>
+                                        <button class="figure btn btn-default" ng-click="initEntity('empty');">Сущность</button>
+                                        <button class="figure btn btn-default" ng-click="initAttribute();">Атрибут</button>
                                     </div>
                                     <div class="column">
-                                        <button class="figure btn btn-default" ng-click="initAssociation()">Ассоциация</button>
+                                        <button class="figure btn btn-default" ng-click="initAssociation();">Ассоциация</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="list panel panel-default">
-                            </div>
+                            <div class="selects panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                            Объекты
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <select class="list" ng-dblclick="initEntity();" size="5" id="List3">
+                            </select>
+                        </div>
+                    </div>
                         </div>
                         <div class="canvas panel panel-default border" ng-click="closeOptions()">
                             <svg id="canvas">
