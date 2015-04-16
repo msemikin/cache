@@ -1,4 +1,4 @@
-var app = angular.module("cache",[]);
+var app = angular.module("cache");
 
 app.controller("objectDiagramController",['$scope', function($scope) {
     var graphs = [new joint.dia.Graph, new joint.dia.Graph];
