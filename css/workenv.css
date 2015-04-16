@@ -42,3 +42,70 @@
 .tabName {
     text-align: center;
 }
+
+.controlPanel{
+  width: 20%;
+  height: 100%;
+  border: none;
+  font-size: 15px;
+  float:left;
+  margin-right: 3px;
+  margin-top: 5%;
+}
+#cont {
+	width: 40%;
+    height: 50%;
+	margin-left: 0%;
+	margin-right: auto;
+}
+
+
+
+#icon {
+    background-image: url('icon/no_avatar.gif');
+    background-size:cover;
+    margin: auto;
+    top:5px;
+    width: 50px;
+    height: 50px;
+}
+
+.logout {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: 70%;
+    top: 15%;
+    min-width: 120px;
+    width: 10%;
+    left: 5%;
+    float: left;
+    background-color: #eee;
+}
+
+.icondiv {
+    margin-left: 50px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.logoutButton {
+    position: relative;
+    border: 2px solid #ac4;
+    height: 50%;
+    top: 35%;
+    min-width: 120px;
+    width: 10%;
+    right: 5%;
+    float: right;
+    background-color: #fee;
+}
+
+.logoutButton:hover {
+    background-color: #fff;
+}
+
+.userTextDiv {
+    margin-left: 10px;
+}
