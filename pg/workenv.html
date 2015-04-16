@@ -55,7 +55,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <select class="list" size="5" id="List1" onclick="clean('List2');addToAttrList()">
+                            <select class="list" size="5" id="List1" onclick="refreshAttr();">
                             </select>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <textarea class="textareas" id="wordTextBox" cols="30" rows="2" ></textarea>
                         </div>
                         <div style="padding:0;" class="panel-body">
-                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" onclick="addToObjectsList();cleanTextBox('wordTextBox');">
+                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" onclick="addObj();">
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
@@ -86,7 +86,7 @@
                         <textarea class="textareas" id="attrBox" cols="30" rows="2" ></textarea>
                         </div>
                         <div style="padding:0;" class="panel-body">
-                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick="addAttrToObject();addToAttrList();cleanTextBox('attrBox')">
+                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick="addAttr();">
                         </div>
                     </div>
                 </div>

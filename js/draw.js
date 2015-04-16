@@ -118,6 +118,7 @@ app.controller("drawController", function ($scope) {
         if (delInd > -1) objSt.splice(delInd,1);
         objD.push(txt);
         graph.addCell(rect);
+
     };
     $scope.initAssociation = function () {
         var rhombus = new joint.shapes.basic.Rhombus({
@@ -149,8 +150,11 @@ app.controller("drawController", function ($scope) {
 
     //То самое удаление
     $scope.deleteObj = function () {
+        var text = focused.el.textContent;
         $scope.optionsShow = false;
         focused.remove();
+        objSt.push(text);
+        getList();
     }
 
     $scope.renameValue = undefined;
