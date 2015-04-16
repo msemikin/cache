@@ -1,16 +1,13 @@
 //создавать селект в яваскрипте
 var objects = new Array();
 var listObjLen = objects.length;
+var objSt = new Array();
 
-function putInBox (val)
-{
-    var TheTextBox = document.getElementById("wordTextBox");
-    TheTextBox.value = val;
-}
 
-function addToObjectsList ()
+function addObj()
 {
-    var text = document.getElementById("wordTextBox").value;
+    var text_pre = document.getElementById("wordTextBox").value;
+    var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
     if (text.length != 0 && text.length != 1) {
         var select = document.getElementById("List1");
         select.options[select.options.length] = new Option(text);
@@ -20,27 +17,30 @@ function addToObjectsList ()
             attr: attributes
         }
         objects.push(obj);
+        objSt.push(text);
     }
 
+    cleanTextBox('wordTextBox');
 }
 
-function addAttrToObject()
+function addAttr()
 {
     var objIndex = document.getElementById("List1").selectedIndex;
-    //var objIndex = document.getElementById("newBox1").value;
-    var attr = document.getElementById("attrBox").value;
+    if(objIndex == -1) alert('Выберите объект!');
+
+    var attr_pre = document.getElementById("attrBox").value;
+    var attrtext = attr_pre[0].toUpperCase() + attr_pre.substr(1, attr_pre.length);
     var obj = objects[objIndex];
-    if (attr.length != 0 && attr.length != 1) {
-        obj.attr.push(attr);
+    if (attrtext.length != 0 && attrtext.length != 1) {
+        obj.attr.push(attrtext);
     }
+    refreshAttr();
+    cleanTextBox('attrBox');
 }
 
-function addToAttrList()
-{
-    var ind = document.getElementById("List1").selectedIndex;
-    if(ind == null)
-        alert('Выберите объект!');
-    var mas = objects[ind].attr;
+function refreshAttr() {
+    var objIndex = document.getElementById("List1").selectedIndex;
+    var mas = objects[objIndex].attr;
     var select = document.getElementById("List2");
     clean('List2');
     for(i = 0;i < mas.length;i++)
@@ -49,31 +49,25 @@ function addToAttrList()
     }
 }
 
-//добавить кнопочки удаления
+
 function deleteObject()
 {
-    //debugger;
     var select = document.getElementById("List1");
-    var objIndex = document.getElementById("List1").selectedIndex;
+    var objIndex = select.selectedIndex;
+    var delIn = objSt.indexOf(select[objIndex].text);
+    if (delIn > -1) objSt.splice(delIn,1);
     objects.splice(objIndex,1);
-    clean('List1');
+    select[objIndex].remove();
     clean('List2');
-    for(i = 0;i < objects.length;i++)
-    {
-        select.options[select.options.length] = new Option(objects[i].name);
-    }
-
 }
 
 function deleteAttribute()
 {
-    //debugger;
     var select = document.getElementById("List2");
     var objIndex = document.getElementById("List1").selectedIndex;
     var attrIndex = document.getElementById("List2").selectedIndex;
-
+    select[attrIndex].remove();
     objects[objIndex].attr.splice(attrIndex,1);
-    addToAttrList();
 }
 
 function clean(list)
@@ -85,38 +79,8 @@ function clean(list)
 function cleanTextBox(name)
 {
     var textBox = document.getElementById(name);
-    textBox.value = " ";
+    textBox.value = "";
 }
-
-function delButton()
-{
-    //debugger;
-    A=document.createElement("div");
-    add(A, 'button');
-
-    var select = document.getElementById("List1");
-    select.appendChild(A);
-}
-
-function add(elem, type) {
-    //Create an input type dynamically.
-    var element = document.createElement("input");
-    //Assign different attributes to the element.
-    element.type = type;
-    //element.id = '1';
-    element.setAttribute('class', 'delObjButton');
-    elem.appendChild(element);
-    //element.value = type; // Really? You want the default value to be the type string?
-    //element.name = type;  // And the name too?
-    //element.setAttribute("onclick", deleteObject());
-
-
-}
-
-
-
-
-
 
 
 

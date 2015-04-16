@@ -1,4 +1,5 @@
 var app = angular.module("cache");
+var objD = new Array();
 
 app.controller("drawController", function ($scope) {
     var graph = new joint.dia.Graph;
@@ -93,6 +94,9 @@ app.controller("drawController", function ($scope) {
         graph.addCell(ell);
     };
     $scope.initEntity = function () {
+        var list = document.getElementById("List3");
+        var ind = list.selectedIndex;
+        var txt = list[ind].text;
         var rect = new joint.shapes.basic.Rect({
             position: {
                 x: 100,
@@ -105,10 +109,16 @@ app.controller("drawController", function ($scope) {
         })
         rect.attr({
             text: {
-                text: 'Empty'
+                text: txt
             }
         });
+
+        list[ind].remove();
+        var delInd = objSt.indexOf(txt);
+        if (delInd > -1) objSt.splice(delInd,1);
+        objD.push(txt);
         graph.addCell(rect);
+
     };
     $scope.initAssociation = function () {
         var rhombus = new joint.shapes.basic.Rhombus({
@@ -140,8 +150,11 @@ app.controller("drawController", function ($scope) {
 
     //То самое удаление
     $scope.deleteObj = function () {
+        var text = focused.el.textContent;
         $scope.optionsShow = false;
         focused.remove();
+        objSt.push(text);
+        getList();
     }
 
     $scope.renameValue = undefined;
