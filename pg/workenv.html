@@ -8,24 +8,23 @@
     <link rel="stylesheet" href="../css/css.css">
     <link rel="stylesheet" href="../css/workenv.css">
     <link rel="stylesheet" href="../css/draw.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/object_models.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/joint.css">
     <script src="../js/jquery-2.1.3.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js" type="text/javascript"></script>
+    <script src="../js/app.js" type="text/javascript"></script>
     <script src="../js/joint.js"></script>
     <script src="../js/snap.svg.js" type="text/javascript"></script>
     <script src="../js/draw.js" type="text/javascript"></script>
     <script src="../js/jdoc.0.5.2.js" type="text/javascript"></script>
     <script src="../js/workenv.js" type="text/javascript"></script>
     <script src="../js/textbox.js" type="text/javascript"></script>
-
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">-->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../js/controllers/object-diagram-controller.js "></script>
+    <script src="../js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body ng-app="cache" >
     <!-- Header -->
     <div class="headerDiv">
          <div class="icondiv">
@@ -65,7 +64,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <select class="list" size="5" id="List1" onclick="clean('List2');addToAttrList()">
+                            <select class="list" size="5" id="List1" onclick="refreshAttr();">
                             </select>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
                         <textarea class="textareas" id="wordTextBox" cols="30" rows="2" ></textarea>
                         </div>
                         <div style="padding:0;" class="panel-body">
-                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" onclick="addToObjectsList();cleanTextBox('wordTextBox');">
+                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" onclick="addObj();">
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
@@ -96,14 +95,14 @@
                         <textarea class="textareas" id="attrBox" cols="30" rows="2" ></textarea>
                         </div>
                         <div style="padding:0;" class="panel-body">
-                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick="addAttrToObject();addToAttrList();cleanTextBox('attrBox')">
+                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick="addAttr();">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="div2" name="contentDiv">
-                <div ng-app="cache" ng-controller="drawController">
+                <div ng-controller="drawController">
                     <div class="drawer">
                         <div class="tools border">
                             <div class="figures panel panel-default">
@@ -157,7 +156,30 @@
                     </div>
                 </div>
             </div>
-            <div id="div3" name="contentDiv">3</div>
+            <div id="div3" name="contentDiv" ng-controller="objectDiagramController">
+
+		<div class="models">
+			<div class="panel panel-default functional-model model">
+			    <div class="panel-heading">
+				<h3 class="panel-title">Функциональная модель</h3>
+			    </div>
+			    <div id="functional-model" class="panel-body"> </div>
+			    <div class="figuresBar panel panel-default">
+				<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
+				<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
+		 	   </div>
+			</div>
+			<div class="panel panel-default object-relation-model model">
+			    <div class="panel-heading">
+				<h3 class="panel-title">Взаимодействия объектов</h3>
+			    </div>
+			    <div id="object-relation-model" class="panel-body"></div>
+			    <div class="figuresBar panel panel-default">
+				<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
+                            </div>
+			</div>
+		</div>
+	    </div>
             <div id="div4" name="contentDiv">4</div>
             <div id="div5" name="contentDiv">5</div>
         </div>

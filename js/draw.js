@@ -1,4 +1,4 @@
-var app = angular.module("cache", []);
+var app = angular.module("cache");
 var objD = new Array();
 
 app.controller("drawController", function ($scope) {
@@ -46,7 +46,11 @@ app.controller("drawController", function ($scope) {
                     '.marker-source': {
                         d: 'M 10 0 L 0 5 L 10 10 z'
                     }
-                }
+                },
+		labels: [ 
+        		{ position: 15, attrs: { text: { text: 'm' } }},
+			{ position: -15, attrs: { text: { text: '1' } }},
+		]
             }));
             // Move the element a bit to the side.
             cellView.model.translate(100, 100);
@@ -118,6 +122,7 @@ app.controller("drawController", function ($scope) {
         if (delInd > -1) objSt.splice(delInd,1);
         objD.push(txt);
         graph.addCell(rect);
+
     };
     $scope.initAssociation = function () {
         var rhombus = new joint.shapes.basic.Rhombus({
@@ -149,8 +154,11 @@ app.controller("drawController", function ($scope) {
 
     //То самое удаление
     $scope.deleteObj = function () {
+        var text = focused.el.textContent;
         $scope.optionsShow = false;
         focused.remove();
+        objSt.push(text);
+        getList();
     }
 
     $scope.renameValue = undefined;
