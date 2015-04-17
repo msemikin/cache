@@ -68,8 +68,11 @@ console.log(funcSize.height);
 			    attrs: {
 				'.marker-source': {
 				    d: 'M 10 0 L 0 5 L 10 10 z'
-				}
-			    }
+				},
+			    },
+			    labels: [
+				{ position: .5, attrs: { text: { text: 'label' } } }
+			    ]
 			}));
 			// Move the element a bit to the side.
 			cellView.model.translate(100, 100);

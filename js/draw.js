@@ -46,7 +46,11 @@ app.controller("drawController", function ($scope) {
                     '.marker-source': {
                         d: 'M 10 0 L 0 5 L 10 10 z'
                     }
-                }
+                },
+		labels: [ 
+        		{ position: 15, attrs: { text: { text: 'm' } }},
+			{ position: -15, attrs: { text: { text: '1' } }},
+		]
             }));
             // Move the element a bit to the side.
             cellView.model.translate(100, 100);
