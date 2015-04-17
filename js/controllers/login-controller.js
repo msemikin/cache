@@ -1,4 +1,4 @@
-var cacheApp = angular.module("Cache", []);
+var cacheApp = angular.module("cache", []);
 
 cacheApp.controller("LoginController", ["$scope", "$http", function ($scope, $http) {
 

@@ -1,4 +1,5 @@
-var app = angular.module("cache", []);
+var app = angular.module("cache");
+
 app.controller("drawController", function ($scope) {
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
