@@ -4,9 +4,10 @@ var listObjLen = objects.length;
 var objSt = new Array();
 
 
-function addObj()
+function addObj(textExt)
 {
-    var text_pre = document.getElementById("wordTextBox").value;
+    if (textExt == null) var text_pre = document.getElementById("wordTextBox").value;
+    else var text_pre = textExt;
     var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
     if (text.length != 0 && text.length != 1) {
         var select = document.getElementById("List1");
@@ -23,12 +24,14 @@ function addObj()
     cleanTextBox('wordTextBox');
 }
 
-function addAttr()
+function addAttr(textExt)
 {
     var objIndex = document.getElementById("List1").selectedIndex;
     if(objIndex == -1) alert('Выберите объект!');
 
-    var attr_pre = document.getElementById("attrBox").value;
+    if (textExt == null) var attr_pre = document.getElementById("attrBox").value;
+    else var attr_pre = textExt;
+
     var attrtext = attr_pre[0].toUpperCase() + attr_pre.substr(1, attr_pre.length);
     var obj = objects[objIndex];
     if (attrtext.length != 0 && attrtext.length != 1) {

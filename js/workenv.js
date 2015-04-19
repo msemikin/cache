@@ -4,35 +4,15 @@ var contentDivs;
 var textObj;
 var canvas;
 var index;
+
+
 window.onload = function () {
     contentDivs = document.getElementsByName("contentDiv");
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
-    //var chars = new Array(',', '.', ';', '!', ':', ' ');
-
-    /*<<<<<<< HEAD*/
-    //var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-    /*if(document.getElementsById('obj').checked = 'true')
-     document.getElementsById('attr').checked = 'false';
-     else
-     document.getElementsByName('attr').checked = 'true';*/
-
-    //initiateTextBox(sample, function(word){
 
 
-    // window.alert(word);
-
-
-    // });
-    /*=======*/
-    //var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-    //$('#pages-container').text(text);
-    /*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
-
-    //
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
         var bordWhite = document.createElement('div');
@@ -44,7 +24,9 @@ window.onload = function () {
         }
         tabs[i].appendChild(bordWhite);
     }
-    //работа Семикина
+
+
+    //получение текста выделения
     function getSelectionText() {
         var text = "";
         if (window.getSelection) {
@@ -55,12 +37,12 @@ window.onload = function () {
         return text;
     }
 
+    //выделение при нажатии
     $(document).ready(function () {
         $('#pages-container').click(function (e) {
             getSelectionHtml();
         })
     });
-
 
 
     /*function addToObjectsList(text) {
@@ -75,10 +57,9 @@ window.onload = function () {
             }
             objects.push(obj);
         }
+    }
 
-    }*/
-
-    /*function addAttrToObject(attr) {
+    function addAttrToObject(attr) {
         var objIndex = document.getElementById("List1").selectedIndex;
         //var objIndex = document.getElementById("newBox1").value;
         //var attr = document.getElementById("attrBox").value;
@@ -86,9 +67,9 @@ window.onload = function () {
         if (attr.length != 0 && attr.length != 1) {
             obj.attr.push(attr);
         }
-    }*/
+    }
 
-    /*function addToAttrList() {
+    function addToAttrList() {
         var ind = document.getElementById("List1").selectedIndex;
         index = ind;
         var mas = objects[ind].attr;
@@ -100,6 +81,7 @@ window.onload = function () {
     }*/
 
 
+    //удаление объекта
     $(function(){
         $("#List1").bind("dblclick", function(){
             var element = $("#List1 option:selected");
@@ -108,12 +90,14 @@ window.onload = function () {
         });
     });
 
+    //удаление атрибута
     $(function(){
         $("#List2").bind("dblclick", function(){
             deleteAttribute();
         });
     });
 
+    //выделение текста
     function getSelectionHtml() {
         var html = "";
         if (typeof window.getSelection != "undefined") {
@@ -141,12 +125,11 @@ window.onload = function () {
             }
             var ind = document.getElementById("List1").selectedIndex;
             if (ind == -1) {
-                addToObjectsList(html);
+                addObj(html);
                 document.getElementById("List1").selectedIndex = -1;
             }
             else {
-                addAttrToObject(html);
-                addToAttrList();
+                addAttr(html);
                 document.getElementById("List1").selectedIndex = -1;
             }
         }
@@ -239,19 +222,6 @@ window.onload = function () {
     };
 }
 
-function find(arr, char) {
-    for (c = 0; c < arr.length; c++) {
-        if (char == arr[c]) return true;
-    }
-    return false;
-}
-
-function isSpases(array) {
-    for (v = 0; v < array.length; v++) {
-        if (array[v] != ' ') return false;
-    }
-    return true;
-}
 
 /*function linkedLists()
  {
@@ -301,7 +271,7 @@ function changeTab() {
     }
 }
 
-
+//файнд интерсекшн фром старт
 function FindIntersectionFromStart(a, b) {
     for (var i = a.length; i > 0; i--) {
         d = a.substring(0, i);
@@ -314,12 +284,14 @@ function FindIntersectionFromStart(a, b) {
     return null;
 }
 
+
 function disabled(field) {
     for (i = 0; i < field.length; i++) {
         field[i].checked = false;
     }
 }
 
+//файнд интерсекшн
 function FindIntersection(a, b) {
     var bestResult = null;
     for (var i = 0; i < a.length - 1; i++) {
@@ -339,6 +311,7 @@ function FindIntersection(a, b) {
     return bestResult;
 }
 
+//отображение спика объектов во второй вкладке
 function getList() {
     var sel = document.getElementById("List3");
     sel.innerHTML = "";

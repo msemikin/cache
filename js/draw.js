@@ -1,4 +1,4 @@
-var app = angular.module("cache");
+var app = angular.module("cache", []);
 var objD = new Array();
 
 app.controller("drawController", function ($scope) {
@@ -107,7 +107,7 @@ app.controller("drawController", function ($scope) {
                 y: 100
             },
             size: {
-                width: 100,
+                width: txt.length * 6 + 80,
                 height: 40
             }
         })
@@ -168,8 +168,8 @@ app.controller("drawController", function ($scope) {
         $scope.renameShow = true;
     };
     $scope.submitChange = function () {
-        var symbolLength = 5;
-        var width = symbolLength * $scope.renameValue.length + 75;
+        var symbolLength = 6;
+        var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
         $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
         $scope.renameShow = false;
