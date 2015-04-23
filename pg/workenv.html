@@ -45,12 +45,14 @@
                     <h5 class="tabName">Анализ ПО</h5>
                 </div>
                 <div name="tab" class="tab">
-                    <h5 class="tabName">Функц. модель</h5>
+                    <h5 class="tabName">Use-case</h5>
                 </div>
                 <div name="tab" class="tab">
-                    <h5 class="tabName">Диаграмма ER</h5>
+                    <h5 class="tabName">Взаимодействия</h5>
                 </div>
-                <div name="tab" class="tab"></div>
+                <div name="tab" class="tab">
+			<h5 class="tabName">Диаграмма ER</h5>
+		</div>
                 <div name="tab" class="tab" style="border-right: 1px solid #ac4;"></div>
             </div>
         </div>
@@ -102,30 +104,29 @@
                 </div>
             </div>
             <div id="div2" name="contentDiv" ng-controller="objectDiagramController">
-
-		    <div class="models">
-			<div class="panel panel-default functional-model model">
-			    <div class="panel-heading">
-				<h3 class="panel-title">Функциональная модель</h3>
-			    </div>
-			    <div id="functional-model" class="panel-body"> </div>
-			    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
-				<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
-		 	   </div>
-			</div>
-			<div class="panel panel-default object-relation-model model">
-			    <div class="panel-heading">
-				<h3 class="panel-title">Взаимодействия объектов</h3>
-			    </div>
-			    <div id="object-relation-model" class="panel-body"></div>
-			    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
-                            </div>
-			</div>
+		<div class="panel panel-default functional-model model">
+		    <div class="panel-heading">
+			<h3 class="panel-title">Функциональная модель</h3>
+		    </div>
+		    <div id="functional-model" class="panel-body"> </div>
+		    <div class="figuresBar panel panel-default">
+			<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
+			<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
+		   </div>
 		</div>
 	    </div>
             <div id="div3" name="contentDiv">
+		<div class="panel panel-default object-relation-model model">
+		    <div class="panel-heading">
+			<h3 class="panel-title">Взаимодействия объектов</h3>
+		    </div>
+		    <div id="object-relation-model" class="panel-body"></div>
+		    <div class="figuresBar panel panel-default">
+			<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
+		    </div>
+		</div>
+            </div>
+            <div id="div4" name="contentDiv">
                 <div ng-controller="drawController">
                     <div class="drawer">
                         <div class="tools border">
@@ -179,8 +180,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="div4" name="contentDiv">4</div>
+</div>
             <div id="div5" name="contentDiv">5</div>
         </div>
     </div>

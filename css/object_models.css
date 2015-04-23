@@ -1,18 +1,11 @@
-.models {
-    display: flex;
-}
-
 .model {
     margin: 20px;
 }
 
 .functional-model {
-    flex-grow: 1;
 }
 
 .object-relation-model {
-    flex-grow: 1;
-    margin-left:0px;
 }
 
 .model .panel-body {
