@@ -1,0 +1,75 @@
+.dialog {
+    overflow: visible;
+    position: relative;
+    margin: auto;
+    margin-top: -400;
+    top: -300px;
+    z-index: 1000;
+    background-color: rgba(128, 128, 128, 0.05);
+    box-shadow: 0px 0px 10px 0px grey !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.change-name {
+    width: 300px;
+}
+
+.options {
+    width: 200px;
+    display: flex;
+}
+
+.change-link{
+    width: 300px;
+}
+.change-link .panel-body{
+    display:flex;
+}
+
+.change-link .form-control{
+    width:100px;
+    margin: auto;
+}
+
+.options input {
+    width: 165px;
+    margin: auto;
+}
+
+.dialog .panel-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dialog .panel-footer input {
+    margin-left: 10px;
+}
+
+.entityName {
+    width: 250px;
+    height: 30px;
+    margin: auto;
+    margin-top: 0px;
+    padding: 3px;
+}
+
+.entityTitle {
+    margin: auto;
+}
+
+.entityNameButton {
+    height: 30px;
+    width: 100px;
+    background-color: skyblue;
+    margin: auto;
+    margin-top: 0px
+}
+
+.entityNameDeleteButton {
+    height: 30px;
+    width: 100px;
+    background-color: indianred;
+    margin: auto;
+    margin-top: 0px
+}
