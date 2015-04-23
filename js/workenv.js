@@ -247,7 +247,7 @@ window.onload = function () {
 function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
-            if(j == 1) getList();
+            if(j == 2) getList();
             tabs[j].setAttribute("class", "chosenTab");
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");

@@ -117,10 +117,6 @@ app.controller("drawController", function ($scope) {
             }
         });
 
-        list[ind].remove();
-        var delInd = objSt.indexOf(txt);
-        if (delInd > -1) objSt.splice(delInd,1);
-        objD.push(txt);
         graph.addCell(rect);
 
     };
@@ -154,11 +150,8 @@ app.controller("drawController", function ($scope) {
 
     //То самое удаление
     $scope.deleteObj = function () {
-        var text = focused.el.textContent;
         $scope.optionsShow = false;
         focused.remove();
-        objSt.push(text);
-        getList();
     }
 
     $scope.renameValue = undefined;

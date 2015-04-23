@@ -116,6 +116,7 @@
 		</div>
 	    </div>
             <div id="div3" name="contentDiv">
+
 		<div class="panel panel-default object-relation-model model">
 		    <div class="panel-heading">
 			<h3 class="panel-title">Взаимодействия объектов</h3>
@@ -125,6 +126,17 @@
 			<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
 		    </div>
 		</div>
+           <div class="selects panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                    Объекты
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <select class="list" ng-dblclick="" size="5" id="List3">
+                    </select>
+                </div>
+            </div>
             </div>
             <div id="div4" name="contentDiv">
                 <div ng-controller="drawController">
@@ -144,17 +156,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="selects panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                            Объекты
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <select class="list" ng-dblclick="initEntity();" size="5" id="List3">
-                            </select>
-                        </div>
-                    </div>
+
                         </div>
                         <div class="canvas panel panel-default border" ng-click="closeOptions()">
                             <svg id="canvas">
