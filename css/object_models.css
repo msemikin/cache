@@ -6,6 +6,7 @@
 }
 
 .object-relation-model {
+height: 300px;
 }
 
 .model .panel-body {
@@ -18,7 +19,6 @@
     position: relative;
     justify-content: space-between;
     left: -1px;
-    bottom: -21px;
     padding: 15px 0px 15px 15px;
 }
 .figuresBar input {
