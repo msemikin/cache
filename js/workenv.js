@@ -247,7 +247,7 @@ window.onload = function () {
 function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
-            if(j == 2) getList();
+           // if(j == 2) getList();
             tabs[j].setAttribute("class", "chosenTab");
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");
@@ -312,12 +312,11 @@ function FindIntersection(a, b) {
 }
 
 //отображение спика объектов во второй вкладке
-function getList() {
+/*function getList() {
     var sel = document.getElementById("List3");
     sel.innerHTML = "";
     for (z = 0; z < objSt.length; z++){
         sel.options[z] = new Option(objSt[z]);
     }
-}
+}*/
 
-/*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
