@@ -1,10 +1,12 @@
+
 var app = angular.module("cache");
 var objD = new Array();
 
-app.controller("drawController", function ($scope) {
+app.controller("ERController", function ($scope) {
+
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
-        el: $('#canvas'),
+        el: $('#er-model'),
         gridSize: 10,
         model: graph
     });
@@ -13,9 +15,16 @@ app.controller("drawController", function ($scope) {
 
     // dbl-click
     paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
-        $scope.renameValue = cellView.model.attributes.attrs.text.text;
-        console.log(cellView.model.attributes);
-        $scope.openOptions();
+        // clicked on link
+        if(cellView.model.attributes.type === 'link'){
+            console.log(cellView.model.attributes);
+            $scope.linkLabels = cellView.model.attributes.attrs.labels;
+            $scope.openLinkOptions();            
+        } // clicked on object
+        else {
+            $scope.renameValue = cellView.model.attributes.attrs.text.text;
+            $scope.openObjectOptions();
+        }
         focused = cellView;
     });
     // connecting
@@ -117,6 +126,10 @@ app.controller("drawController", function ($scope) {
             }
         });
 
+        list[ind].remove();
+        var delInd = objSt.indexOf(txt);
+        if (delInd > -1) objSt.splice(delInd,1);
+        objD.push(txt);
         graph.addCell(rect);
 
     };
@@ -138,29 +151,50 @@ app.controller("drawController", function ($scope) {
         });
         graph.addCell(rhombus);
     };
-    $scope.optionsShow = false;
-    $scope.openOptions = function () {
+
+    // editing link
+    $scope.linkLabels = undefined;
+    $scope.linkOptionsShow = false;
+
+    $scope.openLinkOptions = function(){
+        console.log(this.linkLabels);
+        $scope.$apply(function(){
+            $scope.linkOptionsShow = true;
+        });
+    };
+
+    $scope.submitLinkChange = function(){};
+    $scope.cancelLinkChange = function(){};
+
+
+    // editing object
+    $scope.objectOptionsShow = false;
+    $scope.renameValue = undefined;
+    $scope.renameShow = false; 
+
+
+    $scope.openObjectOptions = function () {
         $scope.$apply(function () {
-            $scope.optionsShow = true;
+            $scope.objectOptionsShow = true;
         })
     }
-    $scope.closeOptions = function () {
-        $scope.optionsShow = false;
+    $scope.closeObjectOptions = function () {
+        $scope.objectOptionsShow = false;
     }
 
-    //То самое удаление
     $scope.deleteObj = function () {
+        var text = focused.el.textContent;
         $scope.optionsShow = false;
         focused.remove();
+        objSt.push(text);
+        getList();
     }
 
-    $scope.renameValue = undefined;
-    $scope.renameShow = false;
     $scope.renameObj = function () {
         $scope.optionsShow = false;
         $scope.renameShow = true;
     };
-    $scope.submitChange = function () {
+    $scope.submitRename = function () {
         var symbolLength = 6;
         var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
@@ -175,7 +209,7 @@ app.controller("drawController", function ($scope) {
             }
         });
     };
-    $scope.cancelChange = function () {
+    $scope.cancelRename = function () {
         $scope.renameShow = false;
     };
 

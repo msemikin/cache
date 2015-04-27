@@ -1,20 +1,17 @@
-var app = angular.module("cache");
-
-app.controller("ObjectDiagramController",['$scope', function($scope) {
+var app = angular.module('cache');
+app.controller('UseCaseController',['$scope', function($scope){
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
-            el: $('#object-relation-model'),
-            gridSize: 10,
-            model: graph,
+        el: $('#functional-model'),
+        gridSize: 10,
+        model: graph,
     })
-    
 
     var focused = undefined;
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
         $scope.renameValue = cellView.model.attributes.attrs.text.text;
-        console.log(cellView.model.attributes);
         $scope.openOptions();
         focused = cellView;
     });
@@ -85,7 +82,7 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
                 y: 100
             },
             size: {
-                width: 100,
+                width: 40,
                 height: 40
             }
         })
@@ -114,24 +111,7 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
         });
         graph.addCell(rect);
     };
-    $scope.initObject = function() {
-        var ellipse  = new joint.shapes.basic.Circle({
-            position: {
-                x: 100,
-                y: 100
-            },
-            size: {
-                width: 100,
-                height: 40
-            }
-        })
-        ellipse.attr({
-            text: {
-                text: 'Empty'
-            }
-        });
-        graph.addCell(ellipse);
-    };
+
     $scope.optionsShow = false;
     $scope.openOptions = function() {
         $scope.$apply(function() {
@@ -171,7 +151,5 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
     $scope.cancelChange = function() {
         $scope.renameShow = false;
     };
-
-
 
 }]);
