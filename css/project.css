@@ -27,5 +27,18 @@
     width: 73%;
     height: 100%;
 }
+ .full-screen {
+          width: 100vw;
+
+        }
+.padd {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.choice {
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+}
 
 
