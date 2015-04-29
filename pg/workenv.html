@@ -110,91 +110,92 @@
             <div id="div2" name="contentDiv" ng-controller="UseCaseController">
 		<div class="panel panel-default functional-model model">
 		    <div class="panel-heading">
-			<h3 class="panel-title">Функциональная модель</h3>
+				<h3 class="panel-title">Функциональная модель</h3>
 		    </div>
-		    <div id="functional-model" class="panel-body"> </div>
-		    <div class="figuresBar panel panel-default">
-			<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
-			<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
+			<div class="figuresBar panel panel-default">
+				<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
+				<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
 		   </div>
-		    <div class="dialog panel options panel-default" ng-show="optionsShow">
-			<div class="list-group">
-			    <a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
-			    <a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
+		    <div id="functional-model" class="panel-body">
 			</div>
+		    <div class="dialog panel options panel-default" ng-show="optionsShow">
+				<div class="list-group">
+					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
+					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
+				</div>
 		    </div>
 		    <div class="dialog change-name panel panel-default" ng-show="renameShow">
-			<div class="panel-heading">
-			    <h3 class="panel-title">Введите название</h3>
-			</div>
-			<div class="panel-body">
-			    <input type="text" ng-model="renameValue" class="form-control" />
-			</div>
-			<div class="panel-footer">
-			    <input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
-			    <input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
-			</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">Введите название</h3>
+				</div>
+				<div class="panel-body">
+					<input type="text" ng-model="renameValue" class="form-control" />
+				</div>
+				<div class="panel-footer">
+					<input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
+					<input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
+				</div>
 		    </div>
 		</div>
 	    </div>
             <div id="div3" name="contentDiv" ng-controller="ObjectDiagramController">
 		<div class="panel panel-default object-relation-model model">
 		    <div class="panel-heading">
-			<h3 class="panel-title">Взаимодействия объектов</h3>
+				<h3 class="panel-title">Взаимодействия объектов</h3>
+		    </div>
+		    <div class="figuresBar panel panel-default">
+				<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
 		    </div>
 		    <div id="object-relation-model" class="panel-body">
 		    </div>
-		    <div class="figuresBar panel panel-default">
-			<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
-		    </div>
 		    <div class="dialog panel options panel-default" ng-show="optionsShow">
-			<div class="list-group">
-			    <a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
-			    <a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
-			</div>
+				<div class="list-group">
+					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
+					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
+				</div>
 		    </div>
 		    <div class="dialog change-name panel panel-default" ng-show="renameShow">
-			<div class="panel-heading">
-			    <h3 class="panel-title">Введите название</h3>
-			</div>
-			<div class="panel-body">
-			    <input type="text" ng-model="renameValue" class="form-control" />
-			</div>
-			<div class="panel-footer">
-			    <input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
-			    <input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
-			</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">Введите название</h3>
+				</div>
+				<div class="panel-body">
+					<input type="text" ng-model="renameValue" class="form-control" />
+				</div>
+				<div class="panel-footer">
+					<input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
+					<input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
+				</div>
 		    </div>
 		</div>
             </div>
             <div id="div4" name="contentDiv" ng-controller="ERController">
 		<div class="panel panel-default er-model model">
 		    <div class="panel-heading">
-			<h3 class="panel-title">ER диаграмма</h3>
+				<h3 class="panel-title">ER диаграмма</h3>
+		    </div>
+		    <div class="figuresBar panel panel-default">
+				<input type="button" ng-click="initEntity()" value="Сущность" class="btn btn-default">
+				<input type="button" ng-click="initAttribute()" value="Атрибут" class="btn btn-default">
+				<input type="button" ng-click="initAssociation()" value="Ассоциация" class="btn btn-default">
 		    </div>
 		    <div id="er-model" class="panel-body"></div>
-		    <div class="figuresBar panel panel-default">
-			<input type="button" ng-click="initEntity()" value="Сущность" class="btn btn-default">
-			<input type="button" ng-click="initAttribute()" value="Атрибут" class="btn btn-default">
-			<input type="button" ng-click="initAssociation()" value="Ассоциация" class="btn btn-default">
-		    </div>
 		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
-			<div class="list-group">
-			    <a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
-			    <a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
-			</div>
+				<div class="list-group">
+					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
+					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
+				</div>
 		    </div>
 		    <div class="dialog change-name panel panel-default" ng-show="renameShow">
-			<div class="panel-heading">
-			    <h3 class="panel-title">Введите название</h3>
-			</div>
-			<div class="panel-body">
-			    <input type="text" ng-model="renameValue" class="form-control" />
-			</div>
-			<div class="panel-footer">
-			    <input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
-			    <input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
-			</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">Введите название</h3>
+				</div>
+				<div class="panel-body">
+					<input type="text" ng-model="renameValue" class="form-control" />
+				</div>
+				<div class="panel-footer">
+					<input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
+					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
+				</div>
 		    </div>
 		    <div class="dialog change-link panel panel-default" ng-show="linkOptionsShow">
 			<div class="panel-heading">

@@ -6,26 +6,108 @@
     <title></title>
     <link rel="stylesheet" href="../css/css.css">
     <link rel="stylesheet" href="../css/project.css">
+    <link rel="stylesheet" href="../css/workenv.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="../js/jquery-2.1.3.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <div class="headerDiv"></div>
-    <div class="maindiv">
-        <div class = "photo">
-
-        </div>
-        <div class="nameText">
-            <h2>Talsmash Talamash Talsmasevich</h2>
-            Student PI-13-1
-            <p>Вы сейчас работаете над проектом: <h4>cache program</h4></p>
-            <div>
-                <button class="buttons continueButton" onclick="alert('Продолжаем работу')">Продолжить работу</button>
-                <button class="buttons openButton" onclick="alert('Открывается дкумент')">Выбрать другой документ</button>
-                <button class="buttons downloadButton" onclick="alert('Загружаетс ядокумент')">Загрузить новый документ</button>
+  <!-- Header -->
+    <div class="headerDiv">
+         <div class="icondiv">
+            <div id="icon"  onclick="location.href='projects.html'"></div>
+            <div class="userTextDiv" id="userName">
+                <h3 id="userNameText" onclick="location.href='projects.html'">Селех Максим Михайлович</h3>
             </div>
         </div>
-
+          <button id="logOut" class="logoutButton" onclick="location.href='login.html'">
+            <font class="sender">Выйти</font>
+          </button>
     </div>
+    <div class="maindiv">
+        <div class="leftDivBut">
+            <div style="padding: 5%;">
+                <div class="gorizont">
+                    <div class="selects panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                            Проекты:
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="gorizont">
+                <div class="inputs panel panel-default">
+                        <div style="padding:0;" class="panel-body">
+                            <input type="button" style="border:none; width: 100%; height:20%; margin:0;" class="btn btn-default" value="кококо">
+                            <input type="button" style="border:none; width: 100%; height:20%; margin:0;" class="btn btn-default" value="мимими" >
+                            <input type="button" style="border:none; width: 100%; height:20%; margin:0;" class="btn btn-default" value="ляляля" >
+                        </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    <div class="rightDiv">
+        <div style="padding: 2%;">
+                <div class="gorizont">
+                    <div class="well well-small">
+                            <h3 class="panel-title full-screen">
+                            Личная информация:
+                                <button style="margin-left: 52%;" type="button" class="btn btn-default btn-small">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </h3>
+                        </div>
+                    </div>
+            </div>
+                <div class="gorizont">
+
+                    <div class= "full-screen">
+                        <div class = "padd">
+                        <div class="choice panel panel-body panel-default">
+                            <h4>
+                                Группа: ПИ-13-1
+                            </h4>
+                            <h4>
+                                Адрес: Тишки
+                            </h4>
+                            <h4>
+                                Работает над проектом: cache
+                            </h4>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+            <div class = "padd">
+                <div class="gorizont">
+                    <div class="well well-small">
+                            <h3 class="panel-title full-screen">
+                            Преподаватели:
+                                 <button style="margin-left: 54.5%;" type="button" class="btn btn-default btn-small">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            <div class="gorizont">
+                <div class= "full-screen">
+                        <div class = "padd">
+                        <div class="choice panel panel-body panel-default">
+                            <h4>
+                                Петросян
+                            </h4>
+                            <h4>
+                                Петросян
+                            </h4>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="footerDiv">
     </div>
 </body>
