@@ -8,6 +8,7 @@ app.controller('UseCaseController',['$scope', function($scope){
     })
 
     var focused = undefined;
+	var linkmode = false;
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
@@ -16,41 +17,44 @@ app.controller('UseCaseController',['$scope', function($scope){
         focused = cellView;
     });
 
-    paper.on('cell:pointerup', function(cellView, evt, x, y) {
-        // Find the first element below that is not a link nor the dragged element itself.
-        var elementBelow = graph.get('cells').find(function(cell) {
-        if (cell instanceof joint.dia.Link) return false; // Not interested in links.
-        if (cell.id === cellView.model.id) return false; // The same element as the dropped one.
-        if (cell.getBBox().containsPoint(g.point(x, y))) {
-            return true;
-        }
-        return false;
-        });
+	
+	paper.on('cell:mouseover',function(cellView, evt, x, y){
+		if(false){graph.addCell(new joint.dia.Link({
+			source: {
+			id: focused.model.id
+			},
+			target: {
+			id: cellView.model.id
+			},
+			attrs: {
+			'.marker-source': {
+				d: 'M 10 0 L 0 5 L 10 10 z'
+			},
+			},
+			labels: [
+			{ position: .5, attrs: { text: { text: 'label' } } }
+			]
+		}));
+		
+		console.log(cellView.model.attributes);
+		var position = cellView.model.attributes.position;
+		var size = cellView.model.attributes.size;
+		graph.addCell(new joint.shapes.basic.Circle({
+			position: {
+				x:position.x + size.width + 5,
+				y:position.y + (size.height /2)
+			},
+			size: {
+				width: 5,
+				height: 5
+			}
+		}));
+		}
+	});
 
-        // If the two elements are connected already, don't
-        // connect them again (this is application specific though).
-        if (elementBelow && !_.contains(graph.getNeighbors(elementBelow), cellView.model)) {
+	paper.on('cell:mouseout', function(cellView, evt, x,y){
 
-        graph.addCell(new joint.dia.Link({
-            source: {
-            id: cellView.model.id
-            },
-            target: {
-            id: elementBelow.id
-            },
-            attrs: {
-            '.marker-source': {
-                d: 'M 10 0 L 0 5 L 10 10 z'
-            },
-            },
-            labels: [
-            { position: .5, attrs: { text: { text: 'label' } } }
-            ]
-        }));
-        // Move the element a bit to the side.
-        cellView.model.translate(100, 100);
-        }
-    });
+	});
     
     // for resizing
     /*    paper.on("cell:pointerdown", function (cellView, evt, x, y) {

@@ -1,6 +1,6 @@
 .model {
     margin: 20px;
-	height: 500px;
+	height: 450px;
 }
 
 .functional-model {
@@ -31,8 +31,9 @@
 /* Dialogs */
 
 .dialog {
+    position: relative;
     margin: auto;
-	margin-top: -300px;
+    margin-top: -200px;
     box-shadow: 0px 0px 10px 0px grey !important;
 }
 

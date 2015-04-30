@@ -116,7 +116,7 @@
 				<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
 				<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
 		   </div>
-		    <div id="functional-model" class="panel-body">
+		    <div id="functional-model" class="panel-body" ng-click="closeOptions()">
 			</div>
 		    <div class="dialog panel options panel-default" ng-show="optionsShow">
 				<div class="list-group">
@@ -146,39 +146,8 @@
 		    <div class="figuresBar panel panel-default">
 				<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
 		    </div>
-		    <div id="object-relation-model" class="panel-body">
+		    <div id="object-relation-model" class="panel-body" ng-click="closeObjectOptions()">
 		    </div>
-		    <div class="dialog panel options panel-default" ng-show="optionsShow">
-				<div class="list-group">
-					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
-					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
-				</div>
-		    </div>
-		    <div class="dialog change-name panel panel-default" ng-show="renameShow">
-				<div class="panel-heading">
-					<h3 class="panel-title">Введите название</h3>
-				</div>
-				<div class="panel-body">
-					<input type="text" ng-model="renameValue" class="form-control" />
-				</div>
-				<div class="panel-footer">
-					<input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
-					<input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
-				</div>
-		    </div>
-		</div>
-            </div>
-            <div id="div4" name="contentDiv" ng-controller="ERController">
-		<div class="panel panel-default er-model model">
-		    <div class="panel-heading">
-				<h3 class="panel-title">ER диаграмма</h3>
-		    </div>
-		    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initEntity()" value="Сущность" class="btn btn-default">
-				<input type="button" ng-click="initAttribute()" value="Атрибут" class="btn btn-default">
-				<input type="button" ng-click="initAssociation()" value="Ассоциация" class="btn btn-default">
-		    </div>
-		    <div id="er-model" class="panel-body"></div>
 		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
 				<div class="list-group">
 					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
@@ -202,18 +171,61 @@
 			    <h3 class="panel-title">Изменение отношения</h3>
 			</div>
 			<div class="panel-body">
-			    <select ng-model="linkLabels[1]" class="form-control" />
+				<input type="text" ng-model="linkLabel" class='form-control' />
+			</div>
+			<div class="panel-footer">
+			    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+			    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
+			</div>
+		    </div>
+		</div>
+            </div>
+            <div id="div4" name="contentDiv" ng-controller="ERController">
+		<div class="panel panel-default er-model model">
+		    <div class="panel-heading">
+				<h3 class="panel-title">ER диаграмма</h3>
+		    </div>
+		    <div class="figuresBar panel panel-default">
+				<input type="button" ng-click="initEntity()" value="Сущность" class="btn btn-default">
+				<input type="button" ng-click="initAttribute()" value="Атрибут" class="btn btn-default">
+				<input type="button" ng-click="initAssociation()" value="Ассоциация" class="btn btn-default">
+		    </div>
+		    <div id="er-model" class="panel-body" ng-click="closeObjectOptions()"></div>
+		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
+				<div class="list-group">
+					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
+					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
+				</div>
+		    </div>
+		    <div class="dialog change-name panel panel-default" ng-show="renameShow">
+				<div class="panel-heading">
+					<h3 class="panel-title">Введите название</h3>
+				</div>
+				<div class="panel-body">
+					<input type="text" ng-model="renameValue" class="form-control" />
+				</div>
+				<div class="panel-footer">
+					<input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
+					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
+				</div>
+		    </div>
+		    <div class="dialog change-link panel panel-default" ng-show="linkOptionsShow">
+			<div class="panel-heading">
+			    <h3 class="panel-title">Изменение отношения</h3>
+			</div>
+			<div class="panel-body">
+			    <select ng-model="linkLabels[0]" class="form-control" />
 				<option>1</option>
 				<option>M</option>
 			    </select>
-			    <select ng-model="linkLabels[2]" class="form-control" />
+			    <select ng-model="linkLabels[1]" class="form-control" />
 				<option>1</option>
 				<option>M</option>
 			    </select>
 			</div>
 			<div class="panel-footer">
-			    <input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
-			    <input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
+			    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+			    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
 			</div>
 		    </div>
 		</div>

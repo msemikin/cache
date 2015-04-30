@@ -17,8 +17,11 @@ app.controller("ERController", function ($scope) {
     paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
         // clicked on link
         if(cellView.model.attributes.type === 'link'){
-            console.log(cellView.model.attributes);
-            $scope.linkLabels = cellView.model.attributes.attrs.labels;
+            console.log(cellView.model.attributes);	
+			$scope.linkLabels = [];
+            $scope.linkLabels[0] = cellView.model.attributes.labels[0].attrs.text.text;
+            $scope.linkLabels[1] = cellView.model.attributes.labels[1].attrs.text.text;
+			focused = cellView;
             $scope.openLinkOptions();            
         } // clicked on object
         else {
@@ -56,10 +59,10 @@ app.controller("ERController", function ($scope) {
                         d: 'M 10 0 L 0 5 L 10 10 z'
                     }
                 },
-		labels: [ 
-        		{ position: 15, attrs: { text: { text: 'm' } }},
-			{ position: -15, attrs: { text: { text: '1' } }},
-		]
+				labels: [ 
+						{ position: 15, attrs: { text: { text: 'm' } }},
+					{ position: -15, attrs: { text: { text: '1' } }},
+				]
             }));
             // Move the element a bit to the side.
             cellView.model.translate(100, 100);
@@ -107,29 +110,30 @@ app.controller("ERController", function ($scope) {
         graph.addCell(ell);
     };
     $scope.initEntity = function () {
-        var list = document.getElementById("List3");
+        /*var list = document.getElementById("List3");
         var ind = list.selectedIndex;
-        var txt = list[ind].text;
+        var txt = list[ind].text;*/
         var rect = new joint.shapes.basic.Rect({
             position: {
                 x: 100,
                 y: 100
             },
             size: {
-                width: txt.length * 6 + 80,
+                width: 80,
                 height: 40
             }
         })
         rect.attr({
             text: {
-                text: txt
+                text: 'Empty'//txt
             }
         });
-
+	/*	
         list[ind].remove();
         var delInd = objSt.indexOf(txt);
         if (delInd > -1) objSt.splice(delInd,1);
         objD.push(txt);
+	*/
         graph.addCell(rect);
 
     };
@@ -163,8 +167,15 @@ app.controller("ERController", function ($scope) {
         });
     };
 
-    $scope.submitLinkChange = function(){};
-    $scope.cancelLinkChange = function(){};
+    $scope.submitLinkChange = function(){
+		console.log(focused.model.label);
+		focused.model.label(0, {attrs:{text: {text:this.linkLabels[0]}}});
+		focused.model.label(1, {attrs:{text: {text:this.linkLabels[1]}}});
+		$scope.linkOptionsShow = false;
+	};
+    $scope.cancelLinkChange = function(){
+		$scope.linkOpetion.Show = false;
+	};
 
 
     // editing object
@@ -184,18 +195,18 @@ app.controller("ERController", function ($scope) {
 
     $scope.deleteObj = function () {
         var text = focused.el.textContent;
-        $scope.optionsShow = false;
+        $scope.objectOptionsShow = false;
         focused.remove();
         objSt.push(text);
         getList();
     }
 
     $scope.renameObj = function () {
-        $scope.optionsShow = false;
+        $scope.objectOptionsShow = false;
         $scope.renameShow = true;
     };
     $scope.submitRename = function () {
-        var symbolLength = 6;
+        var symbolLength = 7;
         var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
         $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
