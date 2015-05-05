@@ -21,45 +21,37 @@
 
 var cacheApp = angular.module("cache", []);
 
-cacheApp.controller("LoginController", ["$scope", "$http", function ($scope, $http) {
+function ctrl($scope,$http) {
+    // Запрос GET к RESTful web API
+        $scope.getCompanies=function() {
+       $http.get("http://localhost:57772/csp/rest/json/humans").success(function(data) {
+             // Помещаем ответ сервера в переменную companies
+           $scope.companies=data.children;
+       }).error(function(data, status) {
+                 // Вывод информации об ошибке, если таковая возникнет
+           alert("["+status+"] Ошибка при загрузке компаний! ["+data+"]");
+       });
+   };
+  
+      // Создать новую компанию
+    $scope.create = function (company){
+       $http.get("http://localhost:57772/csp/rest/json/company",company)
+       .success(function(data){$scope.getCompanies();window.alert(data.name);window.location = "http://localhost:57772/csp/user/git/pg/login.html"
+	   }).error(function(data,status){window.alert(data);
+        $scope.alertzone="["+status+"] Ошибка добавления компании :( ["+data+"]"; });
+    }
 
-	$scope.student = true;
-
-	$scope.teacher = false;
-
-	$scope.login = 'admin';
-
-	$scope.password = 'admin';
-
-	$scope.setTeacher = function () {
-		this.student = false;
-		this.teacher = true;
-		console.log(this);
-	};
-
-	$scope.setStudent = function () {
-		this.student = true;
-		this.teacher = false;
-	};
-
-	$scope.submitLogin = function () {
-		var serverURL = "http://localhost:57772/csp/rest/json/accounts";
-
-		// указываем класс process для div-а сообщений и плавно показываем его
-		$("#login_result").removeClass().addClass('process').text('Проверка....').fadeIn(1000);
-
-		var url = serverURL + '/' + this.login + '/' + this.password;
-
-		var responsePromise = $http.get(url);
-
-		responsePromise.error(function () {
-			window.alert('error');
-			console.log(arguments);
-		});
-
-		responsePromise.success(function (data) {
-			window.alert(data.children[0].Id);
-			window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
-		});
-	};
-}]);
+    // Обновить существующую компанию
+  $scope.update = function (company){
+       $http.put("/rest/json/company/"+company.ID,company)
+        .success(function(data){$scope.alertzone="Обновили компанию "+company.Name;}).error(function(data,status){ // поменял alert(....); на alertzone
+        $scope.alertzone="["+status+"] Ошибка обновления имени компании :( ["+data+"]"; });
+    }
+            
+    // Удалить компанию
+    $scope.delete = function (company){
+        $http.delete("/rest/json/company/"+company.ID)
+        .success(function(data){$scope.getCompanies();$scope.alertzone="Удалили компанию "+company.Name;}).error(function(data,status){
+            $scope.alertzone="["+status+"] Ошибка удаления компании :( ["+data+"]"; });
+    }
+};
