@@ -1,7 +1,3 @@
-/**
-            * Функция Скрывает/Показывает блок
-            * @author ox2.ru дизайн студия
-            **/
             function showHide(element_id, element2_id) {
                 //Если элемент с id-шником element_id существует
                 if (document.getElementById(element_id) && document.getElementById(element2_id)) {
@@ -24,19 +20,13 @@ var cacheApp = angular.module("cache", []);
 function ctrl($scope,$http) {
     // Запрос GET к RESTful web API
         $scope.getCompanies=function() {
-       $http.get("http://localhost:57772/csp/rest/json/humans").success(function(data) {
-             // Помещаем ответ сервера в переменную companies
-           $scope.companies=data.children;
-       }).error(function(data, status) {
-                 // Вывод информации об ошибке, если таковая возникнет
-           alert("["+status+"] Ошибка при загрузке компаний! ["+data+"]");
-       });
+			
    };
   
       // Создать новую компанию
     $scope.create = function (company){
-       $http.get("http://localhost:57772/csp/rest/json/company",company)
-       .success(function(data){$scope.getCompanies();window.alert(data.name);window.location = "http://localhost:57772/csp/user/git/pg/login.html"
+       $http.post("http://localhost:57772/csp/rest/json/company",company)
+       .success(function(data){$scope.getCompanies();window.alert(data);window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
 	   }).error(function(data,status){window.alert(data);
         $scope.alertzone="["+status+"] Ошибка добавления компании :( ["+data+"]"; });
     }
@@ -54,4 +44,25 @@ function ctrl($scope,$http) {
         .success(function(data){$scope.getCompanies();$scope.alertzone="Удалили компанию "+company.Name;}).error(function(data,status){
             $scope.alertzone="["+status+"] Ошибка удаления компании :( ["+data+"]"; });
     }
+	$scope.submitLogin = function () {
+		var serverURL = "http://localhost:57772/csp/rest/json/accounts";
+
+		var url = serverURL + '/' + this.login + '/' + this.password;
+		
+		window.alert(url);
+		
+		var responsePromise = $http.get(url);
+
+		responsePromise.error(function () {
+			window.alert('error');
+			console.log(arguments);
+		});
+
+		responsePromise.success(function (data) {
+			window.alert(data.children[0].ID);
+			window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
+		});
+	};
 };
+
+

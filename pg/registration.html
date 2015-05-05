@@ -18,6 +18,16 @@
 
   <meta charset="UTF-8">
 
+  <!--
+Copyright (c) 2015 by Eric (http://codepen.io/ehermanson/pen/KwKWEv)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
   <title>Login</title>
 
   <link href="http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet" type="text/css">
@@ -80,8 +90,6 @@
               </label>
               <input type="text" required="" autocomplete="off" ng-model="company.login">
             </div>
-          </div>
-
           <div class="field-wrap">
             <label class="active">
               Электронная почта<span class="req">*</span>
@@ -108,32 +116,32 @@
             <input type="password" required="" autocomplete="off" ng-model="company.password">
           </div>
 
-          <input type="submit" class="button button-block" value="Добавить"/>
+          <input type="submit" class="button button-block" id = "send" value="Добавить"/>
 
           </form>
 
         </div>
 
-        <div id="login" style="display: none;">   
+        <div id="login" style="display: none;" >   
           <h1>Добро пожаловать</h1>
 
           <form action="#" method="post">
 
             <div class="field-wrap">
             <label>
-              Электронная почта<span class="req">*</span>
+              Login<span class="req">*</span>
             </label>
-            <input type="email" required="" autocomplete="off">
+            <input type="text" required="" autocomplete="off" ng-model="login">
           </div>
 
           <div class="field-wrap">
             <label>
               Пароль<span class="req">*</span>
             </label>
-            <input type="password" required="" autocomplete="off">
+            <input type="password" required="" autocomplete="off" ng-model="password">
           </div>
-
-          <button class="button button-block">Войти</button>
+			<input class="button button-block" name="Submit" type="button" id="submit" value="Войти" ng-click="submitLogin()" />
+          <!--<button class="button button-block">Войти</button>-->
 
           </form>
 
@@ -178,7 +186,6 @@ $('.tab a').on('click', function (e) {
     $('.tab-content > div').not(target).hide();
     $(target).fadeIn(600);
 });
-    //@ sourceURL=pen.js
   </script>
 
       

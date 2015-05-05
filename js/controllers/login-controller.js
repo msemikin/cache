@@ -28,7 +28,9 @@ cacheApp.controller("LoginController", ["$scope", "$http", function ($scope, $ht
 		$("#login_result").removeClass().addClass('process').text('Проверка....').fadeIn(1000);
 
 		var url = serverURL + '/' + this.login + '/' + this.password;
-
+		
+		window.alert(url);
+		
 		var responsePromise = $http.get(url);
 
 		responsePromise.error(function () {
