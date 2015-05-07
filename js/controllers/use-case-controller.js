@@ -21,17 +21,17 @@ app.controller('UseCaseController',['$scope', function($scope){
 
 	
 	paper.on('cell:pointerclick',function(cellView, evt, x, y){
-		if(cellView.model.prop('type') !== 'drag'){
+		if(cellView.model.prop('type') !== 'drag' && !linkmode){
 			var position = cellView.model.attributes.position;
 			var size = cellView.model.attributes.size;
 			var dragger = new joint.shapes.basic.Circle({
 				position: {
 					x:position.x + size.width + 5,
-					y:position.y + (size.height /2)
+					y:position.y + (size.height /2 - 5)
 				},
 				size: {
-					width: 5,
-					height: 5
+					width: 10,
+					height: 10
 				}
 			});
 			dragger.prop('type', 'drag');
@@ -42,7 +42,7 @@ app.controller('UseCaseController',['$scope', function($scope){
 	});
 
 	paper.on('cell:pointerdown', function(cellView, evt, x, y){
-		if(cellView.model.prop('type') === 'drag'){
+		if(cellView.model.prop('type') === 'drag' && !linkmode){
 			removeDrag();
 			linkmode = true;	
 			link = new joint.dia.Link({
@@ -64,7 +64,6 @@ app.controller('UseCaseController',['$scope', function($scope){
 				]*/
 			});
 			graph.addCell(link);
-			console.log(link);
 		}
 	});
 
@@ -84,7 +83,16 @@ app.controller('UseCaseController',['$scope', function($scope){
 				}
 				return false;
 			});
-			link.set('target', elementBelow.id);
+			if (elementBelow && !_.contains(graph.getNeighbors(elementBelow), focused.model)) {
+				link.set('target', {id: elementBelow.id});
+			} else {
+				link.remove();		
+			}
+
+
+			linkmode = false;
+			link = undefined;
+			focused = undefined;
 		}
 	});
 
