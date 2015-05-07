@@ -46,23 +46,34 @@
             <input type="text" style="float: left; margin-left: 6px; border: none;"></input>
             <div class="tabs-buttons">
                 <div name="tab" class="chosenTab">
-                    <h5 class="tabName">Анализ ПО</h5>
-                </div>
-                <div name="tab" class="tab">
                     <h5 class="tabName">Use-case</h5>
                 </div>
                 <div name="tab" class="tab">
-                    <h5 class="tabName">Взаимодействия</h5>
+                    <h5 class="tabName">Relation</h5>
                 </div>
                 <div name="tab" class="tab">
-			<h5 class="tabName">Диаграмма ER</h5>
-		</div>
-                <div name="tab" class="tab" style="border-right: 1px solid #ac4;"></div>
+                    <h5 class="tabName">ER</h5>
+                </div>
+                <div name="tab" class="tab">
+			        <h5 class="tabName">ИП</h5>
+		        </div>
+               <div name="tab" class="tab">
+			        <h5 class="tabName">Statistic</h5>
+		        </div>
+               <div name="tab" class="tab">
+			        <h5 class="tabName">Отчет</h5>
+		        </div>
+               <div name="tab" class="tab">
+			        <h5 class="tabName">АЗ</h5>
+		        </div>
+                <div name="tab" class="tab" style="border-right: 1px solid #ac4;">
+			        <h5 class="tabName">ОЦ</h5>
+                </div>
             </div>
         </div>
-        <div id="pages-container" class="pages-container"></div>
-        <div class="right-div">
-            <div id="div1" style="padding: 20px;" name="contentDiv">
+        <div>
+            <div id="pages-container" class="pages-container"></div>
+            <!--<div>
                 <div class="gorizont">
                     <div class="selects panel panel-default">
                         <div class="panel-heading">
@@ -106,8 +117,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="div2" name="contentDiv" ng-controller="UseCaseController">
+            </div>-->
+        </div>
+        <div class="right-div">
+            <div id="div1" name="contentDiv" ng-controller="UseCaseController">
 		<div class="panel panel-default functional-model model">
 		    <div class="panel-heading">
 				<h3 class="panel-title">Функциональная модель</h3>
@@ -137,8 +150,8 @@
 				</div>
 		    </div>
 		</div>
-	    </div>
-            <div id="div3" name="contentDiv" ng-controller="ObjectDiagramController">
+	   </div>
+            <div id="div2" name="contentDiv" ng-controller="ObjectDiagramController">
 		<div class="panel panel-default object-relation-model model">
 		    <div class="panel-heading">
 				<h3 class="panel-title">Взаимодействия объектов</h3>
@@ -179,8 +192,8 @@
 			</div>
 		    </div>
 		</div>
-            </div>
-            <div id="div4" name="contentDiv" ng-controller="ERController">
+    </div>
+            <div id="div3" name="contentDiv" ng-controller="ERController">
 		<div class="panel panel-default er-model model">
 		    <div class="panel-heading">
 				<h3 class="panel-title">ER диаграмма</h3>
@@ -229,52 +242,12 @@
 			</div>
 		    </div>
 		</div>
-	    </div>
-            <div id="div5" name="contentDiv">
-                <div ng-controller="drawController">
-                    <div class="drawer">
-                        <div class="tools border">
-                            <div class="figures panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Элементы</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="column">
-                                        <button class="figure btn btn-default" ng-click="initEntity('empty');">Сущность</button>
-                                        <button class="figure btn btn-default" ng-click="initAttribute();">Атрибут</button>
-                                    </div>
-                                    <div class="column">
-                                        <button class="figure btn btn-default" ng-click="initAssociation();">Ассоциация</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="canvas panel panel-default border" ng-click="closeOptions()">
-                            <div id="canvas">
-                            </div>
-                            <div class="dialog change-name panel panel-default" ng-show="renameShow">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Введите название</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <input type="text" ng-model="renameValue" class="form-control" />
-                                </div>
-                                <div class="panel-footer">
-                                    <input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
-                                    <input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
-                                </div>
-                            </div>
-                            <div class="dialog panel options panel-default" ng-show="optionsShow">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
-                                    <a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-		</div>
+	   </div>
+            <div id="div4" name="contentDiv">4</div>
+            <div id="div5" name="contentDiv">5</div>
+            <div id="div6" name="contentDiv">6</div>
+            <div id="div7" name="contentDiv">7</div>
+            <div id="div8" name="contentDiv">8</div>
         </div>
     </div>
     <!-- Footer -->
