@@ -98,7 +98,7 @@ app.controller('UseCaseController',['$scope', function($scope){
         graph.addCell(ell);
     };
     $scope.initService = function() {
-        var rect = new joint.shapes.basic.Circle({
+        var circle = new joint.shapes.basic.Circle({
             position: {
                 x: 100,
                 y: 100
@@ -108,12 +108,12 @@ app.controller('UseCaseController',['$scope', function($scope){
                 height: 40
             }
         })
-        rect.attr({
+        circle.attr({
             text: {
                 text: 'Empty'
             }
         });
-        graph.addCell(rect);
+        graph.addCell(circle);
     };
 
     $scope.optionsShow = false;
@@ -138,19 +138,19 @@ app.controller('UseCaseController',['$scope', function($scope){
         $scope.renameShow = true;
     };
     $scope.submitChange = function() {
-        var symbolLength = 5;
-        var width = symbolLength * $scope.renameValue.length + 75;
+        var symbolLength = 7;
+        var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
         $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
         $scope.renameShow = false;
+	console.log(focused);
         focused.model.attr({
-            rect: {
-                width: width
-            },
             text: {
                 text: $scope.renameValue
             }
         });
+	focused.model.resize(width, 40);
+
     };
     $scope.cancelChange = function() {
         $scope.renameShow = false;

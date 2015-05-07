@@ -212,13 +212,11 @@ app.controller("ERController", function ($scope) {
         $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
         $scope.renameShow = false;
         focused.model.attr({
-            rect: {
-                width: width
-            },
             text: {
                 text: $scope.renameValue
             }
         });
+	focused.model.resize(width, 40);
     };
     $scope.cancelRename = function () {
         $scope.renameShow = false;
