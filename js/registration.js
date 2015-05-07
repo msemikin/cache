@@ -26,8 +26,8 @@ function ctrl($scope,$http) {
       // Создать новую компанию
     $scope.create = function (company){
        $http.post("http://localhost:57772/csp/rest/json/company",company)
-       .success(function(data){$scope.getCompanies();window.alert(data);window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
-	   }).error(function(data,status){window.alert(data);
+       .success(function(data){$scope.getCompanies();window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
+	   }).error(function(data,status){window.alert(status + "HUY");window.alert(data);
         $scope.alertzone="["+status+"] Ошибка добавления компании :( ["+data+"]"; });
     }
 
@@ -49,8 +49,6 @@ function ctrl($scope,$http) {
 
 		var url = serverURL + '/' + this.login + '/' + this.password;
 		
-		window.alert(url);
-		
 		var responsePromise = $http.get(url);
 
 		responsePromise.error(function () {
@@ -59,8 +57,8 @@ function ctrl($scope,$http) {
 		});
 
 		responsePromise.success(function (data) {
-			window.alert(data.children[0].ID);
-			window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
+			var url = "http://localhost:57772/csp/user/git/pg/workenv.html?result=" + data.children[0].ID;
+			window.location = url;
 		});
 	};
 };
