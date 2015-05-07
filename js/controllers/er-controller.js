@@ -18,10 +18,10 @@ app.controller("ERController", function ($scope) {
         // clicked on link
         if(cellView.model.attributes.type === 'link'){
             console.log(cellView.model.attributes);	
-			$scope.linkLabels = [];
-            $scope.linkLabels[0] = cellView.model.attributes.labels[0].attrs.text.text;
-            $scope.linkLabels[1] = cellView.model.attributes.labels[1].attrs.text.text;
-			focused = cellView;
+	    $scope.linkLabels = {};
+            $scope.linkLabels.first = cellView.model.attributes.labels[0].attrs.text.text;
+            $scope.linkLabels.second = cellView.model.attributes.labels[1].attrs.text.text;
+	    focused = cellView;
             $scope.openLinkOptions();            
         } // clicked on object
         else {
@@ -60,7 +60,7 @@ app.controller("ERController", function ($scope) {
                     }
                 },
 				labels: [ 
-						{ position: 15, attrs: { text: { text: 'm' } }},
+					{ position: 15, attrs: { text: { text: '1' } }},
 					{ position: -15, attrs: { text: { text: '1' } }},
 				]
             }));
@@ -161,7 +161,7 @@ app.controller("ERController", function ($scope) {
     $scope.linkOptionsShow = false;
 
     $scope.openLinkOptions = function(){
-        console.log(this.linkLabels);
+        console.log(this.linkLabels.first);
         $scope.$apply(function(){
             $scope.linkOptionsShow = true;
         });
@@ -169,12 +169,12 @@ app.controller("ERController", function ($scope) {
 
     $scope.submitLinkChange = function(){
 		console.log(focused.model.label);
-		focused.model.label(0, {attrs:{text: {text:this.linkLabels[0]}}});
-		focused.model.label(1, {attrs:{text: {text:this.linkLabels[1]}}});
+		focused.model.label(0, {attrs:{text: {text:this.linkLabels.first}}});
+		focused.model.label(1, {attrs:{text: {text:this.linkLabels.second}}});
 		$scope.linkOptionsShow = false;
 	};
     $scope.cancelLinkChange = function(){
-		$scope.linkOpetion.Show = false;
+		$scope.linkOptionsShow = false;
 	};
 
 
@@ -221,7 +221,4 @@ app.controller("ERController", function ($scope) {
     $scope.cancelRename = function () {
         $scope.renameShow = false;
     };
-
-
-
 });

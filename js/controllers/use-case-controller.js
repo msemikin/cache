@@ -8,7 +8,9 @@ app.controller('UseCaseController',['$scope', function($scope){
     })
 
     var focused = undefined;
-	var linkmode = false;
+    var linkmode = false;
+    var drag = undefined;
+	var link = undefined;
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
@@ -18,43 +20,57 @@ app.controller('UseCaseController',['$scope', function($scope){
     });
 
 	
-	paper.on('cell:mouseover',function(cellView, evt, x, y){
-		if(false){graph.addCell(new joint.dia.Link({
-			source: {
-			id: focused.model.id
-			},
-			target: {
-			id: cellView.model.id
-			},
-			attrs: {
-			'.marker-source': {
-				d: 'M 10 0 L 0 5 L 10 10 z'
-			},
-			},
-			labels: [
-			{ position: .5, attrs: { text: { text: 'label' } } }
-			]
-		}));
-		
-		console.log(cellView.model.attributes);
-		var position = cellView.model.attributes.position;
-		var size = cellView.model.attributes.size;
-		graph.addCell(new joint.shapes.basic.Circle({
-			position: {
-				x:position.x + size.width + 5,
-				y:position.y + (size.height /2)
-			},
-			size: {
-				width: 5,
-				height: 5
-			}
-		}));
+	paper.on('cell:pointerclick',function(cellView, evt, x, y){
+		if(cellView.model.prop('type') !== 'drag'){
+			var position = cellView.model.attributes.position;
+			var size = cellView.model.attributes.size;
+			var dragger = new joint.shapes.basic.Circle({
+				position: {
+					x:position.x + size.width + 5,
+					y:position.y + (size.height /2)
+				},
+				size: {
+					width: 5,
+					height: 5
+				}
+			});
+			dragger.prop('type', 'drag');
+			drag = dragger;		
+			graph.addCell(dragger);
+			focused = cellView;
 		}
 	});
 
-	paper.on('cell:mouseout', function(cellView, evt, x,y){
-
+	paper.on('cell:pointerdown', function(cellView, evt, x, y){
+		if(cellView.model.prop('type' === 'drag')){
+			removeDrag();
+			linkmode = true;	
+			link = new joint.dia.Link({
+				source: {
+					id: focused.model.id
+				},
+				attrs: {
+					'.marker-source': {
+					d: 'M 10 0 L 0 5 L 10 10 z'
+					}
+				},
+				labels: [ 
+					{ position: 15, attrs: { text: { text: '1' } }},
+					{ position: -15, attrs: { text: { text: '1' } }},
+				]
+			})
+			graph.addCell(link);
+		}
 	});
+
+	paper.on('blank:pointerclick', removeDrag);
+
+	function removeDrag(){
+		if(drag){
+			drag.remove();
+			drag = undefined;
+		}
+	}
     
     // for resizing
     /*    paper.on("cell:pointerdown", function (cellView, evt, x, y) {

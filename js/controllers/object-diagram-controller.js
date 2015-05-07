@@ -201,7 +201,4 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
     $scope.cancelRename = function () {
         $scope.renameShow = false;
     };
-
-
-
 }]);
