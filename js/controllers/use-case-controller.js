@@ -11,6 +11,8 @@ app.controller('UseCaseController',['$scope', function($scope){
     var linkmode = false;
     var drag = undefined;
 	var link = undefined;
+	var deltaX = 100; // for random creating
+	var deltaY = 100;
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
@@ -21,6 +23,7 @@ app.controller('UseCaseController',['$scope', function($scope){
 
 	
 	paper.on('cell:pointerclick',function(cellView, evt, x, y){
+		removeDrag();
 		if(cellView.model.prop('type') !== 'drag' && !linkmode){
 			var position = cellView.model.attributes.position;
 			var size = cellView.model.attributes.size;
@@ -131,8 +134,8 @@ app.controller('UseCaseController',['$scope', function($scope){
     $scope.initActor = function() {
         var ell = new joint.shapes.basic.Circle({
             position: {
-                x: 100,
-                y: 100
+                x: 200,
+                y: 200
             },
             size: {
                 width: 40,
@@ -146,6 +149,8 @@ app.controller('UseCaseController',['$scope', function($scope){
         });
         graph.addCell(ell);
     };
+
+
     $scope.initService = function() {
         var circle = new joint.shapes.basic.Circle({
             position: {
@@ -178,6 +183,8 @@ app.controller('UseCaseController',['$scope', function($scope){
     $scope.deleteObj = function() {
         $scope.optionsShow = false;
         focused.remove();
+		focused = undefined;
+		removeDrag();
     }
 
     $scope.renameValue = undefined;
