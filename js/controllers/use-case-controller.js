@@ -42,24 +42,49 @@ app.controller('UseCaseController',['$scope', function($scope){
 	});
 
 	paper.on('cell:pointerdown', function(cellView, evt, x, y){
-		if(cellView.model.prop('type' === 'drag')){
+		if(cellView.model.prop('type') === 'drag'){
 			removeDrag();
 			linkmode = true;	
 			link = new joint.dia.Link({
 				source: {
 					id: focused.model.id
 				},
+				target: {
+					x: x,
+					y: y
+				},
 				attrs: {
-					'.marker-source': {
+					'.connection': {
 					d: 'M 10 0 L 0 5 L 10 10 z'
 					}
 				},
-				labels: [ 
+				/*labels: [ 
 					{ position: 15, attrs: { text: { text: '1' } }},
 					{ position: -15, attrs: { text: { text: '1' } }},
-				]
-			})
+				]*/
+			});
 			graph.addCell(link);
+			console.log(link);
+		}
+	});
+
+	paper.on('cell:pointermove', function(cellView, evt, x, y){
+		if(linkmode){
+			link.set('target',{x:x, y:y});
+		}
+	});
+
+	paper.on('cell:pointerup', function(cellView, evt, x, y){
+		if(linkmode){
+			var elementBelow = graph.get('cells').find(function(cell) {
+				if (cell instanceof joint.dia.Link) return false; // Not interested in links.
+				if (cell.id === cellView.model.id) return false; // The same element as the dropped one.
+				if (cell.getBBox().containsPoint(g.point(x, y))) {
+					return true;
+				}
+				return false;
+			});
+			link.set('target', elementBelow.id);
 		}
 	});
 
