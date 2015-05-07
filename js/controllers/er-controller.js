@@ -8,6 +8,8 @@ app.controller("ERController", function ($scope) {
     var paper = new joint.dia.Paper({
         el: $('#er-model'),
         gridSize: 10,
+		width: '100%',
+		height: 600,
         model: graph
     });
 

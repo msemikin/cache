@@ -1,6 +1,7 @@
 .model {
-    margin: 20px;
-	height: 450px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 .functional-model {
@@ -10,17 +11,19 @@
 }
 
 .model .panel-body {
-    height: 300px;
+	overflow: scroll;
     padding: 0px;
+	height: 100px;
+	flex-grow: 1;
 }
 
 .model .figuresBar {
-	position: relative;
-    left: -1px;
-	top: -1px;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	border-radius:0px;
     padding: 15px 0px 15px 15px;
     margin:0px;
-	width: 100.2%;
 }
 .figuresBar input {
     height: 50px;

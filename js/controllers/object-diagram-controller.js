@@ -3,9 +3,11 @@ var app = angular.module("cache");
 app.controller("ObjectDiagramController",['$scope', function($scope) {
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
-            el: $('#object-relation-model'),
-            gridSize: 10,
-            model: graph,
+		el: $('#object-relation-model'),
+		gridSize: 10,
+		model: graph,
+		width: '100%',
+		height: 600,
     })
     
 

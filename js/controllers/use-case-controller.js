@@ -3,6 +3,8 @@ app.controller('UseCaseController',['$scope', function($scope){
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
         el: $('#functional-model'),
+	width: '100%',
+	height: 600,
         gridSize: 10,
         model: graph,
     })
@@ -11,8 +13,6 @@ app.controller('UseCaseController',['$scope', function($scope){
     var linkmode = false;
     var drag = undefined;
 	var link = undefined;
-	var deltaX = 100; // for random creating
-	var deltaY = 100;
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
