@@ -29,11 +29,11 @@
 }
  .full-screen {
           width: 100vw;
-
-        }
+}
 .padd {
-    padding-left: 2%;
-    padding-right: 2%;
+    position: relative;
+    width:96%;
+    margin:0 auto;
 }
 .choice {
     display: flex;
