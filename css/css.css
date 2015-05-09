@@ -199,11 +199,22 @@ input, textarea, button {
     position: absolute;
     padding:0px;
     width: 40%;
-    height: 94%;
+    height: 64%;
     float:left;
     overflow: auto;
     border-right: 2px solid #ac4;
     background-color: grey;
+}
+.objects-container {
+    position: absolute;
+    padding:0px;
+    margin-top: 27%;
+    width: 40%;
+    height: 36%;
+    float:left;
+    overflow: auto;
+    border-right: 2px solid #ac4;
+    /*background-color: grey;*/
 }
 .attributesBox{
     position: absolute;
