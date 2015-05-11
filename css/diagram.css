@@ -111,3 +111,11 @@
     margin: auto;
     margin-top: 0px
 }
+
+.transfer {
+	position: absolute;
+	height:50px;
+	width: 100px;
+	border: 1px solid grey;
+	background-color: green;
+}

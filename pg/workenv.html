@@ -125,9 +125,9 @@
 		    <div class="panel-heading">
 				<h3 class="panel-title">Функциональная модель</h3>
 		    </div>
-			<div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initActor()" value="Актер" class="btn btn-default">
-				<input type="button" ng-click="initService()" value="Сервис" class="btn btn-default">
+			<div id="functional-tools" class="figuresBar panel panel-default">
+				<input type="button" ng-mousedown="initActor()" value="Актер" class="btn btn-default actor">
+				<input type="button" ng-mousedown="initService()" value="Сервис" class="btn btn-default service">
 		   </div>
 		    <div id="functional-model" class="panel-body" ng-click="closeOptions()">
 			</div>

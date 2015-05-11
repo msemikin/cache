@@ -3,8 +3,8 @@ app.controller('UseCaseController',['$scope', function($scope){
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
         el: $('#functional-model'),
-	width: '100%',
-	height: 600,
+		width: '100%',
+		height: 600,
         gridSize: 10,
         model: graph,
     })
@@ -13,6 +13,13 @@ app.controller('UseCaseController',['$scope', function($scope){
     var linkmode = false;
     var drag = undefined;
 	var link = undefined;
+
+	var dragAndDrop = {
+		active: false,
+		selector: undefined,
+		lastX: undefined,
+		lastY: undefined
+	};
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
@@ -131,24 +138,53 @@ app.controller('UseCaseController',['$scope', function($scope){
         }
     }
 
-    $scope.initActor = function() {
-        var ell = new joint.shapes.basic.Circle({
-            position: {
-                x: 200,
-                y: 200
-            },
-            size: {
-                width: 40,
-                height: 40
-            }
-        })
-        ell.attr({
-            text: {
-                text: 'Empty'
-            }
-        });
-        graph.addCell(ell);
-    };
+    $('.actor').mousedown(function(eventData) {
+		var div = '<div class="transfer"></div>';
+		$('.functional-model').prepend(div);
+		var buttonPos = $(this).position();
+		$('.transfer').css({
+			top: buttonPos.top,
+			left: buttonPos.left
+		});
+		dragAndDrop.lastX = eventData.pageX;
+		dragAndDrop.lastY = eventData.pageY;
+		dragAndDrop.active = true;
+		dragAndDrop.selector = '.transfer';
+	});
+	$('.functional-model').mousemove(function(eventData){
+		if(dragAndDrop.active){
+			var deltaX = eventData.pageX - dragAndDrop.lastX
+			var deltaY = eventData.pageY - dragAndDrop.lastY
+			$(dragAndDrop.selector).css('top', '+='+deltaY);
+			$(dragAndDrop.selector).css('left', '+='+deltaX);
+			dragAndDrop.lastX = eventData.pageX;
+			dragAndDrop.lastY = eventData.pageY;
+		}
+	});
+	$('.functional-model').mouseup(function(eventData) {
+		if(dragAndDrop.active){
+			var dragger = $(dragAndDrop.selector);
+			var ell = new joint.shapes.basic.Circle({
+				position: {
+					x: parseInt(dragger.css('left')),
+					y: parseInt(dragger.css('top')) - 120
+				},
+				size: {
+					width: 40,
+					height: 40
+				}
+			})
+			ell.attr({
+				text: {
+					text: 'Empty'
+				}
+			});
+
+			graph.addCell(ell);
+			dragAndDrop.active = false;
+			dragger.remove();
+		}
+    });
 
 
     $scope.initService = function() {
@@ -199,7 +235,6 @@ app.controller('UseCaseController',['$scope', function($scope){
         $scope.renameValue = $scope.renameValue.toLowerCase();
         $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
         $scope.renameShow = false;
-	console.log(focused);
         focused.model.attr({
             text: {
                 text: $scope.renameValue
