@@ -4,15 +4,33 @@ var contentDivs;
 var textObj;
 var canvas;
 var index;
+var userId ="";
+var user;
 
 
 window.onload = function () {
+	userId = getParam("result");
+	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
-
-
+	if (userId != "") {
+	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
+		var obj = JSON.parse(data);
+		if (obj.children.length !=0) {
+		user = obj;
+		document.getElementById("userNameText").innerHTML = user.children[0].name + " " + user.children[0].surname;
+		}
+		else {
+			window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
+		}
+        });
+	}
+	else {
+		window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
+	}
+		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
         var bordWhite = document.createElement('div');
@@ -43,7 +61,15 @@ window.onload = function () {
             getSelectionHtml();
         })
     });
-
+	$(document).ready(function () {
+        $('#userNameText').click(function (e) {
+            redirecting();
+        })
+    });
+	function redirecting() {
+		var url = "http://localhost:57772/csp/user/git/pg/projects.html?result=" + user.children[0].ID;
+		window.location = url;
+	}
 
     /*function addToObjectsList(text) {
         //var text = document.getElementById("wordTextBox").value;
@@ -310,6 +336,25 @@ function FindIntersection(a, b) {
     }
     return bestResult;
 }
+function getParam(sParamName)
+// Функция определения переданной переменной
+{
+var Params = location.search.substring(1).split("?"); 
+// отсекаем «?» и вносим переменные и их значения в массив var variable = "";
+
+for (var i = 0; i < Params.length; i++) // просматриваем весь массив переменных
+  { 
+        if (Params[i].split("=")[0] == sParamName) // если найдена искомая переменная, и
+       { 
+           if (Params[i].split("=").length > 1) variable = Params[i].split("=")[1]; 
+           // если значение параметра задано, то 
+           return variable; // возвращаем его
+       }
+   }
+   return "";
+}
+
+// Печать результата
 
 //отображение спика объектов во второй вкладке
 /*function getList() {

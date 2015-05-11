@@ -16,7 +16,7 @@
 
 .inputs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 300px;
     margin: auto;
 }
@@ -108,4 +108,39 @@
 
 .userTextDiv {
     margin-left: 10px;
+}
+
+.buttonsBar{
+    position: absolute;
+    padding-top: 3%;
+    padding-left: 3%;
+}
+
+.namePanel{
+    position: relative;
+    width: 25%;
+    margin-top: 3%;
+    left: 3%;
+    height: 50%;;
+}
+.detailsPanel{
+    position: relative;
+    width: 67%;
+    margin-top: 3%;
+    margin-left: 5%;
+}
+.deleteButton
+{
+    margin-left: 82%;
+    border: none;
+}
+.al {
+    position: relative;
+    padding-top: 1%;
+    padding-left: 1%;
+}
+.alBig {
+    position: relative;
+    padding-top: 3%;
+    padding-left: 3%;
 }
