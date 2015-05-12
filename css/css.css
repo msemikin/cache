@@ -298,11 +298,6 @@ input, textarea, button {
     margin-left: 5%;
 }
 
-.constrHead {
-    display: flex;
-    flex-direction: row;
-}
-
 .constraintPanel {
     margin-left: 10%;
     margin-right: 10%;
