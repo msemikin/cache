@@ -402,7 +402,60 @@
                     </div>
             </div>
             <div id="div6" name="contentDiv">
-                Отчеты то же самое,что и статистики
+                <div class="gorizont">
+                <div  class="panel panel-default namePanel " >
+                    <div class="panel-heading ">
+                        <h3 class="panel-title h2">Название</h3>
+                    </div>
+                    <select size="13" multiple class="form-control input-lg sel">
+                        <option>Movies </option>
+                        <option>Games</option>
+                        <option>Books</option>
+                        <option>Newspapers</option>
+                        <option>Songs</option>
+                    </select>
+                    <div style="margin:0 auto;margin-left:32%;" class="choice panel panel-body ">
+                        <button type="button" class="btn btn-default btn-small ">
+                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel panel-default detailsPanel ">
+                    <div class="panel-heading ">
+                        <h3 class="panel-title">Детали</h3>
+                    </div>
+                        <h4 class = "al">
+                        Название:
+                        </h4>
+                     <input  type="text" class="form-control al" placeholder="Какое-то название…">
+                            <h4>
+                            <div style = "padding: 4%"></div>
+                                <div class="gorizont al">
+                                Атрибут1
+                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                                 </div>
+                            </h4>
+                            <h4 class = "al">
+                                Атрибут2
+
+                            </h4>
+                            <h4 class = "al">
+                               Атрибут3
+
+                            </h4>
+
+                         <div style = "padding: 2%"></div>
+                        <div class="gorizont">
+                            <input type="text" class="form-control" placeholder="Объект…">
+                            <button type="button" class="btn btn-default btn-small ">
+                                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                                    </button>
+                            </div>
+
+                        </div>
+                    </div>
             </div>
             <div id="div7" name="contentDiv">
                 <div class="gorizont alBig">
@@ -431,7 +484,56 @@
                     </div>
                 </div>
             </div>
-            <div id="div8" name="contentDiv">8</div>
+            <div id="div8" name="contentDiv">
+            <!--Ограничения целостности-->
+            <div width="5%">
+            <button   style = "margin-left: 2%;  margin-top:2%;" type="button" class="btn btn-default ">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+            </div>
+            <div class="panel panel-default constraintPanel " width="80%">
+               <div class="constrHead">
+                <div  class="btn-group">
+                      <button style = "margin-left: 200%" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                          Объект
+                          <span class="caret"></span>
+                        </button>
+                        <ul style = "margin-left: 170%" class="dropdown-menu">
+                          <li><a href="#">Пункт 1</a></li>
+                          <li><a href="#">Пункт 2</a></li>
+                          <li><a href="#">Пункт 3</a></li>
+                       </ul>
+                        </div>
+                        <div  class="btn-group">
+                      <button style = "margin-left: 300%" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                          Атрибут
+                          <span class="caret"></span>
+                        </button>
+                        <ul style = "margin-left: 170%" class="dropdown-menu">
+                          <li><a href="#">Пункт 1</a></li>
+                          <li><a href="#">Пункт 2</a></li>
+                          <li><a href="#">Пункт 3</a></li>
+                       </ul>
+                    </div>
+                    <div style="margin-left: 65%;border: none;">
+                    <button   type="button" class="btn btn-default btn-small ">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                                </div>
+                    </div>
+                    <div class="constrText">
+                    <div>
+                    Ограничение:
+                    </div>
+                    <div class="constraint">
+                    <textarea class="textareas" id="constrBox" cols="45" rows="5" ></textarea>
+                    </div>
+                    </div>
+            </div>
+
+
+
+            </div>
         </div>
 
     </div>
