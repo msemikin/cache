@@ -1,5 +1,5 @@
 var app = angular.module('cache');
-app.controller('UseCaseController',['$scope', function($scope){
+app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation){
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
         el: $('#functional-model'),
@@ -10,16 +10,11 @@ app.controller('UseCaseController',['$scope', function($scope){
     })
 
     var focused = undefined;
-    var linkmode = false;
-    var drag = undefined;
-	var link = undefined;
 
-	var dragAndDrop = {
-		active: false,
-		selector: undefined,
-		lastX: undefined,
-		lastY: undefined
-	};
+    linkManipulation(graph, paper);
+    dragAndDrop('.actor', '.functional-model', undefined, graph, diagram.actor);
+    dragAndDrop('.service', '.functional-model', undefined, graph, diagram.service);
+    
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
@@ -28,92 +23,6 @@ app.controller('UseCaseController',['$scope', function($scope){
         focused = cellView;
     });
 
-	
-	paper.on('cell:pointerclick',function(cellView, evt, x, y){
-		removeDrag();
-		if(cellView.model.prop('type') !== 'drag' && !linkmode){
-			var position = cellView.model.attributes.position;
-			var size = cellView.model.attributes.size;
-			var dragger = new joint.shapes.basic.Circle({
-				position: {
-					x:position.x + size.width + 5,
-					y:position.y + (size.height /2 - 5)
-				},
-				size: {
-					width: 10,
-					height: 10
-				}
-			});
-			dragger.prop('type', 'drag');
-			drag = dragger;		
-			graph.addCell(dragger);
-			focused = cellView;
-		}
-	});
-
-	paper.on('cell:pointerdown', function(cellView, evt, x, y){
-		if(cellView.model.prop('type') === 'drag' && !linkmode){
-			removeDrag();
-			linkmode = true;	
-			link = new joint.dia.Link({
-				source: {
-					id: focused.model.id
-				},
-				target: {
-					x: x,
-					y: y
-				},
-				attrs: {
-					'.connection': {
-					d: 'M 10 0 L 0 5 L 10 10 z'
-					}
-				},
-				/*labels: [ 
-					{ position: 15, attrs: { text: { text: '1' } }},
-					{ position: -15, attrs: { text: { text: '1' } }},
-				]*/
-			});
-			graph.addCell(link);
-		}
-	});
-
-	paper.on('cell:pointermove', function(cellView, evt, x, y){
-		if(linkmode){
-			link.set('target',{x:x, y:y});
-		}
-	});
-
-	paper.on('cell:pointerup', function(cellView, evt, x, y){
-		if(linkmode){
-			var elementBelow = graph.get('cells').find(function(cell) {
-				if (cell instanceof joint.dia.Link) return false; // Not interested in links.
-				if (cell.id === cellView.model.id) return false; // The same element as the dropped one.
-				if (cell.getBBox().containsPoint(g.point(x, y))) {
-					return true;
-				}
-				return false;
-			});
-			if (elementBelow && !_.contains(graph.getNeighbors(elementBelow), focused.model)) {
-				link.set('target', {id: elementBelow.id});
-			} else {
-				link.remove();		
-			}
-
-
-			linkmode = false;
-			link = undefined;
-			focused = undefined;
-		}
-	});
-
-	paper.on('blank:pointerclick', removeDrag);
-
-	function removeDrag(){
-		if(drag){
-			drag.remove();
-			drag = undefined;
-		}
-	}
     
     // for resizing
     /*    paper.on("cell:pointerdown", function (cellView, evt, x, y) {
@@ -138,71 +47,7 @@ app.controller('UseCaseController',['$scope', function($scope){
         }
     }
 
-    $('.actor').mousedown(function(eventData) {
-		var div = '<div class="transfer"></div>';
-		$('.functional-model').prepend(div);
-		var buttonPos = $(this).position();
-		$('.transfer').css({
-			top: buttonPos.top,
-			left: buttonPos.left
-		});
-		dragAndDrop.lastX = eventData.pageX;
-		dragAndDrop.lastY = eventData.pageY;
-		dragAndDrop.active = true;
-		dragAndDrop.selector = '.transfer';
-	});
-	$('.functional-model').mousemove(function(eventData){
-		if(dragAndDrop.active){
-			var deltaX = eventData.pageX - dragAndDrop.lastX
-			var deltaY = eventData.pageY - dragAndDrop.lastY
-			$(dragAndDrop.selector).css('top', '+='+deltaY);
-			$(dragAndDrop.selector).css('left', '+='+deltaX);
-			dragAndDrop.lastX = eventData.pageX;
-			dragAndDrop.lastY = eventData.pageY;
-		}
-	});
-	$('.functional-model').mouseup(function(eventData) {
-		if(dragAndDrop.active){
-			var dragger = $(dragAndDrop.selector);
-			var ell = new joint.shapes.basic.Circle({
-				position: {
-					x: parseInt(dragger.css('left')),
-					y: parseInt(dragger.css('top')) - 120
-				},
-				size: {
-					width: 40,
-					height: 40
-				}
-			})
-			ell.attr({
-				text: {
-					text: 'Empty'
-				}
-			});
-
-			graph.addCell(ell);
-			dragAndDrop.active = false;
-			dragger.remove();
-		}
-    });
-
-
     $scope.initService = function() {
-        var circle = new joint.shapes.basic.Circle({
-            position: {
-                x: 100,
-                y: 100
-            },
-            size: {
-                width: 100,
-                height: 40
-            }
-        })
-        circle.attr({
-            text: {
-                text: 'Empty'
-            }
-        });
         graph.addCell(circle);
     };
 
@@ -220,7 +65,6 @@ app.controller('UseCaseController',['$scope', function($scope){
         $scope.optionsShow = false;
         focused.remove();
 		focused = undefined;
-		removeDrag();
     }
 
     $scope.renameValue = undefined;
@@ -240,9 +84,9 @@ app.controller('UseCaseController',['$scope', function($scope){
                 text: $scope.renameValue
             }
         });
-	focused.model.resize(width, 40);
-
+		focused.model.resize(width, 40);
     };
+
     $scope.cancelChange = function() {
         $scope.renameShow = false;
     };

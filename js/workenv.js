@@ -15,7 +15,7 @@ window.onload = function () {
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
-	if (userId != "") {
+/*	if (userId != "") {
 	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
 		var obj = JSON.parse(data);
 		if (obj.children.length !=0) {
@@ -29,7 +29,7 @@ window.onload = function () {
 	}
 	else {
 		window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
-	}
+	}*/
 		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
