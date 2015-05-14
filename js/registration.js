@@ -27,7 +27,7 @@ function ctrl($scope,$http) {
     $scope.create = function (company){
        $http.post("http://localhost:57772/csp/rest/json/company",company)
        .success(function(data){$scope.getCompanies();window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
-	   }).error(function(data,status){window.alert(status + "HUY");window.alert(data);
+	   }).error(function(data,status){window.alert(status);window.alert(data);
         $scope.alertzone="["+status+"] Ошибка добавления компании :( ["+data+"]"; });
     }
 

@@ -2,6 +2,8 @@
 var objects = new Array();
 var listObjLen = objects.length;
 var objSt = new Array();
+var app = angular.module("cache", []);
+
 
 
 function addObj(textExt)
@@ -14,6 +16,7 @@ function addObj(textExt)
         select.options[select.options.length] = new Option(text);
         var attributes = new Array();
         var obj = {
+			
             name: text,
             attr: attributes
         }
@@ -85,6 +88,32 @@ function cleanTextBox(name)
     textBox.value = "";
 }
 
+app.controller("ctrl", function ($scope,$http) {
+	
+	$scope.fillObject = function(objName,text) {
+		$scope.objName = { 
+			name :text
+		}
+	};
+		
+	$scope.create = function (objName){
+		addObj();
+		var text = document.getElementById("wordTextBox").value;
+		//$scope.fillObject(objName,text);
+		//var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
+		//$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
+	}; 
+	$scope.sendEverything = function () {
+		objects.forEach(function(item, i, arr) {
+			$scope.objec = {
+				name:item.name,
+				attribute:item.attr
+			}
+			objName = $scope.objec;
+			$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+		});
+	}
+});
 
 
 

@@ -18,10 +18,10 @@
     <script src="../js/snap.svg.js" type="text/javascript"></script>
     <script src="../js/jdoc.0.5.2.js" type="text/javascript"></script>
     <script src="../js/workenv.js" type="text/javascript"></script>
-    <script src="../js/concept.js" type="text/javascript"></script>
     <script src="../js/app.js" type="text/javascript"></script>
     <script src="../js/draw.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/concept.js" type="text/javascript"></script>
 
     <script src="../js/controllers/er-controller.js" type="text/javascript"></script>
     <script src="../js/controllers/object-diagram-controller.js "></script>
@@ -105,13 +105,13 @@
                     </div>
 
                 </div>
-                    <div class="gorizont">
-                    <div class="inputs panel panel-default">
+                    <div class="gorizont"  ng-controller="ctrl">
+                    <div class="inputs panel panel-default"  ng-model="company">
                        <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
-                        <textarea class="textareas" id="wordTextBox" cols="25" rows="1" ></textarea>
+                        <textarea class="textareas" id="wordTextBox" cols="25" rows="1" ng-model="objec.name"></textarea>
                         </div>
                         <div style="padding:0;" class="panel-body">
-                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" onclick="addObj();">
+                        <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" ng-click="create(objec)"; objec='';>
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
@@ -440,7 +440,7 @@
     </div>
 
     <!-- Footer -->
-    <div class="footerDiv">
+    <div class="footerDiv" ng-controller ="ctrl">
         <div class="file_upload">
             <button id="loadFile" class="openbutton">
                 <font class="sender">ВЫБРАТЬ</font>
@@ -448,7 +448,7 @@
             <div>Файл не выбран</div>
             <input id="file-field" type="file">
         </div>
-        <button class="sendButton-nonactive">
+        <button class="sendButton-nonactive" ng-click="sendEverything()";>
             <font class="sender">ОТПРАВИТЬ</font>
         </button>
     </div>
