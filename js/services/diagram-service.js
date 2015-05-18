@@ -1,4 +1,10 @@
+var diagrams = {
+	useCase: undefined,
+	ER: undefined,
+	objectRelation: undefined
+};
 var app = angular.module('cache');
+
 app.service('diagramService', [function(){
 	
 	var self = {};	
@@ -24,6 +30,5 @@ app.service('diagramService', [function(){
 	    text: 'Service'
 	}
     });
-
 	return self;
 }]);
