@@ -3,7 +3,9 @@ var objects = new Array();
 var listObjLen = objects.length;
 var objSt = new Array();
 var app = angular.module("cache", []);
-
+var changingAttribute = new Array();
+var objIndex = 0;
+var attrIndex = 0;
 
 
 function addObj(textExt)
@@ -16,7 +18,6 @@ function addObj(textExt)
         select.options[select.options.length] = new Option(text);
         var attributes = new Array();
         var obj = {
-			
             name: text,
             attr: attributes
         }
@@ -29,7 +30,7 @@ function addObj(textExt)
 
 function addAttr(textExt)
 {
-    var objIndex = document.getElementById("List1").selectedIndex;
+    objIndex = document.getElementById("List1").selectedIndex;
     if(objIndex == -1) alert('Выберите объект!');
 
     if (textExt == null) var attr_pre = document.getElementById("attrBox").value;
@@ -39,9 +40,15 @@ function addAttr(textExt)
     var obj = objects[objIndex];
     if (attrtext.length != 0 && attrtext.length != 1) {
         obj.attr.push(attrtext);
+		changingAttribute.push(attrtext);
+		
     }
     refreshAttr();
     cleanTextBox('attrBox');
+	var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.updateObject();
+			});
 }
 
 function refreshAttr() {
@@ -58,8 +65,7 @@ function refreshAttr() {
 
 function deleteObject()
 {
-    var select = document.getElementById("List1");
-    var objIndex = select.selectedIndex;
+	var select = document.getElementById("List1");
     var delIn = objSt.indexOf(select[objIndex].text);
     if (delIn > -1) objSt.splice(delIn,1);
     objects.splice(objIndex,1);
@@ -70,10 +76,12 @@ function deleteObject()
 function deleteAttribute()
 {
     var select = document.getElementById("List2");
-    var objIndex = document.getElementById("List1").selectedIndex;
-    var attrIndex = document.getElementById("List2").selectedIndex;
+	objIndex = select.selectedIndex;
+    objIndex = document.getElementById("List1").selectedIndex;
+    attrIndex = document.getElementById("List2").selectedIndex;
     select[attrIndex].remove();
     objects[objIndex].attr.splice(attrIndex,1);
+	angular.element($("#gor")).scope().updateObject();
 }
 
 function clean(list)
@@ -98,11 +106,44 @@ app.controller("ctrl", function ($scope,$http) {
 		
 	$scope.create = function (objName){
 		addObj();
-		var text = document.getElementById("wordTextBox").value;
-		//$scope.fillObject(objName,text);
+		$scope.objec = objects[objects.length-1];
+		objName= $scope.objec;
 		//var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
-		//$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
-	}; 
+		$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
+	};
+	
+	$scope.deleteObject = function (){
+		var select = document.getElementById("List1");
+		objIndex = select.selectedIndex;
+		objects.forEach(function(item, i, arr) {
+			if (i == objIndex) {
+				$scope.objec = {
+					name:item.name,
+					attribute:item.attr
+				}
+				objName = $scope.objec;
+				$http.delete("http://localhost:57772/csp/rest/json/object/"+objName.name)
+				.success(function (data){console.log(" Удалили объект"+objName.name);})
+				.error(function (data) {console.log(data);console.log("Ошибка удаления компании");}); 
+			}
+		});
+		deleteObject();
+	}
+	$scope.updateObject = function() {
+		objects.forEach(function(item, i, arr) {
+			if (i == objIndex) {
+				$scope.objec = {
+					name:item.name,
+					attribute:item.attr
+				}
+				objName = $scope.objec;
+				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
+				.success(function (data){console.log("Добавили объект"+objName.name);})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+			}
+		});
+	}
+	
 	$scope.sendEverything = function () {
 		objects.forEach(function(item, i, arr) {
 			$scope.objec = {
@@ -110,7 +151,9 @@ app.controller("ctrl", function ($scope,$http) {
 				attribute:item.attr
 			}
 			objName = $scope.objec;
-			$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+			$http.post("http://localhost:57772/csp/rest/json/object",objName)
+			.success(function (data){console.log("Добавили объект"+objName.name);})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 		});
 	}
 });

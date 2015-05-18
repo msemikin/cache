@@ -111,7 +111,11 @@ window.onload = function () {
     $(function(){
         $("#List1").bind("dblclick", function(){
             var element = $("#List1 option:selected");
-            deleteObject();
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.deleteObject();
+			});
+            //deleteObject();
             clean('List2');
         });
     });
