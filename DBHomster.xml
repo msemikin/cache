@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-18 22:39:18">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-19 01:15:33">
 <Class name="DBHomster.Actor">
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
 <TimeChanged>63601,62868.479472</TimeChanged>
@@ -101,7 +101,7 @@
 
 <Class name="DBHomster.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>63690,64308.418557</TimeChanged>
+<TimeChanged>63691,3395.947921</TimeChanged>
 <TimeCreated>63636,81373.988526</TimeCreated>
 
 <XData name="UrlMap">
@@ -117,6 +117,7 @@
  <Route Url="/json/object/:name" Method="DELETE" Call="DBHomster.JSON:DeleteObject"/>
  <Route Url="/json/company/:compid" Method="PUT" Call="DBHomster.JSON:UpdateCompany"/>
  <Route Url="/json/object/:name" Method="PUT" Call="DBHomster.JSON:UpdateObject"/>
+ <Route Url="/json/diagrams" Method="POST" Call="DBHomster.JSON:InsertDiagrams"/>
  </Routes>
 ]]></Data>
 </XData>
@@ -211,6 +212,51 @@
 </Value>
 <Value name="4">
 <Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Diagrams">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>63691,3325.537017</TimeChanged>
+<TimeCreated>63691,3236.156137</TimeCreated>
+
+<Property name="useCase">
+<Type>%String</Type>
+</Property>
+
+<Property name="ER">
+<Type>%String</Type>
+</Property>
+
+<Property name="objectRelation">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.DiagramsD</DataLocation>
+<DefaultData>DiagramsDefaultData</DefaultData>
+<IdLocation>^DBHomster.DiagramsD</IdLocation>
+<IndexLocation>^DBHomster.DiagramsI</IndexLocation>
+<StreamLocation>^DBHomster.DiagramsS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="DiagramsDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>useCase</Value>
+</Value>
+<Value name="3">
+<Value>ER</Value>
+</Value>
+<Value name="4">
+<Value>objectRelation</Value>
 </Value>
 </Data>
 </Storage>
@@ -595,7 +641,7 @@
 
 <Class name="DBHomster.JSON">
 <Super>%Base</Super>
-<TimeChanged>63690,64333.993738</TimeChanged>
+<TimeChanged>63691,3551.933978</TimeChanged>
 <TimeCreated>63636,83070.113987</TimeCreated>
 
 <Method name="GetAllCompanies">
@@ -758,7 +804,6 @@
 <Implementation><![CDATA[
    s st=$$$OK
     try {
-    // Берём JSON из запроса и конвертируем в объект класса User
     $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Obj",.obj,1))
     $$$THROWONERROR(st,obj.%Save())
     } 
@@ -779,10 +824,8 @@
    SET myName = name
    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
    ##sql(SELECT Id INTO :count1 FROM DBHomster.Obj WHERE name = :myName)
-   // Открываем объект, который хотим отредакнировать
    set comp=##class(DBHomster.Obj).%OpenId(count1)
    throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
-    // Редактируем и сохраняем
    set comp.name=obj.name
    set comp.attribute=obj.attribute
    $$$THROWONERROR(st,comp.%Save())
@@ -805,6 +848,22 @@
 	     ##sql(SELECT Id INTO :count1 FROM DBHomster.Obj WHERE name = :myName)
         $$$THROWONERROR(st,##class(DBHomster.Obj).%DeleteId(count1))
     } catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="InsertDiagrams">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   s st=$$$OK
+    try {
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Diagrams",.obj,1))
+    $$$THROWONERROR(st,obj.%Save())
+    } 
+    catch ex {
         s st=ex.AsStatus()
     }
     quit st
