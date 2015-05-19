@@ -6,6 +6,7 @@ var canvas;
 var index;
 var userId ="";
 var user;
+var objContainers;
 
 
 window.onload = function () {
@@ -15,6 +16,7 @@ window.onload = function () {
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
+    objContainers = document.getElementsByName("objContainer");
 /*	if (userId != "") {
 	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
 		var obj = JSON.parse(data);
@@ -39,6 +41,7 @@ window.onload = function () {
         if (i != 0) {
             contentDivs[i].style.visibility = "hidden";
             bordWhite.style.visibility = "hidden";
+            objContainers[i].style.visibility = "hidden";
         }
         tabs[i].appendChild(bordWhite);
     }
@@ -277,8 +280,8 @@ window.onload = function () {
 function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
-           // if(j == 1) getList();
             tabs[j].setAttribute("class", "chosenTab");
+            objContainers[j].style.visibility = "visible";
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");
             for (var t = 0; t < tabs[j].childNodes.length; t++) {
@@ -291,6 +294,7 @@ function changeTab() {
         else {
             tabs[j].setAttribute("class", "tab");
             contentDivs[j].style.visibility = "hidden";
+            objContainers[j].style.visibility = "hidden";
             for (var q = 0; q < tabs[j].childNodes.length; q++) {
                 if (tabs[j].childNodes[q].className == "bottomWhite") {
                     tabs[j].childNodes[q].style.visibility = "hidden";
@@ -357,15 +361,3 @@ for (var i = 0; i < Params.length; i++) // просматриваем весь �
    }
    return "";
 }
-
-// Печать результата
-
-//отображение спика объектов во второй вкладке
-/*function getList() {
-    var sel = document.getElementById("List3");
-    sel.innerHTML = "";
-    for (z = 0; z < objSt.length; z++){
-        sel.options[z] = new Option(objSt[z]);
-    }
-}*/
-
