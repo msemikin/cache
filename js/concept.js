@@ -99,20 +99,31 @@ function cleanTextBox(name)
     textBox.value = "";
 }
 
+function setERDiagramm (name,value) {
+	var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.setERDiagr(name,value);
+			});
+}
+
+function setRelDiagramm (name,value) {
+	var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.setRelDiagram(name,value);
+			});
+}
+
 app.controller("ctrl", function ($scope,$http) {
 	
-	$scope.fillObject = function(objName,text) {
-		$scope.objName = { 
-			name :text
-		}
-	};
 		
 	$scope.create = function (objName){
 		addObj();
 		$scope.objec = objects[objects.length-1];
 		objName= $scope.objec;
 		//var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
-		$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
+		$http.post("http://localhost:57772/csp/rest/json/object",objName)
+		.success(function (data){console.log("Добавили объект"+objName.name);})
+		.error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
 	};
 	
 	$scope.deleteObject = function (){
@@ -137,7 +148,9 @@ app.controller("ctrl", function ($scope,$http) {
 			if (i == objIndex) {
 				$scope.objec = {
 					name:item.name,
-					attribute:item.attr
+					attribute:item.attr,
+					isOnRelDiagram: item.isOnRelDiagram,
+					isOnER: item.isOnER
 				}
 				objName = $scope.objec;
 				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
@@ -168,6 +181,38 @@ app.controller("ctrl", function ($scope,$http) {
 			.success(function (data){console.log("Добавили диаграммы");})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления диаграммы");});
 	}
+	
+	$scope.setERDiagr(objectName, value) {
+		objects.forEach(function(item, i, arr) {
+			if (item.name == objName) {
+				$scope.objec = {
+					name:item.name,
+					attribute:item.attr,
+					isOnRelDiagram: value,
+					isOnER: item.isOnER
+				}
+				objName = $scope.objec;
+				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
+				.success(function (data){console.log("Добавили объект"+objName.name);})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+			}
+		});
+	}
+	$scope.setRelDiagram(objectName, value) {
+		objects.forEach(function(item, i, arr) {
+			if (item.name == objName) {
+				$scope.objec = {
+					name:item.name,
+					attribute:item.attr,
+					isOnRelDiagram: item.isOnRelDiagram,
+					isOnER: value
+				}
+				objName = $scope.objec;
+				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
+				.success(function (data){console.log("Добавили объект"+objName.name);})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+			}
+		});
 });
 
 
