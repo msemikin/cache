@@ -1,7 +1,6 @@
 //создавать селект в яваскрипте
 var objects = new Array();
 var listObjLen = objects.length;
-var objSt = new Array();
 var app = angular.module("cache", []);
 var changingAttribute = new Array();
 var objIndex = 0;
@@ -15,16 +14,20 @@ function addObj(textExt)
     var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
     if (text.length != 0 && text.length != 1) {
         var select = document.getElementById("List1");
+        var relSelect = document.getElementById("relationList");
+        var erSelect = document.getElementById("erObjList");
         select.options[select.options.length] = new Option(text);
+        relSelect.options[select.options.length] = new Option(text);
+        erSelect.options[select.options.length] = new Option(text);
         var attributes = new Array();
         var obj = {
             name: text,
-            attr: attributes
+            attr: attributes,
+            isOnRelDiagram: false,
+            isOnER: false
         }
         objects.push(obj);
-        objSt.push(text);
     }
-
     cleanTextBox('wordTextBox');
 }
 
