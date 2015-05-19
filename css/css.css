@@ -292,3 +292,24 @@ input, textarea, button {
     left: 4%;
     border: 2px solid #ac4;
 }
+
+
+
+.constrText {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+}
+
+.constraintPanel {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    margin-bottom: %;
+}
+
+/*#constrBox {
+    border-color: #c0c0c0;
+}*/
+
+
