@@ -13,6 +13,8 @@ app.controller("ERController", function ($scope) {
         model: graph
     });
 
+    diagrams.ER = graph;
+
     var focused = undefined;
 
     // dbl-click

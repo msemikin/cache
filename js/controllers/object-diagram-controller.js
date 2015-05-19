@@ -9,6 +9,8 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
 		width: '100%',
 		height: 600,
     })
+
+    diagrams.objectRelation = graph;
     
 
     var focused = undefined;
