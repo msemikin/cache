@@ -210,7 +210,7 @@ input, textarea, button {
 .objects-attr-container {
     position: absolute;
     padding:0px;
-    margin-top: 25.8%;
+    margin-top: 27%;
     width: 40%;
     height: 36%;
     float:left;
@@ -306,6 +306,10 @@ input, textarea, button {
     margin-right: 10%;
     margin-top: 2%;
     margin-bottom: %;
+}
+
+.objects-attr-list{
+    height:61%!important;
 }
 
 /*#constrBox {
