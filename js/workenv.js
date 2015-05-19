@@ -38,6 +38,7 @@ window.onload = function () {
         var bordWhite = document.createElement('div');
         bordWhite.className = "bottomWhite";
         contentDivs[i].className = "contentDiv";
+        objContainers[i].className = "objects-attr-container";
         if (i != 0) {
             contentDivs[i].style.visibility = "hidden";
             bordWhite.style.visibility = "hidden";

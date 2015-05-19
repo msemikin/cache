@@ -79,7 +79,7 @@
         </div>
         <div>
             <div id="pages-container" class="pages-container"></div>
-            <div id="objects-attribute-container" class="objects-attr-container" name="objContainer">
+            <div id="objects-attribute-container" name="objContainer">
                 <div class="gorizont">
                     <div class="selects panel panel-default">
                     <!--<div class="panel-heading">
@@ -117,12 +117,12 @@
                     </div>
                 </div>
             </div>
-            <div id="relation-obj-container" class="objects-attr-container"  name="objContainer">
+            <div id="relation-obj-container"  name="objContainer">
                 <div class="gorizont">
                     <div class="selects panel panel-default">
-                        <div class="panel-heading">
+                    <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
-                        </div>
+                        </div>-->
                         <div class="panel-body">
                             <select class="list" size="5" id="relationList" onclick=""></select>
                         </div>
@@ -139,22 +139,57 @@
                     </div>
                 </div>
             </div>
-            <div id="er-obj-container" class="objects-attr-container"  name="objContainer">
+            <div id="er-obj-container"  name="objContainer">
+                <div class="gorizont">
+                    <div class="selects panel panel-default">
+                    <!--<div class="panel-heading">
+                            <h3 class="panel-title">Объекты</h3>
+                        </div>-->
+                        <div class="panel-body">
+                            <select class="list" size="5" id="erObjList" onclick=""></select>
+                        </div>
+                    </div>
+                    <div class="selects panel panel-default">
+                    <!--<div class="panel-heading">
+                            <h3 class="panel-title">Атрибуты</h3>
+                        </div>-->
+                        <div class="panel-body">
+                            <select class="list" size="5" id="erAttrList"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="gorizont" id ="gor" ng-controller="ctrl">
+                    <div class="inputs panel panel-default"  ng-model="company">
+                        <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
+                            <textarea class="textareas" id="objInpER" cols="25" rows="1" ng-model=""></textarea>
+                        </div>
+                        <div style="padding:0;" class="panel-body">
+                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Объект" ng-click="">
+                        </div>
+                    </div>
+                    <div class="inputs panel panel-default">
+                        <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
+                            <textarea class="textareas" id="attrInpER" cols="25" rows="1" ></textarea>
+                        </div>
+                        <div style="padding:0;" class="panel-body">
+                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Атрибут" onclick = "">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ip-obj-container" name="objContainer">
 
             </div>
-            <div id="ip-obj-container" class="objects-attr-container"  name="objContainer">
+            <div id="statistic-obj-container" name="objContainer">
 
             </div>
-            <div id="statistic-obj-container" class="objects-attr-container"  name="objContainer">
+            <div id="otchet-obj-container" name="objContainer">
 
             </div>
-            <div id="otchet-obj-container" class="objects-attr-container"  name="objContainer">
+            <div id="az-obj-container" name="objContainer">
 
             </div>
-            <div id="az-obj-container" class="objects-attr-container"  name="objContainer">
-
-            </div>
-            <div id="oc-obj-container" class="objects-attr-container"  name="objContainer">
+            <div id="oc-obj-container" name="objContainer">
 
             </div>
         </div>
