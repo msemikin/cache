@@ -156,6 +156,15 @@ app.controller("ctrl", function ($scope,$http) {
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 		});
 	}
+	
+	$scope.saveDiagrams = function(diagrams) {
+		$scope.objec = undefined;
+		$scope.objec = JSON.stringify(diagrams);
+		objName = $scope.objec;
+			$http.post("http://localhost:57772/csp/rest/json/diagrams",objName)
+			.success(function (data){console.log("Добавили диаграммы");})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления диаграммы");});
+	}
 });
 
 
