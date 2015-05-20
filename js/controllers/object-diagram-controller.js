@@ -20,10 +20,16 @@ app.controller("ObjectDiagramController",['$scope', 'diagramService', 'dragAndDr
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
         if(cellView.model.attributes.type === 'link'){
-            console.log(cellView.model.attributes);	
+            var vertices = cellView.model.get('vertices').reverse().slice(1);
+            for(var i = 0; i < vertices.length; i++){
+                if(vertices[i].x == x && vertices[i].y == y){
+                    vertices.splice(i,1);
+                }
+            }
+            cellView.model.set('vertices', vertices);
             $scope.linkLabel = cellView.model.attributes.labels[0].attrs.text.text;
 			focused = cellView;
-            $scope.openLinkOptions();            
+            $scope.openLinkOptions();           
         } // clicked on object
         else {
             $scope.renameValue = cellView.model.attributes.attrs.text.text;

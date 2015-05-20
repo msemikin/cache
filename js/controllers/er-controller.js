@@ -26,8 +26,14 @@ app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService'
     paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
         // clicked on link
         if(cellView.model.attributes.type === 'link'){
-            console.log(cellView.model.attributes);	
-	    $scope.linkLabels = {};
+            var vertices = cellView.model.get('vertices').reverse().slice(1);
+            for(var i = 0; i < vertices.length; i++){
+                if(vertices[i].x == x && vertices[i].y == y){
+                    vertices.splice(i,1);
+                }
+            }
+            cellView.model.set('vertices', vertices);
+	        $scope.linkLabels = {};
             $scope.linkLabels.first = cellView.model.attributes.labels[0].attrs.text.text;
             $scope.linkLabels.second = cellView.model.attributes.labels[2].attrs.text.text;
 	    focused = cellView;

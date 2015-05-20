@@ -21,6 +21,13 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
         if(cellView.model.attributes.type === 'link'){
             $scope.openLinkOptions();            
+            var vertices = cellView.model.get('vertices').reverse().slice(1);
+            for(var i = 0; i < vertices.length; i++){
+                if(vertices[i].x == x && vertices[i].y == y){
+                    vertices.splice(i,1);
+                }
+            }
+            cellView.model.set('vertices', vertices);
         } // clicked on object
         else {
             $scope.renameValue = cellView.model.attributes.attrs.text.text;
