@@ -1,6 +1,6 @@
 var app = angular.module("cache");
 
-app.controller("ObjectDiagramController",['$scope', function($scope) {
+app.controller("ObjectDiagramController",['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation){
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
 		el: $('#object-relation-model'),
@@ -12,6 +12,8 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
 
     diagrams.objectRelation = graph;
     
+    linkManipulation(graph, paper);
+    dragAndDrop('.object', '.object-relation-model', undefined, graph, diagram.object);
 
     var focused = undefined;
 
@@ -28,134 +30,22 @@ app.controller("ObjectDiagramController",['$scope', function($scope) {
             $scope.openObjectOptions();
         }
         focused = cellView;
-    });
-
-    paper.on('cell:pointerup', function(cellView, evt, x, y) {
-        // Find the first element below that is not a link nor the dragged element itself.
-        var elementBelow = graph.get('cells').find(function(cell) {
-        if (cell instanceof joint.dia.Link) return false; // Not interested in links.
-        if (cell.id === cellView.model.id) return false; // The same element as the dropped one.
-        if (cell.getBBox().containsPoint(g.point(x, y))) {
-            return true;
-        }
         return false;
-        });
-
-        // If the two elements are connected already, don't
-        // connect them again (this is application specific though).
-        if (elementBelow && !_.contains(graph.getNeighbors(elementBelow), cellView.model)) {
-
-        graph.addCell(new joint.dia.Link({
-            source: {
-            id: cellView.model.id
-            },
-            target: {
-            id: elementBelow.id
-            },
-            attrs: {
-            '.marker-source': {
-                d: 'M 10 0 L 0 5 L 10 10 z'
-            },
-            },
-            labels: [
-            { position: .5, attrs: { text: { text: 'label' } } }
-            ]
-        }));
-        // Move the element a bit to the side.
-        cellView.model.translate(100, 100);
-        }
     });
     
-    // for resizing
-    /*    paper.on("cell:pointerdown", function (cellView, evt, x, y) {
-            console.log(x + ", " + y);
-            var figpos = cellView.model.attributes.position;
-            var figsize = cellView.model.attributes.attrs.rect;
-            console.log(cellView.model.attributes.attrs.text);
-            console.log(isOnBorder(figpos.x, figpos.y, figsize.width, figsize.height, x, y));
-        });
-    */
-
-    function isOnBorder(figx, figy, figwidth, figheight, curx, cury) {
-        console.log(figheight);
-        if (Math.abs(figx - curx) < 10) {
-            return "left";
-        } else if (Math.abs(figy - cury) < 10) {
-            return "top";
-        } else if (Math.abs((curx - figx) - figwidth) < 10) {
-            return "right";
-        } else if (Math.abs((cury - figy) - figheight) < 10) {
-            return "bottom";
-        }
-    }
-
-    $scope.initActor = function() {
-        var ell = new joint.shapes.basic.Circle({
-            position: {
-                x: 100,
-                y: 100
-            },
-            size: {
-                width: 100,
-                height: 40
-            }
-        })
-        ell.attr({
-            text: {
-                text: 'Empty'
-            }
-        });
-        graph.addCell(ell);
-    };
-    $scope.initService = function() {
-        var rect = new joint.shapes.basic.Circle({
-            position: {
-                x: 100,
-                y: 100
-            },
-            size: {
-                width: 100,
-                height: 40
-            }
-        })
-        rect.attr({
-            text: {
-                text: 'Empty'
-            }
-        });
-        graph.addCell(rect);
-    };
-    $scope.initObject = function() {
-        var ellipse  = new joint.shapes.basic.Circle({
-            position: {
-                x: 100,
-                y: 100
-            },
-            size: {
-                width: 100,
-                height: 40
-            }
-        })
-        ellipse.attr({
-            text: {
-                text: 'Empty'
-            }
-        });
-        graph.addCell(ellipse);
-    };
+    
 	// link options	
     $scope.linkLabel = undefined;
     $scope.linkOptionsShow = false;
 
     $scope.openLinkOptions = function(){
-        console.log(this.linkLabel);
         $scope.$apply(function(){
             $scope.linkOptionsShow = true;
         });
     };
 
     $scope.submitLinkChange = function(){
-		focused.model.label(0, {attrs:{text: {text:this.linkLabel}}});
+		focused.model.label(1, {attrs:{text: {text:this.linkLabel}}});
 		$scope.linkOptionsShow = false;
 	};
     $scope.cancelLinkChange = function(){

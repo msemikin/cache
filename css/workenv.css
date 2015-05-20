@@ -3,8 +3,21 @@
 .selects {
     display: flex;
     flex-direction: column;
-    width: 300px;
-    margin:auto;
+    width: 49%;
+    margin:0;
+}
+
+.selects.full {
+    width: 100%;
+    margin-right: 0px !important;
+}
+
+.selects.panel {
+    margin-bottom: 0px;
+}
+
+.selects:first-child {
+    margin-right: 2%;
 }
 
 .gorizont {
@@ -12,14 +25,50 @@
     flex-direction: row;
     width: auto;
     margin: auto;
+    background-color: white;
+    padding: 10px;
 }
 
 .inputs {
     display: flex;
     flex-direction: row;
-    width: 300px;
+    width: 49%;
     margin: auto;
 }
+
+.inputs.full {
+    width: 100%;
+    margin-right: 0px !important;
+}
+
+.input-wrap {
+    min-width: 85px;
+}
+
+.inputs input {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: none;
+    border-right: none;
+    box-sizing: border-box;
+}
+
+.inputs .full input {
+    
+}
+
+.inputs:first-child {
+    margin-right: 2%;
+}
+
+.obj-input {
+    min-width: 60px;
+}
+
+.attr-input {
+    min-width: 70px;
+}
+
 .textareas {
     resize: none;
     otline: none;

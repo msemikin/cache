@@ -103,23 +103,23 @@
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="wordTextBox" cols="25" rows="1" ng-model="objec.name"></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" ng-click="create(objec)"; objec='';>
+                        <div style="padding:0;" class="panel-body  obj-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" ng-click="create(objec)"; objec='';>
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="attrBox" cols="25" rows="1" ></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick = "addAttr()">
+                        <div style="padding:0;" class="panel-body  attr-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick = "addAttr()">
                         </div>
                     </div>
                 </div>
             </div>
             <div id="relation-obj-container"  name="objContainer">
                 <div class="gorizont">
-                    <div class="selects panel panel-default">
+                    <div class="selects full  panel panel-default">
                     <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
@@ -129,12 +129,12 @@
                     </div>
                 </div>
                 <div class="gorizont">
-                    <div class="inputs panel panel-default">
-                        <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
+                    <div class="inputs full panel panel-default">
+                        <div style="background-color: #fff; padding: 0; float:left; flex-grow: 1;" class="panel-heading">
                             <textarea class="textareas" id="relationTextBox" cols="25" rows="1" ></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Добавить" onclick="">
+                        <div style="padding:0;" class="panel-body input-wrap">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default full" value="Добавить" onclick="">
                         </div>
                     </div>
                 </div>
@@ -161,18 +161,18 @@
                 <div class="gorizont" id ="gor" ng-controller="ctrl">
                     <div class="inputs panel panel-default"  ng-model="company">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
-                            <textarea class="textareas" id="objInpER" cols="25" rows="1" ng-model=""></textarea>
+                            <textarea class="textareas" id="objInpER" cols="25" rows="1"></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Объект" ng-click="">
+                        <div style="padding:0;" class="panel-body  obj-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="Объект" ng-click="">
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="attrInpER" cols="25" rows="1" ></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Атрибут" onclick = "">
+                        <div style="padding:0;" class="panel-body attr-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="Атрибут" onclick = "">
                         </div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@
 		   </div>
 		    <div id="functional-model" class="panel-body" ng-click="closeOptions()">
 			</div>
-		    <div class="dialog panel options panel-default" ng-show="optionsShow">
+		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
 				<div class="list-group">
 					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
 					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
@@ -219,9 +219,33 @@
 					<input type="text" ng-model="renameValue" class="form-control" />
 				</div>
 				<div class="panel-footer">
-					<input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
-					<input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
+					<input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
+					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
 				</div>
+		    </div>
+            <div class="dialog panel options panel-default" ng-show="linkOptionsShow">
+				<div class="list-group">
+					<a href="#" class="list-group-item" ng-click="changeLink()">Изменить отношение</a>
+					<a href="#" class="list-group-item" ng-click="reverseLink()">Развернуть</a>
+				</div>
+		    </div>
+            <div class="dialog panel panel-default" ng-show="linkChangeShow">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Изменение связи</h3>
+                </div>
+                <div class="panel-body">
+                    <select ng-model="linkType" class="form-control" />
+				        <option>Extend</option>
+				        <option>Include</option>
+                        <option>Association</option>
+			         </select>
+                
+                    <input class="form-control" value="Reverse">
+                </div>
+                <div class="panel-footer">
+                    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+                    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
+                </div>
 		    </div>
 		</div>
 	   </div>
@@ -231,7 +255,7 @@
 				<h3 class="panel-title">Взаимодействия объектов</h3>
 		    </div>
 		    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
+				<input type="button" value="Объект" class="btn btn-default object">
 		    </div>
 		    <div id="object-relation-model" class="panel-body" ng-click="closeObjectOptions()">
 		    </div>
@@ -253,17 +277,17 @@
 					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
 				</div>
 		    </div>
-		    <div class="dialog change-link panel panel-default" ng-show="linkOptionsShow">
-			<div class="panel-heading">
-			    <h3 class="panel-title">Изменение отношения</h3>
-			</div>
-			<div class="panel-body">
-				<input type="text" ng-model="linkLabel" class='form-control' />
-			</div>
-			<div class="panel-footer">
-			    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
-			    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
-			</div>
+		    <div class="dialog panel panel-default" ng-show="linkOptionsShow">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Изменение связи</h3>
+                </div>
+                <div class="panel-body">
+                    <input type="text" ng-model="linkLabel" class='form-control' />
+                </div>
+                <div class="panel-footer">
+                    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+                    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
+                </div>
 		    </div>
 		</div>
     </div>
@@ -273,9 +297,9 @@
 				<h3 class="panel-title">ER диаграмма</h3>
 		    </div>
 		    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initEntity()" value="Сущность" class="btn btn-default">
-				<input type="button" ng-click="initAttribute()" value="Атрибут" class="btn btn-default">
-				<input type="button" ng-click="initAssociation()" value="Ассоциация" class="btn btn-default">
+				<input type="button" value="Сущность" class="btn btn-default entity">
+				<input type="button" value="Атрибут" class="btn btn-default attribute">
+				<input type="button" value="Ассоциация" class="btn btn-default association">
 		    </div>
 		    <div id="er-model" class="panel-body" ng-click="closeObjectOptions()"></div>
 		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">

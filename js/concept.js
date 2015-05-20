@@ -1,7 +1,7 @@
 //создавать селект в яваскрипте
 var objects = new Array();
 var listObjLen = objects.length;
-var app = angular.module("cache", []);
+var app = angular.module("cache");
 var changingAttribute = new Array();
 var objIndex = 0;
 var attrIndex = 0;
@@ -182,7 +182,7 @@ app.controller("ctrl", function ($scope,$http) {
 			.error(function (data) {console.log(data);console.log("Ошибка добавления диаграммы");});
 	}
 	
-	$scope.setERDiagr(objectName, value) {
+	$scope.setERDiagr = function(objectName, value) {
 		objects.forEach(function(item, i, arr) {
 			if (item.name == objName) {
 				$scope.objec = {
@@ -198,7 +198,7 @@ app.controller("ctrl", function ($scope,$http) {
 			}
 		});
 	}
-	$scope.setRelDiagram(objectName, value) {
+	$scope.setRelDiagram = function(objectName, value) {
 		objects.forEach(function(item, i, arr) {
 			if (item.name == objName) {
 				$scope.objec = {
@@ -212,7 +212,8 @@ app.controller("ctrl", function ($scope,$http) {
 				.success(function (data){console.log("Добавили объект"+objName.name);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
-		});
+        });
+    }
 });
 
 

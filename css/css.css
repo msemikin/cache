@@ -209,10 +209,11 @@ input, textarea, button {
 
 .objects-attr-container {
     position: absolute;
+    display: inline-block;
+    bottom: 0;
     padding:0px;
     margin-top: 27%;
     width: 40%;
-    height: 36%;
     float:left;
     overflow: auto;
     border-right: 2px solid #ac4;
