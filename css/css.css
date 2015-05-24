@@ -255,7 +255,7 @@ input, textarea, button {
 }
 .list
 {
-    overflow: hidden;
+    overflow: auto;
     border: 0px;
     outline: none;
     opacity: 0.85;

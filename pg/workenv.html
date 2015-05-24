@@ -86,7 +86,7 @@
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="List1" onclick="refreshAttr();"></select>
+                            <select class="list" size="5" id="List1" name="listTab1" onclick="refreshAttr();"></select>
                         </div>
                     </div>
                     <div class="selects panel panel-default">
@@ -94,7 +94,7 @@
                             <h3 class="panel-title">Атрибуты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="List2"></select>
+                            <select class="list" size="5" id="List2" name="listTab1"></select>
                         </div>
                     </div>
                 </div>
@@ -124,11 +124,11 @@
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="relationList" onclick=""></select>
+                            <select class="list" size="5" id="relationList" name="listTab2"></select>
                         </div>
                     </div>
                 </div>
-                <div class="gorizont">
+                <!--<div class="gorizont">
                     <div class="inputs full panel panel-default">
                         <div style="background-color: #fff; padding: 0; float:left; flex-grow: 1;" class="panel-heading">
                             <textarea class="textareas" id="relationTextBox" cols="25" rows="1" ></textarea>
@@ -137,7 +137,7 @@
                             <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default full" value="Добавить" onclick="">
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div id="er-obj-container"  name="objContainer">
                 <div class="gorizont">
@@ -146,7 +146,7 @@
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="erObjList" onclick=""></select>
+                            <select class="list" size="5" id="erObjList" name="listTab3"></select>
                         </div>
                     </div>
                     <div class="selects panel panel-default">
@@ -154,11 +154,11 @@
                             <h3 class="panel-title">Атрибуты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="erAttrList"></select>
+                            <select class="list" size="5" id="erAttrList" name="listTab3 "></select>
                         </div>
                     </div>
                 </div>
-                <div class="gorizont" id ="gor" ng-controller="ctrl">
+                <!--<div class="gorizont" id ="gor" ng-controller="ctrl">
                     <div class="inputs panel panel-default"  ng-model="company">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="objInpER" cols="25" rows="1"></textarea>
@@ -175,7 +175,7 @@
                             <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="Атрибут" onclick = "">
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div id="ip-obj-container" name="objContainer">
 

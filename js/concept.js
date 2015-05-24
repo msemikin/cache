@@ -12,13 +12,12 @@ function addObj(textExt)
     if (textExt == null) var text_pre = document.getElementById("wordTextBox").value;
     else var text_pre = textExt;
     var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
-    if (text.length != 0 && text.length != 1) {
-        var select = document.getElementById("List1");
-        var relSelect = document.getElementById("relationList");
-        var erSelect = document.getElementById("erObjList");
-        select.options[select.options.length] = new Option(text);
-        relSelect.options[select.options.length] = new Option(text);
-        erSelect.options[select.options.length] = new Option(text);
+
+    //отладка
+    console.log("ввод:")
+    console.log(text);
+    console.log("массив:");
+    if (text.length > 1) {
         var attributes = new Array();
         var obj = {
             name: text,
@@ -27,8 +26,13 @@ function addObj(textExt)
             isOnER: false
         }
         objects.push(obj);
+        for (o = 0; o < objects.length; o++) {
+            console.log(objects[o].name);
+        }
     }
+    refreshList(1);
     cleanTextBox('wordTextBox');
+
 }
 
 function addAttr(textExt)
@@ -58,22 +62,11 @@ function refreshAttr() {
     var objIndex = document.getElementById("List1").selectedIndex;
     var mas = objects[objIndex].attr;
     var select = document.getElementById("List2");
-    clean('List2');
+    cleanList('List2');
     for(i = 0;i < mas.length;i++)
     {
         select.options[select.options.length] = new Option(mas[i]);
     }
-}
-
-
-function deleteObject()
-{
-	var select = document.getElementById("List1");
-    var delIn = objSt.indexOf(select[objIndex].text);
-    if (delIn > -1) objSt.splice(delIn,1);
-    objects.splice(objIndex,1);
-    select[objIndex].remove();
-    clean('List2');
 }
 
 function deleteAttribute()
@@ -87,7 +80,7 @@ function deleteAttribute()
 	angular.element($("#gor")).scope().updateObject();
 }
 
-function clean(list)
+function cleanList(list)
 {
     var select = document.getElementById(list);
     select.innerHTML = "";
@@ -127,22 +120,29 @@ app.controller("ctrl", function ($scope,$http) {
 	};
 	
 	$scope.deleteObject = function (){
-		var select = document.getElementById("List1");
-		objIndex = select.selectedIndex;
-		objects.forEach(function(item, i, arr) {
-			if (i == objIndex) {
-				$scope.objec = {
-					name:item.name,
-					attribute:item.attr
-				}
-				objName = $scope.objec;
-				$http.delete("http://localhost:57772/csp/rest/json/object/"+objName.name)
-				.success(function (data){console.log(" Удалили объект"+objName.name);})
-				.error(function (data) {console.log(data);console.log("Ошибка удаления компании");}); 
-			}
-		});
-		deleteObject();
+        var select = document.getElementById("List1");
+		var objIndex = select.selectedIndex;
+        var delIn = findIndByObjName(select[objIndex].text);
+        if (delIn == -1) {
+            console.log("not in objects");
+            return;
+        }
+
+        $scope.obje = {
+            name:objects[delIn].name,
+           // attribute:objects[delIn].attr
+        }
+
+        var objName = $scope.obje;
+        $http.delete("http://localhost:57772/csp/rest/json/object/"+objName.name)
+        .success(function (data){console.log(" Удалили объект"+objName.name);})
+        .error(function (data) {console.log(data);console.log("Ошибка удаления компании");});
+
+        objects.splice(delIn,1);
+        cleanList('List2');
+        refreshList(1);
 	}
+
 	$scope.updateObject = function() {
 		objects.forEach(function(item, i, arr) {
 			if (i == objIndex) {

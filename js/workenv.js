@@ -17,6 +17,7 @@ window.onload = function () {
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
+
 /*	if (userId != "") {
 	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
 		var obj = JSON.parse(data);
@@ -75,42 +76,6 @@ window.onload = function () {
 		window.location = url;
 	}
 
-    /*function addToObjectsList(text) {
-        //var text = document.getElementById("wordTextBox").value;
-        if (text.length != 0 && text.length != 1) {
-            var select = document.getElementById("List1");
-            select.options[select.options.length] = new Option(text);
-            var attributes = new Array();
-            var obj = {
-                name: text,
-                attr: attributes
-            }
-            objects.push(obj);
-        }
-    }
-
-    function addAttrToObject(attr) {
-        var objIndex = document.getElementById("List1").selectedIndex;
-        //var objIndex = document.getElementById("newBox1").value;
-        //var attr = document.getElementById("attrBox").value;
-        var obj = objects[objIndex];
-        if (attr.length != 0 && attr.length != 1) {
-            obj.attr.push(attr);
-        }
-    }
-
-    function addToAttrList() {
-        var ind = document.getElementById("List1").selectedIndex;
-        index = ind;
-        var mas = objects[ind].attr;
-        var select = document.getElementById("List2");
-        clean('List2');
-        for (i = 0; i < mas.length; i++) {
-            select.options[select.options.length] = new Option(mas[i]);
-        }
-    }*/
-
-
     //удаление объекта
     $(function(){
         $("#List1").bind("dblclick", function(){
@@ -119,8 +84,6 @@ window.onload = function () {
 			scope.$apply(function () {
 			scope.deleteObject();
 			});
-            //deleteObject();
-            clean('List2');
         });
     });
 
@@ -128,6 +91,20 @@ window.onload = function () {
     $(function(){
         $("#List2").bind("dblclick", function(){
             deleteAttribute();
+        });
+    });
+
+    //отрисовка relations
+    $(function(){
+        $("#relationList").bind("dblclick", function(){
+            var elem = $("#relationList option:selected").text();
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+                var ind = findIndByObjName(elem);
+                objects[ind].isOnRelDiagram = true;
+			});
+            //deleteObject();
+            refreshList(2);
         });
     });
 
@@ -291,6 +268,9 @@ function changeTab() {
                     break;
                 }
             }
+
+            //обновление списков
+            refreshList(j + 1);
         }
         else {
             tabs[j].setAttribute("class", "tab");
@@ -351,14 +331,39 @@ function getParam(sParamName)
 var Params = location.search.substring(1).split("?"); 
 // отсекаем «?» и вносим переменные и их значения в массив var variable = "";
 
-for (var i = 0; i < Params.length; i++) // просматриваем весь массив переменных
+for (var ij = 0; ij < Params.length; ij++) // просматриваем весь массив переменных
   { 
-        if (Params[i].split("=")[0] == sParamName) // если найдена искомая переменная, и
+        if (Params[ij].split("=")[0] == sParamName) // если найдена искомая переменная, и
        { 
-           if (Params[i].split("=").length > 1) variable = Params[i].split("=")[1]; 
+           if (Params[ij].split("=").length > 1) variable = Params[ij].split("=")[1];
            // если значение параметра задано, то 
            return variable; // возвращаем его
        }
    }
    return "";
+}
+
+//обновление списков (при добавлении подредачить)
+function refreshList(tab) {
+    if(tab > 3) return;
+    var nameList = "listTab" + tab;
+    var lists = document.getElementsByName(nameList);
+    for(ii = 0; ii < lists.length; ii++) {
+        lists[ii].innerHTML = "";
+    }
+    for(jj = 0; jj < objects.length; jj++){
+        if((tab == 1) || (tab == 2 && !objects[jj].isOnRelDiagram) || (tab == 3 && !objects[jj].isOnER)) {
+            lists[0].options[lists[0].options.length] = new Option(objects[jj].name);
+        }
+    }
+    return;
+}
+
+
+//поиск объекта по имени
+function findIndByObjName(nameObj) {
+    for (q = 0; q < objects.length; q++) {
+        if(nameObj == objects[q].name) return q;
+    }
+    return -1;
 }
