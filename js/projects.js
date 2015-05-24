@@ -28,3 +28,7 @@ $('.tab a').on('click', function (e) {
     $('.tab-content > div').not(target).hide();
     $(target).fadeIn(600);
 });
+
+function f(){
+    document.getElementById('studentInfo').contentEditable = true;
+}

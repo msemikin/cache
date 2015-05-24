@@ -362,3 +362,13 @@ for (var i = 0; i < Params.length; i++) // просматриваем весь �
    }
    return "";
 }
+ $(document).ready(function() {
+          $("a.dropdown-toggle").click(function(ev) {
+              $("a.dropdown-toggle").dropdown("toggle");
+              return false;
+          });
+          $("ul.dropdown-menu a").click(function(ev) {
+              $("a.dropdown-toggle").dropdown("toggle");
+              return false;
+          });
+      });
