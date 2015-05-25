@@ -29,6 +29,36 @@ $('.tab a').on('click', function (e) {
     $(target).fadeIn(600);
 });
 
-function f(){
+function edit(){
     document.getElementById('studentInfo').contentEditable = true;
+}
+
+/*$('#addTeacher').click(function(event) {
+    
+    addDynamic();
+    return false;
+ });*/
+function addDynamic() {
+    var div = $('<div/>', {
+        'class' : 'teachersDiv'
+    }).appendTo($('#Div'));
+    var div = $('<div/>', {
+        'class' : 'gorizont'
+    }).appendTo($('#Div'));
+    var input = $('<input/>', {
+        value : 'Преподаватель',
+        type : 'button',
+        style: 'border-style: none; width: 100%; margin: 0;padding-right: 90%;',
+        'class' : 'btn btn-default buttonTeacher' }).appendTo(div);
+    var but = $('<input/>', {
+        type : 'button',
+        style: 'border: none;',
+        'class' : 'btn btn-default btn-small' }).appendTo(div);
+    var e1 = $('<span/>', {
+        'class': "glyphicon glyphicon-remove",
+        'aria-hidden': "true"}).insertAfter(but);
+}
+
+function del(){
+    this.outerHTML='';
 }
