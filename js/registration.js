@@ -79,12 +79,17 @@ function ctrl($scope,$http) {
 		});
 
 		responsePromise.success(function (data) {
-			$.cookie("session", JSON.stringify(data));
-			$.cookie("project", JSON.stringify(data.projects));
-			var user = JSON.parse($.cookie("session"));
-			var proj = JSON.parse($.cookie("project"));
-			var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
-			window.location = url;
+			if (Object.keys(data.children).length >0) {
+				$.cookie("session", JSON.stringify(data));
+				$.cookie("project", JSON.stringify(data.children[0].projects));
+				var user = JSON.parse($.cookie("session"));
+				var proj = JSON.parse($.cookie("project"));
+				var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
+				window.location = url;
+			}
+			else {
+				alert("Try again");
+			}
 		});
 	};
 };
