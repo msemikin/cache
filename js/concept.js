@@ -21,9 +21,10 @@ function addObj(textExt)
         var attributes = new Array();
         var obj = {
             name: text,
-            attr: attributes,
+            attribute: attributes,
             isOnRelDiagram: false,
-            isOnER: false
+            isOnER: false,
+			project : JSON.parse($.cookie("project"))
         }
         objects.push(obj);
         for (o = 0; o < objects.length; o++) {
@@ -42,11 +43,10 @@ function addAttr(textExt)
 
     if (textExt == null) var attr_pre = document.getElementById("attrBox").value;
     else var attr_pre = textExt;
-
     var attrtext = attr_pre[0].toUpperCase() + attr_pre.substr(1, attr_pre.length);
     var obj = objects[objIndex];
     if (attrtext.length != 0 && attrtext.length != 1) {
-        obj.attr.push(attrtext);
+        obj.attribute.push(attrtext);
 		changingAttribute.push(attrtext);
 		
     }
@@ -60,7 +60,7 @@ function addAttr(textExt)
 
 function refreshAttr() {
     var objIndex = document.getElementById("List1").selectedIndex;
-    var mas = objects[objIndex].attr;
+    var mas = objects[objIndex].attribute;
     var select = document.getElementById("List2");
     cleanList('List2');
     for(i = 0;i < mas.length;i++)
@@ -76,7 +76,7 @@ function deleteAttribute()
     objIndex = document.getElementById("List1").selectedIndex;
     attrIndex = document.getElementById("List2").selectedIndex;
     select[attrIndex].remove();
-    objects[objIndex].attr.splice(attrIndex,1);
+    objects[objIndex].attribute.splice(attrIndex,1);
 	angular.element($("#gor")).scope().updateObject();
 }
 
@@ -116,6 +116,7 @@ function encodeObject(objName) {
 	return objName;
 	
 }
+
 function decodeObject(objName) {
 	objName.name = decode(objName.name);
 	if (objName.attribute != undefined) {
@@ -125,6 +126,37 @@ function decodeObject(objName) {
     }
 	}
 	return objName;
+	
+}
+function split(attributes) {
+	var attributesArr = new Array();
+	attr = ""
+	for (var i=0; i<attributes.length; i++) {
+		attr = attr + attributes.charAt(i);
+		if (attributes.charAt(i)=='\u21B5') {
+			attributesArr.push(attr);
+			attr="";
+		}
+	}
+	attributesArr.push(attr);
+	return attributesArr;
+}
+function setObjects(gotObjects) {
+	for (var i =0; i<gotObjects.children.length;i++) {
+		var obj = gotObjects.children[i];
+		obj.attribute=obj.attribute.split("\n");
+		objects.push(decodeObject(obj));
+	}
+	refreshList(1);
+	var objIndex = 0;
+    var mas = objects[objIndex].attribute;
+    var select = document.getElementById("List2");
+    cleanList('List2');
+    for(i = 0;i < mas.length;i++)
+    {
+        select.options[select.options.length] = new Option(mas[i]);
+    }
+	
 	
 }
 app.controller("ctrl", function ($scope,$http) {
@@ -164,15 +196,16 @@ app.controller("ctrl", function ($scope,$http) {
         cleanList('List2');
         refreshList(1);
 	}
-
+	
 	$scope.updateObject = function() {
 		objects.forEach(function(item, i, arr) {
 			if (i == objIndex) {
 				$scope.objec = {
 					name:item.name,
-					attribute:item.attr,
+					attribute:item.attribute,
 					isOnRelDiagram: item.isOnRelDiagram,
-					isOnER: item.isOnER
+					isOnER: item.isOnER,
+					project : JSON.parse($.cookie("project"))
 				}
 				objName = $scope.objec;
 				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
@@ -186,7 +219,7 @@ app.controller("ctrl", function ($scope,$http) {
 		objects.forEach(function(item, i, arr) {
 			$scope.objec = {
 				name:item.name,
-				attribute:item.attr
+				attribute:item.attribute
 			}
 			objName = $scope.objec;
 			$http.post("http://localhost:57772/csp/rest/json/object",encodeObject(objName))
@@ -209,9 +242,10 @@ app.controller("ctrl", function ($scope,$http) {
 			if (item.name == objName) {
 				$scope.objec = {
 					name:item.name,
-					attribute:item.attr,
+					attribute:item.attribute,
 					isOnRelDiagram: value,
-					isOnER: item.isOnER
+					isOnER: item.isOnER,
+					project : JSON.parse($.cookie("project"))
 				}
 				objName = $scope.objec;
 				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
@@ -225,9 +259,10 @@ app.controller("ctrl", function ($scope,$http) {
 			if (item.name == objName) {
 				$scope.objec = {
 					name:item.name,
-					attribute:item.attr,
+					attribute:item.attribute,
 					isOnRelDiagram: item.isOnRelDiagram,
-					isOnER: value
+					isOnER: value,
+					project : JSON.parse($.cookie("project"))
 				}
 				objName = $scope.objec;
 				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
@@ -236,6 +271,27 @@ app.controller("ctrl", function ($scope,$http) {
 			}
         });
     }
+	
+	$scope.getAllProjectObjects = function() {
+		var serverURL = "http://localhost:57772/csp/rest/json/objects";
+		var url = serverURL + '/' + JSON.parse($.cookie("project"));
+		
+		var responsePromise = $http.get(url);
+
+		responsePromise.error(function () {
+			window.alert('error');
+			console.log(arguments);
+		});
+
+		responsePromise.success(function (data) {
+			if (Object.keys(data.children).length >0) {
+				setObjects(data);
+			}
+			else {
+				alert("No objects");
+			}
+		});
+	}
 });
 
 

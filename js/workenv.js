@@ -19,6 +19,10 @@ window.onload = function () {
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
 	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+		var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+				scope.getAllProjectObjects();
+			});
 		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
