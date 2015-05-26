@@ -105,7 +105,15 @@ function setRelDiagramm (name,value) {
 			scope.setRelDiagram(name,value);
 			});
 }
-
+function encodeObject(objName) {
+	objName.name = encode(objName);
+	for(i = 0;i < objName.attr.length;i++)
+    {
+        objName.attr[i] = encode(objName.attr[i]);
+    }
+	return objName;
+	
+}
 app.controller("ctrl", function ($scope,$http) {
 	
 		
@@ -113,6 +121,7 @@ app.controller("ctrl", function ($scope,$http) {
 		addObj();
 		$scope.objec = objects[objects.length-1];
 		objName= $scope.objec;
+		objName = encode(objName);
 		//var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
 		$http.post("http://localhost:57772/csp/rest/json/object",objName)
 		.success(function (data){console.log("Добавили объект"+objName.name);})

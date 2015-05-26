@@ -18,12 +18,12 @@ window.onload = function () {
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
 
-/*	if (userId != "") {
+	if (userId != "") {
 	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
 		var obj = JSON.parse(data);
 		if (obj.children.length !=0) {
 		user = obj;
-		document.getElementById("userNameText").innerHTML = user.children[0].name + " " + user.children[0].surname;
+		document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
 		}
 		else {
 			window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
@@ -32,7 +32,7 @@ window.onload = function () {
 	}
 	else {
 		window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
-	}*/
+	}
 		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
