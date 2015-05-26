@@ -35,9 +35,20 @@ function ctrl($scope,$http) {
   
       // Создать новую компанию
     $scope.create = function (company){
-       $http.post("http://localhost:57772/csp/rest/json/company",encodeUser(company))
+		objName = company;
+		objName = {
+			name : company.name,
+			surname : company.surname,
+			jobTitle : company.jobTitle,
+			workPlace : company.workPlace,
+			password : company.password,
+			login : company.login,
+			email : company.email,
+			projects: ["Default"]
+		}
+       $http.post("http://localhost:57772/csp/rest/json/company",encodeUser(objName))
        .success(function(data){
-		   $.cookie("session", JSON.stringify(company));
+		   $.cookie("session", JSON.stringify(objName));
 		   var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
 			window.location = url;
 	   }).error(function(data,status){alert("tut1");alert(data);});   
@@ -60,7 +71,7 @@ function ctrl($scope,$http) {
 		var serverURL = "http://localhost:57772/csp/rest/json/accounts";
 		var url = serverURL + '/' + this.login + '/' + encode(this.password);
 		
-		var responsePromise = $http.post(url);
+		var responsePromise = $http.get(url);
 
 		responsePromise.error(function () {
 			window.alert('error');
@@ -69,6 +80,9 @@ function ctrl($scope,$http) {
 
 		responsePromise.success(function (data) {
 			$.cookie("session", JSON.stringify(data));
+			$.cookie("project", JSON.stringify(data.projects));
+			var user = JSON.parse($.cookie("session"));
+			var proj = JSON.parse($.cookie("project"));
 			var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
 			window.location = url;
 		});

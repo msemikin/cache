@@ -58,7 +58,7 @@ window.onload = function () {
         })
     });
 	function redirecting() {
-		var url = "http://localhost:57772/csp/user/git/pg/projects.html?result=" + user.children[0].ID;
+		var url = "http://localhost:57772/csp/user/git/pg/projects.html";
 		window.location = url;
 	}
 
