@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-26 20:51:06">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-27 00:19:22">
 <Class name="DBHomster.Actor">
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
 <TimeChanged>63601,62868.479472</TimeChanged>
@@ -101,7 +101,7 @@
 
 <Class name="DBHomster.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>63698,72767.898106</TimeChanged>
+<TimeChanged>63698,79557.599039</TimeChanged>
 <TimeCreated>63636,81373.988526</TimeCreated>
 
 <XData name="UrlMap">
@@ -113,6 +113,7 @@
  <Route Url="/json/company" Method="POST" Call="DBHomster.JSON:CreateHuman"/> 
  <Route Url="/json/object" Method="POST" Call="DBHomster.JSON:WriteObject"/> 
  <Route Url="/json/humans" Method="GET" Call="DBHomster.JSON:GetUsers"/>
+ <Route Url="/json/objects/:name" Method="GET" Call="DBHomster.JSON:getAllProjectObjects"/>
  <Route Url="/json/company/:compid" Method="DELETE" Call="DBHomster.JSON:DeleteHuman"/>
  <Route Url="/json/object/:name" Method="DELETE" Call="DBHomster.JSON:DeleteObject"/>
  <Route Url="/json/company/:compid" Method="PUT" Call="DBHomster.JSON:UpdateCompany"/>
@@ -641,7 +642,7 @@
 
 <Class name="DBHomster.JSON">
 <Super>%Base</Super>
-<TimeChanged>63698,56894.515184</TimeChanged>
+<TimeChanged>63698,78227.294392</TimeChanged>
 <TimeCreated>63636,83070.113987</TimeCreated>
 
 <Method name="GetAllCompanies">
@@ -830,6 +831,7 @@
    set comp.attribute=obj.attribute
    set comp.isOnER = obj.isOnER
    set comp.isOnRelDiagram = obj.isOnRelDiagram
+   set comp.project = obj.project
    $$$THROWONERROR(st,comp.%Save())
  } 
  catch ex {
@@ -869,6 +871,21 @@
         s st=ex.AsStatus()
     }
     quit st
+]]></Implementation>
+</Method>
+
+<Method name="getAllProjectObjects">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Obj where project='"_name_"'")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
 ]]></Implementation>
 </Method>
 </Class>
@@ -1017,7 +1034,7 @@
 
 <Class name="DBHomster.Obj">
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
-<TimeChanged>63698,60134.344045</TimeChanged>
+<TimeChanged>63698,81734.379574</TimeChanged>
 <TimeCreated>63602,63849.219687</TimeCreated>
 
 <Property name="name">
