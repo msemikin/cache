@@ -105,7 +105,28 @@ function setRelDiagramm (name,value) {
 			scope.setRelDiagram(name,value);
 			});
 }
-
+function encodeObject(objName) {
+	objName.name = encode(objName.name);
+	if (objName.attribute != undefined) {
+	for(i = 0;i < objName.attribute.length;i++)
+    {
+        objName.attribute[i] = encode(objName.attribute[i]);
+    }
+	}
+	return objName;
+	
+}
+function decodeObject(objName) {
+	objName.name = decode(objName.name);
+	if (objName.attribute != undefined) {
+	for(i = 0;i < objName.attribute.length;i++)
+    {
+        objName.attribute[i] = decode(objName.attribute[i]);
+    }
+	}
+	return objName;
+	
+}
 app.controller("ctrl", function ($scope,$http) {
 	
 		
@@ -113,9 +134,10 @@ app.controller("ctrl", function ($scope,$http) {
 		addObj();
 		$scope.objec = objects[objects.length-1];
 		objName= $scope.objec;
+		objName = encodeObject(objName);
 		//var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
 		$http.post("http://localhost:57772/csp/rest/json/object",objName)
-		.success(function (data){console.log("Добавили объект"+objName.name);})
+		.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
 		.error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
 	};
 	
@@ -134,8 +156,8 @@ app.controller("ctrl", function ($scope,$http) {
         }
 
         var objName = $scope.obje;
-        $http.delete("http://localhost:57772/csp/rest/json/object/"+objName.name)
-        .success(function (data){console.log(" Удалили объект"+objName.name);})
+        $http.delete("http://localhost:57772/csp/rest/json/object/"+encode(objName.name))
+        .success(function (data){console.log(" Удалили объект"+objName.name); decodeObject(objName);})
         .error(function (data) {console.log(data);console.log("Ошибка удаления компании");});
 
         objects.splice(delIn,1);
@@ -153,8 +175,8 @@ app.controller("ctrl", function ($scope,$http) {
 					isOnER: item.isOnER
 				}
 				objName = $scope.objec;
-				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
-				.success(function (data){console.log("Добавили объект"+objName.name);})
+				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
+				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
 		});
@@ -167,8 +189,8 @@ app.controller("ctrl", function ($scope,$http) {
 				attribute:item.attr
 			}
 			objName = $scope.objec;
-			$http.post("http://localhost:57772/csp/rest/json/object",objName)
-			.success(function (data){console.log("Добавили объект"+objName.name);})
+			$http.post("http://localhost:57772/csp/rest/json/object",encodeObject(objName))
+			.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName)})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 		});
 	}
@@ -177,8 +199,8 @@ app.controller("ctrl", function ($scope,$http) {
 		$scope.objec = undefined;
 		$scope.objec = JSON.stringify(diagrams);
 		objName = $scope.objec;
-			$http.post("http://localhost:57772/csp/rest/json/diagrams",objName)
-			.success(function (data){console.log("Добавили диаграммы");})
+			$http.post("http://localhost:57772/csp/rest/json/diagrams",encodeObject(objName))
+			.success(function (data){console.log("Добавили диаграммы");decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления диаграммы");});
 	}
 	
@@ -192,8 +214,8 @@ app.controller("ctrl", function ($scope,$http) {
 					isOnER: item.isOnER
 				}
 				objName = $scope.objec;
-				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
-				.success(function (data){console.log("Добавили объект"+objName.name);})
+				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
+				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
 		});
@@ -208,8 +230,8 @@ app.controller("ctrl", function ($scope,$http) {
 					isOnER: value
 				}
 				objName = $scope.objec;
-				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
-				.success(function (data){console.log("Добавили объект"+objName.name);})
+				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
+				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
         });

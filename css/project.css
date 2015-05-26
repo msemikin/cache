@@ -40,5 +40,6 @@
     flex-direction: column;
     margin:auto;
 }
-
-
+body > div.maindiv > div.leftDivBut > div > div.gorizont > div > div {
+width: 100%;
+}
