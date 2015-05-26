@@ -7,7 +7,7 @@ window.onload = function () {
 		if (obj.children.length !=0) {
 		user = obj;
 		setContent(user);
-			document.getElementById("userNameText").innerHTML = latin_to_cyrill(user.children[0].name) + " " + latin_to_cyrill(user.children[0].surname);
+			document.getElementById("userNameText").innerHTML = decode(user.children[0].name) + " " + decode(user.children[0].surname);
 		}
 		else {
 			window.location = "http://localhost:57772/csp/user/git/pg/registration.html";

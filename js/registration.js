@@ -26,22 +26,7 @@ function encodeUser(user) {
 }
 var flag = true;
 var cacheApp = angular.module("cache", []);
-function redirect(company) {
-		var user = encodeUser(company);
-	   var serverURL = "http://localhost:57772/csp/rest/json/accounts";
-		var url = serverURL + '/' + user.login + '/' + user.password;
-		var responsePromise = $http.post(url);
 
-		responsePromise.error(function () {
-			window.alert('error');
-			console.log(arguments);
-		});
-
-		responsePromise.success(function (data) {
-			var url = "http://localhost:57772/csp/user/git/pg/workenv.html?result=" + data.children[0].ID;
-			window.location = url;
-		});
-}
 function ctrl($scope,$http) {
     // Запрос GET к RESTful web API
         $scope.getCompanies=function() {
@@ -52,7 +37,9 @@ function ctrl($scope,$http) {
     $scope.create = function (company){
        $http.post("http://localhost:57772/csp/rest/json/company",encodeUser(company))
        .success(function(data){
-		   
+		   $.cookie("session", JSON.stringify(company));
+		   var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
+			window.location = url;
 	   }).error(function(data,status){alert("tut1");alert(data);});   
     }
 
@@ -81,7 +68,8 @@ function ctrl($scope,$http) {
 		});
 
 		responsePromise.success(function (data) {
-			var url = "http://localhost:57772/csp/user/git/pg/workenv.html?result=" + data.children[0].ID;
+			$.cookie("session", JSON.stringify(data));
+			var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
 			window.location = url;
 		});
 	};

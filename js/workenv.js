@@ -13,26 +13,12 @@ window.onload = function () {
 	userId = getParam("result");
 	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
+	var user = JSON.parse($.cookie("session"));
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
-
-	if (userId != "") {
-	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
-		var obj = JSON.parse(data);
-		if (obj.children.length !=0) {
-		user = obj;
-		document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
-		}
-		else {
-			window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
-		}
-        });
-	}
-	else {
-		window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
-	}
+	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
 		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
