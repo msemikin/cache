@@ -43,7 +43,7 @@ window.onload = function () {
         if (i != 0) {
             contentDivs[i].style.visibility = "hidden";
             bordWhite.style.visibility = "hidden";
-            objContainers[i].style.visibility = "hidden";
+            $(objContainers[i]).hide();
         }
         tabs[i].appendChild(bordWhite);
     }
@@ -259,7 +259,7 @@ function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
             tabs[j].setAttribute("class", "chosenTab");
-            objContainers[j].style.visibility = "visible";
+            $(objContainers[j]).show();
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");
             for (var t = 0; t < tabs[j].childNodes.length; t++) {
@@ -275,7 +275,7 @@ function changeTab() {
         else {
             tabs[j].setAttribute("class", "tab");
             contentDivs[j].style.visibility = "hidden";
-            objContainers[j].style.visibility = "hidden";
+            $(objContainers[j]).hide();
             for (var q = 0; q < tabs[j].childNodes.length; q++) {
                 if (tabs[j].childNodes[q].className == "bottomWhite") {
                     tabs[j].childNodes[q].style.visibility = "hidden";

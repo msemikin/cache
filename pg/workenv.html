@@ -77,9 +77,9 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="left-panel">
             <div id="pages-container" class="pages-container"></div>
-            <div id="objects-attribute-container" name="objContainer">
+            <div id="objects-attribute-container" class="object-container" name="objContainer">
                 <div class="gorizont">
                     <div class="selects panel panel-default">
                     <!--<div class="panel-heading">
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div id="relation-obj-container"  name="objContainer">
+            <div id="relation-obj-container" class="object-container" name="objContainer">
                 <div class="gorizont">
                     <div class="selects full  panel panel-default">
                     <!--<div class="panel-heading">
@@ -139,7 +139,7 @@
                     </div>
                 </div>-->
             </div>
-            <div id="er-obj-container"  name="objContainer">
+            <div id="er-obj-container" class="pbject-container"  name="objContainer">
                 <div class="gorizont">
                     <div class="selects panel panel-default">
                     <!--<div class="panel-heading">
@@ -177,19 +177,19 @@
                     </div>
                 </div>-->
             </div>
-            <div id="ip-obj-container" name="objContainer">
+            <div id="ip-obj-container" class="object-container"  name="objContainer">
 
             </div>
-            <div id="statistic-obj-container" name="objContainer">
+            <div id="statistic-obj-container" class="object-container" name="objContainer">
 
             </div>
-            <div id="otchet-obj-container" name="objContainer">
+            <div id="otchet-obj-container"  class="object-container" name="objContainer">
 
             </div>
-            <div id="az-obj-container" name="objContainer">
+            <div id="az-obj-container"  class="object-container" name="objContainer">
 
             </div>
-            <div id="oc-obj-container" name="objContainer">
+            <div id="oc-obj-container"  class="object-container" name="objContainer">
 
             </div>
         </div>
@@ -342,58 +342,59 @@
 		</div>
 	   </div>
         <div id="div4" name="contentDiv">
-                <div class="btn-group buttonsBar">
-                    <button class="btn btn-default"> Поиск </button>
-                    <button class="btn btn-default"> Сортировки </button>
-                    <button class="btn btn-default"> Фильтрации </button>
-                </div>
-            <div class="gorizont">
-                <div  class="panel panel-default namePanel " >
-                    <div class="panel-heading ">
-                        <h3 class="panel-title h2">Объект</h3>
-                    </div>
-                    <select size="11" multiple class="form-control input-lg sel">
-                        <option>Movies </option>
-                        <option>Games</option>
-                        <option>Books</option>
-                        <option>Newspapers</option>
-                        <option>Songs</option>
-                    </select>
-                    <div style="margin:0 auto;margin-left:32%;" class="choice panel panel-body ">
-                        <button type="button" class="btn btn-default btn-small ">
-                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="panel panel-default detailsPanel ">
-                    <div class="panel-heading ">
-                        <h3 class="panel-title">Атрибуты по которым сортировка</h3>
-                    </div>
-                            <h4>
-                                <div class="gorizont al">
-                                    Атрибут1
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-                            <h4 class = "al">
-                                Атрибут2
-                            </h4>
-                            <h4 class = "al">
-                               Атрибут3
-                            </h4>
-                         <div style = "padding: 10%"></div>
-                        <div class="gorizont">
-                            <input type="text" class="form-control" placeholder="Объект…">
-                            <button type="button" class="btn btn-default btn-small ">
-                                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                                    </button>
-                            </div>
-
-                </div>
-            </div>
-        </div>
+		<div class="content-box">
+			<div class="btn-group buttonsBar">
+			    <button class="btn btn-default"> Поиск </button>
+			    <button class="btn btn-default"> Сортировки </button>
+			    <button class="btn btn-default"> Фильтрации </button>
+			</div>
+			<div class="box">
+				<div  class="panel panel-default namePanel " >
+					<div class="panel-heading ">
+						<h3 class="panel-title h2">Объект</h3>
+					</div>
+					<select size="11" multiple class="form-control input-lg sel objects-select">
+						<option>Movies </option>
+						<option>Games</option>
+						<option>Books</option>
+						<option>Newspapers</option>
+						<option>Songs</option>
+					</select>
+					<div class="new-object">
+						<button type="button" class="btn btn-default btn-small ">
+						     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				<div class="panel panel-default detailsPanel ">
+					<div class="panel-heading ">
+						<h3 class="panel-title">Атрибуты по которым сортировка</h3>
+					</div>
+					<h4>
+						<div class="gorizont al">
+							Атрибут1
+							<button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
+							    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</button>
+						 </div>
+					</h4>
+					<h4 class = "al">
+						Атрибут2
+					</h4>
+					<h4 class = "al">
+						Атрибут3
+					</h4>
+					<div style = "padding: 10%"></div>
+					<div class="gorizont">
+						<input type="text" class="form-control" placeholder="Объект…">
+						<button type="button" class="btn btn-default btn-small ">
+							<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
             <div id="div5" name="contentDiv">
                 <div class="gorizont">
                 <div  class="panel panel-default namePanel " >

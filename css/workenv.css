@@ -26,7 +26,7 @@
     width: auto;
     margin: auto;
     background-color: white;
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
 }
 
 .inputs {
@@ -159,24 +159,57 @@
     margin-left: 10px;
 }
 
-.buttonsBar{
-    position: absolute;
-    padding-top: 3%;
-    padding-left: 3%;
+/* -------------------- */
+
+.content-box {
+	height: 100%;
+	width: 100%;
+}
+
+.buttonsBar {
+	position: absolute !important;
+}
+
+.box {
+	display: inline-block;
+	padding-top: 50px;
+	height: 100%;
+	width: 100%;
+
 }
 
 .namePanel{
+    float: left;
     position: relative;
     width: 25%;
-    margin-top: 3%;
-    left: 3%;
-    height: 50%;;
+    height: 100%;;
 }
+
+.objects-select{
+	border-top: 0 !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+	border-bottom-radius: 0px !important;
+}
+
+.new-object {
+	display: flex;
+	height: 50px;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}
+
+.new-object button {
+	margin: auto;
+}
+
 .detailsPanel{
+	height: 100%;
+    float: left;
     position: relative;
     width: 67%;
-    margin-top: 3%;
-    margin-left: 5%;
+    margin-left: 10px;
 }
 .deleteButton
 {
@@ -193,3 +226,4 @@
     padding-top: 3%;
     padding-left: 3%;
 }
+
