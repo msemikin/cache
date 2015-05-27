@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div id="relation-obj-container" class="object-container" name="objContainer">
-                <div class="gorizont objects-attr-list">
+                <div class="gorizont objects-attr-list" style="padding-bottom: 20px;">
                     <div class="selects full  panel panel-default">
                     <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
@@ -142,7 +142,7 @@
                 </div>-->
             </div>
             <div id="er-obj-container" class="pbject-container"  name="objContainer">
-                <div class="gorizont objects-attr-list">
+                <div class="gorizont objects-attr-list" style="padding-bottom: 20px;">
                     <div class="selects panel panel-default">
                     <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
@@ -351,48 +351,51 @@
 			    <button class="btn btn-default"> Фильтрации </button>
 			</div>
 			<div class="box">
-				<div  class="panel panel-default namePanel " >
+				<div  class="col-xs-1 panel panel-default namePanel" >
 					<div class="panel-heading ">
 						<h3 class="panel-title h2">Объект</h3>
 					</div>
-					<select size="11" multiple class="form-control input-lg sel objects-select">
-						<option>Movies </option>
-						<option>Games</option>
-						<option>Books</option>
-						<option>Newspapers</option>
-						<option>Songs</option>
-					</select>
-					<div class="new-object">
-						<button type="button" class="btn btn-default btn-small ">
-						     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-						</button>
+                    <div class="panel-body">
+                        <div class="list-group  objects-select">
+                          <a href="#" class="list-group-item active">
+                            Cras justo odio
+                          </a>
+                          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                          <a href="#" class="list-group-item">Morbi leo risus</a>
+                          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                          <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        </div>
+                    </div>
+					<div class="panel-footer">
+						<div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search for...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Add</button>
+                          </span>
+                        </div>
 					</div>
 				</div>
 				<div class="panel panel-default detailsPanel ">
 					<div class="panel-heading ">
 						<h3 class="panel-title">Атрибуты по которым сортировка</h3>
 					</div>
-					<h4>
-						<div class="gorizont al">
-							Атрибут1
-							<button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-							    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							</button>
-						 </div>
-					</h4>
-					<h4 class = "al">
-						Атрибут2
-					</h4>
-					<h4 class = "al">
-						Атрибут3
-					</h4>
-					<div style = "padding: 10%"></div>
-					<div class="gorizont">
-						<input type="text" class="form-control" placeholder="Объект…">
-						<button type="button" class="btn btn-default btn-small ">
-							<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-						</button>
-					</div>
+                    <div class="panel-body">
+    					<ul class="list-group">
+                          <li class="list-group-item">Cras justo odio</li>
+                          <li class="list-group-item">Dapibus ac facilisis in</li>
+                          <li class="list-group-item">Morbi leo risus</li>
+                          <li class="list-group-item">Porta ac consectetur ac</li>
+                          <li class="list-group-item">Vestibulum at eros</li>
+                          <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search for...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Add</button>
+                          </span>
+                        </div>
+                    </div>
+
 				</div>
 			</div>
 		</div>
