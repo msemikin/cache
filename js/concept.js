@@ -38,19 +38,22 @@ function addObj(textExt)
 
 function addAttr(textExt)
 {
-    objIndex = document.getElementById("List1").selectedIndex;
+    var select = document.getElementById("List1");
+    objIndex = select.selectedIndex;
     if(objIndex == -1) alert('Выберите объект!');
+
+    var objinArr = findIndByObjName(select[select.selectedIndex].text);
 
     if (textExt == null) var attr_pre = document.getElementById("attrBox").value;
     else var attr_pre = textExt;
     var attrtext = attr_pre[0].toUpperCase() + attr_pre.substr(1, attr_pre.length);
-    var obj = objects[objIndex];
+    var obj = objects[objinArr];
     if (attrtext.length != 0 && attrtext.length != 1) {
         obj.attribute.push(attrtext);
 		changingAttribute.push(attrtext);
 		
     }
-    refreshAttr();
+    refreshAttr(1);
     cleanTextBox('attrBox');
 	var scope = angular.element(document.getElementById("gor")).scope();
 			scope.$apply(function () {
@@ -58,11 +61,13 @@ function addAttr(textExt)
 			});
 }
 
-function refreshAttr() {
-    var objIndex = document.getElementById("List1").selectedIndex;
-    var mas = objects[objIndex].attribute;
-    var select = document.getElementById("List2");
-    cleanList('List2');
+function refreshAttr(numb) {
+    var nameList = "listTab" + numb;
+    var listsThis = document.getElementsByName(nameList);
+    var ind = findIndByObjName(listsThis[0][listsThis[0].selectedIndex].text);
+    var mas = objects[ind].attribute;
+    var select = listsThis[1];
+    cleanList(1);
     for(i = 0;i < mas.length;i++)
     {
         select.options[select.options.length] = new Option(mas[i]);
@@ -82,7 +87,9 @@ function deleteAttribute()
 
 function cleanList(list)
 {
-    var select = document.getElementById(list);
+    var nameList = "listTab" + list;
+    var listsThis = document.getElementsByName(nameList);
+    var select = listsThis[1];
     select.innerHTML = "";
 }
 
@@ -151,7 +158,7 @@ function setObjects(gotObjects) {
 	var objIndex = 0;
     var mas = objects[objIndex].attribute;
     var select = document.getElementById("List2");
-    cleanList('List2');
+    cleanList(1);
     for(i = 0;i < mas.length;i++)
     {
         select.options[select.options.length] = new Option(mas[i]);
@@ -159,6 +166,7 @@ function setObjects(gotObjects) {
 	
 	
 }
+
 app.controller("ctrl", function ($scope,$http) {
 	
 		
@@ -193,7 +201,7 @@ app.controller("ctrl", function ($scope,$http) {
         .error(function (data) {console.log(data);console.log("Ошибка удаления компании");});
 
         objects.splice(delIn,1);
-        cleanList('List2');
+        cleanList(1);
         refreshList(1);
 	}
 	

@@ -27,7 +27,10 @@ function encodeUser(user) {
 var flag = true;
 var cacheApp = angular.module("cache", []);
 
-function ctrl($scope,$http) {
+
+var app = angular.module("cache");
+
+app.controller("ctrlreg", function ctrll($scope,$http) {
     // Запрос GET к RESTful web API
         $scope.getCompanies=function() {
 			
@@ -92,6 +95,6 @@ function ctrl($scope,$http) {
 			}
 		});
 	};
-};
+});
 
 
