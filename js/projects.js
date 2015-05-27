@@ -33,11 +33,6 @@ function edit(){
     document.getElementById('studentInfo').contentEditable = true;
 }
 
-/*$('#addTeacher').click(function(event) {
-    
-    addDynamic();
-    return false;
- });*/
 function addDynamic() {
     var div = $('<div/>', {
         'class' : 'teachersDiv'
@@ -56,9 +51,9 @@ function addDynamic() {
         'class' : 'btn btn-default btn-small' }).appendTo(div);
     var e1 = $('<span/>', {
         'class': "glyphicon glyphicon-remove",
-        'aria-hidden': "true"}).insertAfter(but);
+        'aria-hidden': "true"}).appendTo(but);
 }
 
 function del(){
-    this.outerHTML='';
+    this.remove();
 }
