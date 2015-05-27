@@ -19,8 +19,20 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
-        $scope.renameValue = cellView.model.attributes.attrs.text.text;
-        $scope.openOptions();
+        if(cellView.model.attributes.type === 'link'){
+            $scope.openLinkOptions();            
+            var vertices = cellView.model.get('vertices').reverse().slice(1);
+            for(var i = 0; i < vertices.length; i++){
+                if(vertices[i].x == x && vertices[i].y == y){
+                    vertices.splice(i,1);
+                }
+            }
+            cellView.model.set('vertices', vertices);
+        } // clicked on object
+        else {
+            $scope.renameValue = cellView.model.attributes.attrs.text.text;
+            $scope.openObjectOptions();
+        }
         focused = cellView;
     });
 
@@ -48,33 +60,94 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
         }
     }
 
-    $scope.initService = function() {
-        graph.addCell(circle);
-    };
+    
+    // link options	
+    $scope.linkType = 'Association';
+    $scope.linkOptionsShow = false;
+    $scope.linkChangeShow = false;
 
-    $scope.optionsShow = false;
-    $scope.openOptions = function() {
-        $scope.$apply(function() {
-            $scope.optionsShow = true;
+    $scope.openLinkOptions = function(){
+        $scope.$apply(function(){
+            $scope.linkOptionsShow = true;
+        });
+    };
+    
+    $scope.changeLink = function() {
+        $scope.linkOptionsShow = false;
+        $scope.linkChangeShow = true;   
+    }
+    
+    $scope.reverseLink = function() {
+        var source = focused.model.attributes.attrs['.marker-source'];
+        var target = focused.model.attributes.attrs['.marker-target'];
+        console.log(source);
+        focused.model.attr({
+            '.marker-target': source,
+            '.marker-source': target
+        });
+        
+        $scope.linkOptionsShow = false;
+    }
+
+    var links = {
+        'Association' : {
+            '.connection': {'stroke-dasharray': '0 0'}
+        },
+        'Include' : {
+            '.connection': {'stroke-dasharray': '5 2'},
+            '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' },
+            '.marker-source': { d: '' }
+        },
+        'Extend' : {
+            '.connection': {'stroke-dasharray': '5 2'},
+            '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' },
+            '.marker-source': { d: '' }
+        }
+    }
+    var labels = {
+        'Association' : '',
+        'Include' : '<include>',
+        'Extend' : '<extend>'
+    };
+    
+    $scope.submitLinkChange = function(){
+		focused.model.attr(links[this.linkType]);
+        focused.model.label(1, {attrs:{text: {text: labels[this.linkType]}}});
+		$scope.linkChangeShow = false;
+	};
+    $scope.cancelLinkChange = function(){
+		$scope.linkChangeShow = false;
+	};
+    
+    //
+    // object options
+    $scope.objectOptionsShow = false;
+    $scope.renameValue = undefined;
+    $scope.renameShow = false; 
+
+
+    $scope.openObjectOptions = function () {
+        $scope.$apply(function () {
+            $scope.objectOptionsShow = true;
         })
     }
-    $scope.closeOptions = function() {
-        $scope.optionsShow = false;
+    $scope.closeObjectOptions = function () {
+        $scope.objectOptionsShow = false;
     }
 
-    $scope.deleteObj = function() {
-        $scope.optionsShow = false;
+    $scope.deleteObj = function () {
+        var text = focused.el.textContent;
+        $scope.objectOptionsShow = false;
         focused.remove();
-		focused = undefined;
+        objSt.push(text);
+        getList();
     }
 
-    $scope.renameValue = undefined;
-    $scope.renameShow = false;
-    $scope.renameObj = function() {
-        $scope.optionsShow = false;
+    $scope.renameObj = function () {
+        $scope.objectOptionsShow = false;
         $scope.renameShow = true;
     };
-    $scope.submitChange = function() {
+    $scope.submitRename = function () {
         var symbolLength = 7;
         var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
@@ -85,10 +158,9 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
                 text: $scope.renameValue
             }
         });
-		focused.model.resize(width, 40);
+	focused.model.resize(width, 40);
     };
-
-    $scope.cancelChange = function() {
+    $scope.cancelRename = function () {
         $scope.renameShow = false;
     };
 

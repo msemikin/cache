@@ -1,8 +1,7 @@
 //создавать селект в яваскрипте
 var objects = new Array();
 var listObjLen = objects.length;
-var objSt = new Array();
-var app = angular.module("cache", []);
+var app = angular.module("cache");
 var changingAttribute = new Array();
 var objIndex = 0;
 var attrIndex = 0;
@@ -13,19 +12,28 @@ function addObj(textExt)
     if (textExt == null) var text_pre = document.getElementById("wordTextBox").value;
     else var text_pre = textExt;
     var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
-    if (text.length != 0 && text.length != 1) {
-        var select = document.getElementById("List1");
-        select.options[select.options.length] = new Option(text);
+
+    //отладка
+    console.log("ввод:")
+    console.log(text);
+    console.log("массив:");
+    if (text.length > 1) {
         var attributes = new Array();
         var obj = {
             name: text,
-            attr: attributes
+            attribute: attributes,
+            isOnRelDiagram: false,
+            isOnER: false,
+			project : JSON.parse($.cookie("project"))
         }
         objects.push(obj);
-        objSt.push(text);
+        for (o = 0; o < objects.length; o++) {
+            console.log(objects[o].name);
+        }
     }
-
+    refreshList(1);
     cleanTextBox('wordTextBox');
+
 }
 
 function addAttr(textExt)
@@ -35,11 +43,10 @@ function addAttr(textExt)
 
     if (textExt == null) var attr_pre = document.getElementById("attrBox").value;
     else var attr_pre = textExt;
-
     var attrtext = attr_pre[0].toUpperCase() + attr_pre.substr(1, attr_pre.length);
     var obj = objects[objIndex];
     if (attrtext.length != 0 && attrtext.length != 1) {
-        obj.attr.push(attrtext);
+        obj.attribute.push(attrtext);
 		changingAttribute.push(attrtext);
 		
     }
@@ -53,24 +60,13 @@ function addAttr(textExt)
 
 function refreshAttr() {
     var objIndex = document.getElementById("List1").selectedIndex;
-    var mas = objects[objIndex].attr;
+    var mas = objects[objIndex].attribute;
     var select = document.getElementById("List2");
-    clean('List2');
+    cleanList('List2');
     for(i = 0;i < mas.length;i++)
     {
         select.options[select.options.length] = new Option(mas[i]);
     }
-}
-
-
-function deleteObject()
-{
-	var select = document.getElementById("List1");
-    var delIn = objSt.indexOf(select[objIndex].text);
-    if (delIn > -1) objSt.splice(delIn,1);
-    objects.splice(objIndex,1);
-    select[objIndex].remove();
-    clean('List2');
 }
 
 function deleteAttribute()
@@ -80,11 +76,11 @@ function deleteAttribute()
     objIndex = document.getElementById("List1").selectedIndex;
     attrIndex = document.getElementById("List2").selectedIndex;
     select[attrIndex].remove();
-    objects[objIndex].attr.splice(attrIndex,1);
+    objects[objIndex].attribute.splice(attrIndex,1);
 	angular.element($("#gor")).scope().updateObject();
 }
 
-function clean(list)
+function cleanList(list)
 {
     var select = document.getElementById(list);
     select.innerHTML = "";
@@ -96,49 +92,124 @@ function cleanTextBox(name)
     textBox.value = "";
 }
 
+function setERDiagramm (name,value) {
+	var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.setERDiagr(name,value);
+			});
+}
+
+function setRelDiagramm (name,value) {
+	var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.setRelDiagram(name,value);
+			});
+}
+function encodeObject(objName) {
+	objName.name = encode(objName.name);
+	if (objName.attribute != undefined) {
+	for(i = 0;i < objName.attribute.length;i++)
+    {
+        objName.attribute[i] = encode(objName.attribute[i]);
+    }
+	}
+	return objName;
+	
+}
+
+function decodeObject(objName) {
+	objName.name = decode(objName.name);
+	if (objName.attribute != undefined) {
+	for(i = 0;i < objName.attribute.length;i++)
+    {
+        objName.attribute[i] = decode(objName.attribute[i]);
+    }
+	}
+	return objName;
+	
+}
+function split(attributes) {
+	var attributesArr = new Array();
+	attr = ""
+	for (var i=0; i<attributes.length; i++) {
+		attr = attr + attributes.charAt(i);
+		if (attributes.charAt(i)=='\u21B5') {
+			attributesArr.push(attr);
+			attr="";
+		}
+	}
+	attributesArr.push(attr);
+	return attributesArr;
+}
+function setObjects(gotObjects) {
+	for (var i =0; i<gotObjects.children.length;i++) {
+		var obj = gotObjects.children[i];
+		obj.attribute=obj.attribute.split("\n");
+		objects.push(decodeObject(obj));
+	}
+	refreshList(1);
+	var objIndex = 0;
+    var mas = objects[objIndex].attribute;
+    var select = document.getElementById("List2");
+    cleanList('List2');
+    for(i = 0;i < mas.length;i++)
+    {
+        select.options[select.options.length] = new Option(mas[i]);
+    }
+	
+	
+}
 app.controller("ctrl", function ($scope,$http) {
 	
-	$scope.fillObject = function(objName,text) {
-		$scope.objName = { 
-			name :text
-		}
-	};
 		
 	$scope.create = function (objName){
 		addObj();
 		$scope.objec = objects[objects.length-1];
 		objName= $scope.objec;
+		objName = encodeObject(objName);
 		//var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
-		$http.post("http://localhost:57772/csp/rest/json/object",objName).success(function (data){console.log("Добавили объект"+objName.name);}).error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
+		$http.post("http://localhost:57772/csp/rest/json/object",objName)
+		.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
+		.error(function (data) {console.log(data);console.log("Ошибка добавления компании");}); 
 	};
 	
 	$scope.deleteObject = function (){
-		var select = document.getElementById("List1");
-		objIndex = select.selectedIndex;
-		objects.forEach(function(item, i, arr) {
-			if (i == objIndex) {
-				$scope.objec = {
-					name:item.name,
-					attribute:item.attr
-				}
-				objName = $scope.objec;
-				$http.delete("http://localhost:57772/csp/rest/json/object/"+objName.name)
-				.success(function (data){console.log(" Удалили объект"+objName.name);})
-				.error(function (data) {console.log(data);console.log("Ошибка удаления компании");}); 
-			}
-		});
-		deleteObject();
+        var select = document.getElementById("List1");
+		var objIndex = select.selectedIndex;
+        var delIn = findIndByObjName(select[objIndex].text);
+        if (delIn == -1) {
+            console.log("not in objects");
+            return;
+        }
+
+        $scope.obje = {
+            name:objects[delIn].name,
+           // attribute:objects[delIn].attr
+        }
+
+        var objName = $scope.obje;
+        $http.delete("http://localhost:57772/csp/rest/json/object/"+encode(objName.name))
+        .success(function (data){console.log(" Удалили объект"+objName.name); decodeObject(objName);})
+        .error(function (data) {console.log(data);console.log("Ошибка удаления компании");});
+
+        objects.splice(delIn,1);
+        cleanList('List2');
+        refreshList(1);
 	}
+	
 	$scope.updateObject = function() {
 		objects.forEach(function(item, i, arr) {
 			if (i == objIndex) {
 				$scope.objec = {
 					name:item.name,
-					attribute:item.attr
+					attribute:item.attribute,
+					isOnRelDiagram: item.isOnRelDiagram,
+					isOnER: item.isOnER,
+					project : JSON.parse($.cookie("project"))
 				}
 				objName = $scope.objec;
-				$http.put("http://localhost:57772/csp/rest/json/object/"+objName.name,objName)
-				.success(function (data){console.log("Добавили объект"+objName.name);})
+				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
+				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
 		});
@@ -148,11 +219,11 @@ app.controller("ctrl", function ($scope,$http) {
 		objects.forEach(function(item, i, arr) {
 			$scope.objec = {
 				name:item.name,
-				attribute:item.attr
+				attribute:item.attribute
 			}
 			objName = $scope.objec;
-			$http.post("http://localhost:57772/csp/rest/json/object",objName)
-			.success(function (data){console.log("Добавили объект"+objName.name);})
+			$http.post("http://localhost:57772/csp/rest/json/object",encodeObject(objName))
+			.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName)})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 		});
 	}
@@ -161,9 +232,65 @@ app.controller("ctrl", function ($scope,$http) {
 		$scope.objec = undefined;
 		$scope.objec = JSON.stringify(diagrams);
 		objName = $scope.objec;
-			$http.post("http://localhost:57772/csp/rest/json/diagrams",objName)
-			.success(function (data){console.log("Добавили диаграммы");})
+			$http.post("http://localhost:57772/csp/rest/json/diagrams",encodeObject(objName))
+			.success(function (data){console.log("Добавили диаграммы");decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления диаграммы");});
+	}
+	
+	$scope.setERDiagr = function(objectName, value) {
+		objects.forEach(function(item, i, arr) {
+			if (item.name == objName) {
+				$scope.objec = {
+					name:item.name,
+					attribute:item.attribute,
+					isOnRelDiagram: value,
+					isOnER: item.isOnER,
+					project : JSON.parse($.cookie("project"))
+				}
+				objName = $scope.objec;
+				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
+				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+			}
+		});
+	}
+	$scope.setRelDiagram = function(objectName, value) {
+		objects.forEach(function(item, i, arr) {
+			if (item.name == objName) {
+				$scope.objec = {
+					name:item.name,
+					attribute:item.attribute,
+					isOnRelDiagram: item.isOnRelDiagram,
+					isOnER: value,
+					project : JSON.parse($.cookie("project"))
+				}
+				objName = $scope.objec;
+				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
+				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
+			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
+			}
+        });
+    }
+	
+	$scope.getAllProjectObjects = function() {
+		var serverURL = "http://localhost:57772/csp/rest/json/objects";
+		var url = serverURL + '/' + JSON.parse($.cookie("project"));
+		
+		var responsePromise = $http.get(url);
+
+		responsePromise.error(function () {
+			window.alert('error');
+			console.log(arguments);
+		});
+
+		responsePromise.success(function (data) {
+			if (Object.keys(data.children).length >0) {
+				setObjects(data);
+			}
+			else {
+				alert("No objects");
+			}
+		});
 	}
 });
 

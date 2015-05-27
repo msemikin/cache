@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-19 01:15:33">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-27 00:19:22">
 <Class name="DBHomster.Actor">
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
 <TimeChanged>63601,62868.479472</TimeChanged>
@@ -101,7 +101,7 @@
 
 <Class name="DBHomster.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>63691,3395.947921</TimeChanged>
+<TimeChanged>63698,79557.599039</TimeChanged>
 <TimeCreated>63636,81373.988526</TimeCreated>
 
 <XData name="UrlMap">
@@ -113,6 +113,7 @@
  <Route Url="/json/company" Method="POST" Call="DBHomster.JSON:CreateHuman"/> 
  <Route Url="/json/object" Method="POST" Call="DBHomster.JSON:WriteObject"/> 
  <Route Url="/json/humans" Method="GET" Call="DBHomster.JSON:GetUsers"/>
+ <Route Url="/json/objects/:name" Method="GET" Call="DBHomster.JSON:getAllProjectObjects"/>
  <Route Url="/json/company/:compid" Method="DELETE" Call="DBHomster.JSON:DeleteHuman"/>
  <Route Url="/json/object/:name" Method="DELETE" Call="DBHomster.JSON:DeleteObject"/>
  <Route Url="/json/company/:compid" Method="PUT" Call="DBHomster.JSON:UpdateCompany"/>
@@ -641,7 +642,7 @@
 
 <Class name="DBHomster.JSON">
 <Super>%Base</Super>
-<TimeChanged>63691,3551.933978</TimeChanged>
+<TimeChanged>63698,78227.294392</TimeChanged>
 <TimeCreated>63636,83070.113987</TimeCreated>
 
 <Method name="GetAllCompanies">
@@ -828,6 +829,9 @@
    throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
    set comp.name=obj.name
    set comp.attribute=obj.attribute
+   set comp.isOnER = obj.isOnER
+   set comp.isOnRelDiagram = obj.isOnRelDiagram
+   set comp.project = obj.project
    $$$THROWONERROR(st,comp.%Save())
  } 
  catch ex {
@@ -867,6 +871,21 @@
         s st=ex.AsStatus()
     }
     quit st
+]]></Implementation>
+</Method>
+
+<Method name="getAllProjectObjects">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Obj where project='"_name_"'")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
 ]]></Implementation>
 </Method>
 </Class>
@@ -1015,7 +1034,7 @@
 
 <Class name="DBHomster.Obj">
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
-<TimeChanged>63687,63088.265983</TimeChanged>
+<TimeChanged>63698,81734.379574</TimeChanged>
 <TimeCreated>63602,63849.219687</TimeCreated>
 
 <Property name="name">
@@ -1026,6 +1045,18 @@
 <Property name="attribute">
 <Type>%String</Type>
 <Collection>list</Collection>
+</Property>
+
+<Property name="project">
+<Type>%String</Type>
+</Property>
+
+<Property name="isOnRelDiagram">
+<Type>%Boolean</Type>
+</Property>
+
+<Property name="isOnER">
+<Type>%Boolean</Type>
 </Property>
 
 <Storage name="Default">
@@ -1045,6 +1076,15 @@
 </Value>
 <Value name="3">
 <Value>attribute</Value>
+</Value>
+<Value name="4">
+<Value>isOnRelDiagram</Value>
+</Value>
+<Value name="5">
+<Value>isOnER</Value>
+</Value>
+<Value name="6">
+<Value>project</Value>
 </Value>
 </Data>
 </Storage>
@@ -1306,7 +1346,7 @@
 <Owner>_PUBLIC</Owner>
 <SqlTableName>login</SqlTableName>
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
-<TimeChanged>63677,56463.79976</TimeChanged>
+<TimeChanged>63698,61661.830707</TimeChanged>
 <TimeCreated>63588,80338.778812</TimeCreated>
 
 <Property name="name">
@@ -1315,11 +1355,6 @@
 </Property>
 
 <Property name="surname">
-<Type>%String</Type>
-<Required>1</Required>
-</Property>
-
-<Property name="login">
 <Type>%String</Type>
 <Required>1</Required>
 </Property>
@@ -1343,8 +1378,13 @@
 </Property>
 
 <Property name="projects">
-<Type>Project</Type>
+<Type>%String</Type>
 <Collection>list</Collection>
+</Property>
+
+<Property name="login">
+<Type>%String</Type>
+<Required>1</Required>
 </Property>
 
 <Storage name="Default">
@@ -1393,7 +1433,7 @@
 
 <Class name="DBHomster.linkedObj">
 <Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor,DBHomster.Obj</Super>
-<TimeChanged>63687,1930.813319</TimeChanged>
+<TimeChanged>63698,61519.819984</TimeChanged>
 <TimeCreated>63602,65410.985121</TimeCreated>
 
 <Property name="link">
@@ -1447,6 +1487,12 @@
 </Value>
 <Value name="9">
 <Value>attribute</Value>
+</Value>
+<Value name="10">
+<Value>isOnER</Value>
+</Value>
+<Value name="11">
+<Value>isOnRelDiagram</Value>
 </Value>
 </Data>
 </Storage>

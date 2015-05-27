@@ -13,36 +13,27 @@ window.onload = function () {
 	userId = getParam("result");
 	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
+	//var user = JSON.parse($.cookie("session"));
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
-/*	if (userId != "") {
-	$.get("http://localhost:57772/csp/rest/json/getuser/"+userId, function(data, status){
-		var obj = JSON.parse(data);
-		if (obj.children.length !=0) {
-		user = obj;
-		document.getElementById("userNameText").innerHTML = user.children[0].name + " " + user.children[0].surname;
-		}
-		else {
-			window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
-		}
-        });
-	}
-	else {
-		window.location = "http://localhost:57772/csp/user/git/pg/registration.html";
-	}*/
+	//document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+		var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+				//scope.getAllProjectObjects();
+			});
 		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
         var bordWhite = document.createElement('div');
         bordWhite.className = "bottomWhite";
         contentDivs[i].className = "contentDiv";
-        objContainers[i].className = "objects-attr-container";
+        objContainers[i].className = "attr-objects-container";
         if (i != 0) {
             contentDivs[i].style.visibility = "hidden";
             bordWhite.style.visibility = "hidden";
-            objContainers[i].style.visibility = "hidden";
+            $(objContainers[i]).hide();
         }
         tabs[i].appendChild(bordWhite);
     }
@@ -71,45 +62,9 @@ window.onload = function () {
         })
     });
 	function redirecting() {
-		var url = "http://localhost:57772/csp/user/git/pg/projects.html?result=" + user.children[0].ID;
+		var url = "http://localhost:57772/csp/user/git/pg/projects.html";
 		window.location = url;
 	}
-
-    /*function addToObjectsList(text) {
-        //var text = document.getElementById("wordTextBox").value;
-        if (text.length != 0 && text.length != 1) {
-            var select = document.getElementById("List1");
-            select.options[select.options.length] = new Option(text);
-            var attributes = new Array();
-            var obj = {
-                name: text,
-                attr: attributes
-            }
-            objects.push(obj);
-        }
-    }
-
-    function addAttrToObject(attr) {
-        var objIndex = document.getElementById("List1").selectedIndex;
-        //var objIndex = document.getElementById("newBox1").value;
-        //var attr = document.getElementById("attrBox").value;
-        var obj = objects[objIndex];
-        if (attr.length != 0 && attr.length != 1) {
-            obj.attr.push(attr);
-        }
-    }
-
-    function addToAttrList() {
-        var ind = document.getElementById("List1").selectedIndex;
-        index = ind;
-        var mas = objects[ind].attr;
-        var select = document.getElementById("List2");
-        clean('List2');
-        for (i = 0; i < mas.length; i++) {
-            select.options[select.options.length] = new Option(mas[i]);
-        }
-    }*/
-
 
     //удаление объекта
     $(function(){
@@ -119,8 +74,6 @@ window.onload = function () {
 			scope.$apply(function () {
 			scope.deleteObject();
 			});
-            //deleteObject();
-            clean('List2');
         });
     });
 
@@ -128,6 +81,18 @@ window.onload = function () {
     $(function(){
         $("#List2").bind("dblclick", function(){
             deleteAttribute();
+        });
+    });
+
+    //отрисовка relations
+    $(function(){
+        $("#relationList").bind("dblclick", function(){
+            var text = $("#relationList option:selected").text();
+            var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', text, {x: 100, y: 100});
+            
+
+            diagrams.objectRelation.addCell(figure);
+            refreshList(2);
         });
     });
 
@@ -282,7 +247,7 @@ function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
             tabs[j].setAttribute("class", "chosenTab");
-            objContainers[j].style.visibility = "visible";
+            $(objContainers[j]).show();
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");
             for (var t = 0; t < tabs[j].childNodes.length; t++) {
@@ -291,11 +256,14 @@ function changeTab() {
                     break;
                 }
             }
+
+            //обновление списков
+            refreshList(j + 1);
         }
         else {
             tabs[j].setAttribute("class", "tab");
             contentDivs[j].style.visibility = "hidden";
-            objContainers[j].style.visibility = "hidden";
+            $(objContainers[j]).hide();
             for (var q = 0; q < tabs[j].childNodes.length; q++) {
                 if (tabs[j].childNodes[q].className == "bottomWhite") {
                     tabs[j].childNodes[q].style.visibility = "hidden";
@@ -351,17 +319,18 @@ function getParam(sParamName)
 var Params = location.search.substring(1).split("?"); 
 // отсекаем «?» и вносим переменные и их значения в массив var variable = "";
 
-for (var i = 0; i < Params.length; i++) // просматриваем весь массив переменных
+for (var ij = 0; ij < Params.length; ij++) // просматриваем весь массив переменных
   { 
-        if (Params[i].split("=")[0] == sParamName) // если найдена искомая переменная, и
+        if (Params[ij].split("=")[0] == sParamName) // если найдена искомая переменная, и
        { 
-           if (Params[i].split("=").length > 1) variable = Params[i].split("=")[1]; 
+           if (Params[ij].split("=").length > 1) variable = Params[ij].split("=")[1];
            // если значение параметра задано, то 
            return variable; // возвращаем его
        }
    }
    return "";
 }
+
  $(document).ready(function() {
           $("a.dropdown-toggle").click(function(ev) {
               $("a.dropdown-toggle").dropdown("toggle");
@@ -372,3 +341,27 @@ for (var i = 0; i < Params.length; i++) // просматриваем весь �
               return false;
           });
       });
+
+//обновление списков (при добавлении подредачить)
+function refreshList(tab) {
+    if(tab > 3) return;
+    var nameList = "listTab" + tab;
+    var lists = document.getElementsByName(nameList);
+    for(ii = 0; ii < lists.length; ii++) {
+        lists[ii].innerHTML = "";
+    }
+    for(jj = 0; jj < objects.length; jj++){
+        if((tab == 1) || (tab == 2 && !objects[jj].isOnRelDiagram) || (tab == 3 && !objects[jj].isOnER)) {
+            lists[0].options[lists[0].options.length] = new Option(objects[jj].name);
+        }
+    }
+    return;
+}
+
+//поиск объекта по имени
+function findIndByObjName(nameObj) {
+    for (q = 0; q < objects.length; q++) {
+        if(nameObj == objects[q].name) return q;
+    }
+    return -1;
+}

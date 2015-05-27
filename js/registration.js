@@ -1,4 +1,5 @@
-            function showHide(element_id, element2_id) {
+
+			function showHide(element_id, element2_id) {
                 //Если элемент с id-шником element_id существует
                 if (document.getElementById(element_id) && document.getElementById(element2_id)) {
                     //Записываем ссылку на элемент в переменную obj
@@ -15,6 +16,15 @@
                 else alert("Элемент с id: " + element_id + " не найден!");
             }
 
+function encodeUser(user) {
+	user.name = encode(user.name);
+	user.surname = encode(user.surname);
+	user.jobTitle = encode(user.jobTitle);
+	user.workPlace = encode(user.workPlace);
+	user.password = encode(user.password);
+	return user;
+}
+var flag = true;
 var cacheApp = angular.module("cache", []);
 
 function ctrl($scope,$http) {
@@ -25,10 +35,23 @@ function ctrl($scope,$http) {
   
       // Создать новую компанию
     $scope.create = function (company){
-       $http.post("http://localhost:57772/csp/rest/json/company",company)
-       .success(function(data){$scope.getCompanies();window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
-	   }).error(function(data,status){window.alert(status);window.alert(data);
-        $scope.alertzone="["+status+"] Ошибка добавления компании :( ["+data+"]"; });
+		objName = company;
+		objName = {
+			name : company.name,
+			surname : company.surname,
+			jobTitle : company.jobTitle,
+			workPlace : company.workPlace,
+			password : company.password,
+			login : company.login,
+			email : company.email,
+			projects: ["Default"]
+		}
+       $http.post("http://localhost:57772/csp/rest/json/company",encodeUser(objName))
+       .success(function(data){
+		   $.cookie("session", JSON.stringify(objName));
+		   var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
+			window.location = url;
+	   }).error(function(data,status){alert("tut1");alert(data);});   
     }
 
     // Обновить существующую компанию
@@ -41,13 +64,12 @@ function ctrl($scope,$http) {
     // Удалить компанию
     $scope.delete = function (company){
         $http.delete("/rest/json/company/"+company.ID)
-        .success(function(data){$scope.getCompanies();$scope.alertzone="Удалили компанию "+company.Name;}).error(function(data,status){
-            $scope.alertzone="["+status+"] Ошибка удаления компании :( ["+data+"]"; });
+        .success(function(data){$scope.getCompanies();$scope.alertzone="Удалили компанию "+company.Name;}).error(function(data,status){});
     }
+	
 	$scope.submitLogin = function () {
 		var serverURL = "http://localhost:57772/csp/rest/json/accounts";
-
-		var url = serverURL + '/' + this.login + '/' + this.password;
+		var url = serverURL + '/' + this.login + '/' + encode(this.password);
 		
 		var responsePromise = $http.get(url);
 
@@ -57,8 +79,17 @@ function ctrl($scope,$http) {
 		});
 
 		responsePromise.success(function (data) {
-			var url = "http://localhost:57772/csp/user/git/pg/workenv.html?result=" + data.children[0].ID;
-			window.location = url;
+			if (Object.keys(data.children).length >0) {
+				$.cookie("session", JSON.stringify(data));
+				$.cookie("project", JSON.stringify(data.children[0].projects));
+				var user = JSON.parse($.cookie("session"));
+				var proj = JSON.parse($.cookie("project"));
+				var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
+				window.location = url;
+			}
+			else {
+				alert("Try again");
+			}
 		});
 	};
 };

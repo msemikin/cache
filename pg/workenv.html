@@ -20,9 +20,10 @@
     <script src="../js/workenv.js" type="text/javascript"></script>
     <script src="../js/app.js" type="text/javascript"></script>
     <script src="../js/draw.js" type="text/javascript"></script>
+	<script src="../js/translit.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/concept.js" type="text/javascript"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
+	<script src="../js/jquery.cookie.js" type="text/javascript"></script>
 
     <script src="../js/controllers/er-controller.js" type="text/javascript"></script>
     <script src="../js/controllers/object-diagram-controller.js "></script>
@@ -43,7 +44,7 @@
                 <h3 id="userNameText">Student</h3>
             </div>
         </div>
-          <button id="logOut" class="logoutButton" onclick="location.href='registration.html'">
+          <button id="logOut" class="logoutButton" onclick="location.href='../index.html'">
             <font class="sender">Выйти</font>
           </button>
     </div>
@@ -78,16 +79,16 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="left-panel">
             <div id="pages-container" class="pages-container"></div>
-            <div id="objects-attribute-container" name="objContainer">
-                   <div class="gorizont objects-attr-list">
+            <div id="objects-attribute-container" class="object-container" name="objContainer">
+                <div class="gorizont objects-attr-list">
                     <div class="selects panel panel-default">
                     <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="List1" onclick="refreshAttr();"></select>
+                            <select class="list" size="5" id="List1" name="listTab1" onclick="refreshAttr();"></select>
                         </div>
                     </div>
                     <div class="selects panel panel-default">
@@ -95,7 +96,7 @@
                             <h3 class="panel-title">Атрибуты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="List2"></select>
+                            <select class="list" size="5" id="List2" name="listTab1"></select>
                         </div>
                     </div>
                 </div>
@@ -104,50 +105,50 @@
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="wordTextBox" cols="25" rows="1" ng-model="objec.name"></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Добавить" ng-click="create(objec)"; objec='';>
+                        <div style="padding:0;" class="panel-body  obj-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" ng-click="create(objec)"; objec='';>
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="attrBox" cols="25" rows="1" ></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Добавить" onclick = "addAttr()">
+                        <div style="padding:0;" class="panel-body  attr-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick = "addAttr()">
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="relation-obj-container"  name="objContainer">
+            <div id="relation-obj-container" class="object-container" name="objContainer">
                 <div class="gorizont objects-attr-list">
-                    <div class="selects panel panel-default" style="width:100%!important;">
+                    <div class="selects full  panel panel-default">
                     <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="relationList" onclick=""></select>
+                            <select class="list" size="5" id="relationList" name="listTab2"><option>Object</option></select>
                         </div>
                     </div>
                 </div>
-                <div class="gorizont">
-                    <div class="inputs panel panel-default">
-                        <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
+                <!--<div class="gorizont">
+                    <div class="inputs full panel panel-default">
+                        <div style="background-color: #fff; padding: 0; float:left; flex-grow: 1;" class="panel-heading">
                             <textarea class="textareas" id="relationTextBox" cols="25" rows="1" ></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Добавить" onclick="">
+                        <div style="padding:0;" class="panel-body input-wrap">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default full" value="Добавить" onclick="">
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
-            <div id="er-obj-container"  name="objContainer">
+            <div id="er-obj-container" class="pbject-container"  name="objContainer">
                 <div class="gorizont objects-attr-list">
                     <div class="selects panel panel-default">
                     <!--<div class="panel-heading">
                             <h3 class="panel-title">Объекты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="erObjList" onclick=""></select>
+                            <select class="list" size="5" id="erObjList" name="listTab3"></select>
                         </div>
                     </div>
                     <div class="selects panel panel-default">
@@ -155,42 +156,42 @@
                             <h3 class="panel-title">Атрибуты</h3>
                         </div>-->
                         <div class="panel-body">
-                            <select class="list" size="5" id="erAttrList"></select>
+                            <select class="list" size="5" id="erAttrList" name="listTab3 "></select>
                         </div>
                     </div>
                 </div>
-                <div class="gorizont" id ="gor" ng-controller="ctrl">
+                <!--<div class="gorizont" id ="gor" ng-controller="ctrl">
                     <div class="inputs panel panel-default"  ng-model="company">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
-                            <textarea class="textareas" id="objInpER" cols="25" rows="1" ng-model=""></textarea>
+                            <textarea class="textareas" id="objInpER" cols="25" rows="1"></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Объект" ng-click="">
+                        <div style="padding:0;" class="panel-body  obj-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="Объект" ng-click="">
                         </div>
                     </div>
                     <div class="inputs panel panel-default">
                         <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
                             <textarea class="textareas" id="attrInpER" cols="25" rows="1" ></textarea>
                         </div>
-                        <div style="padding:0;" class="panel-body">
-                            <input type="button" style="border:none; width:100%; height:100%; margin:0;" class="btn btn-default" value="Атрибут" onclick = "">
+                        <div style="padding:0;" class="panel-body attr-input">
+                            <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="Атрибут" onclick = "">
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
-            <div id="ip-obj-container" name="objContainer">
+            <div id="ip-obj-container" class="object-container"  name="objContainer">
 
             </div>
-            <div id="statistic-obj-container" name="objContainer">
+            <div id="statistic-obj-container" class="object-container" name="objContainer">
 
             </div>
-            <div id="otchet-obj-container" name="objContainer">
+            <div id="otchet-obj-container"  class="object-container" name="objContainer">
 
             </div>
-            <div id="az-obj-container" name="objContainer">
+            <div id="az-obj-container"  class="object-container" name="objContainer">
 
             </div>
-            <div id="oc-obj-container" name="objContainer">
+            <div id="oc-obj-container"  class="object-container" name="objContainer">
 
             </div>
         </div>
@@ -206,7 +207,7 @@
 		   </div>
 		    <div id="functional-model" class="panel-body" ng-click="closeOptions()">
 			</div>
-		    <div class="dialog panel options panel-default" ng-show="optionsShow">
+		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
 				<div class="list-group">
 					<a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
 					<a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
@@ -220,9 +221,33 @@
 					<input type="text" ng-model="renameValue" class="form-control" />
 				</div>
 				<div class="panel-footer">
-					<input type="button" ng-click="cancelChange()" class="btn btn-default" value="Cancel" />
-					<input type="button" ng-click="submitChange()" class="btn btn-primary" value="Save changes" />
+					<input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
+					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
 				</div>
+		    </div>
+            <div class="dialog panel options panel-default" ng-show="linkOptionsShow">
+				<div class="list-group">
+					<a href="#" class="list-group-item" ng-click="changeLink()">Изменить отношение</a>
+					<a href="#" class="list-group-item" ng-click="reverseLink()">Развернуть</a>
+				</div>
+		    </div>
+            <div class="dialog panel panel-default" ng-show="linkChangeShow">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Изменение связи</h3>
+                </div>
+                <div class="panel-body">
+                    <select ng-model="linkType" class="form-control" />
+				        <option>Extend</option>
+				        <option>Include</option>
+                        <option>Association</option>
+			         </select>
+                
+                    <input class="form-control" value="Reverse">
+                </div>
+                <div class="panel-footer">
+                    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+                    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
+                </div>
 		    </div>
 		</div>
 	   </div>
@@ -232,7 +257,7 @@
 				<h3 class="panel-title">Взаимодействия объектов</h3>
 		    </div>
 		    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initObject()" value="Объект" class="btn btn-default">
+				<input type="button" value="Объект" class="btn btn-default object">
 		    </div>
 		    <div id="object-relation-model" class="panel-body" ng-click="closeObjectOptions()">
 		    </div>
@@ -254,17 +279,17 @@
 					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
 				</div>
 		    </div>
-		    <div class="dialog change-link panel panel-default" ng-show="linkOptionsShow">
-			<div class="panel-heading">
-			    <h3 class="panel-title">Изменение отношения</h3>
-			</div>
-			<div class="panel-body">
-				<input type="text" ng-model="linkLabel" class='form-control' />
-			</div>
-			<div class="panel-footer">
-			    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
-			    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
-			</div>
+		    <div class="dialog panel panel-default" ng-show="linkOptionsShow">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Изменение связи</h3>
+                </div>
+                <div class="panel-body">
+                    <input type="text" ng-model="linkLabel" class='form-control' />
+                </div>
+                <div class="panel-footer">
+                    <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+                    <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
+                </div>
 		    </div>
 		</div>
     </div>
@@ -274,9 +299,9 @@
 				<h3 class="panel-title">ER диаграмма</h3>
 		    </div>
 		    <div class="figuresBar panel panel-default">
-				<input type="button" ng-click="initEntity()" value="Сущность" class="btn btn-default">
-				<input type="button" ng-click="initAttribute()" value="Атрибут" class="btn btn-default">
-				<input type="button" ng-click="initAssociation()" value="Ассоциация" class="btn btn-default">
+				<input type="button" value="Сущность" class="btn btn-default entity">
+				<input type="button" value="Атрибут" class="btn btn-default attribute">
+				<input type="button" value="Ассоциация" class="btn btn-default association">
 		    </div>
 		    <div id="er-model" class="panel-body" ng-click="closeObjectOptions()"></div>
 		    <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
@@ -319,58 +344,59 @@
 		</div>
 	   </div>
         <div id="div4" name="contentDiv">
-                <div class="btn-group buttonsBar">
-                    <button class="btn btn-default"> Поиск </button>
-                    <button class="btn btn-default"> Сортировки </button>
-                    <button class="btn btn-default"> Фильтрации </button>
-                </div>
-            <div class="gorizont">
-                <div  class="panel panel-default namePanel " >
-                    <div class="panel-heading ">
-                        <h3 class="panel-title h2">Объект</h3>
-                    </div>
-                    <select size="11" multiple class="form-control input-lg sel">
-                        <option>Movies </option>
-                        <option>Games</option>
-                        <option>Books</option>
-                        <option>Newspapers</option>
-                        <option>Songs</option>
-                    </select>
-                    <div style="margin:0 auto;margin-left:32%;" class="choice panel panel-body ">
-                        <button type="button" class="btn btn-default btn-small ">
-                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="panel panel-default detailsPanel ">
-                    <div class="panel-heading ">
-                        <h3 class="panel-title">Атрибуты по которым сортировка</h3>
-                    </div>
-                            <h4>
-                                <div class="gorizont al">
-                                    Атрибут1
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-                            <h4 class = "al">
-                                Атрибут2
-                            </h4>
-                            <h4 class = "al">
-                               Атрибут3
-                            </h4>
-                         <div style = "padding: 10%"></div>
-                        <div class="gorizont">
-                            <input type="text" class="form-control" placeholder="Объект…">
-                            <button type="button" class="btn btn-default btn-small ">
-                                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                                    </button>
-                            </div>
-
-                </div>
-            </div>
-        </div>
+		<div class="content-box">
+			<div class="btn-group buttonsBar">
+			    <button class="btn btn-default"> Поиск </button>
+			    <button class="btn btn-default"> Сортировки </button>
+			    <button class="btn btn-default"> Фильтрации </button>
+			</div>
+			<div class="box">
+				<div  class="panel panel-default namePanel " >
+					<div class="panel-heading ">
+						<h3 class="panel-title h2">Объект</h3>
+					</div>
+					<select size="11" multiple class="form-control input-lg sel objects-select">
+						<option>Movies </option>
+						<option>Games</option>
+						<option>Books</option>
+						<option>Newspapers</option>
+						<option>Songs</option>
+					</select>
+					<div class="new-object">
+						<button type="button" class="btn btn-default btn-small ">
+						     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				<div class="panel panel-default detailsPanel ">
+					<div class="panel-heading ">
+						<h3 class="panel-title">Атрибуты по которым сортировка</h3>
+					</div>
+					<h4>
+						<div class="gorizont al">
+							Атрибут1
+							<button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
+							    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</button>
+						 </div>
+					</h4>
+					<h4 class = "al">
+						Атрибут2
+					</h4>
+					<h4 class = "al">
+						Атрибут3
+					</h4>
+					<div style = "padding: 10%"></div>
+					<div class="gorizont">
+						<input type="text" class="form-control" placeholder="Объект…">
+						<button type="button" class="btn btn-default btn-small ">
+							<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
             <div id="div5" name="contentDiv">
                 <div class="gorizont">
                 <div  class="panel panel-default namePanel " >
