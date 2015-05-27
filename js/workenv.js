@@ -23,7 +23,7 @@ window.onload = function () {
 	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
 		var scope = angular.element(document.getElementById("gor")).scope();
 			scope.$apply(function () {
-				scope.getAllProjectObjects();
+				//scope.getAllProjectObjects();
 			});
 		
     for (i = 0; i < tabs.length; i++) {
@@ -31,7 +31,7 @@ window.onload = function () {
         var bordWhite = document.createElement('div');
         bordWhite.className = "bottomWhite";
         contentDivs[i].className = "contentDiv";
-        objContainers[i].className = "objects-attr-container";
+        objContainers[i].className = "attr-objects-container";
         if (i != 0) {
             contentDivs[i].style.visibility = "hidden";
             bordWhite.style.visibility = "hidden";
@@ -94,6 +94,9 @@ window.onload = function () {
 			scope.$apply(function () {
                 var ind = findIndByObjName(elem);
                 objects[ind].isOnRelDiagram = true;
+
+                var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', elem, {x: 100, y: 100});
+                diagrams.objectRelation.addCell(figure);
                 //setRelDiagramm(elem, 'true');
 			});
             //deleteObject();
@@ -332,6 +335,17 @@ for (var ij = 0; ij < Params.length; ij++) // просматриваем вес�
    return "";
 }
 
+ $(document).ready(function() {
+          $("a.dropdown-toggle").click(function(ev) {
+              $("a.dropdown-toggle").dropdown("toggle");
+              return false;
+          });
+          $("ul.dropdown-menu a").click(function(ev) {
+              $("a.dropdown-toggle").dropdown("toggle");
+              return false;
+          });
+      });
+
 //обновление списков (при добавлении подредачить)
 function refreshList(tab) {
     if(tab > 3) return;
@@ -348,7 +362,6 @@ function refreshList(tab) {
     }
     return;
 }
-
 
 //поиск объекта по имени
 function findIndByObjName(nameObj) {

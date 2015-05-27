@@ -201,7 +201,7 @@ input, textarea, button {
 	height: 94%;
 }
 
-.objects-attr-container {
+.attr-objects-container {
 	display: table-row;
 	height: 0;
 }
@@ -303,6 +303,10 @@ input, textarea, button {
     margin-right: 10%;
     margin-top: 2%;
     margin-bottom: %;
+}
+
+.objects-attr-list{
+    height:61%!important;
 }
 
 /*#constrBox {
