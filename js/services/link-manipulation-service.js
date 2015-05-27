@@ -22,7 +22,7 @@ app.service('linkManipulationService',[ function(){
 
 		// create linkDot
 		paper.on('cell:pointerclick',function(cellView, evt, x, y){
-			if(cellView.model.prop('type') !== 'drag' && !linkDragMode && !linkDot){
+			if(cellView.model.prop('type') !== 'drag' && !linkDragMode && !linkDot && (cellView.model.attributes.type !== 'link')){
 
 				var position = cellView.model.attributes.position;
 				var size = cellView.model.attributes.size;
@@ -60,13 +60,16 @@ app.service('linkManipulationService',[ function(){
 					},
 					attrs: {
 						'.connection': {
-						d: 'M 10 0 L 0 5 L 10 10 z'
-						}
+						  d: 'M 10 0 L 0 5 L 10 10 z'
+						},
+                        '.marker-target': {},
+                        '.marker-source': {}
 					},
-					/*labels: [ 
-						{ position: 15, attrs: { text: { text: '1' } }},
-						{ position: -15, attrs: { text: { text: '1' } }},
-					]*/
+					labels: [ 
+						{ position: +15, attrs: { text: { text: '' } }},
+						{ position: .5, attrs: { text: { text: '' } }},
+						{ position: -15, attrs: { text: { text: '' } }},
+					]
 				});
 				graph.addCell(link);
 			}
