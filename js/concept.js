@@ -12,7 +12,6 @@ function addObj(textExt)
     if (textExt == null) var text_pre = document.getElementById("wordTextBox").value;
     else var text_pre = textExt;
     var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
-
     //отладка
     console.log("ввод:")
     console.log(text);
@@ -222,7 +221,7 @@ app.controller("ctrl", function ($scope,$http) {
 			}
 		});
 	}
-	
+
 	$scope.sendEverything = function () {
 		objects.forEach(function(item, i, arr) {
 			$scope.objec = {
