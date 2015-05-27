@@ -243,13 +243,13 @@ app.controller("ctrl", function ($scope,$http) {
 				$scope.objec = {
 					name:item.name,
 					attribute:item.attribute,
-					isOnRelDiagram: value,
-					isOnER: item.isOnER,
+					isOnRelDiagram: item.isOnER,
+					isOnER: value,
 					project : JSON.parse($.cookie("project"))
 				}
 				objName = $scope.objec;
 				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
-				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
+				.success(function (data){console.log("Установили ERDiagr для "+objName.name);decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
 		});
@@ -260,13 +260,13 @@ app.controller("ctrl", function ($scope,$http) {
 				$scope.objec = {
 					name:item.name,
 					attribute:item.attribute,
-					isOnRelDiagram: item.isOnRelDiagram,
-					isOnER: value,
+					isOnRelDiagram: value,
+					isOnER: item.isOnRelDiagram,
 					project : JSON.parse($.cookie("project"))
 				}
 				objName = $scope.objec;
 				$http.put("http://localhost:57772/csp/rest/json/object/"+encode(objName.name),encodeObject(objName))
-				.success(function (data){console.log("Добавили объект"+objName.name);decodeObject(objName);})
+				.success(function (data){console.log("Установили RelDiagram для "+objName.name);decodeObject(objName);})
 			.error(function (data) {console.log(data);console.log("Ошибка добавления компании");});
 			}
         });
