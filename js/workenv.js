@@ -4,7 +4,7 @@ var contentDivs;
 var textObj;
 var canvas;
 var index;
-var userId ="";
+var userId = "";
 var user;
 var objContainers;
 
@@ -13,12 +13,14 @@ window.onload = function () {
 	userId = getParam("result");
 	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
-	//var user = JSON.parse($.cookie("session"));
+	user = JSON.parse($.cookie("session"));
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
-	//document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+
+
+	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
 		var scope = angular.element(document.getElementById("gor")).scope();
 			scope.$apply(function () {
 				//scope.getAllProjectObjects();
@@ -87,12 +89,33 @@ window.onload = function () {
     //отрисовка relations
     $(function(){
         $("#relationList").bind("dblclick", function(){
-            var text = $("#relationList option:selected").text();
-            var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', text, {x: 100, y: 100});
-            
+            var elem = $("#relationList option:selected").text();
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+                var ind = findIndByObjName(elem);
+                objects[ind].isOnRelDiagram = true;
 
-            diagrams.objectRelation.addCell(figure);
+                var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', elem, {x: 100, y: 100});
+                diagrams.objectRelation.addCell(figure);
+                //setRelDiagramm(elem, 'true');
+			});
+            //deleteObject();
             refreshList(2);
+        });
+    });
+
+    //отрисовка ER
+    $(function(){
+        $("#erObjList").bind("dblclick", function(){
+            var elem = $("#erObjList option:selected").text();
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+                var ind = findIndByObjName(elem);
+                objects[ind].isOnER = true;
+                //setERDiagramm(elem, 'true');
+			});
+            //deleteObject();
+            refreshList(3);
         });
     });
 
@@ -222,25 +245,6 @@ window.onload = function () {
 }
 
 
-/*function linkedLists()
- {
- var syncList1 = new syncList;
-
- syncList1.dataList = {
-
- 'Obj1':{
- 'Obj1_Attr1.1':'Attr1.1',
- 'Obj1_Attr1.2':'Attr1.2',
- 'Obj1_Attr1.3':'Attr1.3'
- },
- 'Obj2':{
- 'Obj2_Attr2.1':'Attr2.1',
- 'Obj2_Attr2.2':'Attr2.2'
- }
- };
- syncList1.sync("List1","List2");
- }*/
-
 
 //Переключение вкладок
 function changeTab() {
@@ -347,6 +351,7 @@ function refreshList(tab) {
     if(tab > 3) return;
     var nameList = "listTab" + tab;
     var lists = document.getElementsByName(nameList);
+
     for(ii = 0; ii < lists.length; ii++) {
         lists[ii].innerHTML = "";
     }

@@ -10,7 +10,7 @@ app.service('diagramService', [function(){
 	var self = {};	
 
     joint.shapes.basic.Actor = joint.shapes.basic.Generic.extend({
-        markup: 
+        markup:
         '<svg contentScriptType="text/ecmascript" contentStyleType="text/css" height="127.0px" preserveAspectRatio="xMidYMid meet" version="1.0" width="62" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify">'+
             '<g class="uml.actor scalable" transform="translate(10 10)">'+
                 '<circle cx="20" cy="20" fill="#fcfcfc" r="20" stroke="#000000" stroke-dasharray="none" stroke-width="2"></circle>'+
@@ -25,12 +25,12 @@ app.service('diagramService', [function(){
         '</svg>',
 
         defaults: joint.util.deepSupplement({
-        
+
             type: 'basic.Actor',
             attrs: {
                 'text': { 'font-size': 14, 'ref-x': .5, 'ref-y': 2, ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle' }
             }
-            
+
         }, joint.shapes.basic.Generic.prototype.defaults)
 
     });

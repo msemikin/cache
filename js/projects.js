@@ -34,7 +34,7 @@ function edit(){
 }
 
 /*$('#addTeacher').click(function(event) {
-    
+
     addDynamic();
     return false;
  });*/
