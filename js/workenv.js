@@ -13,16 +13,16 @@ window.onload = function () {
 	userId = getParam("result");
 	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
-	//user = JSON.parse($.cookie("session"));
+	user = JSON.parse($.session.get('session'));
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
 
-	//document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
 		var scope = angular.element(document.getElementById("gor")).scope();
 			scope.$apply(function () {
-				//scope.getAllProjectObjects();
+				scope.getAllProjectObjects();
 			});
 		
     for (i = 0; i < tabs.length; i++) {

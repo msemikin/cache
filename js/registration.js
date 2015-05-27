@@ -26,44 +26,54 @@ function encodeUser(user) {
 var flag = true;
 var cacheApp = angular.module("cache", []);
 
-function ctrl($scope,$http) {
+function ctrl($scope, $http) {
     // Запрос GET к RESTful web API
-    $scope.getCompanies=function() {
+    $scope.getCompanies = function () {
 
     };
 
     // Создать новую компанию
-    $scope.create = function (company){
+    $scope.create = function (company) {
         objName = company;
         objName = {
-            name : company.name,
-            surname : company.surname,
-            jobTitle : company.jobTitle,
-            workPlace : company.workPlace,
-            password : company.password,
-            login : company.login,
-            email : company.email,
+            name: company.name,
+            surname: company.surname,
+            jobTitle: company.jobTitle,
+            workPlace: company.workPlace,
+            password: company.password,
+            login: company.login,
+            email: company.email,
             projects: ["Default"]
         }
-        $http.post("http://localhost:57772/csp/rest/json/company",encodeUser(objName))
-            .success(function(data){
+        $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
+            .success(function (data) {
                 $.cookie("session", JSON.stringify(objName));
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
                 window.location = url;
-            }).error(function(data,status){alert("tut1");alert(data);});
+            }).error(function (data, status) {
+                alert("tut1");
+                alert(data);
+            });
     }
 
     // Обновить существующую компанию
-    $scope.update = function (company){
-        $http.put("/rest/json/company/"+company.ID,company)
-            .success(function(data){$scope.alertzone="Обновили компанию "+company.Name;}).error(function(data,status){ // поменял alert(....); на alertzone
-                $scope.alertzone="["+status+"] Ошибка обновления имени компании :( ["+data+"]"; });
+    $scope.update = function (company) {
+        $http.put("/rest/json/company/" + company.ID, company)
+            .success(function (data) {
+                $scope.alertzone = "Обновили компанию " + company.Name;
+            }).error(function (data, status) { // поменял alert(....); на alertzone
+                $scope.alertzone = "[" + status + "] Ошибка обновления имени компании :( [" + data + "]";
+            });
     }
 
     // Удалить компанию
-    $scope.delete = function (company){
-        $http.delete("/rest/json/company/"+company.ID)
-            .success(function(data){$scope.getCompanies();$scope.alertzone="Удалили компанию "+company.Name;}).error(function(data,status){});
+    $scope.delete = function (company) {
+        $http.delete("/rest/json/company/" + company.ID)
+            .success(function (data) {
+                $scope.getCompanies();
+                $scope.alertzone = "Удалили компанию " + company.Name;
+            }).error(function (data, status) {
+            });
     }
 
     $scope.submitLogin = function () {
@@ -78,11 +88,11 @@ function ctrl($scope,$http) {
         });
 
         responsePromise.success(function (data) {
-            if (Object.keys(data.children).length >0) {
-                $.cookie("session", JSON.stringify(data));
-                $.cookie("project", JSON.stringify(data.children[0].projects));
-                var user = JSON.parse($.cookie("session"));
-                var proj = JSON.parse($.cookie("project"));
+            if (Object.keys(data.children).length > 0) {
+                $.session.set('session', JSON.stringify(data));
+                $.session.set('project', JSON.stringify(data.children[0].projects));
+                //var user = JSON.parse($.cookie("session"));
+                //var proj = JSON.parse($.cookie("project"));
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
                 window.location = url;
             }
