@@ -28,7 +28,7 @@ app.service('diagramService', [function(){
         
             type: 'basic.Actor',
             attrs: {
-                'text': { 'font-size': 14, 'ref-x': .5, 'ref-y': .5, ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle' }
+                'text': { 'font-size': 14, 'ref-x': .5, 'ref-y': 2, ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle' }
             }
             
         }, joint.shapes.basic.Generic.prototype.defaults)
@@ -37,14 +37,16 @@ app.service('diagramService', [function(){
 
     self.actor = new joint.shapes.basic.Actor({
         size: {
-            width: 40,
-            height: 40
+            width: 35,
+            height: 80
         }
     }).attr({
 		text: {
 			text: 'Actor'
 		}
     });
+
+
 
     self.service = new joint.shapes.basic.Circle({
 		size: {

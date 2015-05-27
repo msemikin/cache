@@ -15,7 +15,6 @@ app.service('dragAndDropService',[function(){
 		}
 
 		$(sourceSelector).mousedown(function(eventData) {
-            console.log('drag');
 			$(diagramSelector).prepend(dragDiv);
 			$drag= $(dragSelector);
 
