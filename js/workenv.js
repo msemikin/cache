@@ -21,10 +21,10 @@ window.onload = function () {
 
 
 	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
-		var scope = angular.element(document.getElementById("gor")).scope();
-			scope.$apply(function () {
-				//scope.getAllProjectObjects();
-			});
+    var scope = angular.element(document.getElementById("gor")).scope();
+        scope.$apply(function () {
+            scope.getAllProjectObjects();
+        });
 		
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;

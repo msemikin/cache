@@ -30,7 +30,7 @@ var cacheApp = angular.module("cache", []);
 
 var app = angular.module("cache");
 
-app.controller("ctrlreg", function ctrll($scope,$http) {
+app.controller("ctrlreg", function ctrlreg($scope,$http) {
     // Запрос GET к RESTful web API
         $scope.getCompanies=function() {
 			
