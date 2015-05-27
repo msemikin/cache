@@ -319,6 +319,7 @@
 					<input type="text" ng-model="renameValue" class="form-control" />
 				</div>
 				<div class="panel-footer">
+                    
 					<input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
 					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
 				</div>
@@ -759,7 +760,8 @@
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </button>
             </div>
-            <div class="panel panel-default constraintPanel " width="80%">
+            <div id = "constraintList">
+            <div id = "constraint_1_element" class="panel panel-default constraintPanel " width="80%">
                <div class="gorizont">
                 <div  class="btn-group"  style="margin-top:2%;">
                       <button style = "margin-left: 200%" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
@@ -799,6 +801,7 @@
                     </div>
             </div>
             </div>
+        </div>
         </div>
 
     </div>

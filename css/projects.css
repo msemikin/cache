@@ -27,9 +27,6 @@
     width: 73%;
     height: 100%;
 }
- .full-screen {
-          width: 100%;
-}
 .padd {
     position: relative;
     width:96%;
@@ -41,7 +38,9 @@
     margin:auto;
 }
 
-
+body > div.maindiv > div.leftDivBut > div > div.gorizont > div > div {
+width: 100%;
+}
 
 
 

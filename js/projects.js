@@ -35,37 +35,28 @@ function edit(){
     document.getElementById('work').contentEditable = true;
 }
 
-<<<<<<< HEAD
-/*$('#addTeacher').click(function(event) {
+$(document).ready(function(){
+	     	 $("#group").keypress(function(e){
+	     	   if(e.keyCode==13){
+	     	     document.getElementById('group').contentEditable = false;
+	     	   }
+	     	 });
+	     });
+$(document).ready(function(){
+	     	 $("#job").keypress(function(e){
+	     	   if(e.keyCode==13){
+	     	     document.getElementById('job').contentEditable = false;
+	     	   }
+	     	 });
+	     });
+$(document).ready(function(){
+	     	 $("#work").keypress(function(e){
+	     	   if(e.keyCode==13){
+	     	     document.getElementById('work').contentEditable = false;
+	     	   }
+	     	 });
+	     });
 
-    addDynamic();
-    return false;
- });*/
-function addDynamic() {
-    var div = $('<div/>', {
-        'class' : 'teachersDiv'
-    }).appendTo($('#Div'));
-    var div = $('<div/>', {
-        'class' : 'gorizont'
-    }).appendTo($('#Div'));
-    var input = $('<input/>', {
-        value : 'Преподаватель',
-        type : 'button',
-        style: 'border-style: none; width: 100%; margin: 0;padding-right: 90%;',
-        'class' : 'btn btn-default buttonTeacher' }).appendTo(div);
-    var but = $('<input/>', {
-        type : 'button',
-        style: 'border: none;',
-        'class' : 'btn btn-default btn-small' }).appendTo(div);
-    var e1 = $('<span/>', {
-        'class': "glyphicon glyphicon-remove",
-        'aria-hidden': "true"}).insertAfter(but);
-}
-
-function del(){
-    this.outerHTML='';
-}
-=======
 function addTeacher(){
     $("#mainTeacherDiv").append('<div id = "teacherDiv" style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value="Преподаватель"> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 }
@@ -80,4 +71,3 @@ function addProject(){
 function delProject(){
     $("#projectDiv").remove();
 }
->>>>>>> web
