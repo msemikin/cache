@@ -13,15 +13,15 @@ window.onload = function () {
 	userId = getParam("result");
 	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
-	var user = JSON.parse($.cookie("session"));
+	//var user = JSON.parse($.cookie("session"));
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
-	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+	//document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
 		var scope = angular.element(document.getElementById("gor")).scope();
 			scope.$apply(function () {
-				scope.getAllProjectObjects();
+				//scope.getAllProjectObjects();
 			});
 		
     for (i = 0; i < tabs.length; i++) {
@@ -87,13 +87,11 @@ window.onload = function () {
     //отрисовка relations
     $(function(){
         $("#relationList").bind("dblclick", function(){
-            var elem = $("#relationList option:selected").text();
-			var scope = angular.element(document.getElementById("gor")).scope();
-			scope.$apply(function () {
-                var ind = findIndByObjName(elem);
-                objects[ind].isOnRelDiagram = true;
-			});
-            //deleteObject();
+            var text = $("#relationList option:selected").text();
+            var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', text, {x: 100, y: 100});
+            
+
+            diagrams.objectRelation.addCell(figure);
             refreshList(2);
         });
     });
@@ -359,7 +357,6 @@ function refreshList(tab) {
     }
     return;
 }
-
 
 //поиск объекта по имени
 function findIndByObjName(nameObj) {

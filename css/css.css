@@ -201,7 +201,7 @@ input, textarea, button {
 	height: 94%;
 }
 
-.objects-attr-container {
+.attr-objects-container {
 	display: table-row;
 	height: 0;
 }
