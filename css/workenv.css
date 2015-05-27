@@ -177,10 +177,12 @@
 
 .box {
 	display: flex;
-	padding-top: 50px;
 	height: 100%;
 	width: 100%;
+}
 
+.with-header {
+    padding-top: 50px;
 }
 
 .namePanel{
@@ -223,6 +225,8 @@
 }
 
 .detailsPanel{
+    display: flex;
+    flex-direction: column;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
 	height: 100%;
@@ -231,6 +235,12 @@
     flex-grow: 1;
     border-left: 0 !important;
 }
+
+.detailsPanel .panel-body {
+    overflow-y: scroll;
+    flex-grow: 1; 
+}
+
 .deleteButton
 {
     margin-left: 82%;
@@ -247,3 +257,10 @@
     padding-left: 3%;
 }
 
+.statistics-name {
+    margin-bottom: 15px;
+}
+
+.attr-src table{
+    text-align: center;
+}
