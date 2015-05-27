@@ -30,9 +30,12 @@ $('.tab a').on('click', function (e) {
 });
 
 function edit(){
-    document.getElementById('studentInfo').contentEditable = true;
+    document.getElementById('group').contentEditable = true;
+    document.getElementById('job').contentEditable = true;
+    document.getElementById('work').contentEditable = true;
 }
 
+<<<<<<< HEAD
 /*$('#addTeacher').click(function(event) {
 
     addDynamic();
@@ -62,3 +65,19 @@ function addDynamic() {
 function del(){
     this.outerHTML='';
 }
+=======
+function addTeacher(){
+    $("#mainTeacherDiv").append('<div id = "teacherDiv" style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value="Преподаватель"> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+}
+
+function delTeacher(){
+    $("#teacherDiv").remove();
+}
+function addProject(){
+    $("#mainProjectDiv").append('<div id = "projectDiv" style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default" value="MyProject"> <button id="deleteProject" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+}
+
+function delProject(){
+    $("#projectDiv").remove();
+}
+>>>>>>> web
