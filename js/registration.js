@@ -47,7 +47,7 @@ function ctrl($scope, $http) {
         }
         $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
             .success(function (data) {
-                $.cookie("session", JSON.stringify(objName));
+                $.session.set('session', JSON.stringify(objName));
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
                 window.location = url;
             }).error(function (data, status) {

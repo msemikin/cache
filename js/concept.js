@@ -1,5 +1,4 @@
 //создавать селект в яваскрипте
-var objects = new Array();
 var listObjLen = objects.length;
 var app = angular.module("cache");
 var changingAttribute = new Array();

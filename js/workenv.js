@@ -4,27 +4,29 @@ var contentDivs;
 var textObj;
 var canvas;
 var index;
-var userId = "";
-var user;
 var objContainers;
 
 
 window.onload = function () {
-	userId = getParam("result");
-	console.log('Значение переданной переменной result = ' + userId);
     contentDivs = document.getElementsByName("contentDiv");
-	user = JSON.parse($.session.get('session'));
+    var json = $.session.get('session');
+    if (json != undefined) {
+        user = JSON.parse($.session.get('session'));
+    }
+    else {
+        document.location.href="../index.html";
+    }
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
 
-	document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
-		var scope = angular.element(document.getElementById("gor")).scope();
-			scope.$apply(function () {
-				scope.getAllProjectObjects();
-			});
-		
+    document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+    var scope = angular.element(document.getElementById("gor")).scope();
+    scope.$apply(function () {
+        scope.getAllProjectObjects();
+    });
+
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
         var bordWhite = document.createElement('div');
