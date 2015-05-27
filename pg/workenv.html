@@ -346,11 +346,11 @@
         <div id="div4" name="contentDiv">
 		<div class="content-box">
 			<div class="btn-group buttonsBar">
-			    <button class="btn btn-default"> Поиск </button>
+			    <button class="btn btn-default active"> Поиск </button>
 			    <button class="btn btn-default"> Сортировки </button>
 			    <button class="btn btn-default"> Фильтрации </button>
 			</div>
-			<div class="box">
+			<div class="box with-header">
 				<div  class="col-xs-1 panel panel-default namePanel" >
 					<div class="panel-heading ">
 						<h3 class="panel-title h2">Объект</h3>
@@ -368,30 +368,48 @@
                     </div>
 					<div class="panel-footer">
 						<div class="input-group">
-                          <input type="text" class="form-control" placeholder="Search for...">
+                          <input type="text" class="form-control" placeholder="Объект...">
                           <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Add</button>
+                            <button class="btn btn-default" type="button">+</button>
                           </span>
                         </div>
 					</div>
 				</div>
 				<div class="panel panel-default detailsPanel ">
 					<div class="panel-heading ">
-						<h3 class="panel-title">Атрибуты по которым сортировка</h3>
+						<h3 class="panel-title">Атрибуты для поиска</h3>
 					</div>
                     <div class="panel-body">
     					<ul class="list-group">
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
+                          <li class="list-group-item">
+                            Cras justo odio
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Dapibus ac facilisis in
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Morbi leo risus
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Porta ac consectetur ac
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Vestibulum at eros
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Vestibulum at eros
+                            <span class="badge">x</span>
+                          </li>
                         </ul>
                         <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Search for...">
+                          <input type="text" class="form-control" placeholder="Атрибут...">
                           <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Add</button>
+                            <button class="btn btn-default" type="button">+</button>
                           </span>
                         </div>
                     </div>
@@ -401,216 +419,337 @@
 		</div>
 	</div>
             <div id="div5" name="contentDiv">
-                <div class="gorizont">
-                <div  class="panel panel-default namePanel " >
+                <div class="box">
+                <div  class="col-xs-1 panel panel-default namePanel" >
                     <div class="panel-heading ">
-                        <h3 class="panel-title h2">Название</h3>
+                        <h3 class="panel-title h2">Статистика</h3>
                     </div>
-                    <select size="13" multiple class="form-control input-lg sel">
-                        <option>Movies </option>
-                        <option>Games</option>
-                        <option>Books</option>
-                        <option>Newspapers</option>
-                        <option>Songs</option>
-                    </select>
-                    <div style="margin:0 auto;margin-left:32%;" class="choice panel panel-body ">
-                        <button type="button" class="btn btn-default btn-small ">
-                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
+                    <div class="panel-body">
+                        <div class="list-group  objects-select">
+                          <a href="#" class="list-group-item active">
+                            Cras justo odio
+                          </a>
+                          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                          <a href="#" class="list-group-item">Morbi leo risus</a>
+                          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                          <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Объект...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">+</button>
+                          </span>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default detailsPanel ">
                     <div class="panel-heading ">
                         <h3 class="panel-title">Детали</h3>
                     </div>
-                        <h4 class = "al">
-                        Название:
-                        </h4>
-                     <input  type="text" class="form-control al" placeholder="Какое-то название…">
-                            <h4>
-                            <div style = "padding: 4%"></div>
-                                <div class="gorizont al">
-                                Атрибут1
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-                            <h4>
-                                <div class="gorizont al">
-                                Атрибут2
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-                            <h4>
-                                <div class="gorizont al">
-                                Атрибут3
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-
-                         <div style = "padding: 2%"></div>
-                        <div class="gorizont">
-                            <input type="text" class="form-control" placeholder="Объект…">
-                            <button type="button" class="btn btn-default btn-small ">
-                                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                                    </button>
-                            </div>
-
+                    <div class="panel-body">
+                        <h4>Название</h4>
+                            <input type="text" class="form-control statistics-name" placeholder="Название...">
+                        <h4>Атрибуты</h4>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            Cras justo odio
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Dapibus ac facilisis in
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Morbi leo risus
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Porta ac consectetur ac
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Vestibulum at eros
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Vestibulum at eros
+                            <span class="badge">x</span>
+                          </li>
+                        </ul>
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Атрибут...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">+</button>
+                          </span>
                         </div>
                     </div>
+                    
+                </div>
             </div>
+        </div>
             <div id="div6" name="contentDiv">
-                <div class="gorizont">
-                <div  class="panel panel-default namePanel " >
+                <div class="box">
+                <div  class="col-xs-1 panel panel-default namePanel" >
                     <div class="panel-heading ">
-                        <h3 class="panel-title h2">Название</h3>
+                        <h3 class="panel-title h2">Отчет</h3>
                     </div>
-                    <select size="13" multiple class="form-control input-lg sel">
-                        <option>Movies </option>
-                        <option>Games</option>
-                        <option>Books</option>
-                        <option>Newspapers</option>
-                        <option>Songs</option>
-                    </select>
-                    <div style="margin:0 auto;margin-left:32%;" class="choice panel panel-body ">
-                        <button type="button" class="btn btn-default btn-small ">
-                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
+                    <div class="panel-body">
+                        <div class="list-group  objects-select">
+                          <a href="#" class="list-group-item active">
+                            Cras justo odio
+                          </a>
+                          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                          <a href="#" class="list-group-item">Morbi leo risus</a>
+                          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                          <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Объект...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">+</button>
+                          </span>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default detailsPanel ">
                     <div class="panel-heading ">
                         <h3 class="panel-title">Детали</h3>
                     </div>
-                        <h4 class = "al">
-                        Название:
-                        </h4>
-                     <input  type="text" class="form-control al" placeholder="Какое-то название…">
-                            <h4>
-                            <div style = "padding: 4%"></div>
-                                <div class="gorizont al">
-                                Атрибут1
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-                            <h4>
-                                <div class="gorizont al">
-                                Атрибут2
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-                            <h4>
-                                <div class="gorizont al">
-                                Атрибут3
-                                <button style="margin-left: 83%;border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                                 </div>
-                            </h4>
-
-                         <div style = "padding: 2%"></div>
-                        <div class="gorizont">
-                            <input type="text" class="form-control" placeholder="Объект…">
-                            <button type="button" class="btn btn-default btn-small ">
-                                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                                    </button>
-                            </div>
-
+                    <div class="panel-body">
+                        <h4>Название</h4>
+                            <input type="text" class="form-control statistics-name" placeholder="Название...">
+                        <h4>Атрибуты</h4>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            Cras justo odio
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Dapibus ac facilisis in
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Morbi leo risus
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Porta ac consectetur ac
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Vestibulum at eros
+                            <span class="badge">x</span>
+                          </li>
+                          <li class="list-group-item">
+                            Vestibulum at eros
+                            <span class="badge">x</span>
+                          </li>
+                        </ul>
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Атрибут...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">+</button>
+                          </span>
                         </div>
-                    </div>
-            </div>
-            <div id="div7" name="contentDiv">
-               <div class="panel panel-default">
-                <div class="gorizont alBig">
-                      <h4 >Рез. атрибут:</h4>
-                        <div  class="btn-group"  style="margin-top:2%;">
-                            <button style = "margin-left: 200%" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                Объект
-                            <span class="caret"></span>
-                            </button>
-                            <ul style = "margin-left: 170%" class="dropdown-menu">
-                              <li><a href="#">Пункт 1</a></li>
-                              <li><a href="#">Пункт 2</a></li>
-                              <li><a href="#">Пункт 3</a></li>
-                           </ul>
-                        </div>
-                        <div  class="btn-group"  style="margin-top:2%;">
-                            <button style = "margin-left: 300%" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                Атрибут
-                                <span class="caret"></span>
-                            </button>
-                            <ul style = "margin-left: 260%" class="dropdown-menu">
-                              <li><a href="#">Пункт 1</a></li>
-                              <li><a href="#">Пункт 2</a></li>
-                              <li><a href="#">Пункт 3</a></li>
-                           </ul>
-                    </div>
-                    </div>
-                    <div class="gorizont panel panel-default alBig">
-                    <h4>Атрибуты-источники:</h4>
-                    <table class="table">
-                        <tr>
-                            <th>
-                                Объект
-                            </th>
-                            <th>
-                                Атрибут
-                            </th>
-                            <th colspan="2">
-                                Переменная
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                               Объект 1
-                            </td>
-                            <td>
-                               Атрибут 1
-                            </td>
-                            <td>
-                                Х
-                            </td>
-                            <td>
-                                <button style="border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                               Объект 1
-                            </td>
-                            <td>
-                               Атрибут 2
-                            </td>
-                            <td>
-                                Y
-                            </td>
-                            <td>
-                                <button style="border: none;"  type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-
-                    </div>
-                    <div class="gorizont alBig ">
-                    <h4>Формула:</h4>
-                    <div>
-                    <input type="text" style="margin-left:35%; width:395%;"></input>
-                    </div>
                     </div>
                 </div>
+            </div>
+        </div>
+            <div id="div7" name="contentDiv" style="overflow: auto;">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>Рез. атрибут</td>
+                                <td>
+                                    <div  class="btn-group"  style="margin-top:2%;">
+                                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                            Объект
+                                        <span class="caret"></span>
+                                        </button>
+                                        <ul style = "margin-left: 170%" class="dropdown-menu">
+                                          <li><a href="#">Пункт 1</a></li>
+                                          <li><a href="#">Пункт 2</a></li>
+                                          <li><a href="#">Пункт 3</a></li>
+                                       </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div  class="btn-group"  style="margin-top:2%;">
+                                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                            Объект
+                                        <span class="caret"></span>
+                                        </button>
+                                        <ul style = "margin-left: 170%" class="dropdown-menu">
+                                          <li><a href="#">Пункт 1</a></li>
+                                          <li><a href="#">Пункт 2</a></li>
+                                          <li><a href="#">Пункт 3</a></li>
+                                       </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Атрибуты источники</td>
+                                <td colspan="2">
+                                    <div class="panel panel-default  attr-src">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Объект
+                                                        </th>
+                                                        <th>
+                                                            Атрибут
+                                                        </th>
+                                                        <th colspan="2">
+                                                            Переменная
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                           Объект 1
+                                                        </td>
+                                                        <td>
+                                                           Атрибут 1
+                                                        </td>
+                                                        <td>
+                                                            Х
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                           Объект 1
+                                                        </td>
+                                                        <td>
+                                                           Атрибут 2
+                                                        </td>
+                                                        <td>
+                                                            Y
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                </tbody> 
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Формула</td>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" placeholder="Формула...">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+
+                            </div>
+                        </div>
+
+                <div class="panel panel-default">
+                <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>Рез. атрибут</td>
+                                <td>
+                                    <div  class="btn-group"  style="margin-top:2%;">
+                                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                            Объект
+                                        <span class="caret"></span>
+                                        </button>
+                                        <ul style = "margin-left: 170%" class="dropdown-menu">
+                                          <li><a href="#">Пункт 1</a></li>
+                                          <li><a href="#">Пункт 2</a></li>
+                                          <li><a href="#">Пункт 3</a></li>
+                                       </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div  class="btn-group"  style="margin-top:2%;">
+                                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                            Объект
+                                        <span class="caret"></span>
+                                        </button>
+                                        <ul style = "margin-left: 170%" class="dropdown-menu">
+                                          <li><a href="#">Пункт 1</a></li>
+                                          <li><a href="#">Пункт 2</a></li>
+                                          <li><a href="#">Пункт 3</a></li>
+                                       </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Атрибуты источники</td>
+                                <td colspan="2">
+                                    <div class="panel panel-default  attr-src">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Объект
+                                                        </th>
+                                                        <th>
+                                                            Атрибут
+                                                        </th>
+                                                        <th colspan="2">
+                                                            Переменная
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                           Объект 1
+                                                        </td>
+                                                        <td>
+                                                           Атрибут 1
+                                                        </td>
+                                                        <td>
+                                                            Х
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                           Объект 1
+                                                        </td>
+                                                        <td>
+                                                           Атрибут 2
+                                                        </td>
+                                                        <td>
+                                                            Y
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                </tbody> 
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Формула</td>
+                                        <td colspan="2">
+                                            <input type="text" class="form-control" placeholder="Формула...">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+
+                            </div>
+                        </div>
+
             </div>
             <div id="div8" name="contentDiv">
             <!--Ограничения целостности-->
@@ -658,9 +797,6 @@
                     </div>
                     </div>
             </div>
-
-
-
             </div>
         </div>
 
