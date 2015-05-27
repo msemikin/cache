@@ -367,7 +367,7 @@ function refreshList(tab) {
 //поиск объекта по имени
 function findIndByObjName(nameObj) {
     for (q = 0; q < objects.length; q++) {
-        if(nameObj == objects[q].name) return q;
+        if(nameObj.trim() == objects[q].name.trim()) return q;
     }
     return -1;
 }

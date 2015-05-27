@@ -1,5 +1,6 @@
 //создавать селект в яваскрипте
-var listObjLen = objects.length;
+
+
 var app = angular.module("cache");
 var changingAttribute = new Array();
 var objIndex = 0;
@@ -24,6 +25,10 @@ function addObj(textExt) {
             project: JSON.parse($.session.get('project'))
         }
         objects.push(obj);
+        var scope = angular.element(document.getElementById("gor")).scope();
+        scope.$apply(function () {
+            scope.create("Napoleone Bounaparte");
+        });
         for (o = 0; o < objects.length; o++) {
             console.log(objects[o].name);
         }
@@ -69,7 +74,7 @@ function refreshAttr(numb) {
     }
     else {
         for (i = 0; i < mas.length; i++) {
-            select.options[select.options.length] = new Option(mas[i]);
+            select.options[select.options.length] = new Option(decode(mas[i]));
         }
     }
 }
@@ -177,7 +182,9 @@ app.controller("ctrl", function ($scope, $http) {
 
 
     $scope.create = function (objName) {
-        addObj();
+        if (objName != "Napoleone Bounaparte") {
+            addObj();
+        }
         $scope.objec = objects[objects.length - 1];
         objName = $scope.objec;
         objName = encodeObject(objName);
