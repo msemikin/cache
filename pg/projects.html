@@ -40,7 +40,7 @@
                             <h3 class="panel-title">
                             Проекты:
                                 <button id="edit" style="margin-left: 64%;" 
-                                        type="button" class="btn btn-default btn-small" onclick="addProject()">
+                                        type="button" class="btn btn-default btn-small" onclick="addProject('cache', 1)">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                             </h3>
@@ -49,8 +49,8 @@
                                 <div id = "projectDiv" style="padding:0;" class="panel-body">
                                     <div class = 'gorizont'>
                                     <input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"
-                                           class="btn btn-default buttonTeacher" value="MyProject">
-                                     <button id="deleteTeacher" style = 'border: none;' type="button" class="btn btn-default btn-small" onclick="delProject();">
+                                           class="btn btn-default" value="MyProject">
+                                     <button id = "proj" style = 'border: none;' type="button" class="btn btn-default btn-small del" onclick="delProject(this.id)">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button> 
                                     </div>
@@ -113,7 +113,7 @@
              <div class="panel panel-default full-screen">
                         <div class="panel-heading">
                             <h3 id = 'divdiv' class="panel-title">Преподаватели:
-                             <button id="addTeacher" style="margin-left: 83%;" type="button" class="btn btn-default btn-small" onclick="addTeacher()">
+                             <button id="addTeacher" style="margin-left: 83%;" type="button" class="btn btn-default btn-small" onclick="addTeacher('Ivanov', 1)">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                             </h3>

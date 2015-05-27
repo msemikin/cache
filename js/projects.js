@@ -35,17 +35,17 @@ function edit(){
     document.getElementById('work').contentEditable = true;
 }
 
-function addTeacher(){
-    $("#mainTeacherDiv").append('<div id = "teacherDiv" style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value="Преподаватель"> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+function addTeacher(value, id){
+    $("#mainTeacherDiv").append('<div id = teacher'+ id +' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value='+value+'> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 }
 
-function delTeacher(){
-    $("#teacherDiv").remove();
+function delTeacher(id){
+    $("#"+ id).remove();
 }
-function addProject(){
-    $("#mainProjectDiv").append('<div id = "projectDiv" style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default" value="MyProject"> <button id="deleteProject" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+function addProject(value, id){
+    $("#mainProjectDiv").append('<div id = project'+ id + ' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default" value='+value+'> <button id="deleteProject" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="alert(this.id);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 }
 
-function delProject(){
-    $("#projectDiv").remove();
+function delProject(id){
+    $("#"+ id).remove();
 }
