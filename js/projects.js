@@ -30,12 +30,16 @@ $('.tab a').on('click', function (e) {
 });
 
 function edit(){
+    //debugger;
     var gr = document.getElementById('group');
     gr.contentEditable = true;
     document.getElementById('job').contentEditable = true;
     document.getElementById('work').contentEditable = true;
-    gr.focus();
-}
+    //gr.focus();
+    $("#gr").css("background-color", "#86b8d8");
+};
+    
+
 /*$(document.onclick = function(event) {
   var target = event.target; // где был клик?
 
@@ -44,11 +48,11 @@ function edit(){
   alert("hbjhb");
 });*/
 
-$('#addTeacher').click( function()
+/*$('#addTeacher').click( function()
             {
                 debugger;
                 addTeacher("teacher", "2");
-            });
+            });*/
 function addTeacher(value, id){
     debugger;
     var newId = 'teacher_'+ id;
@@ -61,11 +65,11 @@ function delTeacher(id){
     var elId = 'teacher_' + id.slice(-1);
     $('#' + elId).remove();
 }
-$("#addProject").click( function()
+/*$("#addProject").click( function()
            {
              addProject("cache", "2");
            }
-        );
+        );*/
 function addProject(value, id){
     var newId = 'project_'+ id;
     var newButId = 'projectBut_'+ id;
