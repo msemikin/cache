@@ -39,6 +39,16 @@ app.controller("ObjectDiagramController",['$scope', 'diagramService', 'dragAndDr
         return false;
     });
     
+    paper.on("cell:pointerup", function(cellView, evt, x, y) {
+        if(cellView.model.attributes.type === "basic.Circle"){
+            var obj = objects[findIndByObjName(cellView.model.attributes.attrs.text.text)];
+            obj.RelX = cellView.model.attributes.position.x;
+            obj.RelY = cellView.model.attributes.position.y;
+            console.log(obj);
+        }
+        return false;
+    });
+
     
 	// link options	
     $scope.linkLabel = undefined;

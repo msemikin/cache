@@ -37,7 +37,7 @@
                 <div name="tab" class="tab">
                     <h5 class="tabName">Relation</h5>
                 </div>
-                <div name="tab" class="tab">
+                <div name="tab" class="tab" ng-controller="ERController" ng-click="updateER();">
                     <h5 class="tabName">ER</h5>
                 </div>
                 <div name="tab" class="tab">
@@ -296,7 +296,7 @@
 					<input type="text" ng-model="renameValue" class="form-control" />
 				</div>
 				<div class="panel-footer">
-                    
+
 					<input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
 					<input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
 				</div>

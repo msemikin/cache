@@ -22,13 +22,11 @@ function addObj(textExt) {
             attribute: attributes,
             isOnRelDiagram: false,
             isOnER: false,
+            isEdited: false,
             project: JSON.parse($.session.get('project'))
         }
         objects.push(obj);
         var scope = angular.element(document.getElementById("gor")).scope();
-        scope.$apply(function () {
-            scope.create("Napoleone Bounaparte");
-        });
         for (o = 0; o < objects.length; o++) {
             console.log(objects[o].name);
         }
@@ -181,14 +179,13 @@ function setObjects(gotObjects) {
 app.controller("ctrl", function ($scope, $http) {
 
 
-    $scope.create = function (objName) {
-        if (objName != "Napoleone Bounaparte") {
+    $scope.create = function (objNam) {
+        if (objNam != "Napoleone Bounaparte") {
             addObj();
         }
-        $scope.objec = objects[objects.length - 1];
-        objName = $scope.objec;
-        objName = encodeObject(objName);
-        //var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
+        $scope.obje = objects[objects.length - 1];
+        var objAng = $scope.obje;
+        var objName = encodeObject(objAng);
         $http.post("http://localhost:57772/csp/rest/json/object", objName)
             .success(function (data) {
                 console.log("Добавили объект" + objName.name);
