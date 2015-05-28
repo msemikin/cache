@@ -90,7 +90,16 @@ function ctrl($scope, $http) {
         responsePromise.success(function (data) {
             if (Object.keys(data.children).length > 0) {
                 $.session.set('session', JSON.stringify(data));
-                $.session.set('project', JSON.stringify(data.children[0].projects));
+                var dataArr = data.children[0].projects;
+                if (dataArr.toString().indexOf("\r\n")>-1) {
+                    dataArr = dataArr.split("\r\n");
+                }
+                else {
+                    var arr = new Array();
+                    arr.push(dataArr.toString());
+                    dataArr = arr;
+                }
+                $.session.set('project', dataArr[0]);
                 //var user = JSON.parse($.cookie("session"));
                 //var proj = JSON.parse($.cookie("project"));
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";

@@ -67,7 +67,17 @@ function delTeacher() {
 }
 function addProject(projectName) {
     if (projectName == undefined) {
-        $("#mainProjectDiv").append('<div id="projectDiv" style="padding:0;" class="panel-body"> <div class=\'gorizont\'> <input type="button" style="border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="New Project ' + count + '" onclick ="myFunction(\'New Project ' + count + '\')"> <button id="deleteTeacher" style=\'border: none;\' type="button"class="btn btn-default btn-small" onclick="editProject();"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button> <button id="editTeacher" style=\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button> </div> </div>');
+        $("#mainProjectDiv").append('<div id="projectDiv" style="padding:0;"'+
+    'class="panel-body"> <div class=\'gorizont\'> '+
+        '<input type="button" style="border-style: none;width: 90%; margin: ' +
+        '0;padding-right: 80%;"class="btn btn-default buttonTeacher"'
+        +'value="New Project ' + count + '" onclick ="myFunction(New Project ' + count + ')"> ' +
+        +'<button id="deleteTeacher" style=\'border: none;\' type="button"' +
+        'class="btn btn-default btn-small" onclick="editProject();"> ' +
+        '<span class="glyphicon glyphicon-pencil" aria-hidden="true">' +
+        '</span> </button> <button id="editTeacher" style=\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"> ' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
+        '</button> </div> </div>');
         count++;
         projects.push("New Project"+count);
         var scope = angular.element(document.getElementById("mainProjectDiv")).scope();
@@ -76,7 +86,19 @@ function addProject(projectName) {
         });
     }
     else {
-        $("#mainProjectDiv").append('<div id="projectDiv" style="padding:0;" class="panel-body"> <div class=\'gorizont\'> <input type="button" style="border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'+projectName +'" onclick ="myFunction(\''+projectName+'\')"> <button id="deleteTeacher" style=\'border: none;\' type="button"class="btn btn-default btn-small" onclick="editProject();"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button> <button id="editTeacher" style=\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button> </div> </div>');
+        $("#mainProjectDiv").append('<div id="projectDiv" ' +
+        'style="padding:0;" class="panel-body"> <div class=\'gorizont\'> ' +
+        '<input type="button" style="border-style: none;width: 90%; margin: ' +
+        '0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'
+        +projectName.replace(projectName[projectName.length-1],"") +'" onclick ="myFunction(\''+
+        projectName.replace(projectName[projectName.length-1],"")+'\')"> ' +
+        '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="editProject();">' +
+        ' <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ' +
+        '</button> <button id="editTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="delProject();"> ' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
+        '</button> </div> </div>');
         count++;
     }
 }

@@ -14,12 +14,20 @@ window.onload = function () {
 
 function getAllProjects() {
     var mas =  user.children[0].projects;
+    if (mas.toString().indexOf("\n")>-1) {
+        mas = mas.split("\n");
+    }
+    else {
+        var arr = new Array();
+        arr.push(mas.toString());
+        mas = arr;
+    }
     if (typeof mas == 'string' || mas instanceof String) {
         addProject(mas);
         projects.push(mas);
     }
     else {
-        user.children[0].projects.forEach(function (item, i, arr) {
+        mas.forEach(function (item, i, arr) {
             addProject(item);
             projects.push(item);
         });
@@ -34,9 +42,7 @@ function myFunction(projName) {
     var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
     window.location = url;
 }
-$( ".buttonTeacher" ).click(function() {
-    alert( "Handler for .click() called." );
-});
+
 var cacheApp = angular.module("cache", []);
 var app = angular.module("cache");
 var objD = new Array();
