@@ -1,0 +1,46 @@
+.continueButton
+{
+    top:35%;
+}
+.openButton
+{
+    top: 45%;
+
+}
+.downloadButton
+{
+    top: 55%;
+}
+.leftDivBut
+{
+    position: absolute;
+    padding:0px;
+    width: 27%;
+    height: 100%;
+    float:left;
+    overflow: auto;
+    border-right: 2px solid #ac4;
+}
+.rightDiv {
+    position: relative;
+    float: right;
+    width: 73%;
+    height: 100%;
+}
+.padd {
+    position: relative;
+    width:96%;
+    margin:0 auto;
+}
+.choice {
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+}
+
+body > div.maindiv > div.leftDivBut > div > div.gorizont > div > div {
+width: 100%;
+}
+
+
+
