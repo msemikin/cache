@@ -30,35 +30,32 @@ $('.tab a').on('click', function (e) {
 });
 
 function edit(){
-    document.getElementById('studentInfo').contentEditable = true;
+    var gr = document.getElementById('group');
+    gr.contentEditable = true;
+    document.getElementById('job').contentEditable = true;
+    document.getElementById('work').contentEditable = true;
+    gr.focus();
+}
+/*$(document.onclick = function(event) {
+  var target = event.target; // где был клик?
+
+  if (target.id == 'cabinet') return; // не на TD? тогда не интересует
+
+  alert("hbjhb");
+});*/
+
+
+function addTeacher(value, id){
+    $("#mainTeacherDiv").append('<div id = teacher'+ id +' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value='+value+'> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 }
 
-/*$('#addTeacher').click(function(event) {
-    
-    addDynamic();
-    return false;
- });*/
-function addDynamic() {
-    var div = $('<div/>', {
-        'class' : 'teachersDiv'
-    }).appendTo($('#Div'));
-    var div = $('<div/>', {
-        'class' : 'gorizont'
-    }).appendTo($('#Div'));
-    var input = $('<input/>', {
-        value : 'Преподаватель',
-        type : 'button',
-        style: 'border-style: none; width: 100%; margin: 0;padding-right: 90%;',
-        'class' : 'btn btn-default buttonTeacher' }).appendTo(div);
-    var but = $('<input/>', {
-        type : 'button',
-        style: 'border: none;',
-        'class' : 'btn btn-default btn-small' }).appendTo(div);
-    var e1 = $('<span/>', {
-        'class': "glyphicon glyphicon-remove",
-        'aria-hidden': "true"}).insertAfter(but);
+function delTeacher(id){
+    $("#"+ id).remove();
+}
+function addProject(value, id){
+    $("#mainProjectDiv").append('<div id = project'+ id + ' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default" value='+value+'> <button id="deleteProject" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 }
 
-function del(){
-    this.outerHTML='';
+function delProject(id){
+    $("#"+ id).remove();
 }
