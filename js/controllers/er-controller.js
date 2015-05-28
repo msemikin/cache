@@ -52,7 +52,6 @@ app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService'
             obj.ERx = cellView.model.attributes.position.x;
             obj.ERy = cellView.model.attributes.position.y;
             obj.isEdited = true;
-            //console.log(obj);
         }
         return false;
     });
@@ -63,12 +62,19 @@ app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService'
             if(models[t].attributes.type == "basic.Rect") {
                 var obj = objects[findIndByObjName(models[t].attributes.attrs.text.text)];
                 if(!obj.isEdited) {
-                    models[t].attributes.position.x = obj.RelX;
-                    models[t].attributes.position.y = obj.RelY;
+                    //models[t].attributes.position.x = obj.RelX;
+                    //models[t].attributes.position.y = obj.RelY;
+                    models[t].set(
+					'position', {
+					    x: obj.RelX,
+					    y: obj.RelY
+					}
+				);
                 }
                 //console.log(obj.x + " " + obj.y);
             }
         }
+        document.getElementById("er-model").scrollTop = "500";
     };
 
     // editing link

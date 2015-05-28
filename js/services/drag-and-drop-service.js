@@ -53,7 +53,7 @@ app.service('dragAndDropService',[function(){
 					}
 				);
 				diagramGraph.addCell(figure.clone());
-                console.log(diagrams);
+                console.log(paper);
 			}
 		});
 

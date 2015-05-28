@@ -96,7 +96,10 @@ window.onload = function () {
                 var ind = findIndByObjName(elem);
                 objects[ind].isOnRelDiagram = true;
                 objects[ind].isOnER = true;
-                objects[ind].coords = [100, 100];
+                objects[ind].ERx = 100;
+                objects[ind].ERy = 100;
+                objects[ind].RelX = 100;
+                objects[ind].RelY = 100;
                 var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', elem, {x: 100, y: 100});
                 diagrams.objectRelation.addCell(figure);
                 var figureer = angular.injector(['ng', 'cache']).get("diagramService").createFigure('entity', elem, {x: 100, y: 100});
