@@ -14,14 +14,14 @@ window.onload = function () {
         user = JSON.parse($.session.get('session'));
     }
     else {
-        document.location.href="../index.html";
+        //document.location.href="../index.html";
     }
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
 
-    document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
+    //document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
     var scope = angular.element(document.getElementById("gor")).scope();
     scope.$apply(function () {
         scope.getAllProjectObjects();
