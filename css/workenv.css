@@ -264,3 +264,6 @@
 .attr-src table{
     text-align: center;
 }
+.badge {
+    cursor: pointer;
+}
