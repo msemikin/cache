@@ -25,6 +25,7 @@
     <script src="../js/concept.js" type="text/javascript"></script>
     <script src="../js/constraint.js" type="text/javascript"></script>
 	<script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../js/constraint.js" type="text/javascript"></script>
 
     <script src="../js/controllers/er-controller.js" type="text/javascript"></script>
     <script src="../js/controllers/object-diagram-controller.js "></script>
@@ -605,19 +606,22 @@
                     <div class="gorizont alBig ">
                     <h4>Формула:</h4>
                     <div>
-                    <input type="text" style="margin-left:35%; width:395%;"></input>
+                    <input type="text" style="margin-left:35%; width:210%;"></input>
                     </div>
                     </div>
                 </div>
             </div>
-            <div id="div8" name="contentDiv">
+            <div id="div8" name="contentDiv" style="overflow-y: scroll!important;">
             <!--Ограничения целостности-->
             <div width="5%">
+
             <button   style = "margin-left: 2%;  margin-top:2%;" type="button" class="btn btn-default " onclick = "addConstr();">
+
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </button>
             </div>
-            <div class="panel panel-default constraintPanel " width="80%">
+            <div id = "constraintList" >
+            <div class="panel panel-default constraintPanel " width="80%" id = "constraint_1_element">
                <div class="gorizont">
                 <div  class="btn-group"  style="margin-top:2%;">
                       <button style = "margin-left: 200%" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
@@ -643,7 +647,7 @@
                     </div>
                     <div style="margin-left: 65%;border: none;">
                     <button   type="button" class="btn btn-default btn-small ">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <span class="badge" >x</span>
                                 </button>
                                 </div>
                     </div>
@@ -657,7 +661,7 @@
                     </div>
             </div>
 
-
+             </div>
 
             </div>
         </div>
