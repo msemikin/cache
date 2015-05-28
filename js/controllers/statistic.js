@@ -40,18 +40,25 @@ app.controller('StatisticsController', ['$scope', function($scope){
 	}
 
 	$scope.getPossibleAttrs = function() {
-		console.log(statistics[statistics.selected]);
-		return statistics[statistics.selected].object.attribute;
+		var statistic = statistics[statistics.selected];
+		if(statistic) {
+			return statistics.object.attribute;	
+		}
 	}
 
 	$scope.getCurrentAttrs = function() {
-	 	return statistics[statistics.selected].attrs;
+		var statistic = statistics[statistics.selected];
+		if(statistic){
+	 		return statistic.attrs;	
+		}
 	}
 
-
 	$scope.getCurrentObject = function() {
-		var object = statistics[statistics.selected].object;
-		return  object ? object.name : 'Выбрать объект';
+		var statistic = statistics[statistics.selected];
+		if(statistic){
+			var object = statistic.object;	
+			return  object ? object.name : 'Выбрать объект';
+		}
 	}
 	$scope.removeAttr = function(index){
 		statistics[statistics.selected].attrs.splice(index,1);

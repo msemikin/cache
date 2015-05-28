@@ -1,8 +1,6 @@
 var app = angular.module('cache');
 app.service('linkManipulationService',[ function(){
 	return function(graph, paper) {
-		console.log(paper);
-
 		var linkDragMode = false;
 		var linkDot = undefined;
 		var link = undefined;
@@ -23,7 +21,6 @@ app.service('linkManipulationService',[ function(){
 
 		// create linkDot
 		paper.on('cell:pointerclick', function(cellView, evt, x, y){
-			console.log('bbb');
 			if(cellView.model.prop('type') !== 'drag' && !linkDragMode && !linkDot && (cellView.model.attributes.type !== 'link')){
 
 				var position = cellView.model.attributes.position;
@@ -48,7 +45,6 @@ app.service('linkManipulationService',[ function(){
 
 		// create link
 		paper.on('cell:pointerdown', function(cellView, evt, x, y){
-			console.log('aaaaaaaa');
 			if(cellView.model.prop('type') === 'drag' && !linkDragMode){
 				removeLinkDot();
 				linkDragMode = true;	

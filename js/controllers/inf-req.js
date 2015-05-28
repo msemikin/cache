@@ -81,7 +81,6 @@ app.controller('InfReqController', ['$scope', function($scope){
 	}
 
 	$scope.getCurrentAttrs = function() {
-		console.log(this.tab);
 		var selected = data[tabs[this.tab]].selected;
 		if(data[tabs[this.tab]][selected]) {
 			return data[tabs[this.tab]][selected].attrs;

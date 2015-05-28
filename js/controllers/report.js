@@ -47,13 +47,19 @@ app.controller('ReportsController', ['$scope', function($scope){
 	}
 
 	$scope.getCurrentAttrs = function() {
-	 	return reports[reports.selected].attrs;
+		var report = reports[reports.selected];
+		if(report){
+	 		return report.attrs;	
+		}
 	}
 
 
 	$scope.getCurrentObject = function() {
-		var object = reports[reports.selected].object;
-		return  object ? object.name : 'Выбрать объект';
+		var report = reports[reports.selected];
+		if(report){
+			var object = report.object;
+			return  object ? object.name : 'Выбрать объект';
+		}
 	}
 	$scope.removeAttr = function(index){
 		reports[reports.selected].attrs.splice(index,1);
