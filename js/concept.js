@@ -337,7 +337,14 @@ app.controller("ctrl", function ($scope, $http) {
 
     $scope.getAllProjectObjects = function () {
         var serverURL = "http://localhost:57772/csp/rest/json/objects";
-        var url = serverURL + '/' + JSON.parse($.session.get('project'));
+        var proj;
+        try {
+            proj = JSON.parse($.session.get('project'));
+        }
+        catch (e) {
+            proj = $.session.get('project');
+        }
+        var url = serverURL + '/' + proj;
 
         var responsePromise = $http.get(url);
 
