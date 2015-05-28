@@ -23,6 +23,7 @@
 	<script src="../js/translit.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/concept.js" type="text/javascript"></script>
+    <script src="../js/constraint.js" type="text/javascript"></script>
 	<script src="../js/jquery.cookie.js" type="text/javascript"></script>
 
     <script src="../js/controllers/er-controller.js" type="text/javascript"></script>
@@ -612,7 +613,7 @@
             <div id="div8" name="contentDiv">
             <!--Ограничения целостности-->
             <div width="5%">
-            <button   style = "margin-left: 2%;  margin-top:2%;" type="button" class="btn btn-default ">
+            <button   style = "margin-left: 2%;  margin-top:2%;" type="button" class="btn btn-default " onclick = "addConstr();">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </button>
             </div>

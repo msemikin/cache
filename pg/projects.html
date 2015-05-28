@@ -39,18 +39,18 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                             Проекты:
-                                <button id="edit" style="margin-left: 64%;" 
-                                        type="button" class="btn btn-default btn-small" onclick="addProject('cache', 1)">
+                                <button id="addProject" style="margin-left: 64%;" 
+                                        type="button" class="btn btn-default btn-small" onclick="addProject('cache', '2')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                             </h3>
                         </div>
                          <div id = "mainProjectDiv">
-                                <div id = "projectDiv" style="padding:0;" class="panel-body">
+                                <div id = "project_1" style="padding:0;" class="panel-body">
                                     <div class = 'gorizont'>
                                     <input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"
                                            class="btn btn-default" value="MyProject">
-                                     <button id = "proj" style = 'border: none;' type="button" class="btn btn-default btn-small del" onclick="delProject(this.id)">
+                                     <button id = "projectBut_1" style = 'border: none;' type="button" class="btn btn-default btn-small del" onclick="delProject(this.id)">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button> 
                                     </div>
@@ -111,19 +111,19 @@
                     
             <div style = "padding: 2%">
              <div class="panel panel-default full-screen">
-                        <div class="panel-heading">
-                            <h3 id = 'divdiv' class="panel-title">Преподаватели:
-                             <button id="addTeacher" style="margin-left: 83%;" type="button" class="btn btn-default btn-small" onclick="addTeacher('Ivanov', 1)">
+                        <div  class="panel-heading">
+                            <h3  class="panel-title">Преподаватели:
+                             <button id = "addTeacher" style="margin-left: 83%;" type="button" class="btn btn-default btn-small" onclick="addTeacher('Ivanov', '2')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                             </h3>
                         </div>
                             <div id = "mainTeacherDiv">
-                                <div id = "teacherDiv" style="padding:0;" class="panel-body">
+                                <div id = 'teacher_1' style="padding:0;" class="panel-body">
                                     <div class = 'gorizont'>
                                     <input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"
-                                           class="btn btn-default buttonTeacher" value="Преподаватель">
-                                     <button id="deleteTeacher" style = 'border: none;' type="button" class="btn btn-default btn-small" onclick="delTeacher();">
+                                           class="btn btn-default" value="Преподаватель">
+                                     <button id="teacherBut_1" style = 'border: none;' type="button" class="btn btn-default btn-small" onclick="delTeacher(this.id);">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button> 
                                     </div>
