@@ -12,6 +12,8 @@ function addObj(textExt) {
     else var text_pre = textExt;
     var text = text_pre[0].toUpperCase() + text_pre.substr(1, text_pre.length);
     //отладка
+    //var js = JSON.parse($.session.get('project'));
+    var js1 = $.session.get('project');
     console.log("ввод:")
     console.log(text);
     console.log("массив:");
@@ -23,7 +25,7 @@ function addObj(textExt) {
             isOnRelDiagram: false,
             isOnER: false,
             isEdited: false,
-            project: JSON.parse($.session.get('project'))
+            project: js1
         }
         objects.push(obj);
         var scope = angular.element(document.getElementById("gor")).scope();
@@ -143,7 +145,9 @@ function split(attributes) {
             attr = "";
         }
     }
-    attributesArr.push(attr);
+    if (attr !="") {
+        attributesArr.push(attr);
+    }
     return attributesArr;
 }
 function setObjects(gotObjects) {
@@ -154,7 +158,9 @@ function setObjects(gotObjects) {
         }
         else {
             var arr = new Array();
-            arr.push(obj.attribute.toString());
+            if (obj.attribute.toString() !="") {
+                arr.push(obj.attribute.toString());
+            }
             obj.attribute = arr;
         }
         objects.push(decodeObject(obj));
@@ -235,7 +241,7 @@ app.controller("ctrl", function ($scope, $http) {
                     attribute: item.attribute,
                     isOnRelDiagram: item.isOnRelDiagram,
                     isOnER: item.isOnER,
-                    project: JSON.parse($.session.get('project'))
+                    project: $.session.get('project')
                 }
                 objName = $scope.objec;
                 $http.put("http://localhost:57772/csp/rest/json/object/" + encode(objName.name), encodeObject(objName))
@@ -293,7 +299,7 @@ app.controller("ctrl", function ($scope, $http) {
                     attribute: item.attribute,
                     isOnRelDiagram: item.isOnER,
                     isOnER: value,
-                    project: JSON.parse($.session.get('project'))
+                    project: $.session.get('project')
                 }
                 objName = $scope.objec;
                 $http.put("http://localhost:57772/csp/rest/json/object/" + encode(objName.name), encodeObject(objName))
@@ -316,7 +322,7 @@ app.controller("ctrl", function ($scope, $http) {
                     attribute: item.attribute,
                     isOnRelDiagram: value,
                     isOnER: item.isOnRelDiagram,
-                    project: JSON.parse($.session.get('project'))
+                    project: $.session.get('project')
                 }
                 objName = $scope.objec;
                 $http.put("http://localhost:57772/csp/rest/json/object/" + encode(objName.name), encodeObject(objName))
@@ -336,7 +342,7 @@ app.controller("ctrl", function ($scope, $http) {
         var serverURL = "http://localhost:57772/csp/rest/json/objects";
         var proj;
         try {
-            proj = JSON.parse($.session.get('project'));
+            proj = $.session.get('project');
         }
         catch (e) {
             proj = $.session.get('project');
