@@ -19,12 +19,15 @@ function addObj(textExt)
     console.log("массив:");
     if (text.length > 1) {
         var attributes = new Array();
+        var coords = new Array();
         var obj = {
             name: text,
             attribute: attributes,
             isOnRelDiagram: false,
             isOnER: false,
-			project : JSON.parse($.cookie("project"))
+            isEdited: false,
+            coord: coords
+			//project : JSON.parse($.cookie("project"))
         }
         objects.push(obj);
         for (o = 0; o < objects.length; o++) {

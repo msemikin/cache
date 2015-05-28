@@ -46,6 +46,31 @@ app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService'
         focused = cellView;
     });
 
+    paper.on("cell:pointerup", function(cellView, evt, x, y) {
+        if(cellView.model.attributes.type === "basic.Rect"){
+            var obj = objects[findIndByObjName(cellView.model.attributes.attrs.text.text)];
+            obj.ERx = cellView.model.attributes.position.x;
+            obj.ERy = cellView.model.attributes.position.y;
+            obj.isEdited = true;
+            //console.log(obj);
+        }
+        return false;
+    });
+
+    $scope.updateER = function(){
+        var models = diagrams.ER.attributes.cells.models;
+        for(t = 0; t < models.length; t++){
+            if(models[t].attributes.type == "basic.Rect") {
+                var obj = objects[findIndByObjName(models[t].attributes.attrs.text.text)];
+                if(!obj.isEdited) {
+                    models[t].attributes.position.x = obj.RelX;
+                    models[t].attributes.position.y = obj.RelY;
+                }
+                //console.log(obj.x + " " + obj.y);
+            }
+        }
+    };
+
     // editing link
     $scope.linkLabels = undefined;
     $scope.linkOptionsShow = false;

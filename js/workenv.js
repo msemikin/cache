@@ -93,12 +93,15 @@ window.onload = function () {
 			scope.$apply(function () {
                 var ind = findIndByObjName(elem);
                 objects[ind].isOnRelDiagram = true;
-
+                objects[ind].isOnER = true;
+                objects[ind].coords = [100, 100];
                 var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', elem, {x: 100, y: 100});
                 diagrams.objectRelation.addCell(figure);
+                var figureer = angular.injector(['ng', 'cache']).get("diagramService").createFigure('entity', elem, {x: 100, y: 100});
+                diagrams.ER.addCell(figureer);
                 //setRelDiagramm(elem, 'true');
+                //setERDiagramm(elem, 'true');
 			});
-            //deleteObject();
             refreshList(2);
         });
     });
@@ -111,6 +114,8 @@ window.onload = function () {
 			scope.$apply(function () {
                 var ind = findIndByObjName(elem);
                 objects[ind].isOnER = true;
+                var figureer = angular.injector(['ng', 'cache']).get("diagramService").createFigure('entity', elem, {x: 100, y: 100});
+                diagrams.ER.addCell(figureer);
                 //setERDiagramm(elem, 'true');
 			});
             //deleteObject();
