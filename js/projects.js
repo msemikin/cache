@@ -30,10 +30,20 @@ $('.tab a').on('click', function (e) {
 });
 
 function edit(){
-    document.getElementById('group').contentEditable = true;
+    var gr = document.getElementById('group');
+    gr.contentEditable = true;
     document.getElementById('job').contentEditable = true;
     document.getElementById('work').contentEditable = true;
+    gr.focus();
 }
+/*$(document.onclick = function(event) {
+  var target = event.target; // где был клик?
+
+  if (target.id == 'cabinet') return; // не на TD? тогда не интересует
+
+  alert("hbjhb");
+});*/
+
 
 function addTeacher(value, id){
     $("#mainTeacherDiv").append('<div id = teacher'+ id +' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value='+value+'> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
@@ -43,7 +53,7 @@ function delTeacher(id){
     $("#"+ id).remove();
 }
 function addProject(value, id){
-    $("#mainProjectDiv").append('<div id = project'+ id + ' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default" value='+value+'> <button id="deleteProject" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="alert(this.id);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+    $("#mainProjectDiv").append('<div id = project'+ id + ' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"class="btn btn-default" value='+value+'> <button id="deleteProject" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
 }
 
 function delProject(id){
