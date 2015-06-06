@@ -1,10 +1,8 @@
-
-
 .selects {
     display: flex;
     flex-direction: column;
     width: 49%;
-    margin:0;
+    margin: 0;
 }
 
 .selects.full {
@@ -51,79 +49,63 @@
     border-top: none;
     border-right: none;
     box-sizing: border-box;
-	  border: none;
-  width: 100%;
-  height: 20%;
-  margin: 0;
+    border: none;
+    width: 100%;
+    height: 20%;
+    margin: 0;
 }
 }
-
-.inputs .full input {
-    
-}
-
+.inputs .full input {}
 .inputs:first-child {
     margin-right: 2%;
 }
-
 .obj-input {
     min-width: 60px;
 }
-
 .attr-input {
     min-width: 70px;
 }
-
 .textareas {
     resize: none;
     otline: none;
     border-style: none;
-    top:2%;
-    left:3%;
+    top: 2%;
+    left: 3%;
     width: 94%;
     height: 98%;
     margin: 0;
     margin-left: 5px;
     opacity: 0.85;
 }
-
 .headd {
-
     padding: 0;
 }
-
-
 .tabName {
     text-align: center;
 }
-
-.controlPanel{
-  width: 20%;
-  height: 100%;
-  border: none;
-  font-size: 15px;
-  float:left;
-  margin-right: 3px;
-  margin-top: 5%;
+.controlPanel {
+    width: 20%;
+    height: 100%;
+    border: none;
+    font-size: 15px;
+    float: left;
+    margin-right: 3px;
+    margin-top: 5%;
 }
 #cont {
-	width: 40%;
+    width: 40%;
     height: 50%;
-	margin-left: 0%;
-	margin-right: auto;
+    margin-left: 0%;
+    margin-right: auto;
 }
-
-
-
 #icon {
     background-image: url('icon/no_avatar.gif');
-    background-size:cover;
+    background-size: cover;
     margin: auto;
-    top:5px;
+    top: 5px;
     width: 50px;
     height: 50px;
 }
-
 .logout {
     display: block;
     position: relative;
@@ -136,14 +118,12 @@
     float: left;
     background-color: #eee;
 }
-
 .icondiv {
     margin-left: 50px;
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
 }
-
 .logoutButton {
     position: relative;
     border: 2px solid #ac4;
@@ -155,94 +135,80 @@
     float: right;
     background-color: #fee;
 }
-
 .logoutButton:hover {
     background-color: #fff;
 }
-
 .userTextDiv {
     margin-left: 10px;
 }
-
 /* -------------------- */
 
 .content-box {
-	height: 100%;
-	width: 100%;
+    height: 100%;
+    width: 100%;
 }
-
 .buttonsBar {
-	position: absolute !important;
+    position: absolute !important;
 }
-
 .box {
-	display: flex;
-	height: 100%;
-	width: 100%;
+    display: flex;
+    height: 100%;
+    width: 100%;
 }
-
 .with-header {
     padding-top: 50px;
 }
-
-.namePanel{
+.namePanel {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
-    padding:0px !important;
+    padding: 0px !important;
     display: flex;
     flex-direction: column;
     float: left;
     position: relative;
     min-width: 200px;
-    height: 100%;;
+    height: 100%;
+    ;
 }
-
 .namePanel .panel-body {
-  flex-grow: 1;
-  padding: 0px;
+    flex-grow: 1;
+    padding: 0px;
 }
-.objects-select{
+.objects-select {
     flex-grow: 1;
     padding: 0px !important;
-	border-top: 0 !important;
-	border-left: 0 !important;
-	border-right: 0 !important;
-	border-radius: 0px !important;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0px !important;
 }
-
 .objects-select a {
     border-radius: 0px !important;
     border-left: 0;
     border-right: 0;
 }
-
 .new-object {
-	display: flex;
+    display: flex;
 }
-
 .new-object button {
-	margin: auto;
+    margin: auto;
 }
-
-.detailsPanel{
+.detailsPanel {
     display: flex;
     flex-direction: column;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
-	height: 100%;
+    height: 100%;
     float: left;
     position: relative;
     flex-grow: 1;
     border-left: 0 !important;
 }
-
 .detailsPanel .panel-body {
     overflow-y: scroll;
-    flex-grow: 1; 
+    flex-grow: 1;
 }
-
-.deleteButton
-{
+.deleteButton {
     margin-left: 82%;
     border: none;
 }
@@ -256,14 +222,53 @@
     padding-top: 3%;
     padding-left: 3%;
 }
-
 .statistics-name {
     margin-bottom: 15px;
 }
-
-.attr-src table{
+.attr-src table {
     text-align: center;
 }
 .badge {
     cursor: pointer;
+}
+.stat-object {
+    overflow-y: visible !important;
+}
+/* constraints */
+
+.button-delete-constraint {
+    float: right;
+}
+.constraint-text {
+    resize: none;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.constraintsList {
+    padding-top: 20px;
+}
+.constraint-content {
+    margin-top: 20px;
+}
+.constraints-tabgroup {
+    position: absolute !important;
+    z-index: 2000;
+}
+.constraints-list {
+    padding-top: 50px;
+    overflow-y: scroll;
+    height: 100%;
+}
+/* algo */
+
+.algo-list {
+    overflow: auto;
+    height: 100%;
+    padding-bottom: 50px;
+}
+.button-add-algo {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.44);
+    position: absolute;
+    bottom: 25px;
 }

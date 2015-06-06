@@ -9,13 +9,13 @@ var objContainers;
 
 window.onload = function () {
     contentDivs = document.getElementsByName("contentDiv");
-    var json = $.session.get('session');
-    if (json != undefined) {
-        user = JSON.parse($.session.get('session'));
-    }
-    else {
-        //document.location.href="../index.html";
-    }
+//    var json = 0;//$.session.get('session');
+//    if (json != undefined) {
+//        user = JSON.parse($.session.get('session'));
+//    }
+//    else {
+//        //document.location.href="../index.html";
+//    }
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
@@ -24,7 +24,7 @@ window.onload = function () {
     //document.getElementById("userNameText").innerHTML = decode(user.children[0].name + " " + user.children[0].surname);
     var scope = angular.element(document.getElementById("gor")).scope();
     scope.$apply(function () {
-        scope.getAllProjectObjects();
+        //scope.getAllProjectObjects();
     });
 
     for (i = 0; i < tabs.length; i++) {
