@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2014.1.3 (Build 775U)" ts="2015-05-27 00:19:22">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2014.1.3 (Build 775U)" ts="2015-06-06 11:50:18">
 <Class name="DBHomster.Actor">
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
 <TimeChanged>63601,62868.479472</TimeChanged>
@@ -101,7 +101,7 @@
 
 <Class name="DBHomster.Broker">
 <Super>%CSP.REST</Super>
-<TimeChanged>63698,79557.599039</TimeChanged>
+<TimeChanged>63709,41602.453758</TimeChanged>
 <TimeCreated>63636,81373.988526</TimeCreated>
 
 <XData name="UrlMap">
@@ -119,6 +119,7 @@
  <Route Url="/json/company/:compid" Method="PUT" Call="DBHomster.JSON:UpdateCompany"/>
  <Route Url="/json/object/:name" Method="PUT" Call="DBHomster.JSON:UpdateObject"/>
  <Route Url="/json/diagrams" Method="POST" Call="DBHomster.JSON:InsertDiagrams"/>
+ <Route Url="/json/updateuser/:id" Method="PUT" Call="DBHomster.JSON:UpdateUser"/>
  </Routes>
 ]]></Data>
 </XData>
@@ -642,7 +643,7 @@
 
 <Class name="DBHomster.JSON">
 <Super>%Base</Super>
-<TimeChanged>63698,78227.294392</TimeChanged>
+<TimeChanged>63709,41661.304567</TimeChanged>
 <TimeCreated>63636,83070.113987</TimeCreated>
 
 <Method name="GetAllCompanies">
@@ -886,6 +887,30 @@
        set st=ex.AsStatus()
    }
    quit st
+]]></Implementation>
+</Method>
+
+<Method name="UpdateUser">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set st=$$$OK
+	try {
+
+	$$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+
+	// Открываем объект, который хотим отредакнировать
+	set comp=##class(DBHomster.User).%OpenId(id)
+	throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
+	// Редактируем и сохраняем
+	set comp.projects = obj.projects
+	$$$THROWONERROR(st,comp.%Save())
+	}
+	catch ex {
+	set st=ex.AsStatus()
+	}
+	quit st
 ]]></Implementation>
 </Method>
 </Class>

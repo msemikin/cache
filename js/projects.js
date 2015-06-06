@@ -1,3 +1,4 @@
+var count = 1;
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
     var $this = $(this), label = $this.prev('label');
     if (e.type === 'keyup') {
@@ -70,10 +71,49 @@ function delTeacher(id){
              addProject("cache", "2");
            }
         );*/
-function addProject(value, id){
-    var newId = 'project_'+ id;
-    var newButId = 'projectBut_'+ id;
-    $("#mainProjectDiv").append('<div id = '+ newId + ' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;" class="btn btn-default" value='+value+'> <button id = ' + newButId + ' style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject(this.id);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+function addProject(projectName) {
+    var json = $.session.get('session');
+    if (json != undefined) {
+        user = JSON.parse($.session.get('session'));
+    }
+    if (projectName == undefined) {
+        $("#mainProjectDiv").append('<div id="projectDiv" style="padding:0;"'+
+    'class="panel-body"> <div class=\'gorizont\'> '+
+        '<input type="button" style="border-style: none;width: 90%; margin: ' +
+        '0;padding-right: 80%;"class="btn btn-default buttonTeacher"'
+        +'value="'+user.children[0].surname + count + '" onclick ="myFunction( '+user.children[0].surname + count + ')">' +
+        '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="editProject();">' +
+        '<span class="glyphicon glyphicon-pencil" aria-hidden="true">' +
+        '</span> </button> <button id="editTeacher" style=\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"> ' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
+        '</button> </div> </div>');
+        count++;
+        projects.push(user.children[0].surname+count);
+        var scope = angular.element(document.getElementById("mainProjectDiv")).scope();
+        scope.$apply(function () {
+            scope.update();
+        });
+    }
+    else {
+        $("#mainProjectDiv").append('<div id="projectDiv" ' +
+        'style="padding:0;" class="panel-body"> <div class=\'gorizont\'> ' +
+        '<input type="button" style="border-style: none;width: 90%; margin: ' +
+        '0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'
+        //+projectName.replace(projectName[projectName.length-1],"")
+                                    +projectName.trim()
+                                    +'" onclick ="myFunction(\''
+                                    +projectName.trim()
+                                    +'\')"> ' +
+        '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="editProject();">' +
+        ' <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ' +
+        '</button> <button id="editTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="delProject();"> ' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
+        '</button> </div> </div>');
+        count++;
+    }
 }
 
 function delProject(id){

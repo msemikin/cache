@@ -41,18 +41,18 @@
     <div class="maindiv">
         <div style = "overflow-y: scroll;" class="leftDivBut">
             <div style="padding:6%;">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" ng-controller="projectController">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                             Проекты:
                                 <button id="addProject" style="margin-left: 62%;" 
-                                        type="button" class="btn btn-default btn-small" onclick="addProject('cache', '2')">
+                                        type="button" class="btn btn-default btn-small" onclick="addProject()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                             </h3>
                         </div>
                          <div id = "mainProjectDiv">
-                                <div id = "project_1" style="padding:0;" class="panel-body">
+                               <!-- <div id = "project_1" style="padding:0;" class="panel-body">
                                     <div class = 'gorizont'>
                                     <input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;"
                                            class="btn btn-default" value="MyProject">
@@ -60,7 +60,7 @@
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button> 
                                     </div>
-                                </div>
+                                </div>-->
                             </div>       
         </div>
     </div>

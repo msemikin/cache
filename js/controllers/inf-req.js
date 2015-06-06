@@ -44,17 +44,6 @@ app.controller('InfReqController', ['$scope', function($scope){
 		this.newObj = {name:'Объект'};
 	}
 
-
-	$scope.objects = objects;
-		objects.push({
-            name: 'text1',
-            attribute: [1,2,3,4]
-        });
-        objects.push({
-            name: 'text2',
-            attribute: [3,2,3,4]
-        });
-
     $scope.getCurrentObjects = function() {
     	return data[tabs[this.tab]];
     }

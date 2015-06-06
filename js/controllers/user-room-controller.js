@@ -14,8 +14,11 @@ window.onload = function () {
 
 function getAllProjects() {
     var mas =  user.children[0].projects;
-    if (mas.toString().indexOf("\n")>-1) {
+    if (mas.toString().indexOf("\n")>-1  ) {
         mas = mas.split("\n");
+    }
+    else if (mas.toString().indexOf(",")>-1) {
+        mas = mas.split(',');
     }
     else {
         var arr = new Array();
@@ -23,6 +26,7 @@ function getAllProjects() {
         mas = arr;
     }
     if (typeof mas == 'string' || mas instanceof String) {
+        //alert(mas);
         addProject(mas);
         projects.push(mas);
     }

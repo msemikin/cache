@@ -43,7 +43,7 @@ function ctrl($scope, $http) {
             password: company.password,
             login: company.login,
             email: company.email,
-            projects: ["Default"]
+            projects: ["Default"+company.surname]
         }
         $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
             .success(function (data) {
@@ -51,8 +51,11 @@ function ctrl($scope, $http) {
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
                 window.location = url;
             }).error(function (data, status) {
-                alert("tut1");
+             $.session.set('session', JSON.stringify(objName));
                 alert(data);
+            //костыль - он все равно регистрирует)))
+                var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
+                window.location = url;
             });
     }
 
