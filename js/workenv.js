@@ -5,6 +5,7 @@ var textObj;
 var canvas;
 var index;
 var objContainers;
+var widthTextBlock;
 
 
 window.onload = function () {
@@ -40,6 +41,10 @@ window.onload = function () {
         }
         tabs[i].appendChild(bordWhite);
     }
+
+    widthTextBlock = $("#pages-container").width();
+    document.getElementById("left-panel").style.width = widthTextBlock + "px";
+    document.getElementById("pages-container").style.width = widthTextBlock + "px";
 
 
     //получение текста выделения
