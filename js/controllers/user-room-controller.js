@@ -8,12 +8,12 @@ window.onload = function () {
     else {
         document.location.href="../index.html";
     }
-	document.getElementById("userNameText").innerHTML = decode(user.children[0].name) + " " + decode(user.children[0].surname);
+	document.getElementById("userNameText").innerHTML = decode(user.name) + " " + decode(user.surname);
     getAllProjects();
 }
 
 function getAllProjects() {
-    var mas =  user.children[0].projects;
+    var mas =  user.projects;
     if (mas.toString().indexOf("\n")>-1  ) {
         mas = mas.split("\n");
     }

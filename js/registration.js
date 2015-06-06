@@ -47,15 +47,19 @@ function ctrl($scope, $http) {
         }
         $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
             .success(function (data) {
-                $.session.set('session', JSON.stringify(objName));
+            var jsonst = JSON.stringify(objName);
+            alert(jsonst);
+            $.session.set('session', jsonst);
+            $.session.set('project', objName.projects[0]);
+                //var user = JSON.parse($.cookie("session"));
+                //var proj = JSON.parse($.cookie("project"));
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
                 window.location = url;
+                //$scope.submitLogin(objName);
             }).error(function (data, status) {
-             $.session.set('session', JSON.stringify(objName));
-                alert(data);
-            //костыль - он все равно регистрирует)))
-                var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
-                window.location = url;
+                alert("hnnane");
+                $scope.submitLogin(objName);
+
             });
     }
 
@@ -79,12 +83,19 @@ function ctrl($scope, $http) {
             });
     }
 
-    $scope.submitLogin = function () {
+    $scope.submitLogin = function (objName) {
+        var url = "";
+        if (objName == undefined) {
         var serverURL = "http://localhost:57772/csp/rest/json/accounts";
-        var url = serverURL + '/' + this.login + '/' + encode(this.password);
+        url = serverURL + '/' + this.login + '/' + encode(this.password);
+        }
+        else {
 
+            var serverURL = "http://localhost:57772/csp/rest/json/accounts";
+            url = serverURL + '/' + objName.login + '/' + encode(objName.password);
+        }
         var responsePromise = $http.get(url);
-
+        alert(url);
         responsePromise.error(function () {
             window.alert('error');
             console.log(arguments);
