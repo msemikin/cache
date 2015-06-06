@@ -25,14 +25,18 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
 </head>
-<body ng-app="cache"  ng-init="getCompanies()">
-<!-- Header -->
-<div class="headerDiv">
-    <div class="icondiv">
-        <div id="icon" onclick="location.href='projects.html'"></div>
-        <div class="userTextDiv" id="userName">
-            <h3 id="userNameText" onclick="location.href='projects.html'">Селех Максим Михайлович</h3>
+<body ng-app="cache">
+  <!-- Header -->
+    <div class="headerDiv">
+         <div class="icondiv">
+            <div id="icon"  onclick="location.href='projects.html'"></div>
+            <div class="userTextDiv" id="userName">
+                <h3 id="userNameText" onclick="location.href='projects.html'">Селех Максим Михайлович</h3>
+            </div>
         </div>
+          <button id="logOut" class="logoutButton" onclick="location.href='registration.html'">
+            <font class="sender">Выйти</font>
+          </button>
     </div>
     <div class="maindiv">
         <div style = "overflow-y: scroll;" class="leftDivBut">
@@ -133,52 +137,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class='gorizont'>
-                    <div style="border: none;width: 30%;" class="panel panel-body panel-default">
-                        <h4>
-                            Место работы:
-                        </h4>
-                    </div>
-                    <div id="work" style="border: none;padding-right: 70%;"
-                         class="choice panel panel-body panel-default">
-                        <h4 id="workPlace">
-                            ХНУРЭ
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div style="padding: 2%">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 id='divdiv' class="panel-title">Преподаватели:
-                        <button id="addTeacher" style="margin-left: 83%;" type="button"
-                                class="btn btn-default btn-small" onclick="addTeacher()">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </h3>
                 </div>
-                <div id="mainTeacherDiv">
-                    <div id="teacherDiv" style="padding:0;" class="panel-body">
-                        <div class='gorizont'>
-                            <input type="button" style="border-style: none; width: 97%; margin: 0;padding-right: 90%;"
-                                   class="btn btn-default buttonTeacher" value="Преподаватель">
-                            <button id="deleteTeacher" style='border: none;' type="button"
-                                    class="btn btn-default btn-small" onclick="delTeacher();">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
+        </div>
+    <div class="footerDiv">
     </div>
-
-</div>
-<div class="footerDiv">
-</div>
 </body>
 </html>
