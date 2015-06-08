@@ -48,7 +48,6 @@ function ctrl($scope, $http) {
         $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
             .success(function (data) {
             var jsonst = JSON.stringify(objName);
-            alert(jsonst);
             $.session.set('session', jsonst);
             $.session.set('project', objName.projects[0]);
                 //var user = JSON.parse($.cookie("session"));
@@ -57,7 +56,7 @@ function ctrl($scope, $http) {
                 window.location = url;
                 //$scope.submitLogin(objName);
             }).error(function (data, status) {
-                alert("hnnane");
+                alert("error");
                 $scope.submitLogin(objName);
 
             });
@@ -95,7 +94,6 @@ function ctrl($scope, $http) {
             url = serverURL + '/' + objName.login + '/' + encode(objName.password);
         }
         var responsePromise = $http.get(url);
-        alert(url);
         responsePromise.error(function () {
             window.alert('error');
             console.log(arguments);
