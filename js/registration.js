@@ -43,16 +43,23 @@ function ctrl($scope, $http) {
             password: company.password,
             login: company.login,
             email: company.email,
-            projects: ["Default"]
+            projects: ["Default"+encode(company.surname)]
         }
         $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
             .success(function (data) {
-                $.session.set('session', JSON.stringify(objName));
+            var jsonst = JSON.stringify(objName);
+            alert(jsonst);
+            $.session.set('session', jsonst);
+            $.session.set('project', objName.projects[0]);
+                //var user = JSON.parse($.cookie("session"));
+                //var proj = JSON.parse($.cookie("project"));
                 var url = "http://localhost:57772/csp/user/git/pg/workenv.html";
                 window.location = url;
+                //$scope.submitLogin(objName);
             }).error(function (data, status) {
-                alert("tut1");
-                alert(data);
+                alert("hnnane");
+                $scope.submitLogin(objName);
+
             });
     }
 
@@ -76,12 +83,19 @@ function ctrl($scope, $http) {
             });
     }
 
-    $scope.submitLogin = function () {
+    $scope.submitLogin = function (objName) {
+        var url = "";
+        if (objName == undefined) {
         var serverURL = "http://localhost:57772/csp/rest/json/accounts";
-        var url = serverURL + '/' + this.login + '/' + encode(this.password);
+        url = serverURL + '/' + this.login + '/' + encode(this.password);
+        }
+        else {
 
+            var serverURL = "http://localhost:57772/csp/rest/json/accounts";
+            url = serverURL + '/' + objName.login + '/' + encode(objName.password);
+        }
         var responsePromise = $http.get(url);
-
+        alert(url);
         responsePromise.error(function () {
             window.alert('error');
             console.log(arguments);
@@ -89,7 +103,8 @@ function ctrl($scope, $http) {
 
         responsePromise.success(function (data) {
             if (Object.keys(data.children).length > 0) {
-                $.session.set('session', JSON.stringify(data));
+
+                $.session.set('session', JSON.stringify(data.children[0]));
                 var dataArr = data.children[0].projects;
                 if (dataArr.toString().indexOf("\r\n")>-1) {
                     dataArr = dataArr.split("\r\n");

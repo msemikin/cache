@@ -28,7 +28,7 @@
     height: 100%;
 }
  .full-screen {
-          width: 100vw;
+          width: 100%;
 }
 .padd {
     position: relative;

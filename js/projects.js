@@ -37,7 +37,7 @@ function edit(){
     document.getElementById('job').contentEditable = true;
     document.getElementById('work').contentEditable = true;
     //gr.focus();
-    $("#gr").css({backgroundColor: "#86b8d8"});
+    $("#gr").css("background-color", "#86b8d8");
 };
     
 
@@ -46,79 +46,6 @@ function edit(){
 
   if (target.id == 'cabinet') return; // не на TD? тогда не интересует
 
-<<<<<<< HEAD
-$(document).ready(function () {
-    $("#group").keypress(function (e) {
-        if (e.keyCode == 13) {
-            document.getElementById('group').contentEditable = false;
-        }
-    });
-});
-$(document).ready(function () {
-    $("#job").keypress(function (e) {
-        if (e.keyCode == 13) {
-            document.getElementById('job').contentEditable = false;
-        }
-    });
-});
-$(document).ready(function () {
-    $("#work").keypress(function (e) {
-        if (e.keyCode == 13) {
-            document.getElementById('work').contentEditable = false;
-        }
-    });
-});
-
-function addTeacher() {
-    $("#mainTeacherDiv").append('<div id = "teacherDiv" style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none; width: 97%; margin: 0;padding-right: 90%;"class="btn btn-default buttonTeacher" value="Преподаватель"> <button id="deleteTeacher" style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delTeacher();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
-}
-
-function delTeacher() {
-    $("#teacherDiv").remove();
-}
-function addProject(projectName) {
-    if (projectName == undefined) {
-        $("#mainProjectDiv").append('<div id="projectDiv" style="padding:0;"'+
-    'class="panel-body"> <div class=\'gorizont\'> '+
-        '<input type="button" style="border-style: none;width: 90%; margin: ' +
-        '0;padding-right: 80%;"class="btn btn-default buttonTeacher"'
-        +'value="New Project ' + count + '" onclick ="myFunction(New Project ' + count + ')"> ' +
-        +'<button id="deleteTeacher" style=\'border: none;\' type="button"' +
-        'class="btn btn-default btn-small" onclick="editProject();"> ' +
-        '<span class="glyphicon glyphicon-pencil" aria-hidden="true">' +
-        '</span> </button> <button id="editTeacher" style=\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"> ' +
-        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
-        '</button> </div> </div>');
-        count++;
-        projects.push("New Project"+count);
-        var scope = angular.element(document.getElementById("mainProjectDiv")).scope();
-        scope.$apply(function () {
-            scope.update();
-        });
-    }
-    else {
-        $("#mainProjectDiv").append('<div id="projectDiv" ' +
-        'style="padding:0;" class="panel-body"> <div class=\'gorizont\'> ' +
-        '<input type="button" style="border-style: none;width: 90%; margin: ' +
-        '0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'
-        +projectName.replace(projectName[projectName.length-1],"") +'" onclick ="myFunction(\''+
-        projectName.replace(projectName[projectName.length-1],"")+'\')"> ' +
-        '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
-        'class="btn btn-default btn-small" onclick="editProject();">' +
-        ' <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ' +
-        '</button> <button id="editTeacher" style=\'border: none;\' type="button" ' +
-        'class="btn btn-default btn-small" onclick="delProject();"> ' +
-        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
-        '</button> </div> </div>');
-        count++;
-    }
-}
-
-function delProject() {
-    $("#projectDiv").remove();
-    count--;
-}
-=======
   alert("hbjhb");
 });*/
 
@@ -144,10 +71,49 @@ function delTeacher(id){
              addProject("cache", "2");
            }
         );*/
-function addProject(value, id){
-    var newId = 'project_'+ id;
-    var newButId = 'projectBut_'+ id;
-    $("#mainProjectDiv").append('<div id = '+ newId + ' style="padding:0;" class="panel-body"><div class = \'gorizont\'><input type="button" style = "border-style: none;width: 90%; margin: 0;padding-right: 80%;" class="btn btn-default" value='+value+'> <button id = ' + newButId + ' style =\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject(this.id);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+function addProject(projectName) {
+    var json = $.session.get('session');
+    if (json != undefined) {
+        user = JSON.parse($.session.get('session'));
+    }
+    if (projectName == undefined) {
+        $("#mainProjectDiv").append('<div id="projectDiv" style="padding:0;"'+
+    'class="panel-body"> <div class=\'gorizont\'> '+
+        '<input type="button" style="border-style: none;width: 90%; margin: ' +
+        '0;padding-right: 80%;"class="btn btn-default buttonTeacher"'
+        +'value="'+user.surname + count + '" onclick ="myFunction( '+user.surname + count + ')">' +
+        '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="editProject();">' +
+        '<span class="glyphicon glyphicon-pencil" aria-hidden="true">' +
+        '</span> </button> <button id="editTeacher" style=\'border: none;\' type="button" class="btn btn-default btn-small" onclick="delProject();"> ' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
+        '</button> </div> </div>');
+        count++;
+        projects.push(user.surname+count);
+        var scope = angular.element(document.getElementById("mainProjectDiv")).scope();
+        scope.$apply(function () {
+            scope.update();
+        });
+    }
+    else {
+        $("#mainProjectDiv").append('<div id="projectDiv" ' +
+        'style="padding:0;" class="panel-body"> <div class=\'gorizont\'> ' +
+        '<input type="button" style="border-style: none;width: 90%; margin: ' +
+        '0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'
+        //+projectName.replace(projectName[projectName.length-1],"")
+                                    +projectName.trim()
+                                    +'" onclick ="myFunction(\''
+                                    +projectName.trim()
+                                    +'\')"> ' +
+        '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="editProject();">' +
+        ' <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ' +
+        '</button> <button id="editTeacher" style=\'border: none;\' type="button" ' +
+        'class="btn btn-default btn-small" onclick="delProject();"> ' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
+        '</button> </div> </div>');
+        count++;
+    }
 }
 
 function delProject(id){
@@ -156,24 +122,23 @@ function delProject(id){
 }
 
 $(document).ready(function(){
-	     	 $("#group").keypress(function(e){
-	     	   if(e.keyCode==13){
-	     	     document.getElementById('group').contentEditable = false;
-	     	   }
-	     	 });
-	     });
+             $("#group").keypress(function(e){
+               if(e.keyCode==13){
+                 document.getElementById('group').contentEditable = false;
+               }
+             });
+         });
 $(document).ready(function(){
-	     	 $("#job").keypress(function(e){
-	     	   if(e.keyCode==13){
-	     	     document.getElementById('job').contentEditable = false;
-	     	   }
-	     	 });
-	     });
+             $("#job").keypress(function(e){
+               if(e.keyCode==13){
+                 document.getElementById('job').contentEditable = false;
+               }
+             });
+         });
 $(document).ready(function(){
-	     	 $("#work").keypress(function(e){
-	     	   if(e.keyCode==13){
-	     	     document.getElementById('work').contentEditable = false;
-	     	   }
-	     	 });
-	     });
->>>>>>> web
+             $("#work").keypress(function(e){
+               if(e.keyCode==13){
+                 document.getElementById('work').contentEditable = false;
+               }
+             });
+         });
