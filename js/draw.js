@@ -107,7 +107,7 @@ app.controller("drawController", function ($scope) {
                 y: 100
             },
             size: {
-                width: 100,
+                width: txt.length * 6 + 80,
                 height: 40
             }
         })
@@ -117,10 +117,6 @@ app.controller("drawController", function ($scope) {
             }
         });
 
-        list[ind].remove();
-        var delInd = objSt.indexOf(txt);
-        if (delInd > -1) objSt.splice(delInd,1);
-        objD.push(txt);
         graph.addCell(rect);
 
     };
@@ -154,11 +150,8 @@ app.controller("drawController", function ($scope) {
 
     //То самое удаление
     $scope.deleteObj = function () {
-        var text = focused.el.textContent;
         $scope.optionsShow = false;
         focused.remove();
-        objSt.push(text);
-        getList();
     }
 
     $scope.renameValue = undefined;
@@ -168,8 +161,8 @@ app.controller("drawController", function ($scope) {
         $scope.renameShow = true;
     };
     $scope.submitChange = function () {
-        var symbolLength = 5;
-        var width = symbolLength * $scope.renameValue.length + 75;
+        var symbolLength = 6;
+        var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
         $scope.renameValue = $scope.renameValue[0].toUpperCase() + $scope.renameValue.substr(1, $scope.renameValue.length);
         $scope.renameShow = false;

@@ -22,13 +22,15 @@ cacheApp.controller("LoginController", ["$scope", "$http", function ($scope, $ht
 	};
 
 	$scope.submitLogin = function () {
-		var serverURL = "http://localhost:57772/rest/json/accounts";
+		var serverURL = "http://localhost:57772/csp/rest/json/accounts";
 
 		// указываем класс process для div-а сообщений и плавно показываем его
 		$("#login_result").removeClass().addClass('process').text('Проверка....').fadeIn(1000);
 
 		var url = serverURL + '/' + this.login + '/' + this.password;
-
+		
+		window.alert(url);
+		
 		var responsePromise = $http.get(url);
 
 		responsePromise.error(function () {
@@ -38,7 +40,7 @@ cacheApp.controller("LoginController", ["$scope", "$http", function ($scope, $ht
 
 		responsePromise.success(function (data) {
 			window.alert(data.children[0].Id);
-			window.location = "http://localhost:57772/csp/test/pg/workenv.html";
+			window.location = "http://localhost:57772/csp/user/git/pg/workenv.html";
 		});
 	};
 }]);

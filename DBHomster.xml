@@ -1,0 +1,1527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2014.1.3 (Build 775U)" ts="2015-06-06 11:50:18">
+<Class name="DBHomster.Actor">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>63601,62868.479472</TimeChanged>
+<TimeCreated>63601,62506.39369</TimeCreated>
+
+<Property name="id">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="idIndex">
+<Properties>id</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="project">
+<Type>DBHomster.Project</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.ActorD</DataLocation>
+<DefaultData>ActorDefaultData</DefaultData>
+<IdLocation>^DBHomster.ActorD</IdLocation>
+<IndexLocation>^DBHomster.ActorI</IndexLocation>
+<StreamLocation>^DBHomster.ActorS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="ActorDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>id</Value>
+</Value>
+<Value name="3">
+<Value>name</Value>
+</Value>
+<Value name="4">
+<Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Attribute">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63683,83061.347829</TimeChanged>
+<TimeCreated>63601,63598.274315</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Attribute</DataLocation>
+<DefaultData>AttributeDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Attribute</IdLocation>
+<IndexLocation>^I.DBHomster.Attribute</IndexLocation>
+<StreamLocation>^S.DBHomster.Attribute</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="AttributeDefaultData">
+<Value name="1">
+<Value>dataType</Value>
+</Value>
+<Value name="2">
+<Value>filter</Value>
+</Value>
+<Value name="3">
+<Value>id</Value>
+</Value>
+<Value name="4">
+<Value>name</Value>
+</Value>
+<Value name="5">
+<Value>search</Value>
+</Value>
+<Value name="6">
+<Value>sort</Value>
+</Value>
+<Value name="7">
+<Value>object</Value>
+</Value>
+<Value name="8">
+<Value>limitations</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Broker">
+<Super>%CSP.REST</Super>
+<TimeChanged>63709,41602.453758</TimeChanged>
+<TimeCreated>63636,81373.988526</TimeCreated>
+
+<XData name="UrlMap">
+<Data><![CDATA[
+<Routes>
+ <Route Url="/json/accounts/:login/:password" Method="GET" Call="DBHomster.JSON:GetUser"/>
+ <Route Url="/json/getaccess" Method="GET" Call="DBHomster.JSON:GetLink"/>
+ <Route Url="/json/getuser/:id" Method="GET" Call="DBHomster.JSON:GetUserById"/>
+ <Route Url="/json/company" Method="POST" Call="DBHomster.JSON:CreateHuman"/> 
+ <Route Url="/json/object" Method="POST" Call="DBHomster.JSON:WriteObject"/> 
+ <Route Url="/json/humans" Method="GET" Call="DBHomster.JSON:GetUsers"/>
+ <Route Url="/json/objects/:name" Method="GET" Call="DBHomster.JSON:getAllProjectObjects"/>
+ <Route Url="/json/company/:compid" Method="DELETE" Call="DBHomster.JSON:DeleteHuman"/>
+ <Route Url="/json/object/:name" Method="DELETE" Call="DBHomster.JSON:DeleteObject"/>
+ <Route Url="/json/company/:compid" Method="PUT" Call="DBHomster.JSON:UpdateCompany"/>
+ <Route Url="/json/object/:name" Method="PUT" Call="DBHomster.JSON:UpdateObject"/>
+ <Route Url="/json/diagrams" Method="POST" Call="DBHomster.JSON:InsertDiagrams"/>
+ <Route Url="/json/updateuser/:id" Method="PUT" Call="DBHomster.JSON:UpdateUser"/>
+ </Routes>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="DBHomster.Company">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>63636,82989.456877</TimeChanged>
+<TimeCreated>63636,82800.904384</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="Company()"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.CompanyD</DataLocation>
+<DefaultData>CompanyDefaultData</DefaultData>
+<IdLocation>^DBHomster.CompanyD</IdLocation>
+<IndexLocation>^DBHomster.CompanyI</IndexLocation>
+<StreamLocation>^DBHomster.CompanyS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="CompanyDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="Name">
+<Selectivity>10.0000%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Dependency">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,65514.961985</TimeChanged>
+<TimeCreated>63602,65514.383685</TimeCreated>
+
+<Property name="attribute">
+<Type>Attribute</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="description">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="document">
+<Type>Document</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Dependency</DataLocation>
+<DefaultData>DependencyDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Dependency</IdLocation>
+<IndexLocation>^I.DBHomster.Dependency</IndexLocation>
+<StreamLocation>^S.DBHomster.Dependency</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="DependencyDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>attribute</Value>
+</Value>
+<Value name="2">
+<Value>description</Value>
+</Value>
+<Value name="3">
+<Value>document</Value>
+</Value>
+<Value name="4">
+<Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Diagrams">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>63691,3325.537017</TimeChanged>
+<TimeCreated>63691,3236.156137</TimeCreated>
+
+<Property name="useCase">
+<Type>%String</Type>
+</Property>
+
+<Property name="ER">
+<Type>%String</Type>
+</Property>
+
+<Property name="objectRelation">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.DiagramsD</DataLocation>
+<DefaultData>DiagramsDefaultData</DefaultData>
+<IdLocation>^DBHomster.DiagramsD</IdLocation>
+<IndexLocation>^DBHomster.DiagramsI</IndexLocation>
+<StreamLocation>^DBHomster.DiagramsS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="DiagramsDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>useCase</Value>
+</Value>
+<Value name="3">
+<Value>ER</Value>
+</Value>
+<Value name="4">
+<Value>objectRelation</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Document">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63601,63318.602051</TimeChanged>
+<TimeCreated>63601,63317.985304</TimeCreated>
+
+<Property name="id">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="idIndex">
+<Properties>id</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="user">
+<Type>User</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="addingDate">
+<Type>%Date</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="language">
+<Type>%String</Type>
+</Property>
+
+<Property name="type">
+<Type>%String</Type>
+</Property>
+
+<Property name="docPath">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Document</DataLocation>
+<DefaultData>DocumentDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Document</IdLocation>
+<IndexLocation>^I.DBHomster.Document</IndexLocation>
+<StreamLocation>^S.DBHomster.Document</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="DocumentDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>addingDate</Value>
+</Value>
+<Value name="2">
+<Value>docPath</Value>
+</Value>
+<Value name="3">
+<Value>id</Value>
+</Value>
+<Value name="4">
+<Value>language</Value>
+</Value>
+<Value name="5">
+<Value>name</Value>
+</Value>
+<Value name="6">
+<Value>project</Value>
+</Value>
+<Value name="7">
+<Value>type</Value>
+</Value>
+<Value name="8">
+<Value>user</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.ER">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,64365.537515</TimeChanged>
+<TimeCreated>63602,64169.520988</TimeCreated>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="type">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="dateOfCreation">
+<Type>%Date</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="entities">
+<Type>Entity</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="linksBetweenEntities">
+<Type>Link</Type>
+<Collection>list</Collection>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.ER</DataLocation>
+<DefaultData>ERDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.ER</IdLocation>
+<IndexLocation>^I.DBHomster.ER</IndexLocation>
+<StreamLocation>^S.DBHomster.ER</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="ERDefaultData">
+<Value name="1">
+<Value>dateOfCreation</Value>
+</Value>
+<Value name="2">
+<Value>linksBetweenEntities</Value>
+</Value>
+<Value name="3">
+<Value>name</Value>
+</Value>
+<Value name="4">
+<Value>project</Value>
+</Value>
+<Value name="5">
+<Value>type</Value>
+</Value>
+<Value name="6">
+<Value>entities</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.ERattribute">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor,DBHomster.Attribute</Super>
+<TimeChanged>63602,64976.83298</TimeChanged>
+<TimeCreated>63602,64842.311219</TimeCreated>
+
+<Property name="key">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.ERattribute</DataLocation>
+<DefaultData>ERattributeDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.ERattribute</IdLocation>
+<IndexLocation>^I.DBHomster.ERattribute</IndexLocation>
+<StreamLocation>^S.DBHomster.ERattribute</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="ERattributeDefaultData">
+<Subscript>"ERattribute"</Subscript>
+<Value name="1">
+<Value>key</Value>
+</Value>
+<Value name="2">
+<Value>dataType</Value>
+</Value>
+<Value name="3">
+<Value>filter</Value>
+</Value>
+<Value name="4">
+<Value>id</Value>
+</Value>
+<Value name="5">
+<Value>name</Value>
+</Value>
+<Value name="6">
+<Value>object</Value>
+</Value>
+<Value name="7">
+<Value>search</Value>
+</Value>
+<Value name="8">
+<Value>sort</Value>
+</Value>
+<Value name="9">
+<Value>limitations</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Entity">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,64334.729008</TimeChanged>
+<TimeCreated>63602,64316.485532</TimeCreated>
+
+<Property name="object">
+<Type>Obj</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="er">
+<Type>ER</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="type">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="attributes">
+<Type>Attribute</Type>
+<Collection>list</Collection>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Entity</DataLocation>
+<DefaultData>EntityDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Entity</IdLocation>
+<IndexLocation>^I.DBHomster.Entity</IndexLocation>
+<StreamLocation>^S.DBHomster.Entity</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="EntityDefaultData">
+<Value name="1">
+<Value>attributes</Value>
+</Value>
+<Value name="2">
+<Value>er</Value>
+</Value>
+<Value name="3">
+<Value>object</Value>
+</Value>
+<Value name="4">
+<Value>type</Value>
+</Value>
+<Value name="5">
+<Value>name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Function">
+<Super>%Persistent,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63601,63942.770338</TimeChanged>
+<TimeCreated>63601,63942.151066</TimeCreated>
+
+<Property name="actor">
+<Type>Actor</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="function">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="document">
+<Type>Document</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="linkOfFunction">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Function</DataLocation>
+<DefaultData>FunctionDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Function</IdLocation>
+<IndexLocation>^I.DBHomster.Function</IndexLocation>
+<StreamLocation>^S.DBHomster.Function</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="FunctionDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>actor</Value>
+</Value>
+<Value name="2">
+<Value>document</Value>
+</Value>
+<Value name="3">
+<Value>function</Value>
+</Value>
+<Value name="4">
+<Value>linkOfFunction</Value>
+</Value>
+<Value name="5">
+<Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Human">
+<Super>%Persistent</Super>
+<TimeChanged>63670,84679.083026</TimeChanged>
+<TimeCreated>63670,84677.320827</TimeCreated>
+
+<Property name="Id">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Password">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Login">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.HumanD</DataLocation>
+<DefaultData>HumanDefaultData</DefaultData>
+<IdLocation>^DBHomster.HumanD</IdLocation>
+<IndexLocation>^DBHomster.HumanI</IndexLocation>
+<StreamLocation>^DBHomster.HumanS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="HumanDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Id</Value>
+</Value>
+<Value name="3">
+<Value>Password</Value>
+</Value>
+<Value name="4">
+<Value>Login</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.JSON">
+<Super>%Base</Super>
+<TimeChanged>63709,41661.304567</TimeChanged>
+<TimeCreated>63636,83070.113987</TimeCreated>
+
+<Method name="GetAllCompanies">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    
+   set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Company")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetUsers">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    
+   set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Human")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetUser">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>login:%String,password:%String</FormalSpec>
+<Implementation><![CDATA[
+	set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.login where login='"_login_"' AND password='"_password_"'")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetUserById">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%Integer</FormalSpec>
+<Implementation><![CDATA[
+	set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.login where id='"_id_"'")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetAccess">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ s st=$$$OK
+    try {
+    // Берём JSON из запроса и конвертируем в объект класса Test.Human
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Human",.obj,1))
+    $$$THROWONERROR(st,obj.%Save())
+    //здесь получить всех юзеров или сразу проверить
+ set exists = ##class(DBHomster.Human).%ExistsId(st.Login)
+ set user = ##class(DBHomster.Human).%OpenId(st.Login)
+ set validPass = st.Password = user.Password
+ 
+    } 
+    catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="GetLink">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ s st=$$$OK
+    try {
+    // Берём JSON из запроса и конвертируем в объект класса Test.Human
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Human",.obj,1)) 
+    $$$THROWONERROR(st,obj.%Save())
+    } 
+    catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="CreateHuman">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    s st=$$$OK
+    try {
+    // Берём JSON из запроса и конвертируем в объект класса User
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.User",.obj,1))
+    $$$THROWONERROR(st,obj.%Save())
+    } 
+    catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="DeleteHuman">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>compid:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st=$$$OK
+    try {
+        $$$THROWONERROR(st,##class(DBHomster.Human).%DeleteId(compid))
+    } catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="UpdateHuman">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>compid:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set st=$$$OK
+ try {
+   
+   $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+   
+   // Открываем объект, который хотим отредакнировать
+   set comp=##class(DBHomster.Human).%OpenId(compid)
+   throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
+    // Редактируем и сохраняем
+   set comp.Login=obj.Login
+   set comp.Password=obj.Password
+   $$$THROWONERROR(st,comp.%Save())
+ } 
+ catch ex {
+   set st=ex.AsStatus()
+ }
+ quit st
+]]></Implementation>
+</Method>
+
+<Method name="WriteObject">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   s st=$$$OK
+    try {
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Obj",.obj,1))
+    $$$THROWONERROR(st,obj.%Save())
+    } 
+    catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="UpdateObject">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ set st=$$$OK
+ try {
+   SET myName = name
+   $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+   ##sql(SELECT Id INTO :count1 FROM DBHomster.Obj WHERE name = :myName)
+   set comp=##class(DBHomster.Obj).%OpenId(count1)
+   throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
+   set comp.name=obj.name
+   set comp.attribute=obj.attribute
+   set comp.isOnER = obj.isOnER
+   set comp.isOnRelDiagram = obj.isOnRelDiagram
+   set comp.project = obj.project
+   $$$THROWONERROR(st,comp.%Save())
+ } 
+ catch ex {
+   set st=ex.AsStatus()
+ }
+ quit st
+]]></Implementation>
+</Method>
+
+<Method name="DeleteObject">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st=$$$OK
+    try {
+	     SET myName = name
+	     ##sql(SELECT Id INTO :count1 FROM DBHomster.Obj WHERE name = :myName)
+        $$$THROWONERROR(st,##class(DBHomster.Obj).%DeleteId(count1))
+    } catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="InsertDiagrams">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   s st=$$$OK
+    try {
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Diagrams",.obj,1))
+    $$$THROWONERROR(st,obj.%Save())
+    } 
+    catch ex {
+        s st=ex.AsStatus()
+    }
+    quit st
+]]></Implementation>
+</Method>
+
+<Method name="getAllProjectObjects">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>name:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set st=$$$OK
+   try {    
+   do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Obj where project='"_name_"'")
+   } catch ex {
+       set st=ex.AsStatus()
+   }
+   quit st
+]]></Implementation>
+</Method>
+
+<Method name="UpdateUser">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set st=$$$OK
+	try {
+
+	$$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
+
+	// Открываем объект, который хотим отредакнировать
+	set comp=##class(DBHomster.User).%OpenId(id)
+	throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
+	// Редактируем и сохраняем
+	set comp.projects = obj.projects
+	$$$THROWONERROR(st,comp.%Save())
+	}
+	catch ex {
+	set st=ex.AsStatus()
+	}
+	quit st
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="DBHomster.Limitation">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,64792.893945</TimeChanged>
+<TimeCreated>63602,64792.308521</TimeCreated>
+
+<Property name="text">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="description">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="limitationType">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="document">
+<Type>Document</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Limitation</DataLocation>
+<DefaultData>LimitationDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Limitation</IdLocation>
+<IndexLocation>^I.DBHomster.Limitation</IndexLocation>
+<StreamLocation>^S.DBHomster.Limitation</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="LimitationDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>description</Value>
+</Value>
+<Value name="2">
+<Value>document</Value>
+</Value>
+<Value name="3">
+<Value>limitationType</Value>
+</Value>
+<Value name="4">
+<Value>text</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Link">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,63555.073091</TimeChanged>
+<TimeCreated>63602,63503.063225</TimeCreated>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="formulation">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="degreeOfLink">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Link</DataLocation>
+<DefaultData>LinkDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Link</IdLocation>
+<IndexLocation>^I.DBHomster.Link</IndexLocation>
+<StreamLocation>^S.DBHomster.Link</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="LinkDefaultData">
+<Value name="1">
+<Value>degreeOfLink</Value>
+</Value>
+<Value name="2">
+<Value>project</Value>
+</Value>
+<Value name="3">
+<Value>formulation</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.LinkedFunction">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor,DBHomster.Function</Super>
+<TimeChanged>63602,63582.642842</TimeChanged>
+<TimeCreated>63602,62133.863598</TimeCreated>
+
+<Property name="link">
+<Type>Link</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.LinkedFunction</DataLocation>
+<DefaultData>LinkedFunctionDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.LinkedFunction</IdLocation>
+<IndexLocation>^I.DBHomster.LinkedFunction</IndexLocation>
+<StreamLocation>^S.DBHomster.LinkedFunction</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="LinkedFunctionDefaultData">
+<Value name="1">
+<Value>actor</Value>
+</Value>
+<Value name="2">
+<Value>document</Value>
+</Value>
+<Value name="3">
+<Value>function</Value>
+</Value>
+<Value name="4">
+<Value>linkOfFunction</Value>
+</Value>
+<Value name="5">
+<Value>project</Value>
+</Value>
+<Value name="6">
+<Value>linkDescription</Value>
+</Value>
+<Value name="7">
+<Value>link</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Obj">
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>63698,81734.379574</TimeChanged>
+<TimeCreated>63602,63849.219687</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="attribute">
+<Type>%String</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="project">
+<Type>%String</Type>
+</Property>
+
+<Property name="isOnRelDiagram">
+<Type>%Boolean</Type>
+</Property>
+
+<Property name="isOnER">
+<Type>%Boolean</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.ObjD</DataLocation>
+<DefaultData>ObjDefaultData</DefaultData>
+<IdLocation>^DBHomster.ObjD</IdLocation>
+<IndexLocation>^DBHomster.ObjI</IndexLocation>
+<StreamLocation>^DBHomster.ObjS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="ObjDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>name</Value>
+</Value>
+<Value name="3">
+<Value>attribute</Value>
+</Value>
+<Value name="4">
+<Value>isOnRelDiagram</Value>
+</Value>
+<Value name="5">
+<Value>isOnER</Value>
+</Value>
+<Value name="6">
+<Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Operation">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,65275.314555</TimeChanged>
+<TimeCreated>63602,65274.740818</TimeCreated>
+
+<Property name="statistic">
+<Type>Statistic</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="attribute">
+<Type>Attribute</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="attrOperation">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Operation</DataLocation>
+<DefaultData>OperationDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Operation</IdLocation>
+<IndexLocation>^I.DBHomster.Operation</IndexLocation>
+<StreamLocation>^S.DBHomster.Operation</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="OperationDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>attrOperation</Value>
+</Value>
+<Value name="2">
+<Value>attribute</Value>
+</Value>
+<Value name="3">
+<Value>statistic</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Project">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63601,62800.966533</TimeChanged>
+<TimeCreated>63601,62800.132763</TimeCreated>
+
+<Property name="id">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="idIndex">
+<Properties>id</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="user">
+<Type>DBHomster.User</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="infSystem">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="description">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="beginning">
+<Type>%Date</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="ending">
+<Type>%Date</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="developType">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Project</DataLocation>
+<DefaultData>ProjectDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Project</IdLocation>
+<IndexLocation>^I.DBHomster.Project</IndexLocation>
+<StreamLocation>^S.DBHomster.Project</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="ProjectDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>beginning</Value>
+</Value>
+<Value name="2">
+<Value>description</Value>
+</Value>
+<Value name="3">
+<Value>developType</Value>
+</Value>
+<Value name="4">
+<Value>ending</Value>
+</Value>
+<Value name="5">
+<Value>id</Value>
+</Value>
+<Value name="6">
+<Value>infSystem</Value>
+</Value>
+<Value name="7">
+<Value>user</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Report">
+<TimeChanged>63601,63639.535984</TimeChanged>
+<TimeCreated>63601,63469.293458</TimeCreated>
+
+<Property name="document">
+<Type>Document</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="formatsList">
+<Type>%String</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="attributes">
+<Type>Attribute</Type>
+<Collection>list</Collection>
+</Property>
+</Class>
+
+
+<Class name="DBHomster.Statistic">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63601,63791.793652</TimeChanged>
+<TimeCreated>63601,63791.228238</TimeCreated>
+
+<Property name="document">
+<Type>Document</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="attribute">
+<Type>Attribute</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Statistic</DataLocation>
+<DefaultData>StatisticDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Statistic</IdLocation>
+<IndexLocation>^I.DBHomster.Statistic</IndexLocation>
+<StreamLocation>^S.DBHomster.Statistic</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="StatisticDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>attribute</Value>
+</Value>
+<Value name="2">
+<Value>document</Value>
+</Value>
+<Value name="3">
+<Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.Term">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>63602,65566.714997</TimeChanged>
+<TimeCreated>63602,65566.132622</TimeCreated>
+
+<Property name="document">
+<Type>Document</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="description">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="project">
+<Type>Project</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.Term</DataLocation>
+<DefaultData>TermDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.Term</IdLocation>
+<IndexLocation>^I.DBHomster.Term</IndexLocation>
+<StreamLocation>^S.DBHomster.Term</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="TermDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>description</Value>
+</Value>
+<Value name="2">
+<Value>document</Value>
+</Value>
+<Value name="3">
+<Value>name</Value>
+</Value>
+<Value name="4">
+<Value>project</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.User">
+<Owner>_PUBLIC</Owner>
+<SqlTableName>login</SqlTableName>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeChanged>63698,61661.830707</TimeChanged>
+<TimeCreated>63588,80338.778812</TimeCreated>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="surname">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="password">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="email">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="jobTitle">
+<Type>%String</Type>
+</Property>
+
+<Property name="workPlace">
+<Type>%String</Type>
+</Property>
+
+<Property name="projects">
+<Type>%String</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="login">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.UserD</DataLocation>
+<DefaultData>UserDefaultData</DefaultData>
+<IdLocation>^DBHomster.UserD</IdLocation>
+<IndexLocation>^DBHomster.UserI</IndexLocation>
+<StreamLocation>^DBHomster.UserS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="UserDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>id</Value>
+</Value>
+<Value name="3">
+<Value>name</Value>
+</Value>
+<Value name="4">
+<Value>login</Value>
+</Value>
+<Value name="5">
+<Value>password</Value>
+</Value>
+<Value name="6">
+<Value>email</Value>
+</Value>
+<Value name="7">
+<Value>jobTitle</Value>
+</Value>
+<Value name="8">
+<Value>workPlace</Value>
+</Value>
+<Value name="9">
+<Value>projects</Value>
+</Value>
+<Value name="10">
+<Value>surname</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="DBHomster.linkedObj">
+<Super>%Persistent,%Populate,%XML.Adaptor,%MV.Adaptor,DBHomster.Obj</Super>
+<TimeChanged>63698,61519.819984</TimeChanged>
+<TimeCreated>63602,65410.985121</TimeCreated>
+
+<Property name="link">
+<Type>Link</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="linkRole">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="facilityClass">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^DBHomster.linkedObj</DataLocation>
+<DefaultData>linkedObjDefaultData</DefaultData>
+<IdLocation>^C.DBHomster.linkedObj</IdLocation>
+<IndexLocation>^I.DBHomster.linkedObj</IndexLocation>
+<StreamLocation>^S.DBHomster.linkedObj</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="linkedObjDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>document</Value>
+</Value>
+<Value name="2">
+<Value>facilityClass</Value>
+</Value>
+<Value name="3">
+<Value>id</Value>
+</Value>
+<Value name="4">
+<Value>link</Value>
+</Value>
+<Value name="5">
+<Value>linkRole</Value>
+</Value>
+<Value name="6">
+<Value>name</Value>
+</Value>
+<Value name="7">
+<Value>project</Value>
+</Value>
+<Value name="8">
+<Value>type</Value>
+</Value>
+<Value name="9">
+<Value>attribute</Value>
+</Value>
+<Value name="10">
+<Value>isOnER</Value>
+</Value>
+<Value name="11">
+<Value>isOnRelDiagram</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+</Export>

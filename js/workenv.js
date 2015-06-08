@@ -4,47 +4,51 @@ var contentDivs;
 var textObj;
 var canvas;
 var index;
+var objContainers;
+var widthTextBlock;
+
+
 window.onload = function () {
     contentDivs = document.getElementsByName("contentDiv");
+    var json = $.session.get('session');
+    console.log(json);
+    if (json != undefined) {
+        user = JSON.parse($.session.get('session'));
+    }
+    else {
+        document.location.href="../index.html";
+    }
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
-    //var chars = new Array(',', '.', ';', '!', ':', ' ');
+    objContainers = document.getElementsByName("objContainer");
 
-    /*<<<<<<< HEAD*/
-    //var sample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    document.getElementById("userNameText").innerHTML = decode(user.name + " " + user.surname);
+    var scope = angular.element(document.getElementById("gor")).scope();
+    scope.$apply(function () {
+        scope.getAllProjectObjects();
+    });
 
-    /*if(document.getElementsById('obj').checked = 'true')
-     document.getElementsById('attr').checked = 'false';
-     else
-     document.getElementsByName('attr').checked = 'true';*/
-
-    //initiateTextBox(sample, function(word){
-
-
-    // window.alert(word);
-
-
-    // });
-    /*=======*/
-    //var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-    //$('#pages-container').text(text);
-    /*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
-
-    //
     for (i = 0; i < tabs.length; i++) {
         tabs[i].onclick = changeTab;
         var bordWhite = document.createElement('div');
         bordWhite.className = "bottomWhite";
         contentDivs[i].className = "contentDiv";
+        objContainers[i].className = "attr-objects-container";
         if (i != 0) {
             contentDivs[i].style.visibility = "hidden";
             bordWhite.style.visibility = "hidden";
+            $(objContainers[i]).hide();
         }
         tabs[i].appendChild(bordWhite);
     }
-    //работа Семикина
+
+    widthTextBlock = $("#pages-container").width();
+    document.getElementById("left-panel").style.width = widthTextBlock + "px";
+    document.getElementById("pages-container").style.width = widthTextBlock + "px";
+
+
+    //получение текста выделения
     function getSelectionText() {
         var text = "";
         if (window.getSelection) {
@@ -55,65 +59,83 @@ window.onload = function () {
         return text;
     }
 
+    //выделение при нажатии
     $(document).ready(function () {
         $('#pages-container').click(function (e) {
             getSelectionHtml();
         })
     });
+	$(document).ready(function () {
+        $('#userNameText').click(function (e) {
+            redirecting();
+        })
+    });
+	function redirecting() {
+		var url = "http://localhost:57772/csp/user/git/pg/projects.html";
+		window.location = url;
+	}
 
-
-
-    /*function addToObjectsList(text) {
-        //var text = document.getElementById("wordTextBox").value;
-        if (text.length != 0 && text.length != 1) {
-            var select = document.getElementById("List1");
-            select.options[select.options.length] = new Option(text);
-            var attributes = new Array();
-            var obj = {
-                name: text,
-                attr: attributes
-            }
-            objects.push(obj);
-        }
-
-    }*/
-
-    /*function addAttrToObject(attr) {
-        var objIndex = document.getElementById("List1").selectedIndex;
-        //var objIndex = document.getElementById("newBox1").value;
-        //var attr = document.getElementById("attrBox").value;
-        var obj = objects[objIndex];
-        if (attr.length != 0 && attr.length != 1) {
-            obj.attr.push(attr);
-        }
-    }*/
-
-    /*function addToAttrList() {
-        var ind = document.getElementById("List1").selectedIndex;
-        index = ind;
-        var mas = objects[ind].attr;
-        var select = document.getElementById("List2");
-        clean('List2');
-        for (i = 0; i < mas.length; i++) {
-            select.options[select.options.length] = new Option(mas[i]);
-        }
-    }*/
-
-
+    //удаление объекта
     $(function(){
         $("#List1").bind("dblclick", function(){
             var element = $("#List1 option:selected");
-            deleteObject();
-            clean('List2');
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+			scope.deleteObject();
+			});
         });
     });
 
+    //удаление атрибута
     $(function(){
         $("#List2").bind("dblclick", function(){
             deleteAttribute();
         });
     });
 
+    //отрисовка relations
+    $(function(){
+        $("#relationList").bind("dblclick", function(){
+            var elem = $("#relationList option:selected").text();
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+                var ind = findIndByObjName(elem);
+                objects[ind].isOnRelDiagram = true;
+                objects[ind].isOnER = true;
+                objects[ind].ERx = 100;
+                objects[ind].ERy = 100;
+                objects[ind].RelX = 100;
+                objects[ind].RelY = 100;
+                var figure = angular.injector(['ng', 'cache']).get("diagramService").createFigure('object', elem, {x: 100, y: 100});
+                diagrams.objectRelation.addCell(figure);
+                var figureer = angular.injector(['ng', 'cache']).get("diagramService").createFigure('entity', elem, {x: 100, y: 100});
+                diagrams.ER.addCell(figureer);
+                //setRelDiagramm(elem, 'true');
+                //setERDiagramm(elem, 'true');
+			});
+            refreshList(2);
+        });
+    });
+
+    //отрисовка ER
+    $(function(){
+        $("#erObjList").bind("dblclick", function(){
+            var elem = $("#erObjList option:selected").text();
+			var scope = angular.element(document.getElementById("gor")).scope();
+			scope.$apply(function () {
+                var ind = findIndByObjName(elem);
+                objects[ind].isOnER = true;
+                objects[ind].isEdited = true;
+                var figureer = angular.injector(['ng', 'cache']).get("diagramService").createFigure('entity', elem, {x: 100, y: 100});
+                diagrams.ER.addCell(figureer);
+                //setERDiagramm(elem, 'true');
+			});
+            //deleteObject();
+            refreshList(3);
+        });
+    });
+
+    //выделение текста
     function getSelectionHtml() {
         var html = "";
         if (typeof window.getSelection != "undefined") {
@@ -141,12 +163,11 @@ window.onload = function () {
             }
             var ind = document.getElementById("List1").selectedIndex;
             if (ind == -1) {
-                addToObjectsList(html);
+                addObj(html);
                 document.getElementById("List1").selectedIndex = -1;
             }
             else {
-                addAttrToObject(html);
-                addToAttrList();
+                addAttr(html);
                 document.getElementById("List1").selectedIndex = -1;
             }
         }
@@ -239,46 +260,14 @@ window.onload = function () {
     };
 }
 
-function find(arr, char) {
-    for (c = 0; c < arr.length; c++) {
-        if (char == arr[c]) return true;
-    }
-    return false;
-}
-
-function isSpases(array) {
-    for (v = 0; v < array.length; v++) {
-        if (array[v] != ' ') return false;
-    }
-    return true;
-}
-
-/*function linkedLists()
- {
- var syncList1 = new syncList;
-
- syncList1.dataList = {
-
- 'Obj1':{
- 'Obj1_Attr1.1':'Attr1.1',
- 'Obj1_Attr1.2':'Attr1.2',
- 'Obj1_Attr1.3':'Attr1.3'
- },
- 'Obj2':{
- 'Obj2_Attr2.1':'Attr2.1',
- 'Obj2_Attr2.2':'Attr2.2'
- }
- };
- syncList1.sync("List1","List2");
- }*/
 
 
 //Переключение вкладок
 function changeTab() {
     for (j = 0; j < tabs.length; j++) {
         if (this == tabs[j]) {
-            if(j == 1) getList();
             tabs[j].setAttribute("class", "chosenTab");
+            $(objContainers[j]).show();
             contentDivs[j].style.visibility = "visible";
             if (j != 0) tabs[j - 1].setAttribute("class", "left-tab");
             for (var t = 0; t < tabs[j].childNodes.length; t++) {
@@ -287,10 +276,14 @@ function changeTab() {
                     break;
                 }
             }
+
+            //обновление списков
+            refreshList(j + 1);
         }
         else {
             tabs[j].setAttribute("class", "tab");
             contentDivs[j].style.visibility = "hidden";
+            $(objContainers[j]).hide();
             for (var q = 0; q < tabs[j].childNodes.length; q++) {
                 if (tabs[j].childNodes[q].className == "bottomWhite") {
                     tabs[j].childNodes[q].style.visibility = "hidden";
@@ -301,7 +294,7 @@ function changeTab() {
     }
 }
 
-
+//файнд интерсекшн фром старт
 function FindIntersectionFromStart(a, b) {
     for (var i = a.length; i > 0; i--) {
         d = a.substring(0, i);
@@ -314,12 +307,14 @@ function FindIntersectionFromStart(a, b) {
     return null;
 }
 
+
 function disabled(field) {
     for (i = 0; i < field.length; i++) {
         field[i].checked = false;
     }
 }
 
+//файнд интерсекшн
 function FindIntersection(a, b) {
     var bestResult = null;
     for (var i = 0; i < a.length - 1; i++) {
@@ -338,13 +333,56 @@ function FindIntersection(a, b) {
     }
     return bestResult;
 }
+function getParam(sParamName)
+// Функция определения переданной переменной
+{
+var Params = location.search.substring(1).split("?"); 
+// отсекаем «?» и вносим переменные и их значения в массив var variable = "";
 
-function getList() {
-    var sel = document.getElementById("List3");
-    sel.innerHTML = "";
-    for (z = 0; z < objSt.length; z++){
-        sel.options[z] = new Option(objSt[z]);
-    }
+for (var ij = 0; ij < Params.length; ij++) // просматриваем весь массив переменных
+  { 
+        if (Params[ij].split("=")[0] == sParamName) // если найдена искомая переменная, и
+       { 
+           if (Params[ij].split("=").length > 1) variable = Params[ij].split("=")[1];
+           // если значение параметра задано, то 
+           return variable; // возвращаем его
+       }
+   }
+   return "";
 }
 
-/*>>>>>>> 1d50c157de4259a8f6e481a35bc1f5c1c3a02511*/
+ $(document).ready(function() {
+          $("a.dropdown-toggle").click(function(ev) {
+              $("a.dropdown-toggle").dropdown("toggle");
+              return false;
+          });
+          $("ul.dropdown-menu a").click(function(ev) {
+              $("a.dropdown-toggle").dropdown("toggle");
+              return false;
+          });
+      });
+
+//обновление списков (при добавлении подредачить)
+function refreshList(tab) {
+    if(tab > 3) return;
+    var nameList = "listTab" + tab;
+    var lists = document.getElementsByName(nameList);
+
+    for(ii = 0; ii < lists.length; ii++) {
+        lists[ii].innerHTML = "";
+    }
+    for(jj = 0; jj < objects.length; jj++){
+        if((tab == 1) || (tab == 2 && !objects[jj].isOnRelDiagram) || (tab == 3 && !objects[jj].isOnER)) {
+            lists[0].options[lists[0].options.length] = new Option(objects[jj].name);
+        }
+    }
+    return;
+}
+
+//поиск объекта по имени
+function findIndByObjName(nameObj) {
+    for (q = 0; q < objects.length; q++) {
+        if(nameObj.trim() == objects[q].name.trim()) return q;
+    }
+    return -1;
+}
