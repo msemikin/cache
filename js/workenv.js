@@ -26,7 +26,7 @@ window.onload = function () {
     document.getElementById("userNameText").innerHTML = decode(user.name + " " + user.surname);
     var scope = angular.element(document.getElementById("gor")).scope();
     scope.$apply(function () {
-        //scope.getAllProjectObjects();
+        scope.getAllProjectObjects();
     });
 
     for (i = 0; i < tabs.length; i++) {
