@@ -364,9 +364,6 @@ app.controller("ctrl", function ($scope, $http) {
             if (Object.keys(data.children).length > 0) {
                 setObjects(data);
             }
-            else {
-                alert("No objects");
-            }
         });
     }
 });

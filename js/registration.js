@@ -43,7 +43,7 @@ function ctrl($scope, $http) {
             password: company.password,
             login: company.login,
             email: company.email,
-            projects: ["Default"+encode(company.surname)]
+            projects: [encode("Default" + company.login)]
         }
         $http.post("http://localhost:57772/csp/rest/json/company", encodeUser(objName))
             .success(function (data) {
