@@ -83,13 +83,13 @@ function ctrl($scope, $http) {
     }
 
     $scope.submitLogin = function (objName) {
+        //TODO сделать норм раскодировку по входу
         var url = "";
         if (objName == undefined) {
-        var serverURL = "http://localhost:57772/csp/rest/json/accounts";
-        url = serverURL + '/' + this.login + '/' + encode(this.password);
+            var serverURL = "http://localhost:57772/csp/rest/json/accounts";
+            url = serverURL + '/' + this.login + '/' + encode(this.password);
         }
         else {
-
             var serverURL = "http://localhost:57772/csp/rest/json/accounts";
             url = serverURL + '/' + objName.login + '/' + encode(objName.password);
         }

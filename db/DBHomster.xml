@@ -110,8 +110,8 @@
  <Route Url="/json/accounts/:login/:password" Method="GET" Call="DBHomster.JSON:GetUser"/>
  <Route Url="/json/getaccess" Method="GET" Call="DBHomster.JSON:GetLink"/>
  <Route Url="/json/getuser/:id" Method="GET" Call="DBHomster.JSON:GetUserById"/>
- <Route Url="/json/company" Method="POST" Call="DBHomster.JSON:CreateHuman"/> 
- <Route Url="/json/object" Method="POST" Call="DBHomster.JSON:WriteObject"/> 
+ <Route Url="/json/company" Method="POST" Call="DBHomster.JSON:CreateHuman"/>
+ <Route Url="/json/object" Method="POST" Call="DBHomster.JSON:WriteObject"/>
  <Route Url="/json/humans" Method="GET" Call="DBHomster.JSON:GetUsers"/>
  <Route Url="/json/objects/:name" Method="GET" Call="DBHomster.JSON:getAllProjectObjects"/>
  <Route Url="/json/company/:compid" Method="DELETE" Call="DBHomster.JSON:DeleteHuman"/>
@@ -650,9 +650,9 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-    
+
    set st=$$$OK
-   try {    
+   try {
    do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Company")
    } catch ex {
        set st=ex.AsStatus()
@@ -665,9 +665,9 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-    
+
    set st=$$$OK
-   try {    
+   try {
    do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Human")
    } catch ex {
        set st=ex.AsStatus()
@@ -681,7 +681,7 @@
 <FormalSpec>login:%String,password:%String</FormalSpec>
 <Implementation><![CDATA[
 	set st=$$$OK
-   try {    
+   try {
    do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.login where login='"_login_"' AND password='"_password_"'")
    } catch ex {
        set st=ex.AsStatus()
@@ -695,7 +695,7 @@
 <FormalSpec>id:%Integer</FormalSpec>
 <Implementation><![CDATA[
 	set st=$$$OK
-   try {    
+   try {
    do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.login where id='"_id_"'")
    } catch ex {
        set st=ex.AsStatus()
@@ -717,8 +717,8 @@
  set exists = ##class(DBHomster.Human).%ExistsId(st.Login)
  set user = ##class(DBHomster.Human).%OpenId(st.Login)
  set validPass = st.Password = user.Password
- 
-    } 
+
+    }
     catch ex {
         s st=ex.AsStatus()
     }
@@ -733,9 +733,9 @@
  s st=$$$OK
     try {
     // Берём JSON из запроса и конвертируем в объект класса Test.Human
-    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Human",.obj,1)) 
+    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Human",.obj,1))
     $$$THROWONERROR(st,obj.%Save())
-    } 
+    }
     catch ex {
         s st=ex.AsStatus()
     }
@@ -752,7 +752,7 @@
     // Берём JSON из запроса и конвертируем в объект класса User
     $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.User",.obj,1))
     $$$THROWONERROR(st,obj.%Save())
-    } 
+    }
     catch ex {
         s st=ex.AsStatus()
     }
@@ -782,9 +782,9 @@
 <Implementation><![CDATA[
  set st=$$$OK
  try {
-   
+
    $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,,.obj,1))
-   
+
    // Открываем объект, который хотим отредакнировать
    set comp=##class(DBHomster.Human).%OpenId(compid)
    throw:comp=$$$NULLOREF ##class(%Exception.StatusException).CreateFromStatus($$$ERROR(5001,"Company does not exist"))
@@ -792,7 +792,7 @@
    set comp.Login=obj.Login
    set comp.Password=obj.Password
    $$$THROWONERROR(st,comp.%Save())
- } 
+ }
  catch ex {
    set st=ex.AsStatus()
  }
@@ -808,7 +808,7 @@
     try {
     $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Obj",.obj,1))
     $$$THROWONERROR(st,obj.%Save())
-    } 
+    }
     catch ex {
         s st=ex.AsStatus()
     }
@@ -834,7 +834,7 @@
    set comp.isOnRelDiagram = obj.isOnRelDiagram
    set comp.project = obj.project
    $$$THROWONERROR(st,comp.%Save())
- } 
+ }
  catch ex {
    set st=ex.AsStatus()
  }
@@ -867,7 +867,7 @@
     try {
     $$$THROWONERROR(st,##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject(%request.Content,"DBHomster.Diagrams",.obj,1))
     $$$THROWONERROR(st,obj.%Save())
-    } 
+    }
     catch ex {
         s st=ex.AsStatus()
     }
@@ -881,7 +881,7 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
     set st=$$$OK
-   try {    
+   try {
    do ##class(%ZEN.Auxiliary.jsonSQLProvider).%WriteJSONFromSQL(,"select * from DBHomster.Obj where project='"_name_"'")
    } catch ex {
        set st=ex.AsStatus()
