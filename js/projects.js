@@ -101,9 +101,9 @@ function addProject(projectName) {
         '<input type="button" style="border-style: none;width: 90%; margin: ' +
         '0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'
         //+projectName.replace(projectName[projectName.length-1],"")
-                                    +projectName.trim()
+                                    +projectName.toString().trim()
                                     +'" onclick ="myFunction(\''
-                                    +projectName.trim()
+                                    +projectName.toString().trim()
                                     +'\')"> ' +
         '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
         'class="btn btn-default btn-small" onclick="editProject();">' +
