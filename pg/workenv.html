@@ -42,6 +42,7 @@
     <script src="../js/controllers/statistic.js"></script>
     <script src="../js/controllers/report.js"></script>
     <script src="../js/controllers/constraints-controller.js"></script>
+    <script src="../js/controllers/algo-controller.js"></script>
 
 </head>
 
@@ -69,7 +70,7 @@
                 <div name="tab" class="tab">
                     <h5 class="tabName">Relation</h5>
                 </div>
-                <div name="tab" class="tab" ng-controller="ERController" ng-click="updateER();">
+                <div name="tab" class="tab" onclick="updateER();">
                     <h5 class="tabName">ER</h5>
                 </div>
                 <div name="tab" class="tab">
@@ -308,7 +309,7 @@
             <div id="div3" name="contentDiv" ng-controller="ERController">
                 <div class="panel panel-default er-model model">
                     <div class="panel-heading">
-                        <h3 class="panel-title">ER диаграмма</h3>
+                        <h3 class="panel-title">ER диаграмма</h3>{{JSON.stringify(linkOptionsShow)}}
                     </div>
                     <div class="figuresBar panel panel-default">
                         <input type="button" value="Сущность" class="btn btn-default entity">
@@ -590,62 +591,74 @@
                             <h3 class="panel-title h2">Отчет</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="list-group objects-select">
-                                <a ng-repeat="r in reports track by $index" ng-class="{active: $index == reports.selected}" href="#" ng-click="selectReport($index)" class="list-group-item">{{r.name}}</a>
+                            <div class="list-group  objects-select">
+                                <a ng-repeat="report in reports track by $index" ng-class="{active: $index === selected}" href="#" ng-click="selectReport($index)" class="list-group-item">{{report.name}}</a>
                             </div>
                         </div>
                         <div class="panel-footer">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Название..." ng-model="newStatistic">
+                                <input type="text" class="form-control" placeholder="Название..." ng-model="newreportName">
                                 <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="addReport()">+</button>
-                          </span>
+                                <button class="btn btn-default" type="button" ng-click="addReport()">+</button>
+                              </span>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default detailsPanel ">
                         <div class="panel-heading ">
-                            <h3 class="panel-title">Детали отчета</h3>
+                            <h3 class="panel-title">Детали статистики</h3>
                         </div>
-                        <div class="panel-body" ng-show="reports.length">
-                            <h4>Объект</h4>
+                        <div class="panel-body" ng-show="reports[selected]">
+                            <div ng-repeat="addedObject in getAddedObjects()" class="panel panel-default">
+                                <div class="panel-body stat-object">
+                                    <h4>{{addedObject.name}}</h4>
+
+                                    <ul class="list-group">
+                                        <li ng-repeat="attr in getAddedAttrs(addedObject.name)" class="list-group-item">
+                                            {{attr.name}}
+                                            <span ng-click="removeAttr(addedObject.name, attr.name)" class="badge">x</span>
+                                        </li>
+                                    </ul>
+                                    </ul>
+                                    <div class="btn-group">
+                                        <div class="dropdown attrDropup" ng-click="initDropdowns()">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
+                                                <span>Добавить атрибут</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                <li role="presentation" ng-repeat="attr in getUnaddedAttrs(addedObject.name)">
+                                                    <a role="menuitem" ng-click="addAttr(addedObject.name, attr.name)" tabindex="-1" href="#">
+                                                        {{attr.name}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="btn-group">
                                 <div class="dropdown objDropup">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown"><span>{{getCurrentObject()}}</span>
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
+                                        <span>Добавить объект</span>
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                        <li role="presentation" ng-repeat="object in objects track by $index"><a role="menuitem" ng-click="selectObj($index)" tabindex="-1" href="#">{{object.name}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <h4>Атрибуты</h4>
-                            <ul class="list-group">
-                                <li ng-repeat="attr in getCurrentAttrs() track by $index" class="list-group-item">
-                                    {{attr}}
-                                    <span ng-click="removeAttr($index)" class="badge">x</span>
-                                </li>
-                            </ul>
-                            <div class="btn-group">
-                                <div class="dropdown attrDropup">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown"><span>Добавить атрибут</span>
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                        <li role="presentation" ng-repeat="attr in getPossibleAttrs() track by $index"><a role="menuitem" ng-click="selectAttr(attr)" tabindex="-1" href="#">{{attr}}</a>
+                                        <li role="presentation" ng-repeat="unaddedObject in getUnaddedObjects()">
+                                            <a role="menuitem" ng-click="addObject(unaddedObject.name)" tabindex="-1" href="#">
+                                                {{unaddedObject.name}}
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <div id="div7" name="contentDiv">
+            <div id="div7" name="contentDiv" ng-controller="AlgoController">
                 <div class="algo-list">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default algo" ng-repeat="algo in algos">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
@@ -653,15 +666,15 @@
                                     <td>
                                         <div class="btn-group" style="margin-top:2%;">
                                             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                                Объект
-                                                <span class="caret"></span>
+                                                {{getSelectedObject(algo.id)}}
+                                                <span class="caret">
+                                                </span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Пункт 1</a>
-                                                </li>
-                                                <li><a href="#">Пункт 2</a>
-                                                </li>
-                                                <li><a href="#">Пункт 3</a>
+                                                <li ng-repeat="object in getUnaddedObjects(algo.id)">
+                                                    <a href="#">
+                                                        {{object.name}}
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -669,8 +682,9 @@
                                     <td>
                                         <div class="btn-group" style="margin-top:2%;">
                                             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                                Объект
-                                                <span class="caret"></span>
+                                                {{getSelectedAttr(algo.id)}}
+                                                <span class="caret">
+                                                </span>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="#">Пункт 1</a>
@@ -703,30 +717,18 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        <tr ng-repeat="src in getSources(algo.id)">
                                                             <td>
-                                                                Объект 1
+                                                                {{src.object}}
                                                             </td>
                                                             <td>
-                                                                Атрибут 1
+                                                                {{src.attr}}
                                                             </td>
                                                             <td>
-                                                                Х
+                                                                {{src.variable}}
                                                             </td>
                                                             <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                2
-                                                            </td>
-                                                            <td>
-                                                                2
-                                                            </td>
-                                                            <td>
-                                                                Y
-                                                            </td>
-                                                            <td>
+                                                                <span class="badge"></span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -738,7 +740,7 @@
                                 <tr>
                                     <td>Формула</td>
                                     <td colspan="2">
-                                        <input type="text" class="form-control" placeholder="Формулв...">
+                                        <input type="text" class="form-control" placeholder="Формула...">
                                     </td>
                                 </tr>
                             </table>

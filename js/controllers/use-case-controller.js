@@ -1,5 +1,6 @@
 var app = angular.module('cache');
 app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation){
+    console.log("UC");
     var graph = new joint.dia.Graph;
     diagrams.useCase = graph;
     var paper = new joint.dia.Paper({

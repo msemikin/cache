@@ -10,20 +10,20 @@ var widthTextBlock;
 
 window.onload = function () {
     contentDivs = document.getElementsByName("contentDiv");
-    var json = $.session.get('session');
-    console.log(json);
-    if (json != undefined) {
-        user = JSON.parse($.session.get('session'));
-    }
-    else {
-        document.location.href="../index.html";
-    }
+//    var json = $.session.get('session');
+//    console.log(json);
+//    if (json != undefined) {
+//        user = JSON.parse($.session.get('session'));
+//    }
+//    else {
+//        document.location.href="../index.html";
+//    }
     tabs = document.getElementsByName("tab");
     canvas = document.getElementById("pages-container");
     field = document.getElementById('file-field');
     objContainers = document.getElementsByName("objContainer");
 
-    document.getElementById("userNameText").innerHTML = decode(user.name + " " + user.surname);
+//    document.getElementById("userNameText").innerHTML = decode(user.name + " " + user.surname);
     var scope = angular.element(document.getElementById("gor")).scope();
     scope.$apply(function () {
         //scope.getAllProjectObjects();

@@ -3,7 +3,7 @@ var objD = new Array();
 
 app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function ($scope, diagram, dragAndDrop, linkManipulation) {
 
-    if (!diagrams.ER) {
+    console.log("ER");
         var graph = new joint.dia.Graph;
         var paper = new joint.dia.Paper({
             el: $('#er-model'),
@@ -154,5 +154,5 @@ app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService'
         $scope.cancelRename = function () {
             $scope.renameShow = false;
         };
-    }
+    
 }]);

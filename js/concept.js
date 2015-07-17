@@ -34,9 +34,9 @@ function addObj(textExt) {
         }
     }
     var scope = angular.element(document.getElementById("gor")).scope();
-    scope.$apply(function () {
+//    scope.$apply(function () {
         scope.create("Napoleone Bounaparte");
-    });
+//    });
     refreshList(1);
     cleanTextBox('wordTextBox');
 
