@@ -1,130 +1,115 @@
-<!doctype html>
-<html lang="en" class="no-js">
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 lt-ie6"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie7"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie8"> <![endif]-->
+<!--[if gt IE 8]> <html class="no-js ie9"> <![endif]-->
+<html lang="ru">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>
+        AppName &gt; Панель администратора
+    </title>
+    <link href="css/ladda.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/admin.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/admin/login.js"></script>
+    <script type="text/javascript" src="js/vendor/ladda.js"></script>
+    <script type="text/javascript" src="js/vendor/spin.js"></script>
 
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-
-	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Gem style -->
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-
-	<title>Адаптивные модальные формы входа и регистрации</title>
 </head>
-<body id="b-body">
-	<header role="banner">
-		<div id="cd-logo"><a href="#0"><img src="img/cd-logo.svg" alt="Logo"></a></div>
 
-		<nav class="main-nav">
-			<ul>
-				<!-- ссылки на вызов форм -->
-				<li><a class="cd-signin" href="#0">Вход</a></li>
-				<li><a class="cd-signup" href="#0">Регистрация</a></li>
-			</ul>
-		</nav>
-	</header>
+<body class="ps_back-office">
+    <div id="login">
+        <script type="text/javascript">
+            var one_error = 'Обнаружена одна ошибка.';
+            var more_errors = 'Обнаружено несколько ошибок.';
+        </script>
+        <div id="login-panel">
+            <div id="login-header">
+                <h1 class="text-center">
+			<!--<img id="logo" width="40px" src="/img/icon-prestashop.svg"/>-->
+			APPNAME
+		</h1>
+                <hr/>
+                <h4 class="text-center">AdminBoard</h4>
+                <hr/>
+                <div id="error" class="hide alert alert-danger">
+                </div>
 
-	<div class="cd-intro">
-		<h1>Модальные Формы Вход / Регистрация</h1>
-		<div class="cd-nugget-info">
-			<a href="http://dbmast.ru/adaptivnye-modalnye-formy-vhoda-i-registracii">
-				&larr; Статья &amp; Скачать
-			</a>
-		</div>
-	</div>
+            </div>
+            <div class="front panel">
+                <form action="#" id="login_form" method="post">
+                    <div class="form-group">
+                        <label class="control-label" for="email">Адрес E-mail:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                            <input name="email" type="text" id="email" class="form-control" value="" autofocus="autofocus" tabindex="1" placeholder="test@example.com" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="passwd">
+                            Пароль:
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-key"></i></span>
+                            <input name="passwd" type="password" id="passwd" class="form-control" value="" tabindex="2" placeholder="Пароль" />
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <div id="remind-me" class="checkbox pull-left">
+                            <label for="stay_logged_in">
+                                <input name="stay_logged_in" type="checkbox" id="stay_logged_in" value="1" tabindex="3" /> Оставаться в системе
+                            </label>
+                        </div>
+                        <a href="#" class="show-forgot-password pull-right">
+							Забыл пароль
+						</a>
+                    </div>
+                    <div class="panel-footer bord-trans">
+                        <button name="submitLogin" type="submit" tabindex="4" class="btn btn-default btn-lg btn-block ladda-button" data-style="slide-up" data-spinner-color="black">
+                            <span class="ladda-label">
+								<i class="icon-check text-success"></i>
+								Войти
+							</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="redirect" id="redirect" value="&token=c5e0b3c3e4725d312327bde789d7604c" />
+                </form>
+            </div>
 
-	<div class="cd-user-modal"> <!-- все формы на фоне затемнения-->
-		<div class="cd-user-modal-container"> <!-- основной контейнер -->
-			<ul class="cd-switcher">
-				<li><a href="#0">Вход</a></li>
-				<li><a href="#0">Регистрация</a></li>
-			</ul>
-
-			<div id="cd-login"> <!-- форма входа -->
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="signin-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Здесь сообщение об ошибке!</span>
-					</p>
-
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signin-password">Пароль</label>
-						<input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Пароль">
-						<a href="#0" class="hide-password">Скрыть</a>
-						<span class="cd-error-message">Здесь сообщение об ошибке!</span>
-					</p>
-
-					<p class="fieldset">
-						<input type="checkbox" id="remember-me" checked>
-						<label for="remember-me">Запомнить меня</label>
-					</p>
-
-					<p class="fieldset">
-						<input class="full-width" type="submit" value="Войти">
-					</p>
-				</form>
-
-				<p class="cd-form-bottom-message"><a href="#0">Забыли свой пароль?</a></p>
-				<!-- <a href="#0" class="cd-close-form">Close</a> -->
-			</div> <!-- cd-login -->
-
-			<div id="cd-signup"> <!-- форма регистрации -->
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-username" for="signup-username">Имя пользователя</label>
-						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Имя пользователя">
-						<span class="cd-error-message">Здесь сообщение об ошибке!</span>
-					</p>
-
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="signup-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Здесь сообщение об ошибке!</span>
-					</p>
-
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signup-password">Пароль</label>
-						<input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="Пароль">
-						<a href="#0" class="hide-password">Скрыть</a>
-						<span class="cd-error-message">Здесь сообщение об ошибке!</span>
-					</p>
-
-					<p class="fieldset">
-						<input type="checkbox" id="accept-terms">
-						<label for="accept-terms">Я согласен с <a href="#0">Условиями</a></label>
-					</p>
-
-					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Создать аккаунт">
-					</p>
-				</form>
-
-				<!-- <a href="#0" class="cd-close-form">Close</a> -->
-			</div> <!-- cd-signup -->
-
-			<div id="cd-reset-password"> <!-- форма восстановления пароля -->
-				<p class="cd-form-message">Забыли пароль? Пожалуйста, введите адрес своей электронной почты. Вы получите ссылку, чтобы создать новый пароль.</p>
-
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="reset-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Здесь сообщение об ошибке!</span>
-					</p>
-
-					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Восстановить пароль">
-					</p>
-				</form>
-
-				<p class="cd-form-bottom-message"><a href="#0">Вернуться к входу</a></p>
-			</div> <!-- cd-reset-password -->
-			<a href="#0" class="cd-close-form">Закрыть</a>
-		</div> <!-- cd-user-modal-container -->
-	</div> <!-- cd-user-modal -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/main.js"></script> <!-- Gem jQuery -->
+            <div class="back panel">
+                <form action="#" id="forgot_password_form" method="post">
+                    <div class=" alert alert-info alert-border">
+                        <h4>Забыли пароль?</h4>
+                        <p>Пожалуйста, введите адрес электронной почты, который вы использовали во время регистрации, чтобы получить ваш код доступа по электронной почте</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="email_forgot">
+                            E-mail
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon-envelope"></i></span>
+                            <input type="text" name="email_forgot" id="email_forgot" class="form-control" autofocus="autofocus" tabindex="5" placeholder="test@example.com" />
+                        </div>
+                    </div>
+                    <div class="panel-footer bord-trans">
+                        <button type="button" href="#" class="btn btn-default show-login-form" tabindex="7">
+                            <i class="icon-caret-left"></i> Назад к форме &quot;Вход&quot;
+                        </button>
+                        <button class="btn btn-default pull-right" name="submitLogin" type="submit" tabindex="6">
+                            <i class="icon-ok text-success"></i> Отправить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
