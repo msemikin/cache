@@ -14,9 +14,6 @@ function addObj(textExt) {
     //отладка
     //var js = JSON.parse($.session.get('project'));
     var js1 = $.session.get('project');
-    console.log("ввод:")
-    console.log(text);
-    console.log("массив:");
     if (text.length > 1) {
         var attributes = new Array();
         var obj = {
@@ -28,10 +25,6 @@ function addObj(textExt) {
             project: js1
         }
         objects.push(obj);
-        var scope = angular.element(document.getElementById("gor")).scope();
-        for (o = 0; o < objects.length; o++) {
-            console.log(objects[o].name);
-        }
     }
     refreshList(1);
     cleanTextBox('wordTextBox');
@@ -151,6 +144,7 @@ function split(attributes) {
     return attributesArr;
 }
 function setObjects(gotObjects) {
+    //TODO сделать норм раскодировку
     for (var i = 0; i < gotObjects.children.length; i++) {
         var obj = gotObjects.children[i];
         if (obj.attribute.toString().indexOf("\n")>-1) {
@@ -192,6 +186,8 @@ app.controller("ctrl", function ($scope, $http) {
         $scope.obje = objects[objects.length - 1];
         var objAng = $scope.obje;
         var objName = encodeObject(objAng);
+        //отладка
+        console.log(objName);
         $http.post("http://localhost:57772/csp/rest/json/object", objName)
             .success(function (data) {
                 console.log("Добавили объект" + objName.name);
@@ -359,9 +355,6 @@ app.controller("ctrl", function ($scope, $http) {
         responsePromise.success(function (data) {
             if (Object.keys(data.children).length > 0) {
                 setObjects(data);
-            }
-            else {
-                alert("No objects");
             }
         });
     }

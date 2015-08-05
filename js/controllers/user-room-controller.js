@@ -14,19 +14,18 @@ window.onload = function () {
 
 function getAllProjects() {
     var mas =  user.projects;
-    if (mas.toString().indexOf("\n")>-1  ) {
-        mas = mas.split("\n");
-    }
-    else if (mas.toString().indexOf(",")>-1) {
-        mas = mas.split(',');
-    }
-    else {
-        var arr = new Array();
-        arr.push(mas.toString());
-        mas = arr;
-    }
     if (typeof mas == 'string' || mas instanceof String) {
-        //alert(mas);
+        if (mas.toString().indexOf("\n") > -1) {
+            mas = mas.split("\n");
+        }
+        else if (mas.toString().indexOf(",") > -1) {
+            mas = mas.split(',');
+        }
+        else {
+            var arr = new Array();
+            arr.push(mas.toString());
+            mas = arr;
+        }
         addProject(mas);
         projects.push(mas);
     }
@@ -59,8 +58,8 @@ app.controller("projectController", ['$scope', '$http', function($scope, $http) 
 
     // Обновить существующую компанию
     $scope.update = function () {
-        user.children[0].projects = projects;
-        $http.put("http://localhost:57772/csp/rest/json/updateuser/" + user.children[0].ID, user.children[0])
+        user.projects = projects;
+        $http.put("http://localhost:57772/csp/rest/json/updateuser/" + user.ID, user)
             .success(function (data) {
                 $.session.set('session', JSON.stringify(user));
             }).error(function (data, status) { // поменял alert(....); на alertzone

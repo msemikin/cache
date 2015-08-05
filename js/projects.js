@@ -81,7 +81,7 @@ function addProject(projectName) {
     'class="panel-body"> <div class=\'gorizont\'> '+
         '<input type="button" style="border-style: none;width: 90%; margin: ' +
         '0;padding-right: 80%;"class="btn btn-default buttonTeacher"'
-        +'value="'+user.surname + count + '" onclick ="myFunction( '+user.surname + count + ')">' +
+        +'value="'+user.login + count + '" onclick ="myFunction( '+user.login + count + ')">' +
         '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
         'class="btn btn-default btn-small" onclick="editProject();">' +
         '<span class="glyphicon glyphicon-pencil" aria-hidden="true">' +
@@ -89,7 +89,7 @@ function addProject(projectName) {
         '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> ' +
         '</button> </div> </div>');
         count++;
-        projects.push(user.surname+count);
+        projects.push(user.login+count);
         var scope = angular.element(document.getElementById("mainProjectDiv")).scope();
         scope.$apply(function () {
             scope.update();
@@ -101,9 +101,9 @@ function addProject(projectName) {
         '<input type="button" style="border-style: none;width: 90%; margin: ' +
         '0;padding-right: 80%;"class="btn btn-default buttonTeacher" value="'
         //+projectName.replace(projectName[projectName.length-1],"")
-                                    +projectName.trim()
+                                    +projectName.toString().trim()
                                     +'" onclick ="myFunction(\''
-                                    +projectName.trim()
+                                    +projectName.toString().trim()
                                     +'\')"> ' +
         '<button id="deleteTeacher" style=\'border: none;\' type="button" ' +
         'class="btn btn-default btn-small" onclick="editProject();">' +

@@ -1,33 +1,33 @@
 function ctrl($scope,$http) {
-    // Запрос GET к RESTful web API
+    // Р—Р°РїСЂРѕСЃ GET Рє RESTful web API
         $scope.getCompanies=function() {
        $http.get("/rest/json/companies").success(function(data) {
-             // Помещаем ответ сервера в переменную companies
+             // РџРѕРјРµС‰Р°РµРј РѕС‚РІРµС‚ СЃРµСЂРІРµСЂР° РІ РїРµСЂРµРјРµРЅРЅСѓСЋ companies
            $scope.companies=data.children;
        }).error(function(data, status) {
-                 // Вывод информации об ошибке, если таковая возникнет
-           alert("["+status+"] Ошибка при загрузке компаний! ["+data+"]");
+                 // Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё РѕР± РѕС€РёР±РєРµ, РµСЃР»Рё С‚Р°РєРѕРІР°СЏ РІРѕР·РЅРёРєРЅРµС‚
+           alert("["+status+"] РћС€РёР±РєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ РєРѕРјРїР°РЅРёР№! ["+data+"]");
        });
    };
   
-      // Создать новую компанию
+      // РЎРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ РєРѕРјРїР°РЅРёСЋ
     $scope.create = function (company){
        $http.post("http://localhost:57772/csp/rest/json/accounts",company)
-       .success(function(data){$scope.getCompanies();$scope.alertzone="Добавили компанию "+company.Name;}).error(function(data,status){
-        $scope.alertzone="["+status+"] Ошибка добавления компании :( ["+data+"]"; });
+       .success(function(data){$scope.getCompanies();$scope.alertzone="Р”РѕР±Р°РІРёР»Рё РєРѕРјРїР°РЅРёСЋ "+company.Name;}).error(function(data,status){
+        $scope.alertzone="["+status+"] РћС€РёР±РєР° РґРѕР±Р°РІР»РµРЅРёСЏ РєРѕРјРїР°РЅРёРё :( ["+data+"]"; });
     }
 
-    // Обновить существующую компанию
+    // РћР±РЅРѕРІРёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰СѓСЋ РєРѕРјРїР°РЅРёСЋ
   $scope.update = function (company){
        $http.put("/rest/json/company/"+company.ID,company)
-        .success(function(data){$scope.alertzone="Обновили компанию "+company.Name;}).error(function(data,status){ // поменял alert(....); на alertzone
-        $scope.alertzone="["+status+"] Ошибка обновления имени компании :( ["+data+"]"; });
+        .success(function(data){$scope.alertzone="РћР±РЅРѕРІРёР»Рё РєРѕРјРїР°РЅРёСЋ "+company.Name;}).error(function(data,status){ // РїРѕРјРµРЅСЏР» alert(....); РЅР° alertzone
+        $scope.alertzone="["+status+"] РћС€РёР±РєР° РѕР±РЅРѕРІР»РµРЅРёСЏ РёРјРµРЅРё РєРѕРјРїР°РЅРёРё :( ["+data+"]"; });
     }
             
-    // Удалить компанию
+    // РЈРґР°Р»РёС‚СЊ РєРѕРјРїР°РЅРёСЋ
     $scope.delete = function (company){
         $http.delete("/rest/json/company/"+company.ID)
-        .success(function(data){$scope.getCompanies();$scope.alertzone="Удалили компанию "+company.Name;}).error(function(data,status){
-            $scope.alertzone="["+status+"] Ошибка удаления компании :( ["+data+"]"; });
+        .success(function(data){$scope.getCompanies();$scope.alertzone="РЈРґР°Р»РёР»Рё РєРѕРјРїР°РЅРёСЋ "+company.Name;}).error(function(data,status){
+            $scope.alertzone="["+status+"] РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ РєРѕРјРїР°РЅРёРё :( ["+data+"]"; });
     }
 };
