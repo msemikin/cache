@@ -1,7 +1,7 @@
 var constraints = [];
 
 var app = angular.module('cache');
-app.controller('ConstraintsController', ['$scope', function($scope){
+app.controller('IntegrityConstraintsCtrl', ['$scope', function($scope){
     $scope.initDropdowns = function () {
         console.log('initDropdowns');
         $(document).ready(function () {
@@ -9,17 +9,17 @@ app.controller('ConstraintsController', ['$scope', function($scope){
         });
     };
     $scope.initDropdowns();
-    
+
     $scope.constraints = constraints;
-    
+
     var id = 0;
     $scope.addConstraint = function(){
-        
+
         var object = {
             name: undefined,
             attrs: []
         }
-        
+
         constraints.push({
             id: id++,
             object: object,
@@ -27,10 +27,10 @@ app.controller('ConstraintsController', ['$scope', function($scope){
             text: Text,
             isLinkConstraint: false
         });
-    
+
         this.initDropdowns();
     }
-    
+
     $scope.removeConstraint = function(constraintId){
         constraints.splice(constraintId);
     }

@@ -1,0 +1,42 @@
+<div class="tab" ng-controller="ObjectRelationsCtrl">
+    <div class="panel panel-default object-relation-model model">
+        <div class="panel-heading">
+            <h3 class="panel-title">Взаимодействия объектов</h3>
+        </div>
+        <div class="figuresBar panel panel-default">
+            <input type="button" value="Объект" class="btn btn-default object">
+        </div>
+        <div id="object-relation-model" class="panel-body" ng-click="closeObjectOptions()">
+        </div>
+        <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
+            <div class="list-group">
+                <a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
+                <a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
+            </div>
+        </div>
+        <div class="dialog change-name panel panel-default" ng-show="renameShow">
+            <div class="panel-heading">
+                <h3 class="panel-title">Введите название</h3>
+            </div>
+            <div class="panel-body">
+                <input type="text" ng-model="renameValue" class="form-control" />
+            </div>
+            <div class="panel-footer">
+                <input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
+                <input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
+            </div>
+        </div>
+        <div class="dialog panel panel-default" ng-show="linkOptionsShow">
+            <div class="panel-heading">
+                <h3 class="panel-title">Изменение связи</h3>
+            </div>
+            <div class="panel-body">
+                <input type="text" ng-model="linkLabel" class='form-control' />
+            </div>
+            <div class="panel-footer">
+                <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
+                <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
+            </div>
+        </div>
+    </div>
+</div>

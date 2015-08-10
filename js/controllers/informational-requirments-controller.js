@@ -1,11 +1,5 @@
-var data = {
-	searches: [],
-	sorts: [],
-	filters: [],
-};
-
 var app = angular.module('cache');
-app.controller('InfReqController', ['$scope', function($scope){
+app.controller('InformationalRequirementsCtrl', ['$scope', function($scope){
 	$(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     });
@@ -34,7 +28,7 @@ app.controller('InfReqController', ['$scope', function($scope){
 	$scope.sorts = data.sorts;
 	$scope.filters = data.filters;
 
-	data.searches.selected = 0;	
+	data.searches.selected = 0;
 	data.sorts.selected = 0;
 	data.filters.selected = 0;
 
@@ -65,7 +59,7 @@ app.controller('InfReqController', ['$scope', function($scope){
 	$scope.getPossibleAttrs = function() {
 		var selected = data[tabs[this.tab]].selected;
 		if(data[tabs[this.tab]][selected]) {
-			return data[tabs[this.tab]][selected].attribute;	
+			return data[tabs[this.tab]][selected].attribute;
 		}
 	}
 

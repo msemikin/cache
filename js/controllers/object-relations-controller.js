@@ -1,6 +1,5 @@
 var app = angular.module("cache");
-
-app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function ($scope, diagram, dragAndDrop, linkManipulation) {
+app.controller("ObjectRelationsCtrl", ['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation) {
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
         el: $('#object-relation-model'),
@@ -18,7 +17,7 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
     var focused = undefined;
 
     // dbl-click
-    paper.on("cell:pointerdblclick", function (cellView, evt, x, y) {
+    paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
         if (cellView.model.attributes.type === 'link') {
             var vertices = cellView.model.get('vertices').reverse().slice(1);
             for (var i = 0; i < vertices.length; i++) {
@@ -39,7 +38,7 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
         return false;
     });
 
-    paper.on("cell:pointerup", function (cellView, evt, x, y) {
+    paper.on("cell:pointerup", function(cellView, evt, x, y) {
         if (cellView.model.attributes.type === "basic.Circle") {
             var obj = objects[findIndByObjName(cellView.model.attributes.attrs.text.text)];
             if (obj) {
@@ -51,17 +50,17 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
     });
 
 
-    // link options	
+    // link options
     $scope.linkLabel = undefined;
     $scope.linkOptionsShow = false;
 
-    $scope.openLinkOptions = function () {
-        $scope.$apply(function () {
+    $scope.openLinkOptions = function() {
+        $scope.$apply(function() {
             $scope.linkOptionsShow = true;
         });
     };
 
-    $scope.submitLinkChange = function () {
+    $scope.submitLinkChange = function() {
         focused.model.label(1, {
             attrs: {
                 text: {
@@ -71,7 +70,7 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
         });
         $scope.linkOptionsShow = false;
     };
-    $scope.cancelLinkChange = function () {
+    $scope.cancelLinkChange = function() {
         $scope.linkOptionsShow = false;
     };
 
@@ -81,16 +80,16 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
     $scope.renameShow = false;
 
 
-    $scope.openObjectOptions = function () {
-        $scope.$apply(function () {
+    $scope.openObjectOptions = function() {
+        $scope.$apply(function() {
             $scope.objectOptionsShow = true;
         })
     }
-    $scope.closeObjectOptions = function () {
+    $scope.closeObjectOptions = function() {
         $scope.objectOptionsShow = false;
     }
 
-    $scope.deleteObj = function () {
+    $scope.deleteObj = function() {
         var text = focused.el.textContent;
         $scope.objectOptionsShow = false;
         focused.remove();
@@ -98,11 +97,11 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
         getList();
     }
 
-    $scope.renameObj = function () {
+    $scope.renameObj = function() {
         $scope.objectOptionsShow = false;
         $scope.renameShow = true;
     };
-    $scope.submitRename = function () {
+    $scope.submitRename = function() {
         var symbolLength = 7;
         var width = symbolLength * $scope.renameValue.length + 80;
         $scope.renameValue = $scope.renameValue.toLowerCase();
@@ -115,7 +114,7 @@ app.controller("ObjectDiagramController", ['$scope', 'diagramService', 'dragAndD
         });
         focused.model.resize(width, 40);
     };
-    $scope.cancelRename = function () {
+    $scope.cancelRename = function() {
         $scope.renameShow = false;
     };
 }]);

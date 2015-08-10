@@ -1,7 +1,5 @@
 var app = angular.module("cache");
-var objD = new Array();
-
-app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function ($scope, diagram, dragAndDrop, linkManipulation) {
+app.controller("ERCtrl", ['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function ($scope, diagram, dragAndDrop, linkManipulation) {
 
     console.log("ER");
         var graph = new joint.dia.Graph;
@@ -154,5 +152,5 @@ app.controller("ERController", ['$scope', 'diagramService', 'dragAndDropService'
         $scope.cancelRename = function () {
             $scope.renameShow = false;
         };
-    
+
 }]);

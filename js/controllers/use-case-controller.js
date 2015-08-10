@@ -1,5 +1,5 @@
 var app = angular.module('cache');
-app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation){
+app.controller('UsecaseCtrl',['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation){
     console.log("UC");
     var graph = new joint.dia.Graph;
     diagrams.useCase = graph;
@@ -16,12 +16,12 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
     linkManipulation(graph, paper);
     dragAndDrop('.actor', '.functional-model', undefined, graph, diagram.actor);
     dragAndDrop('.service', '.functional-model', undefined, graph, diagram.service);
-    
+
 
     // dbl-click
     paper.on("cell:pointerdblclick", function(cellView, evt, x, y) {
         if(cellView.model.attributes.type === 'link'){
-            $scope.openLinkOptions();            
+            $scope.openLinkOptions();
             var vertices = cellView.model.get('vertices').reverse().slice(1);
             for(var i = 0; i < vertices.length; i++){
                 if(vertices[i].x == x && vertices[i].y == y){
@@ -37,7 +37,7 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
         focused = cellView;
     });
 
-    
+
     // for resizing
     /*    paper.on("cell:pointerdown", function (cellView, evt, x, y) {
             console.log(x + ", " + y);
@@ -61,8 +61,8 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
         }
     }
 
-    
-    // link options	
+
+    // link options
     $scope.linkType = 'Association';
     $scope.linkOptionsShow = false;
     $scope.linkChangeShow = false;
@@ -72,12 +72,12 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
             $scope.linkOptionsShow = true;
         });
     };
-    
+
     $scope.changeLink = function() {
         $scope.linkOptionsShow = false;
-        $scope.linkChangeShow = true;   
+        $scope.linkChangeShow = true;
     }
-    
+
     $scope.reverseLink = function() {
         var source = focused.model.attributes.attrs['.marker-source'];
         var target = focused.model.attributes.attrs['.marker-target'];
@@ -86,7 +86,7 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
             '.marker-target': source,
             '.marker-source': target
         });
-        
+
         $scope.linkOptionsShow = false;
     }
 
@@ -110,7 +110,7 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
         'Include' : '<include>',
         'Extend' : '<extend>'
     };
-    
+
     $scope.submitLinkChange = function(){
 		focused.model.attr(links[this.linkType]);
         focused.model.label(1, {attrs:{text: {text: labels[this.linkType]}}});
@@ -119,12 +119,12 @@ app.controller('UseCaseController',['$scope', 'diagramService', 'dragAndDropServ
     $scope.cancelLinkChange = function(){
 		$scope.linkChangeShow = false;
 	};
-    
+
     //
     // object options
     $scope.objectOptionsShow = false;
     $scope.renameValue = undefined;
-    $scope.renameShow = false; 
+    $scope.renameShow = false;
 
 
     $scope.openObjectOptions = function () {

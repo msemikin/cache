@@ -1,0 +1,89 @@
+<div class="tab" ng-controller="IntegrityConstraintsCtrl">
+    <!--Ограничения целостности-->
+    <div class="btn-group constraints-tabgroup" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" ng-class="{active: isAttrs()}" ng-click="changeTab('attrs')">Атрибуты</button>
+        <button type="button" class="btn btn-default" ng-class="{active: !isAttrs()}" ng-click="changeTab('links')">Связи</button>
+    </div>
+    <div class="constraints-list" ng-show="isAttrs()">
+        <div class="panel panel-default constraintPanel " ng-repeat="constraint in constraints" width="80%" id="constraint_1_element">
+            <div class="panel-body">
+                <div class="btn-group">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                        {{getSelectedObject(constraint.id)}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="object in objects">
+                            <a href="#" ng-click="selectObject(constraint.id)">object</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                        Атрибут
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="attr in getObject(constraint.id)">
+                            <a href="#" ng-click="selectObject(constraint.id)">object</a>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-default btn-small button-delete-constraint" ng-click="removeConstraint(constraint.id)">
+                    <span class="badge">x</span>
+                </button>
+                <div class="constraint-content">
+                    <h5>Ограничение:</h5>
+                    <div class="constraint">
+                        <textarea class="constraint-text" id="constrBox" cols="" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-default center-block button-add-constraint" ng-click="addConstraint()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Добавить ограничение
+        </button>
+    </div>
+    <div class="constraints-list" ng-show="tab==='links'">
+        <div class="panel panel-default constraintPanel " width="80%" id="constraint_1_element">
+            <div class="panel-body">
+                <div class="btn-group">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                        Объект
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Пункт 1</a></li>
+                        <li><a href="#">Пункт 2</a></li>
+                        <li><a href="#">Пункт 3</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                        Атрибут
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Пункт 1</a></li>
+                        <li><a href="#">Пункт 2</a></li>
+                        <li><a href="#">Пункт 3</a></li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-default btn-small button-delete-constraint">
+                    <span class="badge">x</span>
+                </button>
+                <div class="constraint-content">
+                    <h5>Ограничение:</h5>
+                    <div class="constraint">
+                        <textarea class="constraint-text" id="constrBox" cols="" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-default center-block button-add-constraint">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Добавить ограничение
+        </button>
+    </div>
+</div>
