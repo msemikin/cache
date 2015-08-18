@@ -1,11 +1,85 @@
-<html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <meta lang="ru">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/lib/pure-release-0.6.0/pure-nr.css">
-    </head>
-    <body>
+<html ng-app="db" lang="ru">
 
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta lang="ru">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A tool for studying DataBases.">
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css" media="screen,projection" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/lib/pure-release-0.6.0/pure-nr.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/font-awesome-4.4.0/css/font-awesome.css">
+    <script type="text/javascript" src="js/lib/angular.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+    <!--Online links:
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
+
+    <title>Editing &ndash; Student project &ndash; DataBases</title>
+</head>
+
+<body ng-controller="guicontroller">
+    <div id="background">
+        <div id="header" class="header">
+            <div class="project-menu"></div>
+            <div class="user-block"></div>
+        </div>
+        <div id="main" class="main">
+            <div class="left-side">
+                <div class="pure-menu custom-restricted-width">
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Редактировать <br> документ</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Use-Case</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Relations</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">ER-модель</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Информационные <br> потребности</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Статистики</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Отчеты</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Алгоритмические <br> зависимости</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ограничения <br> целостности</a></li>
+                    </ul>
+                </div>
+                <hr class="divider"></hr>
+                <!--TODO-->
+                <div class="oe">
+                    <div class="o-table">
+                        <table class="pure-table pure-table-horizontal table-oa">
+                            <thead>
+                                <tr>
+                                    <th>Объекты:</th>
+                                    <th style="text-align: center;">...</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="object in objects">
+                                    <td>{{object.Name}}</td>
+                                    <td class="attr-count-td">{{object.AttrCount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="add-obj-input">
+                        <form class="pure-form add-form">
+                            <input type="text" placeholder="Object name">
+                            <button type="button" class="button-success pure-button">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="extend-box"></div>
+        </div>
+        <div id="footer" class="footer">
+            <p class="legal-copyright">
+                © 2014 DreamTeam! All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+
 </html>
