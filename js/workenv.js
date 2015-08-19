@@ -8,7 +8,7 @@ var objContainers;
 var widthTextBlock;
 
 
-window.onload = function () {
+window.onsave = function () {
     contentDivs = document.getElementsByName("contentDiv");
 //    var json = $.session.get('session');
 //    console.log(json);
@@ -336,15 +336,15 @@ function FindIntersection(a, b) {
 function getParam(sParamName)
 // Функция определения переданной переменной
 {
-var Params = location.search.substring(1).split("?"); 
+var Params = location.search.substring(1).split("?");
 // отсекаем «?» и вносим переменные и их значения в массив var variable = "";
 
 for (var ij = 0; ij < Params.length; ij++) // просматриваем весь массив переменных
-  { 
+  {
         if (Params[ij].split("=")[0] == sParamName) // если найдена искомая переменная, и
-       { 
+       {
            if (Params[ij].split("=").length > 1) variable = Params[ij].split("=")[1];
-           // если значение параметра задано, то 
+           // если значение параметра задано, то
            return variable; // возвращаем его
        }
    }

@@ -143,6 +143,16 @@
 }
 /* -------------------- */
 
+.tile-container {
+    height: 100%;
+}
+
+.tile {
+    height: 100%;
+}
+
+/* -------------------- */
+
 .content-box {
     height: 100%;
     width: 100%;

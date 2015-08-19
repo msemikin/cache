@@ -7,7 +7,7 @@ app.controller("ObjectRelationsCtrl", ['$scope', 'diagramService', 'dragAndDropS
         model: graph,
         width: '100%',
         height: 600,
-    })
+    });
 
     diagrams.objectRelation = graph;
 
