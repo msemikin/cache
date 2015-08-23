@@ -1,0 +1,115 @@
+Tables:
+-Groups
+-Students
+-Projects
+-Documents
+-Objects
+-Attributes
+-Diagrams
+-Statistics
+-Отчеты
+-ИП
+-ОЦ
+-АЗ
+-Admins
+
+
+Сущности в таблицах:
+
+>Group
+***Id
+---Name
+---Students [Student.Id*]
+
+>Student
+***Id
+---Email
+---Password
+---FullName (не вижу смысла разбивать на имя и фамилию. Просто будем фамилию ставить первой для поиска и сортировки)
+---Abbr (Аббревиатура имени и фамилии для генерации пикчи логина)
+---Group [Group.Id]
+---Projects [Project.Id*]
+
+>Project
+***Id
+---ParentalStudent [Student.Id]
+---Title
+---IsReady
+---IsSended
+---Objects [Object.Id]
+---ERDiagram [Diagram.Id]
+---RelationDiagram [Diagram.Id]
+---Use_Case [Diagram.Id]
+---Statistics [Statistic.Id*]
+---Отчеты [Отчет.Id*]
+---АЗ []
+---ОЦ []
+---ИП []
+
+
+>Document
+***Id
+---Title
+---Path
+---ParentalProject [Project.Id]
+
+>Object
+***Id
+---Name
+---Attributes [Attribute.Id*]
+---IsOnER
+---IsOnRelation
+---ParentalProject [Project.Id]
+
+>Attribute
+***Id
+---Name
+---IsOnER
+---ParentalObject [Object.Id]
+
+>Diagram
+***Id
+---Type
+---JSON
+---ParentalProject [Project.Id]
+
+>Statistic
+***Id
+---
+---
+---ParentalProject [Project.Id]
+
+>АЗ
+***Id
+---
+---
+---ParentalProject [Project.Id]
+
+>ИП
+***Id
+---
+---
+---ParentalProject [Project.Id]
+
+>Отчет
+***Id
+---
+---
+---ParentalProject [Project.Id]
+
+>ОЦ
+***Id
+---
+---
+---ParentalProject [Project.Id]
+
+>Admin
+***Id
+---FullName
+---Email
+---Password
+
+
+
+* - Множество (массив)
+*** - Ключевое поле

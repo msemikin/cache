@@ -8,8 +8,11 @@ html,
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 .header,
@@ -29,19 +32,23 @@ body {
 }
 
 .header {
-    height: 50px;
+    height: 3em;
+    order: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .footer {
+    order: 3;
+    height: 1.3em;
     padding-bottom: 3;
     padding-top: 3;
     padding-right: 16;
 }
 
 .main {
+    order: 2;
     background-color: whitesmoke;
     width: 100%;
     flex: 1;
@@ -84,8 +91,7 @@ body {
 }
 
 .oe {
-    min-height: 200px;
-    height: 350px;
+    flex: auto;
     display: flex;
     flex-direction: column;
     align-content: space-between;
@@ -96,7 +102,7 @@ body {
     background-color: white;
     display: flex;
     flex-direction: column;
-    align-content: space-between;
+    align-content: stretch;
     padding: 0;
     box-shadow: 0px 0px 5px black;
 }
@@ -125,16 +131,6 @@ body {
     margin: 0 5;
 }
 
-.table-objects {
-    height: auto;
-    width: 100%;
-}
-
-.o-table {
-    flex: auto;
-    width: 100%;
-}
-
 .fullscr-button {
     align-self: center;
 }
@@ -149,27 +145,38 @@ body {
 
 .attr-count-td {
     position: relative;
-    width: 2em;
+    display: inline-block;
 }
 
 .table-oa {
+    flex: auto;
+    position: relative;
     width: 100%;
-    margin-bottom: 5px;
-    overflow-y: scroll;
-}
-
-thead,
-tbody {
-    display: block;
-}
-
-.table-oa tbody {
-    /*TODO вставить динамическое изменение высоты*/
-    height: 100px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .table-oa tr {
     width: 100%;
+}
+
+.obj-name-td {
+    display: inline-block;
+    position: relative;
+    width: 85%;
+}
+
+.objects-tr {
+    position: relative;
+    width: 100%;
+    padding: 3 0.4em;
+}
+
+.table-header {
+    background-color: cadetblue;
+    padding: 0.4em;
+}
+.tbody-div {
+    height: 100;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

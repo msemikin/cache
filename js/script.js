@@ -9,6 +9,14 @@ app.controller("guicontroller", ["$scope", function ($scope) {
 			{AttrCount: 4, Name: "Lacrosse stick"},
 			{AttrCount: 4, Name: "Lacrosse stick"},
 			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
+			{AttrCount: 4, Name: "Lacrosse stick"},
 			{AttrCount: 4, Name: "Lacrosse stick"}
 		];
     }]);

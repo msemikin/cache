@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta lang="ru">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A tool for studying DataBases.">
-    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css" media="screen,projection" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/lib/pure-release-0.6.0/pure-nr.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -46,22 +43,18 @@
                 <hr class="divider"></hr>
                 <!--TODO-->
                 <div class="oe">
-                    <div class="o-table">
-                        <table class="pure-table pure-table-horizontal table-oa">
-                            <thead>
-                                <tr>
-                                    <th>Объекты:</th>
-                                    <th style="text-align: center;">...</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="object in objects">
-                                    <td>{{object.Name}}</td>
-                                    <td class="attr-count-td">{{object.AttrCount}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div class="table-oa">
+                            <div class="objects-tr table-header">
+                                <div class="obj-name-td">Объекты:</div>
+                                <div class="attr-count-td">...</div>
+                            </div>
+                            <div class="tbody-div">
+                                <div class="objects-tr" ng-repeat="object in objects">
+                                    <div class="obj-name-td">{{object.Name}}</div>
+                                    <div class="attr-count-td">{{object.AttrCount}}</div>
+                                </div>
+                            </div>
+                        </div>
                     <div class="add-obj-input">
                         <form class="pure-form add-form">
                             <input type="text" placeholder="Object name">
