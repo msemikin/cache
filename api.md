@@ -1,4 +1,4 @@
-# /project/objects/all
+# POST /project/objects/all
 
 ## Request
 ```
@@ -23,7 +23,7 @@
 
 -----------------------------------------------------
 
-# /project/statistics/all
+# POST /project/statistics/all
 
 ## Request
 ```
@@ -52,7 +52,7 @@
 
 -----------------------------------------------------
 
-# /project/reports/all
+# POST /project/reports/all
 
 ## Request
 ```
@@ -81,7 +81,7 @@
 
 -----------------------------------------------------
 
-# /project/diagrams/usecase
+# POST /project/diagrams/usecase
 
 ## Request
 ```
@@ -99,7 +99,7 @@
 
 -----------------------------------------------------
 
-# /project/diagrams/object_relations
+# POST /project/diagrams/object_relations
 
 ## Request
 ```
@@ -117,7 +117,7 @@
 
 -----------------------------------------------------
 
-# /project/diagrams/er
+# POST /project/diagrams/er
 
 ```
 ## Request
@@ -135,7 +135,7 @@
 
 -----------------------------------------------------
 
-# /project/informational_requirements/searches/all
+# POST /project/informational_requirements/searches/all
 
 ## Request
 ```
@@ -161,7 +161,7 @@
 
 -----------------------------------------------------
 
-# /project/informational_requirements/sorts/all
+# POST /project/informational_requirements/sorts/all
 
 ## Request
 ```
@@ -187,7 +187,7 @@
 
 -----------------------------------------------------
 
-# /project/informational_requirements/filters/all
+# POST /project/informational_requirements/filters/all
 
 ## Request
 ```
@@ -213,7 +213,7 @@
 
 -----------------------------------------------------
 
-# /project/algorithmic_dependencies/all
+# POST /project/algorithmic_dependencies/all
 
 ## Request
 ```
@@ -253,7 +253,7 @@
 
 -----------------------------------------------------
 
-# /project/integrity_constraints/all
+# POST /project/integrity_constraints/all
 
 ## Request
 ```
