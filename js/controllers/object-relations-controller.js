@@ -1,5 +1,6 @@
+'use strict';
 var app = angular.module("cache");
-app.controller("ObjectRelationsCtrl", ['$scope', 'diagramService', 'dragAndDropService', 'linkManipulationService', function($scope, diagram, dragAndDrop, linkManipulation) {
+app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', function($scope, Diagram) {
     var graph = new joint.dia.Graph;
     var paper = new joint.dia.Paper({
         el: $('#object-relation-model'),
@@ -8,12 +9,10 @@ app.controller("ObjectRelationsCtrl", ['$scope', 'diagramService', 'dragAndDropS
         width: '100%',
         height: 600,
     });
-
-    diagrams.objectRelation = graph;
-
-    linkManipulation(graph, paper);
-    dragAndDrop('.object', '.object-relation-model', undefined, graph, diagram.object);
-
+    //
+    // linkManipulation(graph, paper);
+    // dragAndDrop('.object', '.object-relation-model', undefined, graph, 'object');
+    //
     var focused = undefined;
 
     // dbl-click

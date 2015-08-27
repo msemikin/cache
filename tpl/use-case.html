@@ -1,4 +1,4 @@
-<div  class="tile"  ng-controller="UsecaseCtrl">
+<div class="tile" ng-controller="UsecaseCtrl">
     <div class="panel panel-default functional-model model">
         <div class="panel-heading">
             <h3 class="panel-title">Функциональная модель</h3>
@@ -7,49 +7,6 @@
             <input type="button" value="Актер" class="btn btn-default actor">
             <input type="button" value="Сервис" class="btn btn-default service">
         </div>
-        <div id="functional-model" class="panel-body" ng-click="closeOptions()">
-        </div>
-        <div class="dialog panel options panel-default" ng-show="objectOptionsShow">
-            <div class="list-group">
-                <a href="#" class="list-group-item" ng-click="renameObj()">Переименовать</a>
-                <a href="#" class="list-group-item list-group-item-danger" ng-click="deleteObj()">Удалить</a>
-            </div>
-        </div>
-        <div class="dialog change-name panel panel-default" ng-show="renameShow">
-            <div class="panel-heading">
-                <h3 class="panel-title">Введите название</h3>
-            </div>
-            <div class="panel-body">
-                <input type="text" ng-model="renameValue" class="form-control" />
-            </div>
-            <div class="panel-footer">
-                <input type="button" ng-click="cancelRename()" class="btn btn-default" value="Cancel" />
-                <input type="button" ng-click="submitRename()" class="btn btn-primary" value="Save changes" />
-            </div>
-        </div>
-        <div class="dialog panel options panel-default" ng-show="linkOptionsShow">
-            <div class="list-group">
-                <a href="#" class="list-group-item" ng-click="changeLink()">Изменить отношение</a>
-                <a href="#" class="list-group-item" ng-click="reverseLink()">Развернуть</a>
-            </div>
-        </div>
-        <div class="dialog panel panel-default" ng-show="linkChangeShow">
-            <div class="panel-heading">
-                <h3 class="panel-title">Изменение связи</h3>
-            </div>
-            <div class="panel-body">
-                <select ng-model="linkType" class="form-control" />
-                <option>Extend</option>
-                <option>Include</option>
-                <option>Association</option>
-                </select>
-
-                <input class="form-control" value="Reverse">
-            </div>
-            <div class="panel-footer">
-                <input type="button" ng-click="cancelLinkChange()" class="btn btn-default" value="Cancel" />
-                <input type="button" ng-click="submitLinkChange()" class="btn btn-primary" value="Save changes" />
-            </div>
-        </div>
+        <div id="functional-model" class="panel-body paper"></div>
     </div>
 </div>

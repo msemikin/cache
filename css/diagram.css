@@ -1,3 +1,7 @@
+.paper {
+	position: relative;
+}
+
 .model {
 	display: flex;
 	flex-direction: column;
@@ -11,7 +15,7 @@
 }
 
 .model .panel-body {
-	overflow: auto;
+	overflow: hidden;
     padding: 0px;
 	height: 100px;
 	flex-grow: 1;
