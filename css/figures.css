@@ -1,4 +1,5 @@
 .figure, .link-options {
+    text-align: center;
     display: inline-block;
     position: absolute;
     pointer-events: none;
@@ -17,6 +18,12 @@
    pointer-events: auto;
 }
 
+/* hidden link options */
+.link-options.hidden {
+    display: none;
+}
+
+/* generic round button styles */
 .action {
     display: none;
     width: 22px;
@@ -27,17 +34,26 @@
     padding: 0px;
 }
 
+/* renaming */
+
+.figure .input--rename, .link-options .input--rename {
+    display: none;
+    width: 75%;
+}
+
+.figure .input--rename {
+    height: 20px;
+    border: 0;
+}
+
 .figure .input--rename {
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 75%;
-    display: none;
     margin: auto;
     position: absolute;
-    height: 20px;
-    border: 0;
+
 }
 
 .figure.figure--actor .input--rename {
@@ -46,18 +62,16 @@
     width: 100%;
 }
 
-.link-options .input--rename {
-    bottom: 0px;
-}
-
-.figure.renaming .input--rename {
+.figure.renaming .input--rename, .link-options.renaming .input--rename{
     display: inline-block;
 }
 
+/* show actions when hovered */
 .figure.selected .action, .link-options.hovered .action {
     display: inline-block;
 }
 
+/* different actions */
 .action--delete {
     color: white;
     background-color: #e74c3c;
@@ -73,8 +87,19 @@
     background-color: #d35400;
 }
 
+.action--makeKey {
+    color: white;
+    background-color: #16a085;
+}
+
 .link-options .action--settings {
     margin-left: 5px;
+}
+
+.figure .action--makeKey {
+    position: absolute;
+    top: 40px;
+    left: -23px;
 }
 
 .figure .action--delete {
@@ -90,6 +115,7 @@
     background-color: #2c3e50;
 }
 
+/* use case link style select */
 .link-options .style-select{
     display: none
 }

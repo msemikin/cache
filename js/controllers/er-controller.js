@@ -1,26 +1,26 @@
 'use strict';
 var app = angular.module("cache");
 app.controller("ERCtrl", ['$scope', 'Diagram', function($scope, Diagram) {
-
-    // Diagram.setup({
-    //     diagramSelector: '.er-model',
-    //     paper: {
-    //         el: $('#er-model'),
-    //         gridSize: 10,
-    //         width: '100%',
-    //         height: 600
-    //     },
-    //     constructors: [{
-    //         sourceSelector: '.entity',
-    //         figureType: 'Entity'
-    //     }, {
-    //         sourceSelector: '.attribute',
-    //         figureType: 'Attribute'
-    //     }, {
-    //         sourceSelector: '.association',
-    //         figureType: 'attribute'
-    //     }]
-    // });
+    Diagram.setup({
+        diagramSelector: '.er-model',
+        paper: {
+            el: $('#er-model'),
+            gridSize: 10,
+            width: '100%',
+            height: 600,
+            linkView: 'ErLinkView'
+        },
+        constructors: [{
+            sourceSelector: '.entity',
+            figureType: 'Entity'
+        }, {
+            sourceSelector: '.attribute',
+            figureType: 'Attribute'
+        }, {
+            sourceSelector: '.association',
+            figureType: 'Association'
+        }]
+    });
 
 
     // linkManipulation(graph, paper);
@@ -108,7 +108,7 @@ app.controller("ERCtrl", ['$scope', 'Diagram', function($scope, Diagram) {
     //     focused.model.label(2, {
     //         attrs: {
     //             text: {
-    //                 text: this.linkLabels.second
+    //                 texgt: this.linkLabels.second
     //             }
     //         }
     //     });

@@ -1,4 +1,5 @@
 'use strict';
+/* globals joint:true */
 angular.module('cache').service('Diagram', ['configureDiagram', 'setupDragAndDrop', 'Links', function(configureDiagram, setupDragAndDrop, Links) {
     return {
         setup: function(params) {

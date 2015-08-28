@@ -1,4 +1,5 @@
 'use strict';
+/* globals joint g:true */
 var app = angular.module('cache');
 app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
     return function(graph, paper) {
@@ -32,7 +33,11 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
                 // create link
                 cellView.$box.find('.action--connect').on('mousedown', function() {
                     linkDragMode = true;
-                    link = Links.createLink({id: cell.id}, {id: cell.id});
+                    link = Links.createLink({
+                        id: cell.id
+                    }, {
+                        id: cell.id
+                    });
                     graph.addCell(link);
                     deselect(cell);
                 });
@@ -81,26 +86,35 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
 
         // trigger rename
         paper.on('cell:pointerdblclick', function(cellView, evt, x, y) {
+            var vertices;
             handleSelect(cellView.model);
-            if (!(cellView.model.attributes.type === 'link')) {
-                cellView.model.prop('renaming', true);
-                console.log(cellview.model.attr({}))
+            cellView.model.prop('renaming', true);
+            // remove created vertice
+            if (cellView.model.isLink()) {
+                vertices = cellView.model.get('vertices');
+                $.each(vertices, function(index, vertice) {
+                    if (vertice.x === x && vertice.y === y) {
+                        vertices.splice(index, 1);
+                        cellView.model.unset('vertices');
+                        cellView.model.set('vertices', vertices);
+                    }
+                });
             }
         });
 
         // trigger deselect
-        paper.on('blank:pointerclick', function() {
+        paper.on('blank:pointerclick', function(cellView, evt, x, y) {
             deselect(focusedModel);
         });
 
         // trigger link utils to show
-        paper.on('cell:mouseover', function (cellView, evt, x, y) {
+        paper.on('cell:mouseover', function(cellView, evt, x, y) {
             if (cellView.model.isLink()) {
                 cellView.model.prop('hovered', true);
             }
         });
         // trigger link utils to hide
-        paper.on('cell:mouseout', function (cellView, evt, x, y) {
+        paper.on('cell:mouseout', function(cellView, evt, x, y) {
             if (cellView.model.isLink()) {
                 cellView.model.prop('hovered', false);
             }
