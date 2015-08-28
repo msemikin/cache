@@ -67,7 +67,8 @@
   "reports": [{  
     "id": 1,  
     "name": "some name",  
-    "objects": [{  
+    "objects": [{
+    		"id": "1"
 		"name": "some name",
 		"attrs": [{
 			"id":"1",
