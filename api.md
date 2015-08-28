@@ -68,7 +68,7 @@
     "id": 1,  
     "name": "some name",  
     "objects": [{
-    		"id": "1"
+        "id": "1"
 		"name": "some name",
 		"attrs": [{
 			"id":"1",
