@@ -39,12 +39,12 @@
     "id": 1,  
     "name": "some name",  
     "objects": [{  
-      "Учитель": [  
-        "Возраст"  
-      ],  
-      "Студент": [  
-        "Имя", "Возраст"  
-      ]  
+		"name": "some name",
+		"attrs": [{
+			"id":"1",
+			"name":"attribute's name"
+		}			
+		]	
     }]  
   }]  
 }  
@@ -68,12 +68,12 @@
     "id": 1,  
     "name": "some name",  
     "objects": [{  
-      "Учитель": [  
-        "Возраст"  
-      ],  
-      "Студент": [  
-        "Имя", "Возраст"  
-      ]  
+		"name": "some name",
+		"attrs": [{
+			"id":"1",
+			"name":"attribute's name"
+		}			
+		]	
     }]  
   }]  
 }  
