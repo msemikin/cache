@@ -73,8 +73,6 @@ body {
 
 .custom-restricted-width {
     display: inline-block;
-    position: relative;
-    height: 48%;
 }
 
 .editTextTabButton {
@@ -104,10 +102,9 @@ body {
     background-color: white;
     display: flex;
     flex-direction: column;
-    align-content: flex-start;
+    align-content: stretch;
     padding: 0;
     box-shadow: 0px 0px 5px black;
-    width: 20em;
 }
 
 .add-obj-input {
@@ -119,6 +116,7 @@ body {
 }
 
 .project-menu {
+    background-color: aqua;
     margin: 3 auto 3 10;
 }
 
@@ -128,8 +126,13 @@ body {
     font-weight: 700;
     font: font-family: 'Open Sans', Helvetica, sans-serif;
     margin: 3 10 3 auto;
-    background: cadetblue;
-    border-radius: 3px;
+    background: #39b1cc;
+  background: -moz-linear-gradient(top, #51bbd2 0%, #2d97af 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #51bbd2), color-stop(100%, #2d97af));
+  background: -webkit-linear-gradient(top, #51bbd2 0%, #2d97af 100%);
+  background: -o-linear-gradient(top, #51bbd2 0%, #2d97af 100%);
+  background: -ms-linear-gradient(top, #51bbd2 0%, #2d97af 100%);
+  background: linear-gradient(to bottom, #51bbd2 0%, #2d97af 100%);
     padding: 0.26em;
 }
 
@@ -158,7 +161,6 @@ body {
     flex: auto;
     position: relative;
     width: 100%;
-    padding-bottom: 10px;
 }
 
 .table-oa tr {
@@ -184,23 +186,8 @@ body {
     color: aliceblue;
 }
 .tbody-div {
-    height: 20%;
-    overflow-y: scroll;
+    position: relative;
+    height: 200px;
+    overflow-y: auto;
     overflow-x: hidden;
-}
-
-.attr-box {
-    position: relative;
-    width: 20em;
-    height: 18em;
-    left: 20em;
-    top: -20em;
-    display: block;
-}
-
-.elem-name-td {
-
-    display: inline-block;
-    position: relative;
-    width: 100%;
 }
