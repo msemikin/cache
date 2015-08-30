@@ -147,7 +147,7 @@
 
 ## Response
 ```
-{  
+[{  
   "id": 1,  
   "object": {  
     "id": 1,  
@@ -157,7 +157,7 @@
       "name": "some attribute"  
     }]  
   }  
-}  
+}]  
 ```
 
 # POST /project/informational_requirements/searches/new
@@ -200,7 +200,7 @@
 
 ## Response
 ```
-{  
+[{  
   "id": 1,  
   "object": {  
     "id": 1,  
@@ -210,7 +210,7 @@
       "name": "some attribute"  
     }]  
   }  
-}  
+}]  
 ```
 
 # POST /project/informational_requirements/sorts/new
@@ -252,7 +252,7 @@
 
 ## Response
 ```
-{  
+[{  
   "id": 1,  
   "object": {  
     "id": 1,  
@@ -262,7 +262,7 @@
       "name": "some attribute"  
     }]  
   }  
-}  
+}]  
 ```
 
 # POST /project/informational_requirements/filters/new
@@ -304,7 +304,7 @@
 
 ## Response
 ```
-{  
+[{  
   "id": 1,  
   "resultField": { # attribute that will be influenced  
     "object": {  
@@ -328,7 +328,7 @@
     }  
   }],  
   "formula": "X + Y"  
-}  
+}]  
 ```
 
 -----------------------------------------------------
