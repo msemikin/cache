@@ -101,12 +101,17 @@ app.service('Links', [function() {
 
         initialize: function() {
             abstract.initialize.call(this);
-            this.$box.find('.style-select').on('change', _.bind(function() {
-                var $select = this.$box.find('.style-select'),
-                    linkType = $select.val();
-                this.model.attr(links.usecaseLinkAttrs[linkType]);
-                this.$box.removeClass('changing-style');
-                this.setLabel(1, links.usecaseLinkLabels[linkType]);
+            this.$box.find('.style-select').on('click', _.bind(function() {
+                if (this.model.prop('selectOpened')) {
+                    var $select = this.$box.find('.style-select'),
+                        linkType = $select.val();
+                    this.model.attr(links.usecaseLinkAttrs[linkType]);
+                    this.$box.removeClass('changing-style');
+                    this.setLabel(1, links.usecaseLinkLabels[linkType]);
+                    this.model.prop('selectOpened', false);
+                } else {
+                    this.model.prop('selectOpened', true);
+                }
             }, this));
         },
         reverse: function() {
@@ -206,6 +211,12 @@ app.service('Links', [function() {
         Association: {
             '.connection': {
                 'stroke-dasharray': '0 0'
+            },
+            '.marker-target': {
+                d: ''
+            },
+            '.marker-source': {
+                d: ''
             }
         },
         Include: {

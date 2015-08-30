@@ -2,7 +2,24 @@
 /*globals joint:true */
 var app = angular.module('cache');
 
-app.service('Figures', [function() {
+app.service('Figures', ['$rootScope', function($rootScope) {
+
+    function stretch(figure, text) {
+        var symbolLength = 7,
+            width = symbolLength * text.length + 80;
+        figure.resize(width, 40);
+    }
+
+    function renameFigure(figure, text, stretchThen) {
+        figure.attr({
+            text: {
+                text: text
+            }
+        });
+        if (stretchThen) {
+            stretch(figure, text);
+        }
+    }
 
     var figures = {},
         abstract = {
@@ -32,17 +49,8 @@ app.service('Figures', [function() {
                     // clicked enter
                     if (e.which === 13) {
                         var text = $(this).val();
-                        text = text.toLowerCase();
-                        text = text[0].toUpperCase() + text.slice(1);
-                        self.model.attr({
-                            text: {
-                                text: text
-                            }
-                        });
+                        self.rename(text);
                         self.model.prop('renaming', false);
-                        if (self.config && self.config.stretchOnRename) {
-                            self.stretch(text);
-                        }
                     }
                 });
                 // Update the box position whenever the underlying model changes.
@@ -83,14 +91,39 @@ app.service('Figures', [function() {
                 } else {
                     this.$box.removeClass('renaming');
                 }
+                $rootScope.$emit('figure:move', {
+                    cell: {
+                        diagram: this.model.prop('diagram'),
+                        id: this.model.id
+                    },
+                    position: {
+                        x: bbox.x,
+                        y: bbox.y
+                    }
+                });
             },
             removeBox: function() {
                 this.$box.remove();
+                $rootScope.$emit('figure:remove', {
+                    cell: {
+                        diagram: this.model.prop('diagram'),
+                        id: this.model.id
+                    }
+                });
             },
-            stretch: function(text) {
-                var symbolLength = 7,
-                    width = symbolLength * text.length + 80;
-                this.model.resize(width, 40);
+            rename: function(text) {
+                text = text.toLowerCase();
+                text = text[0].toUpperCase() + text.slice(1);
+                renameFigure(this.model, text, this.config && this.config.stretchOnRename);
+
+                // notify the bound figures that the figure was renamed
+                $rootScope.$emit('figure:rename', {
+                    cell: {
+                        diagram: this.model.prop('diagram'),
+                        id: this.model.id
+                    },
+                    newText: text
+                });
             }
         };
 
@@ -201,7 +234,7 @@ app.service('Figures', [function() {
                         }
                     });
                 }
-            }, this))
+            }, this));
         },
         update: function() {
             joint.dia.ElementView.prototype.update.call(this);
@@ -317,14 +350,49 @@ app.service('Figures', [function() {
         }
     });
 
+    function bindFigure(figure, boundCell) {
+        function bind(event, accept) {
+            $rootScope.$on(event, function(evt, data) {
+                if (data.cell.diagram === boundCell.diagram && data.cell.id === boundCell.id) {
+                    accept(data);
+                }
+            });
+        }
+        figure.prop('boundCell', boundCell);
+
+        bind('figure:rename', function (data) {
+            renameFigure(figure, data.newText, true);
+        });
+        bind('figure:move', function (data) {
+            figure.set('position', data.position);
+        });
+        bind('figure:remove', function (data) {
+            figure.remove();
+        });
+    }
+
     return {
-        createFigure: function(type, position) {
-            var figure = figures[type].clone();
-
+        /**
+         * [function description]
+         * @param  {[type]} params.type        [description]
+         * @param  {[type]} params.position    [description]
+         * @param  {[type]} params.text        [description]
+         * @param  {[type]} params.diagram     [description]
+         * @param  {[type]} params.boundCell [description]
+         * @return {[type]}             [description]
+         */
+        createFigure: function(params) {
+            var figure = figures[params.type].clone();
+            figure.prop('diagram', params.diagram);
             figure.set(
-                'position', position
+                'position', params.position
             );
-
+            if (params.text) {
+                renameFigure(figure, params.text);
+            }
+            if (params.boundCell) {
+                bindFigure(figure, params.boundCell);
+            }
             return figure;
         }
     };

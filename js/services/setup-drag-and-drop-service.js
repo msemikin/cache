@@ -2,8 +2,7 @@
 var app = angular.module('cache');
 app.service('setupDragAndDrop', ['Figures', function(Figures) {
 
-    function getDragAndDrop(graph, diagramSelector, figureType) {
-        console.log(arguments);
+    function getDragAndDrop(graph, diagramSelector, figureType, diagramName) {
 
         var dragMode = false;
         var dragSelector = '.transfer';
@@ -47,11 +46,16 @@ app.service('setupDragAndDrop', ['Figures', function(Figures) {
         }
 
         function createFigure() {
+            console.log(diagramName);
             if (dragMode) {
                 reset();
-                graph.addCell(Figures.createFigure(figureType, {
-                    x: parseInt($drag.css('left')) - 20,
-                    y: parseInt($drag.css('top')) - 135
+                graph.addCell(Figures.createFigure({
+                    type: figureType,
+                    position: {
+                        x: parseInt($drag.css('left')) - 20,
+                        y: parseInt($drag.css('top')) - 135
+                    },
+                    diagram: diagramName
                 }));
             }
         }
@@ -63,9 +67,17 @@ app.service('setupDragAndDrop', ['Figures', function(Figures) {
         };
     }
 
+    /**
+     * Will setup the creation of figures on the diagram by drag-and-drop technique
+     * @param  {[type]} params.graph [description]
+     * @param  {[type]} params.diagramSelector [description]
+     * @param  {[type]} params.constructors [description]
+     * @param  {[type]} params.diagramName [description]
+     * @return {[type]}        [description]
+     */
     return function(params) {
         $.each(params.constructors, function(index, constructor) {
-            var dragAndDrop = getDragAndDrop(params.graph, params.diagramSelector, constructor.figureType);
+            var dragAndDrop = getDragAndDrop(params.graph, params.diagramSelector, constructor.figureType, params.diagramName);
             $(constructor.sourceSelector).mousedown(dragAndDrop.startDragging);
             $(params.diagramSelector).mousemove(dragAndDrop.moveDrag);
             $(params.diagramSelector).mouseup(dragAndDrop.createFigure);

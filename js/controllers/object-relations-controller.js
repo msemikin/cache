@@ -1,7 +1,8 @@
 'use strict';
 var app = angular.module("cache");
-app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', function($scope, Diagram) {
-    Diagram.setup({
+app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', '$rootScope', function($scope, Diagram, $rootScope) {
+    var diagram = Diagram.setup({
+        name: 'objectRelations',
         diagramSelector: '.object-relations-model',
         paper: {
             el: $('#object-relations-model'),
@@ -14,5 +15,9 @@ app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', function($scope, Dia
             sourceSelector: '.object',
             figureType: 'Object'
         }]
+    });
+
+    diagram.onCellAdd(function(cell) {
+        $rootScope.$emit('objectRelationsCellAdded', cell);
     });
 }]);

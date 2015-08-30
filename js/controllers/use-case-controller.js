@@ -2,7 +2,8 @@
 
 var app = angular.module('cache');
 app.controller('UsecaseCtrl', ['$scope', 'Diagram', function($scope, Diagram) {
-    Diagram.setup({
+    var diagram = Diagram.setup({
+        name: 'usecase',
         diagramSelector: '.functional-model',
         paper: {
             el: $('#functional-model'),

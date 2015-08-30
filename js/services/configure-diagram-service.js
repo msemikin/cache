@@ -2,6 +2,12 @@
 /* globals joint g:true */
 var app = angular.module('cache');
 app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
+    /**
+     * Configuration of a diagram and figures on it with access to the graph and paper objects
+     * @param  {[type]} graph [description]
+     * @param  {[type]} paper [description]
+     * @return {[type]}       [description]
+     */
     return function(graph, paper) {
         var linkDragMode = false;
         var link = null;
@@ -26,6 +32,7 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
             focusedModel = cellModel;
         }
 
+        // some more link initial configuration
         graph.on('add', function(cell) {
             if (!cell.isLink()) {
                 var cellView = paper.findViewByModel(cell);
@@ -41,6 +48,8 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
                     graph.addCell(link);
                     deselect(cell);
                 });
+
+                // fill cell's diagram name
             }
         });
 
@@ -49,7 +58,6 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
         });
 
         // move link
-        console.log(graph);
         paper.$el.on('mousemove', function(event) {
             if (linkDragMode) {
                 var offset = $(this).offset();
