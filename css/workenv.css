@@ -145,6 +145,8 @@
 
 .tile-container {
     height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 .tile {
@@ -152,13 +154,17 @@
 }
 
 /* -------------------- */
+/* workenv panels */
 
 .content-box {
     height: 100%;
     width: 100%;
 }
-.buttonsBar {
-    position: absolute !important;
+.content-header {
+    position: absolute;
+    line-height: 75px;
+    height:75px;
+    padding-left: 20px;
 }
 .box {
     display: flex;
@@ -166,7 +172,7 @@
     width: 100%;
 }
 .with-header {
-    padding-top: 50px;
+    padding-top: 75px;
 }
 .namePanel {
     border-top-right-radius: 0px !important;
