@@ -160,6 +160,33 @@
 }  
 ```
 
+# POST /project/informational_requirements/searches/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "search": {
+	  "object": {  
+	    "id": 1,  
+	    "name": "some object"  
+	    "attrs": [{  # list of selected attrs  
+	      "id": 1,  
+	      "name": "some attribute"  
+	    }]  
+	  }
+  }
+}  
+```
+
+## Response
+```
+{  
+  "success": true
+}  
+```
+
+
 -----------------------------------------------------
 
 # POST /project/informational_requirements/sorts/all
@@ -186,6 +213,32 @@
 }  
 ```
 
+# POST /project/informational_requirements/sorts/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "sort": {
+	  "object": {  
+	    "id": 1,  
+	    "name": "some object"  
+	    "attrs": [{  # list of selected attrs  
+	      "id": 1,  
+	      "name": "some attribute"  
+	    }]  
+	  }
+  }
+}  
+```
+
+## Response
+```
+{  
+  "success": true
+}  
+```
+
 -----------------------------------------------------
 
 # POST /project/informational_requirements/filters/all
@@ -209,6 +262,32 @@
       "name": "some attribute"  
     }]  
   }  
+}  
+```
+
+# POST /project/informational_requirements/filters/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "filter": {
+	  "object": {  
+	    "id": 1,  
+	    "name": "some object"  
+	    "attrs": [{  # list of selected attrs  
+	      "id": 1,  
+	      "name": "some attribute"  
+	    }]  
+	  }
+  }
+}  
+```
+
+## Response
+```
+{  
+  "success": true
 }  
 ```
 
