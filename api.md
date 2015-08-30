@@ -23,6 +23,80 @@
 
 -----------------------------------------------------
 
+# POST /project/objects/new
+
+## Request
+```
+{
+  "projectId": 1,
+  "object": {  
+    "id": 1,  
+    "name": "some object",  
+    "attrs": [{  
+      "id": 2,  
+      "name": "some attribute"  
+    }]  
+  }  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+
+# POST /project/objects/update
+### тоже самое для остальных запросов 
+## Request
+```
+{
+  "projectId": 1,
+  "object": {  
+    "id": 1,  
+    "name": "some object",  
+    "attrs": [{  
+      "id": 2,  
+      "name": "some attribute"  
+    }]  
+  }  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+-----------------------------------------------------
+
+
+# POST /project/objects/delete
+
+### тоже самое для остальных запросов (удаление по адйи проекта и айди элемента)
+
+## Request
+```
+{
+  "projectId": 1,
+  "objectId": 1  
+}  
+```
+
+## Response
+```
+{
+	"success": true
+}
+```
+
+-----------------------------------------------------
 # POST /project/statistics/all
 
 ## Request
@@ -50,6 +124,35 @@
 }  
 ```
 
+-----------------------------------------------------
+# POST /project/statistics/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "statistic": {  
+    "id": 1,  
+    "name": "some name",  
+    "objects": [{  
+		"name": "some name",
+		"attrs": [{
+			"id":"1",
+			"name":"attribute's name"
+		}			
+		]	
+    }]  
+  }  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
 -----------------------------------------------------
 
 # POST /project/reports/all
@@ -82,6 +185,38 @@
 
 -----------------------------------------------------
 
+# POST /project/reports/new
+
+## Request
+```
+{  
+  "projectId": 38  ,
+  "report": {  
+    "id": 1,  
+    "name": "some name",  
+    "objects": [{
+        "id": "1"
+		"name": "some name",
+		"attrs": [{
+			"id":"1",
+			"name":"attribute's name"
+		}			
+		]	
+    }]  
+  }]  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+
 # POST /project/diagrams/usecase
 
 ## Request
@@ -96,6 +231,26 @@
 {  
   "diagram": {} # diagram JSON  
 }  
+```
+
+-----------------------------------------------------
+
+# POST /project/diagrams/usecase/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "diagram": {} # diagram JSON  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
 ```
 
 -----------------------------------------------------
@@ -118,6 +273,26 @@
 
 -----------------------------------------------------
 
+# POST /project/diagrams/object_relations/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "diagram": {} # diagram JSON  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+
 # POST /project/diagrams/er
 
 ```
@@ -134,6 +309,25 @@
 }  
 ```
 
+-----------------------------------------------------
+
+# POST /project/diagrams/er/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "diagram": {} # diagram JSON  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
 -----------------------------------------------------
 
 # POST /project/informational_requirements/searches/all
@@ -334,6 +528,49 @@
 }]  
 ```
 
+-----------------------------------------------------
+
+# POST /project/algorithmic_dependencies/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "algorithmicDependincy{  
+	"id": 1,  
+	"resultField": { # attribute that will be influenced  
+	  "object": {  
+		"id": 1,  
+		"name": "some object"  
+		"attr": {    
+		  "id": 1,  
+		  "name": "some attribute"  
+		}  
+	  }  
+	},  
+	"sourceFields": [{  # attribute that will be part of a formula    
+	  "variable" : "X",  
+	  "object": {  
+		"id": 1,  
+		"name": "some object"  
+		"attr": {   
+		  "id": 1,  
+		  "name": "some attribute"  
+		}  
+	  }  
+	}],  
+	"formula": "X + Y"  
+  }  
+}  
+```
+
+## Response
+```
+{  
+  "success": true,
+  "id": "1"
+}  
+```
 -----------------------------------------------------
 
 # POST /project/integrity_constraints/all
