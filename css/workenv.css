@@ -250,6 +250,10 @@
 .stat-object {
     overflow-y: visible !important;
 }
+/* informational rquirements */
+.inf-req-tab {
+    height: 100%;
+}
 /* constraints */
 
 .button-delete-constraint {

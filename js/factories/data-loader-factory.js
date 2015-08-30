@@ -1,37 +1,52 @@
 'use strict';
-angular.module('cache').factory('DataLoader', function () {
-    var data = [];
-
-    function indexOf (value) {
-        var index = _.findIndex(data, function (element) {
+angular.module('cache').factory('DataLoader', function($q) {
+    function indexOf(data, value) {
+        var index = _.findIndex(data, function(element) {
             return element.id === value.id;
         });
         return index;
     }
 
     return {
-        extend: function () {
+        extend: function(data) {
+            var id = 0;
             return {
-                create: function (value) {
+                create: function(value) {
+                    var deferred = $q.defer();
+                    value.id = id++;
                     data.push(value);
-                    return !!value;
+                    deferred.resolve({
+                        success: true,
+                        id: value.id
+                    });
+                    return deferred.promise;
                 },
-                load: function () {
-                    return data;
+                load: function() {
+                    var deferred = $q.defer();
+                    deferred.resolve(data);
+                    return deferred.promise;
                 },
-                update: function (value) {
-                    var index = indexOf(value);
-                    data.splice(index);
-                    data.push(value);
+                update: function(value) {
+                    var deferred = $q.defer();
+                    var index = indexOf(data, value);
+                    data.splice(index, 1, value);
+                    deferred.resolve({
+                        success: true
+                    });
+                    return deferred.promise;
+                },
+                delete: function(value) {
+                    var index = indexOf(data, value);
+                    data.splice(index, 1, value);
                     return true;
                 },
-                delete: function (value) {
-                    var index = indexOf(value);
-                    data.splice(index);
-                    return true;
-                },
-                get: function (id) {
-                    return _.findWhere({id: id});
+                get: function(id) {
+                    console.log(id);
+                    var deferred = $q.defer();
+                    deferred.resolve(_.findWhere(data, {
+                        id: id
+                    }));
+                    return deferred.promise;
                 }
             };
         }

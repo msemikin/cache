@@ -1,78 +1,144 @@
-var app = angular.module('cache');
-app.controller('InformationalRequirementsCtrl', ['$scope', function($scope){
-	$(document).ready(function () {
+'use strict';
+angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', 'Object', 'Search', 'Sort', 'Filter', function($scope, Object, Search, Sort, Filter) {
+
+    var tabs = {
+        search: {
+            name: 'search',
+            objectHeadText: 'Объекты поиска',
+            attrsHeadText: 'Атрибуты для поиска',
+            dataProvider: Search,
+            requirements: [],
+            requirement: null
+        },
+        sort: {
+            name: 'sort',
+            objectHeadText: 'Объекты сортировки',
+            attrsHeadText: 'Атрибуты для сортировки',
+            dataProvider: Sort,
+            requirements: [],
+            requirement: null
+        },
+        filter: {
+            name: 'filter',
+            objectHeadText: 'Объекты  фильтрации',
+            attrsHeadText: 'Атрибуты для фильтрации',
+            dataProvider: Filter,
+            requirements: [],
+            requirement: null
+        }
+    };
+
+    $(document).ready(function() {
         $('.dropdown-toggle').dropdown();
     });
-
-    $scope.selectNewObj = function(index){
-    	// $('.objDropup').toggleClass('open');
-    	// var newObj = objects[index];
-		// data[tabs[this.tab]].push({name: newObj.name, attribute: newObj.attribute.slice(), attrs: []});
+    $scope.objects = [];
+    $scope.selectTab = function (name) {
+        $scope.tab = tabs[name];
     };
-    $scope.selectNewAttr = function(attr){
-    	// $('.attrDropup').toggleClass('open');
-		// var selected = data[tabs[this.tab]].selected;
-		// data[tabs[this.tab]][selected].attrs.push(attr);
-    };
+    $scope.selectTab('search')
 
-
-	var tabs = {
-		0:'searches',
-		1: 'sorts',
-		2: 'filters'
-	};
-
-	$scope.tab = 0;
-
-	// $scope.searches = data.searches;
-	// $scope.sorts = [];//data.sorts;
-	// $scope.filters = data.filters;
-
-	// data.searches.selected = 0;
-	// data.sorts.selected = 0;
-	// data.filters.selected = 0;
-
-	$scope.changeTab = function(tab){
-		$scope.tab = tab;
-		this.newAttr = 'Атрибут';
-		this.newObj = {name:'Объект'};
-	}
-
-    $scope.getCurrentObjects = function() {
-    	// return data[tabs[this.tab]];
+    function updateObjects() {
+        return Object.load().then(function(data) {
+            $scope.objects = data;
+        });
     }
 
-    $scope.getSelectedIndex = function() {
-    	// return data[tabs[this.tab]].selected;
+    function updateRequirements(requirementId) {
+        return $scope.tab.dataProvider.load()
+            .then(fillAvailableObjects)
+            .then(function(requirements) {
+                var requirement = typeof requirementId === 'number' ? _.findWhere(requirements, {
+                    id: requirementId
+                }) : requirements[0];
+                $scope.tab.requirements = requirements;
+                return requirement;
+            })
+            .then(selectRequirement);
     }
 
-	$scope.addObj = function() {
-	}
+    updateObjects().then(updateRequirements);
 
-	$scope.selectObj = function(index) {
-		// data[tabs[this.tab]].selected = index;
-	}
+    function loadObject(requirement) {
+        return Object.get(requirement.object.id).then(handleObjectLoad);
+    }
 
-	$scope.addAttr = function() {
-	}
+    function handleObjectLoad(object) {
+        $scope.object = object;
+        return object;
+    }
 
-	$scope.getPossibleAttrs = function() {
-		// var selected = data[tabs[this.tab]].selected;
-		// if(data[tabs[this.tab]][selected]) {
-		// 	return data[tabs[this.tab]][selected].attribute;
-		// }
-	}
+    function selectRequirement(requirement) {
+        // requirement is an id
+        $scope.tab.requirement = requirement;
+        if (requirement) {
+            loadObject(requirement).then(fillAvailableAttrs);
+        }
+    }
 
-	$scope.getCurrentAttrs = function() {
-		// var selected = data[tabs[this.tab]].selected;
-		// if(data[tabs[this.tab]][selected]) {
-		// 	return data[tabs[this.tab]][selected].attrs;
-		// }
-	}
+    function difference(list1, list2) {
+        var diff = [];
+        if (!list1.length) {
+            return list2;
+        } else if (!list2.length) {
+            return list1;
+        }
+        _.each(list1, function(elOuter) {
+            if (!_.contains(
+                    _.map(list2, function(elInner) {
+                        return elInner.id;
+                    }),
+                    elOuter.id
+                )) {
+                diff.push(elOuter);
+            }
+        });
+        return diff;
+    }
 
-	$scope.removeAttr = function(index){
-		// var selected = data[tabs[this.tab]].selected;
-		// data[tabs[this.tab]][selected].attrs.splice(index,1);
-	}
+    function fillAvailableAttrs(object) {
+        $scope.availableAttrs = difference(object.attrs, $scope.tab.requirement.object.attrs);
+    }
+
+    function fillAvailableObjects(requirements) {
+        var requirementObjects = _.map(requirements, function(requirement) {
+            return requirement.object;
+        });
+        $scope.availableObjects = difference($scope.objects, requirementObjects);
+        return requirements;
+    }
+
+    $scope.selectRequirement = selectRequirement;
+    $scope.addRequirement = function(object) {
+        var requirementObj = {
+            id: object.id,
+            name: object.name,
+            attrs: []
+        };
+        $scope.tab.dataProvider.create({
+                object: requirementObj
+            })
+            .then(function(response) {
+                return updateRequirements(response.id);
+            });
+    };
+
+    $scope.addAttr = function(attr) {
+        var requirement = $scope.tab.requirement;
+        requirement.object.attrs.push(attr);
+        $scope.tab.dataProvider.update(requirement).then(function(response) {
+            updateRequirements(requirement.id);
+        });
+    };
+
+    $scope.removeAttr = function(attr) {
+        var requirement = $scope.tab.requirement;
+        var index = _.findIndex(requirement.object.attrs, {
+            id: attr.id
+        });
+        requirement.object.attrs.splice(index, 1);
+        $scope.tab.dataProvider.update(requirement).then(function(response) {
+            updateRequirements(requirement.id);
+        });
+    };
 
 }]);

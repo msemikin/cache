@@ -1,21 +1,23 @@
-<div  class="tile"  ng-controller="InformationalRequirementsCtrl">
+<div class="tile" ng-controller="InformationalRequirementsCtrl">
     <div class="content-box">
-        <div class="btn-group buttonsBar">
-            <button class="btn btn-default" ng-class="{ active: tab == 0}" ng-click="changeTab(0)"> Поиск </button>
-            <button class="btn btn-default" ng-class="{ active: tab == 1}" ng-click="changeTab(1)"> Сортировки </button>
-            <button class="btn btn-default" ng-class="{ active: tab == 2}" ng-click="changeTab(2)"> Фильтрации </button>
+        <div class="content-header">
+            <div class="btn-group buttonsBar">
+                <button class="btn btn-default" ng-class="{ active: tab.name === 'search'}" ng-click="selectTab('search')"> Поиск </button>
+                <button class="btn btn-default" ng-class="{ active: tab.name === 'sort'}" ng-click="selectTab('sort')"> Сортировкa </button>
+                <button class="btn btn-default" ng-class="{ active: tab.name === 'filter'}" ng-click="selectTab('filter')"> Фильтрация </button>
+            </div>
         </div>
-        <div class="box with-header" ng-show="tab == 0">
+        <div class="box with-header">
             <div class="col-xs-1 panel panel-default namePanel">
                 <div class="panel-heading ">
-                    <h3 class="panel-title h2">Объект поиска</h3>
+                    <h3 class="panel-title h2">{{tab.objectHeadText}}</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="list-group  objects-select">
-                        <a ng-repeat="s in getCurrentObjects() track by $index" ng-class="{active: $index == getSelectedIndex()}" href="#" ng-click="selectObj($index)" class="list-group-item">{{s.name}}</a>
+                    <div class="list-group objects-select">
+                        <a ng-repeat="r in tab.requirements" ng-class="{active: r.id == tab.requirement.id}" href="#" ng-click="selectRequirement(r)" class="list-group-item">{{r.object.name}}</a>
                     </div>
                 </div>
-                <div class="panel-footer">
+                <div class="panel-footer" ng-show="availableObjects.length">
                     <div class="btn-group">
                         <div class="dropup objDropup">
                             <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
@@ -23,7 +25,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="obj in objects track by $index"><a ng-click="selectNewObj($index)" role="menuitem" tabindex="-1" href="#">{{obj.name}}</a></li>
+                                <li role="presentation" ng-repeat="obj in availableObjects"><a ng-click="addRequirement(obj)" role="menuitem" tabindex="-1" href="#">{{obj.name}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -31,121 +33,23 @@
             </div>
             <div class="panel panel-default detailsPanel ">
                 <div class="panel-heading ">
-                    <h3 class="panel-title">Атрибуты для поиска</h3>
+                    <h3 class="panel-title">{{tab.attrsHeadText}}</h3>
                 </div>
-                <div class="panel-body" ng-show="searches.length">
+                <div class="panel-body" ng-show="tab.requirement">
                     <ul class="list-group">
-                        <li ng-repeat="attr in getCurrentAttrs() track by $index" class="list-group-item">
-                            {{attr}}
-                            <span ng-click="removeAttr($index)" class="badge">x</span>
+                        <li ng-repeat="attr in tab.requirement.object.attrs" class="list-group-item">
+                            {{attr.name}}
+                            <span ng-click="removeAttr(attr)" class="badge">x</span>
                         </li>
                     </ul>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="availableAttrs.length">
                         <div class="dropdown attrDropup">
                             <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
                                 <span>Добавить атрибут</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="attr in getPossibleAttrs() track by $index"><a role="menuitem" ng-click="selectNewAttr(attr)" tabindex="-1" href="#">{{attr}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box with-header" ng-show="tab == 1">
-            <div class="col-xs-1 panel panel-default namePanel">
-                <div class="panel-heading ">
-                    <h3 class="panel-title h2">Объект сортировки</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="list-group  objects-select">
-                        <a ng-repeat="s in getCurrentObjects() track by $index" ng-class="{active: $index == getSelectedIndex()}" href="#" ng-click="selectObj($index)" class="list-group-item">{{s.name}}</a>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="btn-group">
-                        <div class="dropup objDropup">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
-                                <span>Добавить объект</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="obj in objects track by $index"><a ng-click="selectNewObj($index)" role="menuitem" tabindex="-1" href="#">{{obj.name}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default detailsPanel ">
-                <div class="panel-heading ">
-                    <h3 class="panel-title">Атрибуты для сортировки</h3>
-                </div>
-                <div class="panel-body" ng-show="sorts.length">
-                    <ul class="list-group">
-                        <li ng-repeat="attr in getCurrentAttrs() track by $index" class="list-group-item">
-                            {{attr}}
-                            <span ng-click="removeAttr($index)" class="badge">x</span>
-                        </li>
-                    </ul>
-                    <div class="btn-group">
-                        <div class="dropdown attrDropup">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
-                                <span>Добавить атрибут</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="attr in getPossibleAttrs() track by $index"><a role="menuitem" ng-click="selectNewAttr(attr)" tabindex="-1" href="#">{{attr}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box with-header" ng-show="tab == 2">
-            <div class="col-xs-1 panel panel-default namePanel">
-                <div class="panel-heading ">
-                    <h3 class="panel-title h2">Объект фильтрации</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="list-group  objects-select">
-                        <a ng-repeat="s in getCurrentObjects() track by $index" ng-class="{active: $index == getSelectedIndex()}" href="#" ng-click="selectObj($index)" class="list-group-item">{{s.name}}</a>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="btn-group">
-                        <div class="dropup objDropup">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
-                                <span>Добавить объект</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="obj in objects track by $index"><a ng-click="selectNewObj($index)" role="menuitem" tabindex="-1" href="#">{{obj.name}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default detailsPanel ">
-                <div class="panel-heading ">
-                    <h3 class="panel-title">Атрибуты для фильтрации</h3>
-                </div>
-                <div class="panel-body" ng-show="filters.length">
-                    <ul class="list-group">
-                        <li ng-repeat="attr in getCurrentAttrs() track by $index" class="list-group-item">
-                            {{attr}}
-                            <span ng-click="removeAttr($index)" class="badge">x</span>
-                        </li>
-                    </ul>
-                    <div class="btn-group">
-                        <div class="dropdown attrDropup">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
-                                <span>Добавить атрибут</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="attr in getPossibleAttrs() track by $index"><a role="menuitem" ng-click="selectNewAttr(attr)" tabindex="-1" href="#">{{attr}}</a></li>
+                                <li role="presentation" ng-repeat="attr in availableAttrs"><a role="menuitem" ng-click="addAttr(attr)" tabindex="-1" href="#">{{attr.name}}</a></li>
                             </ul>
                         </div>
                     </div>
