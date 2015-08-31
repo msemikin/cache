@@ -9,6 +9,7 @@ import java.util.List;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.ProjectDAO;
+import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Project;
 import ua.nure.cache.java.entity.Report;
@@ -171,6 +172,38 @@ public class MysqlProjectDAO implements ProjectDAO {
 		} finally {
 			MysqlDAOFactory.close(con);
 		}
+		return proj;
+	}
+
+	@Override
+	public List<AlgDeps> findAlgDeps(int projectId) {
+		Connection con = null;
+		List<AlgDeps> proj = new ArrayList<AlgDeps>();
+		try {
+			con = MysqlDAOFactory.getConnection();
+			proj = findAlgDeps(con, projectId);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return proj;
+	}
+
+	private List<AlgDeps> findAlgDeps(Connection con, int projectId) throws SQLException{
+		PreparedStatement stmt1 = null;
+		PreparedStatement stmt2 = null;
+		List<AlgDeps> proj = new ArrayList<AlgDeps>();
+		stmt1 = con.prepareStatement(DBQueries.FIND_ALG_DEPS_AND_RES_FIELD);
+		stmt2 = con.prepareStatement(DBQueries.FIND_SOURCE_FIELDS);
+		stmt1.setInt(1, projectId);
+		stmt2.setInt(1, projectId);
+		ResultSet rs1 = stmt1.executeQuery();
+		ResultSet rs2 = stmt2.executeQuery();
+		proj = Mapper.unmapResourceField(rs1);
+		proj = Mapper.unmapSourceFields(rs2, proj);
+		MysqlDAOFactory.closeStatement(stmt1);
+		MysqlDAOFactory.closeStatement(stmt2);
 		return proj;
 	}
 }

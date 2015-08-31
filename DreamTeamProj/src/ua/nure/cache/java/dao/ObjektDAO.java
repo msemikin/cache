@@ -6,7 +6,7 @@ public interface ObjektDAO {
 
 	void insertObjekt(Objekt obj);
 	
-	Objekt findObjekt(int objId);
+	Objekt findObjekt(int objId, int projId);
 	
 	void deleteObjekt(int objId);
 	

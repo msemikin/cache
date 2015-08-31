@@ -53,6 +53,9 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/all", cardManager
 					.getDeclaredMethod("getAlgorithmicDep", request,
 							response));
+			methods.put("/objects/byId", cardManager
+					.getDeclaredMethod("getObjById", request,
+							response));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

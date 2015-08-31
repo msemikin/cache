@@ -23,4 +23,6 @@ public interface IServer {
 	
 	void getAlgorithmicDep(HttpServletRequest req, HttpServletResponse resp) throws IOException;
 	
+	void getObjById(HttpServletRequest req, HttpServletResponse resp) throws IOException;
+	
 }

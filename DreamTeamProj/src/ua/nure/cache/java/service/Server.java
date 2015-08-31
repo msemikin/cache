@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import ua.nure.cache.java.dao.DAOFactory;
 import ua.nure.cache.java.dao.DiagramDAO;
+import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
 import ua.nure.cache.java.service.contract.IServer;
 
@@ -72,8 +73,19 @@ public class Server implements IServer{
 
 	@Override
 	public void getAlgorithmicDep(HttpServletRequest req,
-			HttpServletResponse resp) {
-		
+			HttpServletResponse resp) throws IOException {
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+		Integer id = Integer.parseInt(req.getParameter("projectId"));
+		resp.getWriter().print(new Gson().toJson(dao.findAlgDeps(id)));
+	}
+
+	@Override
+	public void getObjById(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		Integer projectId = Integer.parseInt(req.getParameter("projectId"));
+		Integer objectId = Integer.parseInt(req.getParameter("objectId"));
+		resp.getWriter().print(new Gson().toJson(dao.findObjekt(objectId, projectId)));
 	}
 
 	

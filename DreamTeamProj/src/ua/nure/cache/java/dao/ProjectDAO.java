@@ -2,6 +2,7 @@ package ua.nure.cache.java.dao;
 
 import java.util.List;
 
+import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Project;
 import ua.nure.cache.java.entity.Report;
@@ -27,4 +28,7 @@ public interface ProjectDAO {
 	List<SrchFltSrt> findSorts(int projectId);
 	
 	List<SrchFltSrt> findFilters(int projectId);
+	
+	List<AlgDeps> findAlgDeps(int projectId);
+	
 }
