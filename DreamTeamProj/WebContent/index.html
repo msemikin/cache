@@ -19,6 +19,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
 
     <title>Editing &ndash; Student project &ndash; DataBases</title>
+     <script type="text/javascript">
+	 $.ajax({
+    	
+		type : "POST",
+		url : "../DreamTeamProj/project/informational_requirements/filters/all",
+		data : {
+			projectId : 0
+		},
+		dataType : "json",
+		success : function(data) {
+			console.log(JSON.stringify(data));
+			console.log(data);
+		}
+	});
+    </script>
 </head>
 
 <body ng-controller="guicontroller" data-ng-init="init()" ng-click="hideAttrs();">
