@@ -1,3 +1,28 @@
+# POST /project/objects/byId
+
+## Request
+```
+{  
+  "projectId": 38,
+  "objectId": 1
+} 
+```
+
+## Response
+```
+{
+  "object": {  
+    "id": 1,  
+    "name": "some object",  
+    "attrs": [{  
+      "id": 2,  
+      "name": "some attribute"  
+    }]  
+  }  
+}  
+```
+
+-----------------------------------------------------
 # POST /project/objects/all
 
 ## Request
