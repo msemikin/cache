@@ -59,6 +59,9 @@ public class Controller {
 			methods.put("/objects/new", cardManager
 					.getDeclaredMethod("insertObject", request,
 							response));
+			methods.put("/attribute/new", cardManager
+					.getDeclaredMethod("insertAttribute", request,
+							response));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

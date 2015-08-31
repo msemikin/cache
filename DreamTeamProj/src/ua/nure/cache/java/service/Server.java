@@ -1,6 +1,8 @@
 package ua.nure.cache.java.service;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,8 @@ import ua.nure.cache.java.dao.DAOFactory;
 import ua.nure.cache.java.dao.DiagramDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
+import ua.nure.cache.java.entity.Objekt;
+import ua.nure.cache.java.entity.Project;
 import ua.nure.cache.java.service.contract.IServer;
 
 public class Server implements IServer{
@@ -91,9 +95,20 @@ public class Server implements IServer{
 	@Override
 	public void insertObject(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String line = req.getParameter("jsonLine");
-		System.out.println(line);
+		String line = req.getParameter("objekt");
+		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
+		Objekt jsonJavaRootObject = new Gson().fromJson(line, Objekt.class);
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		dao.insertObjekt(jsonJavaRootObject);
 	}
+
+	@Override
+	public void insertAttribute(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		
+	}
+	
+	
 
 	
 

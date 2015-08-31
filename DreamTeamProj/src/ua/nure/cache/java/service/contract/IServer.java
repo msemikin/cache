@@ -27,4 +27,6 @@ public interface IServer {
 	
 	void insertObject(HttpServletRequest req, HttpServletResponse resp) throws IOException;
 	
+	void insertAttribute(HttpServletRequest req, HttpServletResponse resp) throws IOException;
+	
 }

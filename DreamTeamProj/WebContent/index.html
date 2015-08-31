@@ -22,25 +22,22 @@
 
 <title>Editing &ndash; Student project &ndash; DataBases</title>
 <script type="text/javascript">
-	var json = JSON.stringify({
-		"projectId" : 1,
-		"object" : {
-			"id" : 1,
-			"name" : "some object",
-			"attrs" : [ {
-				"id" : 2,
-				"name" : "some attribute"
-			} ]
-		}
-	})
+	
 	$.ajax({
 
 		type : "POST",
 		url : "../DreamTeamProj/project/objects/new",
 		data : {
-			"jsonLine" : json
+				projectId : 1,
+				objekt : JSON.stringify({
+					id : 1,
+					name : "some object",
+					attrs : [ {
+						id : 2,
+						name : "some attribute"
+					} ]
+				})
 		},
-
 		dataType : "json",
 		success : function(data) {
 			console.log(JSON.stringify(data));
