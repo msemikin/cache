@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 29 2015 г., 17:59
+-- Время создания: Сен 01 2015 г., 00:07
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -19,6 +19,27 @@ SET time_zone = "+00:00";
 --
 -- База данных: `my_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `algdeps`
+--
+
+CREATE TABLE IF NOT EXISTS `algdeps` (
+`dep_id` int(11) NOT NULL,
+  `result_field` int(11) DEFAULT NULL,
+  `formula` longtext
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `algdeps`
+--
+
+INSERT INTO `algdeps` (`dep_id`, `result_field`, `formula`) VALUES
+(1, 1, 'X+Y'),
+(2, 3, 'X-Y'),
+(3, 2, 'X*Y');
 
 -- --------------------------------------------------------
 
@@ -41,6 +62,27 @@ INSERT INTO `attribute` (`attr_id`, `object_id`, `Name`) VALUES
 (2, 1, 'А2О1'),
 (3, 2, 'А3О2'),
 (4, 2, 'А4О2');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `depstosourfield`
+--
+
+CREATE TABLE IF NOT EXISTS `depstosourfield` (
+  `dep_id` int(11) NOT NULL,
+  `field_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `depstosourfield`
+--
+
+INSERT INTO `depstosourfield` (`dep_id`, `field_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 2),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -77,6 +119,30 @@ CREATE TABLE IF NOT EXISTS `document` (
   `Path` longtext COLLATE utf8_general_mysql500_ci,
   `ParentalProject` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `filter`
+--
+
+CREATE TABLE IF NOT EXISTS `filter` (
+  `filter_id` int(11) DEFAULT NULL,
+  `object_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `filter`
+--
+
+INSERT INTO `filter` (`filter_id`, `object_id`, `attribute_id`) VALUES
+(1, 3, 1),
+(1, 1, 2),
+(1, 1, 3),
+(1, 2, 2),
+(1, 1, 4),
+(2, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -184,6 +250,74 @@ INSERT INTO `reporttoobject` (`object_id`, `report_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `search`
+--
+
+CREATE TABLE IF NOT EXISTS `search` (
+  `search_id` int(11) DEFAULT NULL,
+  `object_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `search`
+--
+
+INSERT INTO `search` (`search_id`, `object_id`, `attribute_id`) VALUES
+(1, 3, 1),
+(1, 1, 2),
+(1, 1, 3),
+(1, 2, 2),
+(1, 1, 4),
+(2, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sort`
+--
+
+CREATE TABLE IF NOT EXISTS `sort` (
+  `sort_id` int(11) DEFAULT NULL,
+  `object_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `sort`
+--
+
+INSERT INTO `sort` (`sort_id`, `object_id`, `attribute_id`) VALUES
+(1, 3, 1),
+(1, 1, 2),
+(1, 1, 3),
+(1, 2, 2),
+(1, 1, 4),
+(2, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sourcefield`
+--
+
+CREATE TABLE IF NOT EXISTS `sourcefield` (
+`field_id` int(11) NOT NULL,
+  `varName` longtext,
+  `object_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `sourcefield`
+--
+
+INSERT INTO `sourcefield` (`field_id`, `varName`, `object_id`) VALUES
+(1, 'X', 1),
+(2, 'Y', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `statistic`
 --
 
@@ -249,10 +383,22 @@ INSERT INTO `student` (`student_id`, `group_Id`, `Email`, `Password`, `FullName`
 --
 
 --
+-- Индексы таблицы `algdeps`
+--
+ALTER TABLE `algdeps`
+ ADD PRIMARY KEY (`dep_id`), ADD KEY `mykey_idx` (`result_field`);
+
+--
 -- Индексы таблицы `attribute`
 --
 ALTER TABLE `attribute`
  ADD PRIMARY KEY (`attr_id`), ADD KEY `FK_ATTRIBUT_REFERENCE_OBJECT` (`object_id`);
+
+--
+-- Индексы таблицы `depstosourfield`
+--
+ALTER TABLE `depstosourfield`
+ ADD KEY `dfsfsd_idx` (`field_id`), ADD KEY `cxxcv_idx` (`dep_id`);
 
 --
 -- Индексы таблицы `diagram`
@@ -265,6 +411,12 @@ ALTER TABLE `diagram`
 --
 ALTER TABLE `document`
  ADD PRIMARY KEY (`docment_id`), ADD KEY `FK_DOCUMENT_REFERENCE_PROJECT` (`project_id`);
+
+--
+-- Индексы таблицы `filter`
+--
+ALTER TABLE `filter`
+ ADD KEY `dsf_idx` (`attribute_id`), ADD KEY `cxv_idx` (`object_id`);
 
 --
 -- Индексы таблицы `group`
@@ -297,6 +449,24 @@ ALTER TABLE `reporttoobject`
  ADD KEY `FK_REPORTTO_REFERENCE_OBJECT` (`object_id`), ADD KEY `FK_REPORTTO_REFERENCE_REPORT` (`report_id`);
 
 --
+-- Индексы таблицы `search`
+--
+ALTER TABLE `search`
+ ADD KEY `fk1_idx` (`attribute_id`), ADD KEY `fk2_idx` (`object_id`);
+
+--
+-- Индексы таблицы `sort`
+--
+ALTER TABLE `sort`
+ ADD KEY `fk1_idx` (`attribute_id`), ADD KEY `fk2_idx` (`object_id`);
+
+--
+-- Индексы таблицы `sourcefield`
+--
+ALTER TABLE `sourcefield`
+ ADD PRIMARY KEY (`field_id`), ADD KEY `mkey_idx` (`object_id`);
+
+--
 -- Индексы таблицы `statistic`
 --
 ALTER TABLE `statistic`
@@ -318,6 +488,11 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
+--
+-- AUTO_INCREMENT для таблицы `algdeps`
+--
+ALTER TABLE `algdeps`
+MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `attribute`
 --
@@ -349,6 +524,11 @@ MODIFY `object_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 ALTER TABLE `report`
 MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT для таблицы `sourcefield`
+--
+ALTER TABLE `sourcefield`
+MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT для таблицы `statistic`
 --
 ALTER TABLE `statistic`
@@ -363,22 +543,42 @@ MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 
 --
+-- Ограничения внешнего ключа таблицы `algdeps`
+--
+ALTER TABLE `algdeps`
+ADD CONSTRAINT `mykey` FOREIGN KEY (`result_field`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `attribute`
 --
 ALTER TABLE `attribute`
 ADD CONSTRAINT `FK_ATTRIBUT_REFERENCE_OBJECT` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Ограничения внешнего ключа таблицы `depstosourfield`
+--
+ALTER TABLE `depstosourfield`
+ADD CONSTRAINT `cxxcv` FOREIGN KEY (`dep_id`) REFERENCES `algdeps` (`dep_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `dfsfsd` FOREIGN KEY (`field_id`) REFERENCES `sourcefield` (`field_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `diagram`
 --
 ALTER TABLE `diagram`
-ADD CONSTRAINT `FK_DIAGRAM_REFERENCE_PROJECT` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `FK_DIAGRAM_REFERENCE_PROJECT` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `document`
 --
 ALTER TABLE `document`
 ADD CONSTRAINT `FK_DOCUMENT_REFERENCE_PROJECT` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `filter`
+--
+ALTER TABLE `filter`
+ADD CONSTRAINT `cxv` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `dsf` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `object`
@@ -390,7 +590,7 @@ ADD CONSTRAINT `FK_OBJECT_REFERENCE_PROJECT` FOREIGN KEY (`project_id`) REFERENC
 -- Ограничения внешнего ключа таблицы `project`
 --
 ALTER TABLE `project`
-ADD CONSTRAINT `FK_PROJECT_REFERENCE_STUDENT` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `FK_PROJECT_REFERENCE_STUDENT` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `report`
@@ -402,8 +602,28 @@ ADD CONSTRAINT `FK_REPORT_REFERENCE_PROJECT` FOREIGN KEY (`project_id`) REFERENC
 -- Ограничения внешнего ключа таблицы `reporttoobject`
 --
 ALTER TABLE `reporttoobject`
-ADD CONSTRAINT `FK_REPORTTO_REFERENCE_OBJECT` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `FK_REPORTTO_REFERENCE_REPORT` FOREIGN KEY (`report_id`) REFERENCES `report` (`report_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `FK_REPORTTO_REFERENCE_OBJECT` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_REPORTTO_REFERENCE_REPORT` FOREIGN KEY (`report_id`) REFERENCES `report` (`report_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `search`
+--
+ALTER TABLE `search`
+ADD CONSTRAINT `fk1` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk2` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `sort`
+--
+ALTER TABLE `sort`
+ADD CONSTRAINT `fk12` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk22` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `sourcefield`
+--
+ALTER TABLE `sourcefield`
+ADD CONSTRAINT `mkey` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `statistic`

@@ -25,4 +25,6 @@ public interface IServer {
 	
 	void getObjById(HttpServletRequest req, HttpServletResponse resp) throws IOException;
 	
+	void insertObject(HttpServletRequest req, HttpServletResponse resp) throws IOException;
+	
 }

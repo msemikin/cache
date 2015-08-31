@@ -88,6 +88,13 @@ public class Server implements IServer{
 		resp.getWriter().print(new Gson().toJson(dao.findObjekt(objectId, projectId)));
 	}
 
+	@Override
+	public void insertObject(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("jsonLine");
+		System.out.println(line);
+	}
+
 	
 
 }
