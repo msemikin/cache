@@ -19,41 +19,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
 
     <title>Editing &ndash; Student project &ndash; DataBases</title>
-    <script type="text/javascript">
-    $.ajax({
-    	
-		type : "POST",
-		url : "../DreamTeamProj/project/informational_requirements/filters/all",
-		data : {
-			projectId : 0
-		},
-		dataType : "json",
-		success : function(data) {
-			console.log(data);
-		}
-	});
-    </script>
 </head>
 
-<body ng-controller="guicontroller">
+<body ng-controller="guicontroller" data-ng-init="init()" ng-click="hideAttrs();">
     <div id="background">
         <div id="header" class="header">
            <div class="project-menu">
             <div id='cssmenu'>
                 <ul>
-                    <li class='active has-sub'><a href='#'><span>Project</span></a>
+                    <li class='active has-sub'><a href='#'><span>Menu</span></a>
                         <ul>
-                            <li class='has-sub'><a href='#'><span>Опция 1</span></a>
-                                <ul>
+                            <li class=''><a href='#' class="first"><span>Сохранить</span></a>
+                                <!--<ul>
                                     <li><a href='#'><span>...</span></a></li>
                                     <li class='last'><a href='#'><span>...</span></a></li>
-                                </ul>
+                                </ul>-->
                             </li>
-                            <li class='has-sub'><a href='#'><span>Опция 2</span></a>
-                                <ul>
+                            <li class=''><a href='#' class="second"><span>Перейти к другому проекту</span></a>
+                                <!--<ul>
                                     <li><a href='#'><span>...</span></a></li>
                                     <li class='last'><a href='#'><span>...</span></a></li>
-                                </ul>
+                                </ul>-->
                             </li>
                         </ul>
                     </li>
@@ -89,7 +75,7 @@
                             <div class="attr-count-td">...</div>
                         </div>
                         <div class="tbody-div">
-                            <div class="objects-tr" ng-repeat="object in objects">
+                            <div class="objects-tr" ng-repeat="object in objects" ng-click="showAttrsInDiv(object); $event.stopPropagation();">
                                 <div class="obj-name-td">{{object.Name}}</div>
                                 <div class="attr-count-td">{{object.AttrCount}}</div>
                             </div>
@@ -98,6 +84,27 @@
                     <div class="add-obj-input" id="addObjInput">
                         <form class="pure-form add-form">
                             <input type="text" placeholder="Object name">
+                            <button type="button" class="button-success pure-button">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="attr-box" ng-click="$event.stopPropagation();">
+                    <div class="table-attr">
+                        <div class="objects-tr table-header">
+                            <div class="elem-name-td">Атрибуты:</div>
+                        </div>
+                        <!--TODO-->
+                        <div class="tbody-div">
+                            <div class="objects-tr" ng-repeat="attribute in selected.attributes">
+                                <div class="elem-name-td">{{attribute.Name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-obj-input" id="addElemInput">
+                        <form class="pure-form add-form">
+                            <input type="text" placeholder="Element name">
                             <button type="button" class="button-success pure-button">
                                 <i class="fa fa-plus"></i> Add
                             </button>
