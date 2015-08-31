@@ -9,6 +9,8 @@ public class Objekt {
 	
 	private String name;
 	
+	private int projectId;
+	
 	private List<Attribute> attrs = new ArrayList<Attribute>();
 	
 	@Override
@@ -45,6 +47,14 @@ public class Objekt {
 
 	public void setAttrs(List<Attribute> attrs) {
 		this.attrs = attrs;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 	
 }

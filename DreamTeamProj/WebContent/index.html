@@ -26,18 +26,14 @@
 	$.ajax({
 
 		type : "POST",
-		url : "../DreamTeamProj/project/objects/new",
+		url : "../DreamTeamProj/project/attribute/new",
 		data : {
-				projectId : 1,
-				objekt : JSON.stringify({
-					id : 1,
-					name : "some object",
-					attrs : [ {
-						id : 2,
-						name : "some attribute"
-					} ]
-				})
-		},
+            attribute : JSON.stringify({
+            projectId : 1,
+            objectId : 1,
+                    name : "some attribute"
+            })
+    },
 		dataType : "json",
 		success : function(data) {
 			console.log(JSON.stringify(data));

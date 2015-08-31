@@ -9,6 +9,8 @@ public class Statistic {
 	
 	private String name;
 	
+	private int projectId;
+	
 	private List<Objekt> objects = new ArrayList<Objekt>();
 
 	@Override
@@ -43,5 +45,11 @@ public class Statistic {
 
 	public void setObjects(List<Objekt> objects) {
 		this.objects = objects;
+	}
+	public int getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 }
