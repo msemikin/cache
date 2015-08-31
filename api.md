@@ -48,21 +48,43 @@
 
 -----------------------------------------------------
 
-# POST /project/objects/new
+# POST /project/objects/new (ТАКЖЕ И ДЛЯ АПДЕЙТА)
 
 ## Request
 ```
+data : {
+				projectId : 1,
+				objekt : JSON.stringify({
+					name : "some object",
+					attrs : [ {
+						name : "some attribute"
+					} ]
+				})
+		},
+```
+
+## Response
+```
 {
-  "projectId": 1,
-  "object": {  
-    "id": 1,  
-    "name": "some object",  
-    "attrs": [{  
-      "id": 2,  
-      "name": "some attribute"  
-    }]  
-  }  
-}  
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+-----------------------------------------------------
+
+# POST /project/attribute/new (ТАКЖЕ И ДЛЯ АПДЕЙТА)
+
+## Request
+```
+data : {
+				projectId : 1,
+				objectId : 1,
+				attribute : JSON.stringify({
+						name : "some attribute"
+				})
+		},
 ```
 
 ## Response
@@ -154,9 +176,9 @@
 
 ## Request
 ```
-{  
+data : {  
   "projectId": 38,
-  "statistic": {  
+  "statistic": JSON.stringify({  
     "id": 1,  
     "name": "some name",  
     "objects": [{  
@@ -167,7 +189,7 @@
 		}			
 		]	
     }]  
-  }  
+  }) 
 }  
 ```
 
@@ -214,13 +236,12 @@
 
 ## Request
 ```
-{  
-  "projectId": 38  ,
-  "report": {  
+data : {  
+  "projectId": 38,
+  "reports": JSON.stringify({  
     "id": 1,  
     "name": "some name",  
-    "objects": [{
-        "id": "1"
+    "objects": [{  
 		"name": "some name",
 		"attrs": [{
 			"id":"1",
@@ -228,8 +249,8 @@
 		}			
 		]	
     }]  
-  }]  
-}  
+  }) 
+} 
 ```
 
 ## Response
