@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.DiagramDAO;
@@ -12,8 +13,46 @@ import ua.nure.cache.java.entity.Diagram;
 public class MysqlDiagramDAO implements DiagramDAO {
 
 	@Override
-	public void insertDiagram(Diagram diagram) {
-		
+	public int insertDiagram(Diagram diagram) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = insertDiagram(con, diagram);
+			if (result !=-1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int insertDiagram(Connection con, Diagram diagram) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.INSERT_DIAGRAM,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, diagram.getProjectId());
+			pstmt.setString(2, diagram.getDiagramType());
+			pstmt.setString(3, diagram.getDiagram());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			ResultSet generatedKeys = pstmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				return generatedKeys.getInt(1);
+			}
+		} catch (SQLException e) {
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 
 	@Override

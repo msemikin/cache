@@ -76,4 +76,16 @@ public class DBQueries {
 			+ "VALUES (?,?);";
 	
 	public static final String INSERT_STAT_TO_OBJ = "INSERT INTO `my_db`.`stattoobj` (`statistic_id`, `object_id`) VALUES (?,?);";
+
+	public static final String INSERT_REPORT = "INSERT INTO `my_db`.`report` ( `project_id`, `name`) VALUES (?,?);";
+
+	public static final String INSERT_REP_TO_OBJ = "INSERT INTO `my_db`.`reporttoobject` (`report_id`, `object_id`) VALUES (?,?);";
+	
+	public static final String INSERT_DIAGRAM = "INSERT INTO `my_db`.`diagram`(`project_id`,`Type`,`JSON`) VALUES (?,?,?);";
+	
+	public static final String INSERT_FILTER ="INSERT INTO `my_db`.`filter`(`object_id`) VALUES (?);";
+	
+	public static final String INSERT_SEARCH ="INSERT INTO `my_db`.`search`(`object_id`) VALUES (?);";
+	
+	public static final String INSERT_SORT ="INSERT INTO `my_db`.`sort`(`object_id`) VALUES (?);";
 }

@@ -25,21 +25,11 @@
 	$.ajax({
 
 		type : "POST",
-		url : "../DreamTeamProj/project/statistics/new",
+		url : "../DreamTeamProj/project/diagrams/usecase/new",
 		data : {
-            "statistic" : JSON.stringify({
-                "projectId" : 1,
-                "id" : 1,
-                "name" : "some name",
-                "objects" : [ {
-                    "name" : "some name",
-                    "attrs" : [ {
-                        "id" : "1",
-                        "name" : "attribute's name"
-                    } ]
-                } ]
-            })
-    },
+			 "projectId": 1,
+			  "diagram": "dfsfdsf" 
+		},
 		dataType : "json",
 		success : function(data) {
 			console.log(JSON.stringify(data));

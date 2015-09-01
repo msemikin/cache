@@ -5,6 +5,8 @@ public class Diagram {
 	private String diagram;
 	
 	private String diagramType;
+	
+	private int projectId;
 
 	public String getDiagram() {
 		return diagram;
@@ -20,5 +22,13 @@ public class Diagram {
 
 	public void setDiagramType(String diagramType) {
 		this.diagramType = diagramType;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 }

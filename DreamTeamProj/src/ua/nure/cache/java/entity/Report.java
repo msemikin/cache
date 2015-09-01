@@ -46,6 +46,11 @@ public class Report {
 
 	public void setObjects(List<Objekt> objects) {
 		this.objects = objects;
+		if (projectId != 0) {
+			for (Objekt o : this.getObjects()) {
+				o.setProjectId(projectId);
+			}
+		}
 	}
 
 	public int getProjectId() {
@@ -53,6 +58,9 @@ public class Report {
 	}
 
 	public void setProjectId(int projectId) {
+		for (Objekt o : this.getObjects()) {
+			o.setProjectId(projectId);
+		}
 		this.projectId = projectId;
 	}
 }

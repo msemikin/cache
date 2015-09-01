@@ -4,7 +4,7 @@ import ua.nure.cache.java.entity.Diagram;
 
 public interface DiagramDAO {
 	
-	void insertDiagram(Diagram diagram);
+	int insertDiagram(Diagram diagram);
 	
 	void deleteDiagram(int diagrId);
 	

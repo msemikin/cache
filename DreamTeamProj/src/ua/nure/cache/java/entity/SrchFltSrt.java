@@ -1,10 +1,9 @@
 package ua.nure.cache.java.entity;
 
-
 public class SrchFltSrt {
 
 	private int id;
-	
+
 	private int projectId;
 
 	private Objekt object;
@@ -32,6 +31,9 @@ public class SrchFltSrt {
 
 	public void setObject(Objekt object) {
 		this.object = object;
+		if (projectId != 0) {
+			this.object.setProjectId(projectId);
+		}
 	}
 
 	public int getProjectId() {
@@ -40,6 +42,9 @@ public class SrchFltSrt {
 
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
+		if (projectId != 0) {
+			this.object.setProjectId(projectId);
+		}
 	}
 
 }
