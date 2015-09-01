@@ -55,10 +55,7 @@
 data : {
 				objeсt : JSON.stringify({
 					projectId : 1,
-					name : "some object",
-					attrs : [ {
-						name : "some attribute"
-					} ]
+					name : "some object"
 				})
 		},
 ```
@@ -182,10 +179,9 @@ data : {
 				"id" : 1,
 				"name" : "some name",
 				"objects" : [ {
-					"name" : "some name",
+					id : 1
 					"attrs" : [ {
-						"id" : "1",
-						"name" : "attribute's name"
+						"id" : "1"
 					} ]
 				} ]
 			})
@@ -241,10 +237,9 @@ data : {
     "id": 1,  
     "name": "some name",  
     "objects": [{  
-		"name": "some name",
+		id : 1
 		"attrs": [{
-			"id":"1",
-			"name":"attribute's name"
+			"id":"1"
 		}			
 		]	
     }]  
@@ -407,11 +402,9 @@ data : {
 			  "search": JSON.stringify({
 				  "projectId": 38,
 			      "object": {  
-			        "id": 1,  
-			        "name": "some object"  
-			        "attrs": [{  # list of selected attrs  
-			          "id": 1,  
-			          "name": "some attribute"  
+			        "id": 1,
+			        "attrs": [{   
+			          "id": 1 
 			        }]  
 			      }
 			  })
@@ -461,11 +454,9 @@ data : {
 			  "sort": JSON.stringify({
 				  "projectId": 38,
 			      "object": {  
-			        "id": 1,  
-			        "name": "some object"  
-			        "attrs": [{  # list of selected attrs  
-			          "id": 1,  
-			          "name": "some attribute"  
+			        "id": 1,
+			        "attrs": [{  
+			          "id": 1 
 			        }]  
 			      }
 			  })
@@ -515,10 +506,8 @@ data : {
 				  "projectId": 38,
 			      "object": {  
 			        "id": 1,  
-			        "name": "some object"  
 			        "attrs": [{  # list of selected attrs  
-			          "id": 1,  
-			          "name": "some attribute"  
+			          "id": 1
 			        }]  
 			      }
 			  })
@@ -585,30 +574,24 @@ data : {
 				"id" : 1,
 				"resultField" : {
 					"id" : 1,
-					"name" : "some object",
 					"attr" : {
-						"id" : 1,
-						"name" : "some attribute"
+						"id" : 1
 					}
 				},
 				"sourceFields" : [ {
 					"variable" : "X",
 					"object" : {
 						"id" : 1,
-						"name" : "some object",
 						"attr" : {
-							"id" : 1,
-							"name" : "some attribute"
+							"id" : 1
 						}
 					}
 				}, {
 					"variable" : "Y",
 					"object" : {
 						"id" : 1,
-						"name" : "some object",
 						"attr" : {
-							"id" : 1,
-							"name" : "some attribute"
+							"id" : 1
 						}
 					}
 				} ],
