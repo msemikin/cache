@@ -1,13 +1,13 @@
 package ua.nure.cache.java.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SrchFltSrt {
 
 	private int id;
+	
+	private int projectId;
 
-	private List<Objekt> object = new ArrayList<Objekt>();
+	private Objekt object;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -26,12 +26,20 @@ public class SrchFltSrt {
 		this.id = id;
 	}
 
-	public List<Objekt> getObject() {
+	public Objekt getObject() {
 		return object;
 	}
 
-	public void setObject(List<Objekt> object) {
+	public void setObject(Objekt object) {
 		this.object = object;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 
 }

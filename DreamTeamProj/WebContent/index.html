@@ -22,18 +22,13 @@
 
 <title>Editing &ndash; Student project &ndash; DataBases</title>
 <script type="text/javascript">
-	
 	$.ajax({
 
 		type : "POST",
-		url : "../DreamTeamProj/project/attribute/new",
+		url : "../DreamTeamProj/project/algorithmic_dependencies/all",
 		data : {
-            attribute : JSON.stringify({
-            projectId : 1,
-            objectId : 1,
-                    name : "some attribute"
-            })
-    },
+			"projectId": 0  
+		},
 		dataType : "json",
 		success : function(data) {
 			console.log(JSON.stringify(data));

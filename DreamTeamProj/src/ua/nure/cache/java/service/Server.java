@@ -9,8 +9,12 @@ import ua.nure.cache.java.dao.DAOFactory;
 import ua.nure.cache.java.dao.DiagramDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
+import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Objekt;
+import ua.nure.cache.java.entity.Report;
+import ua.nure.cache.java.entity.SrchFltSrt;
+import ua.nure.cache.java.entity.Statistic;
 import ua.nure.cache.java.service.contract.IServer;
 
 import com.google.gson.Gson;
@@ -112,37 +116,47 @@ public class Server implements IServer{
 	@Override
 	public void insertStatistics(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		// TODO Auto-generated method stub
-		
+		String line = req.getParameter("statistic");
+		Statistic stat = new Gson().fromJson(line, Statistic.class);
+		System.out.println(stat.getObjects().get(0).getAttrs().get(0).getName());
 	}
+	
 
 	@Override
 	public void insertReports(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		// TODO Auto-generated method stub
-		
+		String line = req.getParameter("reports");
+		Report stat = new Gson().fromJson(line, Report.class);
+		System.out.println(stat.getObjects().get(0).getAttrs().get(0).getName());
 	}
 
 	@Override
 	public void insertDiagram(String diagramType, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		// TODO Auto-generated method stub
+		System.out.println(diagramType);
 		
 	}
 
 	@Override
-	public void insertSrchFltSrt(HttpServletRequest req,
+	public void insertSrchFltSrt(String whichType, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		// TODO Auto-generated method stub
-		
+		System.out.println(whichType);
+		String line = req.getParameter(whichType);
+		System.out.println(line);
+		SrchFltSrt stat = new Gson().fromJson(line, SrchFltSrt.class);
+		System.out.println(stat.getObject().getName());
 	}
 
 	@Override
-	public void insertInformReq(HttpServletRequest req, HttpServletResponse resp)
+	public void insertAlgDeps(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		// TODO Auto-generated method stub
-		
+		String line = req.getParameter("algorithmicDependincy");
+		System.out.println(line);
+		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
+		System.out.println(deps.getSourceFields().get(1).getVariable());
 	}
+
+
 	
 	
 	

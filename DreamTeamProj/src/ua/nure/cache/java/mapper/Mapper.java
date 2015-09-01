@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ua.nure.cache.java.entity.AddObj;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Objekt;
@@ -141,34 +142,13 @@ public class Mapper {
 			objekt.setName(rs.getString(3));
 			attr.setId(rs.getInt(4));
 			attr.setName(rs.getString(5));
-
-			if (statLst.contains(o)) {
-				if (statLst.get(statLst.lastIndexOf(o)).getObject()
-						.contains(objekt)) {
-					int index = statLst.get(statLst.lastIndexOf(o)).getObject()
-							.lastIndexOf(objekt);
-					if (attr.getId() != 0) {
-						statLst.get(statLst.lastIndexOf(o)).getObject()
-								.get(index).getAttrs().add(attr);
-					}
-				} else {
-					if (attr.getId() != 0) {
-						objekt.getAttrs().add(attr);
-					}
-					if (objekt.getName() != null) {
-						statLst.get(statLst.lastIndexOf(o)).getObject()
-								.add(objekt);
-					}
-				}
-			} else {
-				if (attr.getId() != 0) {
-					objekt.getAttrs().add(attr);
-				}
-				if (objekt.getName() != null) {
-					o.getObject().add(objekt);
-				}
-				statLst.add(o);
+			if (attr.getId() != 0) {
+				objekt.getAttrs().add(attr);
 			}
+			if (objekt.getName() != null) {
+				o.setObject(objekt);
+			}
+			statLst.add(o);
 		}
 		return statLst;
 	}
@@ -178,7 +158,7 @@ public class Mapper {
 		List<AlgDeps> algDeps = new ArrayList<AlgDeps>();
 		while (rs1.next()) {
 			AlgDeps alg = new AlgDeps();
-			Objekt obj = new Objekt();
+			AddObj obj = new AddObj();
 			Attribute attr = new Attribute();
 			alg.setId(rs1.getInt(1));
 			alg.setFormula(rs1.getString(2));
@@ -189,11 +169,11 @@ public class Mapper {
 			if (algDeps.contains(alg)) {
 				if (attr.getId() != 0) {
 					algDeps.get(algDeps.lastIndexOf(alg)).getResultField()
-							.getAttrs().add(attr);
+							.setAttr(attr);
 				}
 			} else {
 				if (attr.getId() != 0) {
-					obj.getAttrs().add(attr);
+					obj.setAttr(attr);
 				}
 				if (obj.getName() != null) {
 					alg.setResultField(obj);
@@ -201,6 +181,7 @@ public class Mapper {
 				algDeps.add(alg);
 			}
 		}
+		
 		return algDeps;
 	}
 
@@ -208,7 +189,7 @@ public class Mapper {
 			List<AlgDeps> proj) throws SQLException {
 		while (rs2.next()) {
 			AlgDeps alg = new AlgDeps();
-			Objekt obj = new Objekt();
+			AddObj obj = new AddObj();
 			Attribute attr = new Attribute();
 			SourceField sf = new SourceField();
 
@@ -228,7 +209,7 @@ public class Mapper {
 							.get(proj.get(proj.lastIndexOf(alg))
 									.getSourceFields().lastIndexOf(sf));
 					if (attr.getId() != 0) {
-						temp.getObject().getAttrs().add(attr);
+						temp.getObject().setAttr(attr);
 					}
 					proj.get(proj.lastIndexOf(alg))
 							.getSourceFields()
@@ -236,7 +217,7 @@ public class Mapper {
 									.getSourceFields().lastIndexOf(sf), temp);
 				} else {
 					if (attr.getId() != 0) {
-						obj.getAttrs().add(attr);
+						obj.setAttr(attr);
 					}
 					if (obj.getName() != null) {
 						sf.setObject(obj);
@@ -246,6 +227,7 @@ public class Mapper {
 				}
 			}
 		}
+		System.out.println("here");
 		return proj;
 	}
 

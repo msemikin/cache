@@ -35,7 +35,7 @@ public interface IServer {
 	
 	void insertDiagram(String diagramType,HttpServletRequest req, HttpServletResponse resp)throws IOException;
 	
-	void insertSrchFltSrt(HttpServletRequest req, HttpServletResponse resp)throws IOException;
+	void insertSrchFltSrt(String which, HttpServletRequest req, HttpServletResponse resp)throws IOException;
 	
-	void insertInformReq(HttpServletRequest req, HttpServletResponse resp)throws IOException;
+	void insertAlgDeps(HttpServletRequest req, HttpServletResponse resp)throws IOException;
 }

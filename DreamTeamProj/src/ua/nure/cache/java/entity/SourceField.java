@@ -4,7 +4,7 @@ public class SourceField {
 		
 		private String variable;
 		
-		private Objekt object;
+		private AddObj object;
 		
 		@Override
 		public boolean equals(Object obj) {
@@ -23,11 +23,11 @@ public class SourceField {
 			this.variable = variable;
 		}
 
-		public Objekt getObject() {
+		public AddObj getObject() {
 			return object;
 		}
 
-		public void setObject(Objekt object) {
+		public void setObject(AddObj object) {
 			this.object = object;
 		}
 		

@@ -8,7 +8,9 @@ public class AlgDeps {
 	
 	private int id;
 	
-	private Objekt resultField;
+	private int projectId;
+	
+	private AddObj resultField;
 	
 	private List<SourceField> sourceFields = new ArrayList<SourceField>();
 	
@@ -31,11 +33,11 @@ public class AlgDeps {
 		this.id = id;
 	}
 
-	public Objekt getResultField() {
+	public AddObj getResultField() {
 		return resultField;
 	}
 
-	public void setResultField(Objekt resultField) {
+	public void setResultField(AddObj resultField) {
 		this.resultField = resultField;
 	}
 
@@ -53,6 +55,14 @@ public class AlgDeps {
 
 	public void setFormula(String formula) {
 		this.formula = formula;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 	
 	
