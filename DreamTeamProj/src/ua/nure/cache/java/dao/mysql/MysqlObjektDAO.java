@@ -4,19 +4,76 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Statement;
+
+import org.apache.log4j.Logger;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.ObjektDAO;
+import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.mapper.Mapper;
 
 public class MysqlObjektDAO implements ObjektDAO {
-
+	
+	Logger log = Logger.getLogger(MysqlObjektDAO.class);
+	
 	@Override
-	public void insertObjekt(Objekt obj) {
-		
+	public int insertObjekt(Objekt obj) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = insertObjekt(con, obj);
+			if (result !=-1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int insertObjekt(Connection con, Objekt obj) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.INSERT_OBJECT,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, obj.getProjectId());
+			pstmt.setString(2, obj.getName());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			else {
+				PreparedStatement pstmt1 = null;
+				pstmt1 = con.prepareStatement(DBQueries.INSERT_ATTRIBUTE,
+						Statement.RETURN_GENERATED_KEYS);
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					result = generatedKeys.getInt(1);
+					if (obj.getAttrs().size() ==0) {
+						return result;
+					}
+					for (Attribute attr : obj.getAttrs()) {
+						pstmt1.setInt(1, result);
+						pstmt1.setString(2, attr.getName());
+						pstmt1.executeUpdate();
+					}
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 
 	@Override
@@ -48,13 +105,13 @@ public class MysqlObjektDAO implements ObjektDAO {
 	}
 
 	@Override
-	public void deleteObjekt(int objId) {
-		
+	public boolean deleteObjekt(int objId) {
+		return true;
 	}
 
 	@Override
-	public void updateObjekt(Objekt obj) {
-		
+	public boolean updateObjekt(Objekt obj) {
+		return true;
 	}
 
 }

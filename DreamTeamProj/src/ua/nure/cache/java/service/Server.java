@@ -5,14 +5,17 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ua.nure.cache.java.dao.AttributeDAO;
 import ua.nure.cache.java.dao.DAOFactory;
 import ua.nure.cache.java.dao.DiagramDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
+import ua.nure.cache.java.dao.mysql.MysqlStatisticDAO;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Report;
+import ua.nure.cache.java.entity.Resp;
 import ua.nure.cache.java.entity.SrchFltSrt;
 import ua.nure.cache.java.entity.Statistic;
 import ua.nure.cache.java.service.contract.IServer;
@@ -97,11 +100,22 @@ public class Server implements IServer{
 	@Override
 	public void insertObject(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String line = req.getParameter("object");
+		String line = req.getParameter("objeñt");
+		System.out.println(line);
 		Objekt jsonJavaRootObject = new Gson().fromJson(line, Objekt.class);
-		System.out.println(jsonJavaRootObject.getProjectId());
+		System.out.println(jsonJavaRootObject.getName());
 		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
-		dao.insertObjekt(jsonJavaRootObject);
+		int result = dao.insertObjekt(jsonJavaRootObject);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -109,8 +123,18 @@ public class Server implements IServer{
 			throws IOException {
 		String line = req.getParameter("attribute");
 		Attribute attr = new Gson().fromJson(line, Attribute.class);
-		System.out.println(attr.getObjectId());
-		System.out.println(attr.getProjectId());
+		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getAttributeDAO();
+		int result = dao.insertAttribute(attr);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -118,7 +142,18 @@ public class Server implements IServer{
 			HttpServletResponse resp) throws IOException {
 		String line = req.getParameter("statistic");
 		Statistic stat = new Gson().fromJson(line, Statistic.class);
-		System.out.println(stat.getObjects().get(0).getAttrs().get(0).getName());
+		stat.setProjectId(stat.getProjectId());
+		int result = new MysqlStatisticDAO().insertStatistics(stat);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 	
 

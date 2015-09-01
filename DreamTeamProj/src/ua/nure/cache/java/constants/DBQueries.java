@@ -2,6 +2,7 @@ package ua.nure.cache.java.constants;
 
 public class DBQueries {
 
+
 	public static final String FIND_ALL_PROJECT_OBJ = "SELECT object.object_id,object.objectName,attribute.attr_id,"
 			+ "attribute.Name "
 			+ "FROM object "
@@ -63,5 +64,16 @@ public class DBQueries {
 			+ "attribute.attr_id, attribute.Name FROM my_db.object "
 			+ "left join attribute on attribute.object_id = object.object_id  "
 			+ "WHERE object.object_id = ? AND project_id = ?;";
-
+	
+	public static final String INSERT_OBJECT ="INSERT INTO `my_db`.`object` "
+			+ "(`project_id`,`objectName`) "
+			+ "VALUES (?,?);";
+	public static final String INSERT_ATTRIBUTE = "INSERT INTO `my_db`.`attribute` "
+			+ "(`object_id`,`Name`) "
+			+ "VALUES (?,?);";
+	public static final String INSERT_STATISTIC = "INSERT INTO `my_db`.`statistic` "
+			+ "(`project_id`,`name`) "
+			+ "VALUES (?,?);";
+	
+	public static final String INSERT_STAT_TO_OBJ = "INSERT INTO `my_db`.`stattoobj` (`statistic_id`, `object_id`) VALUES (?,?);";
 }

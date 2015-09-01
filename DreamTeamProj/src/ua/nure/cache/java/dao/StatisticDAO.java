@@ -1,5 +1,7 @@
 package ua.nure.cache.java.dao;
 
-public interface StatisticDAO {
+import ua.nure.cache.java.entity.Statistic;
 
+public interface StatisticDAO {
+	int insertStatistics(Statistic stat);
 }
