@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 02 2015 г., 00:13
+-- Время создания: Сен 02 2015 г., 01:24
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -137,6 +137,17 @@ CREATE TABLE IF NOT EXISTS `filter` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `filtertoattribute`
+--
+
+CREATE TABLE IF NOT EXISTS `filtertoattribute` (
+  `filter_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `group`
 --
 
@@ -256,6 +267,17 @@ CREATE TABLE IF NOT EXISTS `search` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `searchtoattr`
+--
+
+CREATE TABLE IF NOT EXISTS `searchtoattr` (
+  `search_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `sort`
 --
 
@@ -263,6 +285,17 @@ CREATE TABLE IF NOT EXISTS `sort` (
 `sort_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sorttoattr`
+--
+
+CREATE TABLE IF NOT EXISTS `sorttoattr` (
+  `sort_id` int(11) DEFAULT NULL,
+  `attribute_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 -- --------------------------------------------------------
 
@@ -294,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `statistic` (
 `statistic_id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
   `name` varchar(256) COLLATE utf8_general_mysql500_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `statistic`
@@ -303,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `statistic` (
 INSERT INTO `statistic` (`statistic_id`, `project_id`, `name`) VALUES
 (1, 0, 'С1П0'),
 (2, 0, 'С2П0'),
-(5, 1, 'some name');
+(6, 1, 'some name');
 
 -- --------------------------------------------------------
 
@@ -325,7 +358,7 @@ INSERT INTO `stattoobj` (`statistic_id`, `object_id`) VALUES
 (1, 2),
 (2, 1),
 (2, 2),
-(5, 5);
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -390,6 +423,12 @@ ALTER TABLE `filter`
  ADD PRIMARY KEY (`filter_id`), ADD KEY `cxv_idx` (`object_id`);
 
 --
+-- Индексы таблицы `filtertoattribute`
+--
+ALTER TABLE `filtertoattribute`
+ ADD KEY `dfv_idx` (`filter_id`), ADD KEY `cvxvxcxcv_idx` (`attribute_id`);
+
+--
 -- Индексы таблицы `group`
 --
 ALTER TABLE `group`
@@ -426,10 +465,22 @@ ALTER TABLE `search`
  ADD PRIMARY KEY (`search_id`), ADD KEY `fk2_idx` (`object_id`);
 
 --
+-- Индексы таблицы `searchtoattr`
+--
+ALTER TABLE `searchtoattr`
+ ADD KEY `sdfsdfsdf_idx` (`attribute_id`), ADD KEY `cxvxcv_idx` (`search_id`);
+
+--
 -- Индексы таблицы `sort`
 --
 ALTER TABLE `sort`
  ADD PRIMARY KEY (`sort_id`), ADD KEY `fk2_idx` (`object_id`);
+
+--
+-- Индексы таблицы `sorttoattr`
+--
+ALTER TABLE `sorttoattr`
+ ADD KEY `ewrwer_idx` (`attribute_id`), ADD KEY `dfssd_idx` (`sort_id`);
 
 --
 -- Индексы таблицы `sourcefield`
@@ -518,7 +569,7 @@ MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT для таблицы `statistic`
 --
 ALTER TABLE `statistic`
-MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT для таблицы `student`
 --
@@ -566,6 +617,13 @@ ALTER TABLE `filter`
 ADD CONSTRAINT `cxv` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Ограничения внешнего ключа таблицы `filtertoattribute`
+--
+ALTER TABLE `filtertoattribute`
+ADD CONSTRAINT `cvxvxcxcv` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `dfv` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`filter_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `object`
 --
 ALTER TABLE `object`
@@ -597,10 +655,24 @@ ALTER TABLE `search`
 ADD CONSTRAINT `fk2` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Ограничения внешнего ключа таблицы `searchtoattr`
+--
+ALTER TABLE `searchtoattr`
+ADD CONSTRAINT `cxvxcv` FOREIGN KEY (`search_id`) REFERENCES `search` (`search_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `sdfsdfsdf` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `sort`
 --
 ALTER TABLE `sort`
 ADD CONSTRAINT `fk22` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `sorttoattr`
+--
+ALTER TABLE `sorttoattr`
+ADD CONSTRAINT `dfssd` FOREIGN KEY (`sort_id`) REFERENCES `sort` (`sort_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `ewrwer` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `sourcefield`

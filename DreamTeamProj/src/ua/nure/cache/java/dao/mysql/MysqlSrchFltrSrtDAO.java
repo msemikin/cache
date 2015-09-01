@@ -42,31 +42,7 @@ public class MysqlSrchFltrSrtDAO implements SrchFltrSrtDAO {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
-				pstmt = con.prepareStatement(where,
-						Statement.RETURN_GENERATED_KEYS);
-				pstmt.setInt(1, o.getObject().getId());
-				if (pstmt.executeUpdate() != 1) {
-					return -1;
-				}
-				else {
-					PreparedStatement pstmt1 = null;
-					pstmt1 = con.prepareStatement(DBQueries.INSERT_ATTRIBUTE,
-							Statement.RETURN_GENERATED_KEYS);
-					ResultSet generatedKeys = pstmt.getGeneratedKeys();
-					if (generatedKeys.next()) {
-						result = generatedKeys.getInt(1);
-						if (o.getObject().getAttrs().size() ==0) {
-							return result;
-						}
-						for (Attribute attr : o.getObject().getAttrs()) {
-							pstmt1.setInt(1, result);
-							pstmt1.setString(2, attr.getName());
-							pstmt1.executeUpdate();
-						}
-					}
-					return result;
-				}
-
+			throw new SQLException();
 		} catch (SQLException e) {
 			log.error(e);
 		} finally {
