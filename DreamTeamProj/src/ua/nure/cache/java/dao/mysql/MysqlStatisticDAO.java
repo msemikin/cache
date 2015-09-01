@@ -50,13 +50,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			}
 			ResultSet generatedKeys = pstmt.getGeneratedKeys();
 			if (generatedKeys.next()) {
+				
 				result = generatedKeys.getInt(1);
 				for (Objekt obj : stat.getObjects()) {
-					int objectId = new MysqlObjektDAO().insertObjekt(obj);
 					PreparedStatement stmt  = con.prepareStatement(DBQueries.INSERT_STAT_TO_OBJ,
 							Statement.RETURN_GENERATED_KEYS);
 					stmt.setInt(1, result);
-					stmt.setInt(2, objectId);
+					stmt.setInt(2, obj.getId());
 					stmt.executeUpdate();
 				}
 			}

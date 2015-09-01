@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.ObjektDAO;
-import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.mapper.Mapper;
 
@@ -51,20 +50,9 @@ public class MysqlObjektDAO implements ObjektDAO {
 				return -1;
 			}
 			else {
-				PreparedStatement pstmt1 = null;
-				pstmt1 = con.prepareStatement(DBQueries.INSERT_ATTRIBUTE,
-						Statement.RETURN_GENERATED_KEYS);
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					result = generatedKeys.getInt(1);
-					if (obj.getAttrs().size() ==0) {
-						return result;
-					}
-					for (Attribute attr : obj.getAttrs()) {
-						pstmt1.setInt(1, result);
-						pstmt1.setString(2, attr.getName());
-						pstmt1.executeUpdate();
-					}
 				}
 				return result;
 			}
