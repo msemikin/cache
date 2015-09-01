@@ -108,6 +108,43 @@ public class Server implements IServer{
 		System.out.println(attr.getObjectId());
 		System.out.println(attr.getProjectId());
 	}
+
+	@Override
+	public void insertStatistics(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertReports(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertDiagram(String diagramType, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertSrchFltSrt(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertInformReq(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	
 	
 

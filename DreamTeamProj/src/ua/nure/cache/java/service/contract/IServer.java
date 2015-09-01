@@ -29,4 +29,13 @@ public interface IServer {
 	
 	void insertAttribute(HttpServletRequest req, HttpServletResponse resp) throws IOException;
 	
+	void insertStatistics(HttpServletRequest req, HttpServletResponse resp) throws IOException;
+	
+	void insertReports(HttpServletRequest req, HttpServletResponse resp) throws IOException;
+	
+	void insertDiagram(String diagramType,HttpServletRequest req, HttpServletResponse resp)throws IOException;
+	
+	void insertSrchFltSrt(HttpServletRequest req, HttpServletResponse resp)throws IOException;
+	
+	void insertInformReq(HttpServletRequest req, HttpServletResponse resp)throws IOException;
 }
