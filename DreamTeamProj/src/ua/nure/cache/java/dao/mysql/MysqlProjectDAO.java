@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.ProjectDAO;
@@ -13,11 +16,13 @@ import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Project;
 import ua.nure.cache.java.entity.Report;
+import ua.nure.cache.java.entity.SourceField;
 import ua.nure.cache.java.entity.SrchFltSrt;
 import ua.nure.cache.java.entity.Statistic;
 import ua.nure.cache.java.mapper.Mapper;
 
 public class MysqlProjectDAO implements ProjectDAO {
+	Logger log = Logger.getLogger(MysqlProjectDAO.class);
 
 	@Override
 	public void insertProject(Project project) {
@@ -205,5 +210,65 @@ public class MysqlProjectDAO implements ProjectDAO {
 		MysqlDAOFactory.closeStatement(stmt1);
 		MysqlDAOFactory.closeStatement(stmt2);
 		return proj;
+	}
+
+	@Override
+	public int insertAlgDeps(AlgDeps algDeps) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = insertAlgDeps(con, algDeps);
+			if (result !=-1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int insertAlgDeps(Connection con, AlgDeps algDeps) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.INSERT_ALG_DEPS,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, algDeps.getResultField().getId());
+			pstmt.setString(2, algDeps.getFormula());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			ResultSet generatedKeys = pstmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				result = generatedKeys.getInt(1);
+				for (SourceField o : algDeps.getSourceFields()) {
+					PreparedStatement pstmt1 = con.prepareStatement(DBQueries.INSERT_SOURCE_FIELD,
+							Statement.RETURN_GENERATED_KEYS);
+					pstmt1.setString(1, o.getVariable());
+					pstmt1.setInt(2, o.getObject().getId());
+					pstmt1.executeUpdate();
+					ResultSet genKeys = pstmt1.getGeneratedKeys();
+					if (genKeys.next()) {
+						int sfId = genKeys.getInt(1);
+						PreparedStatement pstmt2 = con.prepareStatement(DBQueries.INSERT_DEP_TO_SF,
+								Statement.RETURN_GENERATED_KEYS);
+						pstmt2.setInt(1, result);
+						pstmt2.setInt(2, sfId);
+						pstmt2.executeUpdate();
+					}
+				}
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 }

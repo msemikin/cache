@@ -11,7 +11,9 @@ import ua.nure.cache.java.dao.DiagramDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
 import ua.nure.cache.java.dao.mysql.MysqlDiagramDAO;
+import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
 import ua.nure.cache.java.dao.mysql.MysqlReportDAO;
+import ua.nure.cache.java.dao.mysql.MysqlSrchFltrSrtDAO;
 import ua.nure.cache.java.dao.mysql.MysqlStatisticDAO;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
@@ -203,17 +205,37 @@ public class Server implements IServer{
 	public void insertSrchFltSrt(String whichType, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 		String line = req.getParameter(whichType);
+		System.out.println(whichType);
 		SrchFltSrt stat = new Gson().fromJson(line, SrchFltSrt.class);
-		
+		int result = new MysqlSrchFltrSrtDAO().insertSrchFltrSrt(stat, whichType);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
 	public void insertAlgDeps(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("algorithmicDependincy");
-		System.out.println(line);
 		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
-		System.out.println(deps.getSourceFields().get(1).getVariable());
+		int result = new MysqlProjectDAO().insertAlgDeps(deps);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 

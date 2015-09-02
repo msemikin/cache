@@ -25,18 +25,35 @@
 	$.ajax({
 
 		type : "POST",
-		url : "../DreamTeamProj/project/statistics/new",
+		url : "../DreamTeamProj/project/algorithmic_dependencies/new",
 		data : {
-            "statistic" : JSON.stringify({
+            "algorithmicDependincy" : JSON.stringify({
                 "projectId" : 1,
                 "id" : 1,
-                "name" : "some name",
-                "objects" : [ {
-                    id : 1,
-                    "attrs" : [ {
-                        "id" : "1"
-                    } ]
-                } ]
+                "resultField" : {
+                    "id" : 1,
+                    "attr" : {
+                        "id" : 1
+                    }
+                },
+                "sourceFields" : [ {
+                    "variable" : "X",
+                    "object" : {
+                        "id" : 1,
+                        "attr" : {
+                            "id" : 1
+                        }
+                    }
+                }, {
+                    "variable" : "Y",
+                    "object" : {
+                        "id" : 1,
+                        "attr" : {
+                            "id" : 1
+                        }
+                    }
+                } ],
+                "formula" : "X + Y"
             })
         },
 		dataType : "json",

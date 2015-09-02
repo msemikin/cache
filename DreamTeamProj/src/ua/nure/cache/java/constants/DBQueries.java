@@ -83,10 +83,22 @@ public class DBQueries {
 	
 	public static final String INSERT_DIAGRAM = "INSERT INTO `my_db`.`diagram`(`project_id`,`Type`,`JSON`) VALUES (?,?,?);";
 	
-	public static final String INSERT_FILTER ="INSERT INTO `my_db`.`filter`(`filter_id`,`object_id`) VALUES (?,?);INSERT INTO filtertoattribute (?,?);";
+	public static final String INSERT_FILTER ="INSERT INTO `my_db`.`filter`(`filter_id`,`object_id`) VALUES (?,?);";
 	
-	public static final String INSERT_SEARCH ="INSERT INTO `my_db`.`search`(`search_id`,`object_id`) VALUES (?,?);INSERT INTO searchtoattr (?,?);";
+	public static final String FILTER_TO_ATTR = "INSERT INTO filtertoattribute VALUES (?,?)";
 	
-	public static final String INSERT_SORT ="INSERT INTO `my_db`.`sort`(`sort_id`,`object_id`) VALUES (?,?);INSERT INTO sorttoattr (?,?);";
+	public static final String INSERT_SEARCH ="INSERT INTO `my_db`.`search`(`search_id`,`object_id`) VALUES (?,?);";
+	
+	public static final String SEARCH_TO_ATTR = "INSERT INTO searchtoattr VALUES (?,?);";
+	
+	public static final String INSERT_SORT ="INSERT INTO `my_db`.`sort`(`sort_id`,`object_id`) VALUES (?,?);";
 
+	public static final String SORT_TO_ATTR = "INSERT INTO sorttoattr VALUES (?,?);";
+	
+	
+	public static final String INSERT_ALG_DEPS ="INSERT INTO algdeps (`result_field`,`formula`) Values(?,?);";
+	
+	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`object_id`) Values(?,?);";
+	
+	public static final String INSERT_DEP_TO_SF ="INSERT INTO depstosourfield (`dep_id`,`field_id`) VALUES (?,?); ";
 }

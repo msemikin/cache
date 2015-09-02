@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.constants.DiagrTypes;
 import ua.nure.cache.java.service.Server;
 
@@ -33,9 +32,9 @@ public class Controller {
 			shtoto.put("/diagrams/object_relations/new",
 					DiagrTypes.OBJECT_RELATIONAL);
 			shtoto.put("/diagrams/usecase/new", DiagrTypes.USE_CASE);
-			shtoto.put("/informational_requirements/sorts/new", DBQueries.INSERT_SORT);
-			shtoto.put("/informational_requirements/searches/new", DBQueries.INSERT_SEARCH);
-			shtoto.put("/informational_requirements/filters/new", DBQueries.INSERT_FILTER);
+			shtoto.put("/informational_requirements/sorts/new", "sort");
+			shtoto.put("/informational_requirements/searches/new", "search");
+			shtoto.put("/informational_requirements/filters/new", "filter");
 
 			methods.put("/objects/all", cardManager.getDeclaredMethod(
 					"getAllObjects", request, response));
