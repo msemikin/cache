@@ -1,4 +1,4 @@
-# POST /project/objects/byId
+# POST ../DreamTeamProj/project/objects/byId (тестил, работает)
 
 ## Request
 ```
@@ -23,7 +23,7 @@
 ```
 
 -----------------------------------------------------
-# POST /project/objects/all
+# POST /project/objects/all (тестил)
 
 ## Request
 ```
@@ -48,7 +48,7 @@
 
 -----------------------------------------------------
 
-# POST /project/objects/new (ТАКЖЕ И ДЛЯ АПДЕЙТА)
+# POST /project/objects/new (ТАКЖЕ И ДЛЯ АПДЕЙТА) //тестил
 
 ## Request
 ```
@@ -71,7 +71,7 @@ data : {
 -----------------------------------------------------
 -----------------------------------------------------
 
-# POST /project/attribute/new (ТАКЖЕ И ДЛЯ АПДЕЙТА)
+# POST /project/attribute/new (ТАКЖЕ И ДЛЯ АПДЕЙТА) //тестил
 
 ## Request
 ```
@@ -94,21 +94,17 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/objects/update
+# POST /project/objects/update (тестил, при апдейте объекта атрибут мне не нужен, используй апдейт атрибута)
 ### тоже самое для остальных запросов 
 ## Request
 ```
-{
-  "projectId": 1,
-  "object": {  
-    "id": 1,  
-    "name": "some object",  
-    "attrs": [{  
-      "id": 2,  
-      "name": "some attribute"  
-    }]  
-  }  
-}  
+data : {
+			objeсt : JSON.stringify({
+				"projectId" : 0,
+				"id" : 1,
+				"name" : "some dsfsobject"
+			})
+		},
 ```
 
 ## Response
@@ -121,7 +117,43 @@ data : {
 -----------------------------------------------------
 
 
-# POST /project/objects/delete
+# POST /project/attribute/update (нужен айдишник атрибута для апдейта) //тестил
+```
+data : {
+			attribute : JSON.stringify({
+				id:2,
+				objectId : 1,
+				name : "some attribute"
+			})
+		},
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/attribute/delete (нужен айдишник атрибута для апдейта) //тестил
+```
+data : {
+			attributeId:2			
+		},
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+-----------------------------------------------------
+
+
+# POST /project/objects/delete // тестил
 
 ### тоже самое для остальных запросов (удаление по адйи проекта и айди элемента)
 
@@ -141,7 +173,7 @@ data : {
 ```
 
 -----------------------------------------------------
-# POST /project/statistics/all
+# POST /project/statistics/all //tested
 
 ## Request
 ```
@@ -169,20 +201,16 @@ data : {
 ```
 
 -----------------------------------------------------
-# POST /project/statistics/new
+# POST /project/statistics/new //тестил
 
 ## Request
 ```
 data : {
 			"statistic" : JSON.stringify({
-				"projectId" : 38,
-				"id" : 1,
+				"projectId" : 0,
 				"name" : "some name",
 				"objects" : [ {
-					id : 1
-					"attrs" : [ {
-						"id" : "1"
-					} ]
+					id : 2
 				} ]
 			})
 		},  
@@ -196,8 +224,51 @@ data : {
 }
 ```
 -----------------------------------------------------
+# POST /project/statistics/delete //тестил
 
-# POST /project/reports/all
+## Request
+```
+data : {
+				"projectId" : 0,
+				"statisticId":8
+
+		},  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/statistics/update //тестил
+
+## Request
+```
+data : {
+			"statistic" : JSON.stringify({
+				"projectId" : 0,
+				"id":2,
+				"name" : "some name",
+				"objects" : [ {
+					id : 3
+				} ]
+			})
+		},
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+-----------------------------------------------------
+
+# POST /project/reports/all //тестил
 
 ## Request
 ```
@@ -227,17 +298,16 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/reports/new
+# POST /project/reports/new //тестил
 
 ## Request
 ```
 data : {  
   "reports": JSON.stringify({ 
 	"projectId": 38,  
-    "id": 1,  
     "name": "some name",  
     "objects": [{  
-		id : 1
+		id : 1,
 		"attrs": [{
 			"id":"1"
 		}			
@@ -256,8 +326,57 @@ data : {
 ```
 
 -----------------------------------------------------
+# POST /project/reports/delete //тестил
 
-# POST /project/diagrams/usecase
+## Request
+```
+data : {
+				"projectId" : 0,
+				"reportId":5
+
+		},  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+# POST /project/reports/update //тестил
+
+## Request
+```
+data : {  
+  "reports": JSON.stringify({
+	"id" : 4
+	"projectId": 0,  
+    "name": "some name",  
+    "objects": [{  
+		id : 7,
+		"attrs": [{
+			"id":"2"
+		}			
+		]	
+    }]  
+  }) 
+}, 
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+
+# POST /project/diagrams/usecase //tested (принцип работает для всех остальных)
 
 ## Request
 ```
@@ -275,13 +394,51 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/diagrams/usecase/new
+# POST /project/diagrams/usecase/new // тестил (принцип работает для всех остальных)
 
 ## Request
 ```
 {  
   "projectId": 38,
   "diagram": {} # diagram JSON  
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+# POST /project/diagrams/usecase/delete // тестил (принцип работает для всех остальных)
+
+## Request
+```
+{  
+  "projectId": 0,
+  "diagramId": 5 
+}  
+```
+
+## Response
+```
+{
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+# POST /project/diagrams/usecase/update // тестил (принцип работает для всех остальных)
+
+## Request
+```
+{  
+  "diagramId": 0,
+  "diagram": {}  
 }  
 ```
 
@@ -370,7 +527,7 @@ data : {
 ```
 -----------------------------------------------------
 
-# POST /project/informational_requirements/searches/all
+# POST /project/informational_requirements/searches/all //тестил
 
 ## Request
 ```
@@ -393,8 +550,8 @@ data : {
   }  
 }]  
 ```
-
-# POST /project/informational_requirements/searches/new
+-----------------------------------------------------
+# POST /project/informational_requirements/searches/new //тестил
 
 ## Request
 ```
@@ -421,8 +578,55 @@ data : {
 
 
 -----------------------------------------------------
+# POST /project/informational_requirements/searches/delete //тестил (для сортировки и фильтров тоже)
 
-# POST /project/informational_requirements/sorts/all
+## Request
+```
+data : {
+		id : 3
+		}, 
+```
+
+## Response
+```
+{  
+  "success": true,
+  "id": "1"
+}  
+```
+
+
+-----------------------------------------------------
+# POST /project/informational_requirements/searches/update //тестил (для сортировки и фильтров тоже)
+
+## Request
+```
+data : {
+			  "search": JSON.stringify({
+					"id": 5
+				  "projectId": 0,
+			      "object": {  
+			        "id": 1,
+			        "attrs": [{   
+			          "id": 1 
+			        }]  
+			      }
+			  })
+		},  
+```
+
+## Response
+```
+{  
+  "success": true,
+  "id": "1"
+}  
+```
+
+
+-----------------------------------------------------
+
+# POST /project/informational_requirements/sorts/all //тестил
 
 ## Request
 ```
@@ -446,7 +650,7 @@ data : {
 }]  
 ```
 
-# POST /project/informational_requirements/sorts/new
+# POST /project/informational_requirements/sorts/new //тестил
 
 ## Request
 ```
@@ -473,7 +677,7 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/informational_requirements/filters/all
+# POST /project/informational_requirements/filters/all //тестил
 
 ## Request
 ```
@@ -497,7 +701,7 @@ data : {
 }]  
 ```
 
-# POST /project/informational_requirements/filters/new
+# POST /project/informational_requirements/filters/new //тестил
 
 ## Request
 ```
@@ -524,7 +728,7 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/algorithmic_dependencies/all
+# POST /project/algorithmic_dependencies/all //tested ответ сервера отличается от этого (смотри вставку зависимости)
 
 ## Request
 ```
@@ -564,14 +768,14 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/algorithmic_dependencies/new
+# POST /project/algorithmic_dependencies/new //tested 
 
 ## Request
 ```
 data : {
 			"algorithmicDependincy" : JSON.stringify({
 				"projectId" : 38,
-				"id" : 1,
+				"name" :"myBestName",
 				"resultField" : {
 					"id" : 1,
 					"attr" : {
@@ -607,6 +811,73 @@ data : {
   "id": "1"
 }  
 ```
+-----------------------------------------------------
+
+# POST /project/algorithmic_dependencies/update //tested 
+
+## Request
+```
+data : {
+	id : 3
+			},
+```
+
+## Response
+```
+{  
+  "success": true,
+  "id": "1"
+}  
+```
+-----------------------------------------------------
+# POST /project/algorithmic_dependencies/update //tested 
+
+## Request
+```
+data : {
+					"algorithmicDependincy" : JSON.stringify({
+						"id":8,
+						"projectId" : 0,
+						"name" :"myBestName",
+						"resultField" : {
+							"id" : 3,
+							"attr" : {
+								"id" : 3
+							}
+						},
+						"sourceFields" : [ {
+							"fieldId" : 11,
+							"variable" : "W",
+							"object" : {
+								"id" : 3,
+								"attr" : {
+									"id" : 3
+								}
+							}
+						}, {
+							"fieldId" : 12,
+							"variable" : "e",
+							"object" : {
+								"id" : 3,
+								"attr" : {
+									"id" : 3
+								}
+							}
+						} ],
+						"formula" : "X + Y"
+					})
+				},
+```
+
+## Response
+```
+{  
+  "success": true,
+  "id": "1"
+}  
+```
+-----------------------------------------------------
+
 -----------------------------------------------------
 
 # POST /project/integrity_constraints/attributes/all
