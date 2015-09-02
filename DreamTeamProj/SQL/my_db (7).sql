@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 02 2015 г., 14:06
+-- Время создания: Сен 02 2015 г., 16:32
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -53,6 +53,26 @@ SET SQL_SAFE_UPDATES = 1;
 END
 //
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `attrconstr`
+--
+
+CREATE TABLE IF NOT EXISTS `attrconstr` (
+`constr_id` int(11) NOT NULL,
+  `comment` longtext,
+  `attr_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `attrconstr`
+--
+
+INSERT INTO `attrconstr` (`constr_id`, `comment`, `attr_id`, `project_id`) VALUES
+(1, 'DFS', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -174,6 +194,27 @@ CREATE TABLE IF NOT EXISTS `group` (
 
 INSERT INTO `group` (`group_Id`, `Name`) VALUES
 (3, 'ПИ-13-1');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `linkconstr`
+--
+
+CREATE TABLE IF NOT EXISTS `linkconstr` (
+`constr_id` int(11) NOT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `firstObject` int(11) DEFAULT NULL,
+  `secondObject` int(11) DEFAULT NULL,
+  `comment` longtext COLLATE utf8_general_mysql500_ci
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+--
+-- Дамп данных таблицы `linkconstr`
+--
+
+INSERT INTO `linkconstr` (`constr_id`, `project_id`, `firstObject`, `secondObject`, `comment`) VALUES
+(1, 1, 1, 2, 'dsfsd');
 
 -- --------------------------------------------------------
 
@@ -410,6 +451,12 @@ ALTER TABLE `algdeps`
  ADD PRIMARY KEY (`dep_id`), ADD KEY `mykey_idx` (`result_field`);
 
 --
+-- Индексы таблицы `attrconstr`
+--
+ALTER TABLE `attrconstr`
+ ADD PRIMARY KEY (`constr_id`), ADD KEY `dsfsdxcxds_idx` (`attr_id`), ADD KEY `xcvxvc_idx` (`project_id`);
+
+--
 -- Индексы таблицы `attribute`
 --
 ALTER TABLE `attribute`
@@ -450,6 +497,12 @@ ALTER TABLE `filtertoattribute`
 --
 ALTER TABLE `group`
  ADD PRIMARY KEY (`group_Id`);
+
+--
+-- Индексы таблицы `linkconstr`
+--
+ALTER TABLE `linkconstr`
+ ADD PRIMARY KEY (`constr_id`), ADD KEY `dsfsdfs_idx` (`firstObject`), ADD KEY `dsfsdfs_idx1` (`secondObject`), ADD KEY `cvxv_idx` (`project_id`);
 
 --
 -- Индексы таблицы `object`
@@ -533,6 +586,11 @@ ALTER TABLE `student`
 ALTER TABLE `algdeps`
 MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT для таблицы `attrconstr`
+--
+ALTER TABLE `attrconstr`
+MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT для таблицы `attribute`
 --
 ALTER TABLE `attribute`
@@ -557,6 +615,11 @@ MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `group`
 MODIFY `group_Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `linkconstr`
+--
+ALTER TABLE `linkconstr`
+MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `object`
 --
@@ -603,6 +666,13 @@ ALTER TABLE `algdeps`
 ADD CONSTRAINT `mykey` FOREIGN KEY (`result_field`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Ограничения внешнего ключа таблицы `attrconstr`
+--
+ALTER TABLE `attrconstr`
+ADD CONSTRAINT `dsfsdxcxds` FOREIGN KEY (`attr_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `xcvxvc` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `attribute`
 --
 ALTER TABLE `attribute`
@@ -639,6 +709,14 @@ ADD CONSTRAINT `cxv` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`)
 ALTER TABLE `filtertoattribute`
 ADD CONSTRAINT `cvxvxcxcv` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `dfv` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`filter_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `linkconstr`
+--
+ALTER TABLE `linkconstr`
+ADD CONSTRAINT `cvxv` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `dsfsdfs` FOREIGN KEY (`firstObject`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `dsfsdfsds` FOREIGN KEY (`secondObject`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `object`

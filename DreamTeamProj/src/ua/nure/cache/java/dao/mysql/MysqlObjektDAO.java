@@ -24,7 +24,7 @@ public class MysqlObjektDAO implements ObjektDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertObjekt(con, obj);
-			if (result !=-1) {
+			if (result >0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);

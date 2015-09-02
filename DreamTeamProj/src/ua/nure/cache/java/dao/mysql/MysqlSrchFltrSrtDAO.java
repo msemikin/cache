@@ -26,7 +26,7 @@ public class MysqlSrchFltrSrtDAO implements SrchFltrSrtDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertSrchFltrSrt(con, o, where);
-			if (result != -1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -127,7 +127,7 @@ public class MysqlSrchFltrSrtDAO implements SrchFltrSrtDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateSort(con, stat);
-			if (result != -1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -177,7 +177,7 @@ public class MysqlSrchFltrSrtDAO implements SrchFltrSrtDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateSearch(con, stat);
-			if (result != -1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -227,7 +227,7 @@ public class MysqlSrchFltrSrtDAO implements SrchFltrSrtDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateFilter(con, stat);
-			if (result != -1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);

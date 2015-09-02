@@ -22,7 +22,7 @@ public class MysqlReportDAO implements ReportDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertReport(con, report);
-			if (result !=-1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -112,7 +112,7 @@ public class MysqlReportDAO implements ReportDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateReport(con, stat);
-			if (result !=-1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);

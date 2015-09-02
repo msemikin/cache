@@ -18,6 +18,8 @@ public abstract class DAOFactory {
 	
 	public abstract SrchFltrSrtDAO getSrchFltrSrtDAO();
 	
+	public abstract IntegrityConstrDAO getIntegrityConstrDAO();
+	
 	public static final int MYSQL = 1;
 
 	public static DAOFactory getDAOFactory(int whichFactory) {

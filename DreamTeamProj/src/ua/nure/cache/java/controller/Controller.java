@@ -141,6 +141,24 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/update", cardManager
 					.getDeclaredMethod("updateAlgDep", 
 							request, response));
+			methods.put("/integrity_constraints/attributes/new", cardManager.getDeclaredMethod(
+					"insertAttrConstr", request, response));
+			methods.put("/integrity_constraints/attributes/update", cardManager.getDeclaredMethod(
+					"updateAttrConstr", request, response));
+			methods.put("/integrity_constraints/attributes/delete", cardManager.getDeclaredMethod(
+					"deleteAttrConstr", request, response));
+			methods.put("/integrity_constraints/attributes/all", cardManager.getDeclaredMethod(
+					"findAttrConstr", request, response));
+			
+			methods.put("/integrity_constraints/links/new", cardManager.getDeclaredMethod(
+					"insertLinkConstr", request, response));
+			methods.put("/integrity_constraints/links/update", cardManager.getDeclaredMethod(
+					"updateLinkConstr", request, response));
+			methods.put("/integrity_constraints/links/delete", cardManager.getDeclaredMethod(
+					"deleteLinkConstr", request, response));
+			methods.put("/integrity_constraints/links/all", cardManager.getDeclaredMethod(
+					"findLinkConstr", request, response));
+			
 			
 
 		} catch (Exception e) {

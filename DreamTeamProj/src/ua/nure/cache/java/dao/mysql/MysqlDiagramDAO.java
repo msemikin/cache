@@ -19,7 +19,7 @@ public class MysqlDiagramDAO implements DiagramDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertDiagram(con, diagram);
-			if (result !=-1) {
+			if (result >0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -133,7 +133,7 @@ public class MysqlDiagramDAO implements DiagramDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateDiagram(con, diagr);
-			if (result !=-1) {
+			if (result >0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);

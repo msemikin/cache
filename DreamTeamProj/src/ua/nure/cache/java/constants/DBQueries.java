@@ -148,4 +148,29 @@ public class DBQueries {
 	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `object_id`=? WHERE `field_id`=?;";
 	
 	
+	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`) VALUES (?, ?, ?);";
+	
+	public static final String GET_ATTR_CONSTR ="SELECT attrconstr.constr_id,attrconstr.comment,attrconstr.project_id, attrconstr.attr_id, "
+			+ "attribute.name,object.object_id,object.objectName "
+			+ "FROM attrconstr  "
+			+ "left join attribute on attrconstr.attr_id = attribute.attr_id "
+			+ "left join object on attribute.object_id = object.object_id "
+			+ "where object.project_id = ?";
+	
+	public static final String UPDATE_ATTR_CONSTR ="UPDATE `my_db`.`attrconstr` SET `comment`=?, `attr_id`=? WHERE `constr_id`=?;";
+	
+	public static final String DELETE_ATTR_CONSTR ="DELETE FROM `my_db`.`attrconstr` WHERE `constr_id`=?;";
+	
+	
+	public static final String INSERT_LINK_CONSTR ="INSERT INTO `my_db`.`linkconstr` (`project_id`, `firstObject`, `secondObject`, `comment`) VALUES (?,?,?,?);";
+	
+	public static final String GET_LINK_CONSTR ="select constr_id, linkconstr.project_id,comment, o1.object_id,o1.objectName,o2.object_id,o2.objectName  "
+			+ "from linkconstr, object o1, object o2 "
+			+ "where o1.object_id = firstObject and o2.object_id = secondObject;"
+			+ "AND o1.project_id = ? AND o2.project_id = ?";
+	
+	public static final String UPDATE_LINK_CONSTR ="UPDATE `my_db`.`linkconstr` SET `firstObject`=?, `secondObject`=?, `comment`=? WHERE `constr_id`=?;";
+	
+	public static final String DELETE_LINK_CONSTR ="DELETE FROM `my_db`.`linkconstr` WHERE `constr_id`=?;";
+	
 }

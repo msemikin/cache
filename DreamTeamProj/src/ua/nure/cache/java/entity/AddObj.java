@@ -1,15 +1,9 @@
 package ua.nure.cache.java.entity;
 
-import java.util.List;
 
-public class AddObj extends Objekt {
+public class AddObj extends Obj {
 	
 	private Attribute attr;
-
-	@Override
-	public List<Attribute> getAttrs() {
-		return null;
-	}
 
 	public Attribute getAttr() {
 		return attr;

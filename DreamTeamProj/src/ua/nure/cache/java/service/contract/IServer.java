@@ -111,4 +111,21 @@ public interface IServer {
 	void updateAlgDep(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException;
 	
+	void insertAttrConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void updateAttrConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void deleteAttrConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void findAttrConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	
+	void insertLinkConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void updateLinkConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void deleteLinkConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void findLinkConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
 }

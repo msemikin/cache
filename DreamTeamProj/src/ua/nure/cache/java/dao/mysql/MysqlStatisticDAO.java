@@ -23,7 +23,7 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertStatistics(con, stat);
-			if (result != -1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -119,7 +119,7 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateStatistics(con, stat);
-			if (result != -1) {
+			if (result>0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);

@@ -15,13 +15,16 @@ import ua.nure.cache.java.dao.ReportDAO;
 import ua.nure.cache.java.dao.SrchFltrSrtDAO;
 import ua.nure.cache.java.dao.StatisticDAO;
 import ua.nure.cache.java.dao.mysql.MysqlDiagramDAO;
+import ua.nure.cache.java.dao.mysql.MysqlIntegrConstrDAO;
 import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
 import ua.nure.cache.java.dao.mysql.MysqlReportDAO;
 import ua.nure.cache.java.dao.mysql.MysqlSrchFltrSrtDAO;
 import ua.nure.cache.java.dao.mysql.MysqlStatisticDAO;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
+import ua.nure.cache.java.entity.Constraint;
 import ua.nure.cache.java.entity.Diagram;
+import ua.nure.cache.java.entity.LinkConstr;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Report;
 import ua.nure.cache.java.entity.Resp;
@@ -561,6 +564,125 @@ public class Server implements IServer{
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));		
+	}
+
+	@Override
+	public void insertAttrConstr(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("constraint");
+		Constraint deps = new Gson().fromJson(line, Constraint.class);
+		int result = new MysqlIntegrConstrDAO().insertConstraint(deps);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));		
+		
+	}
+
+	@Override
+	public void updateAttrConstr(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("constraint");
+		Constraint deps = new Gson().fromJson(line, Constraint.class);
+		boolean result = new MysqlIntegrConstrDAO().updateConstraint(deps);
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));			
+	}
+
+	@Override
+	public void deleteAttrConstr(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("id");
+		boolean result = new MysqlIntegrConstrDAO().deleteConstraint(Integer.valueOf(line));
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void findAttrConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("projectId");
+		Constraint result = new MysqlIntegrConstrDAO().getConstraint(Integer.valueOf(line));
+		resp.getWriter().print(new Gson().toJson(result));
+	}
+
+	@Override
+	public void insertLinkConstr(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("constraint");
+		LinkConstr deps = new Gson().fromJson(line, LinkConstr.class);
+		int result = new MysqlIntegrConstrDAO().insertLinkConstraint(deps);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void updateLinkConstr(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("constraint");
+		LinkConstr deps = new Gson().fromJson(line, LinkConstr.class);
+		boolean result = new MysqlIntegrConstrDAO().updateLinkConstraint(deps);
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));	
+		
+	}
+
+	@Override
+	public void deleteLinkConstr(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("id");
+		boolean result = new MysqlIntegrConstrDAO().deleteLinkConstraint(Integer.valueOf(line));
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void findLinkConstr(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("projectId");
+		LinkConstr result = new MysqlIntegrConstrDAO().getLinkConstraint(Integer.valueOf(line));
+		resp.getWriter().print(new Gson().toJson(result));		
 	}
 
 

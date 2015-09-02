@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import ua.nure.cache.java.dao.AttributeDAO;
 import ua.nure.cache.java.dao.DAOFactory;
 import ua.nure.cache.java.dao.DiagramDAO;
+import ua.nure.cache.java.dao.IntegrityConstrDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
 import ua.nure.cache.java.dao.ReportDAO;
@@ -122,6 +123,11 @@ public class MysqlDAOFactory extends DAOFactory {
 	@Override
 	public SrchFltrSrtDAO getSrchFltrSrtDAO() {
 		return new MysqlSrchFltrSrtDAO();
+	}
+
+	@Override
+	public IntegrityConstrDAO getIntegrityConstrDAO() {
+		return new MysqlIntegrConstrDAO();
 	}
 
 	

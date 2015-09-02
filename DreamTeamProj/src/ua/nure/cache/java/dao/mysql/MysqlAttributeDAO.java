@@ -21,7 +21,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertAttribute(con, attr);
-			if (result !=-1) {
+			if (result >0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -107,7 +107,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateAttribute(con, attr);
-			if (result !=-1) {
+			if (result >0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
