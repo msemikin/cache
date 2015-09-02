@@ -6,18 +6,18 @@ public class LinkConstr {
 	
 	private int id;
 	
-	private Obj firstObj;
+	private Obj firstObject;
 	
-	private Obj secondObj;
+	private Obj secondObject;
 	
 	private String comment;
 	
 	public Obj getFirstObject() {
-		return firstObj;
+		return firstObject;
 	}
 
 	public void setFirstObject(Obj object) {
-		this.firstObj = object;
+		this.firstObject = object;
 	}
 
 	public String getComment() {
@@ -45,10 +45,10 @@ public class LinkConstr {
 	}
 
 	public Obj getSecondObj() {
-		return secondObj;
+		return secondObject;
 	}
 
 	public void setSecondObj(Obj secondObj) {
-		this.secondObj = secondObj;
+		this.secondObject = secondObj;
 	}
 }

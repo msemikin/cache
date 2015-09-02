@@ -79,10 +79,11 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		} finally {
 			MysqlDAOFactory.close(con);
 		}
-		return result>0;
+		return result > 0;
 	}
 
-	private int updateConstraint(Connection con, Constraint constr) throws SQLException {
+	private int updateConstraint(Connection con, Constraint constr)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
@@ -91,13 +92,10 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt.setString(1, constr.getComment());
 			pstmt.setInt(2, constr.getObject().getAttr().getId());
 			pstmt.setInt(3, constr.getId());
+			result = constr.getId();
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			} else {
-				ResultSet generatedKeys = pstmt.getGeneratedKeys();
-				if (generatedKeys.next()) {
-					result = generatedKeys.getInt(1);
-				}
 				return result;
 			}
 		} catch (SQLException e) {
@@ -127,7 +125,8 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return result;
 	}
 
-	private boolean deleteConstraint(Connection con, int constrId) throws SQLException {
+	private boolean deleteConstraint(Connection con, int constrId)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		try {
@@ -136,8 +135,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt.setInt(1, constrId);
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -162,23 +160,26 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return proj;
 	}
 
-	private Constraint getConstraint(Connection con, int projectId) throws SQLException {
+	private Constraint getConstraint(Connection con, int projectId)
+			throws SQLException {
 		PreparedStatement stmt = null;
 		Constraint proj = new Constraint();
 		stmt = con.prepareStatement(DBQueries.GET_ATTR_CONSTR);
 		stmt.setInt(1, projectId);
 		ResultSet rs = stmt.executeQuery();
-		proj.setId(rs.getInt(1));
-		proj.setComment(rs.getString(2));
-		proj.setProjectId(rs.getInt(3));
-		Attribute attr = new Attribute();
-		attr.setId(rs.getInt(4));
-		attr.setName(rs.getString(5));
-		AddObj obj1 = new AddObj();
-		obj1.setId(rs.getInt(6));
-		obj1.setName(rs.getString(7));
-		obj1.setProjectId(projectId);
-		proj.setObject(obj1);
+		if (rs.next()) {
+			proj.setId(rs.getInt(1));
+			proj.setComment(rs.getString(2));
+			proj.setProjectId(rs.getInt(3));
+			Attribute attr = new Attribute();
+			attr.setId(rs.getInt(4));
+			attr.setName(rs.getString(5));
+			AddObj obj1 = new AddObj();
+			obj1.setId(rs.getInt(6));
+			obj1.setName(rs.getString(7));
+			obj1.setProjectId(projectId);
+			proj.setObject(obj1);
+		}
 		MysqlDAOFactory.closeStatement(stmt);
 		return proj;
 	}
@@ -190,7 +191,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertLinkConstraint(con, constr);
-			if (result >0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -203,7 +204,8 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return result;
 	}
 
-	private int insertLinkConstraint(Connection con, LinkConstr constr) throws SQLException {
+	private int insertLinkConstraint(Connection con, LinkConstr constr)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
@@ -236,7 +238,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateLinkConstraint(con, constr);
-			if (result >0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -246,10 +248,11 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		} finally {
 			MysqlDAOFactory.close(con);
 		}
-		return result>0;
+		return result > 0;
 	}
 
-	private int updateLinkConstraint(Connection con, LinkConstr constr) throws SQLException {
+	private int updateLinkConstraint(Connection con, LinkConstr constr)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
@@ -262,10 +265,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			} else {
-				ResultSet generatedKeys = pstmt.getGeneratedKeys();
-				if (generatedKeys.next()) {
-					result = generatedKeys.getInt(1);
-				}
+				result = constr.getId();
 				return result;
 			}
 		} catch (SQLException e) {
@@ -295,7 +295,8 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return result;
 	}
 
-	private boolean deleteLinkConstraint(Connection con, int constrId) throws SQLException {
+	private boolean deleteLinkConstraint(Connection con, int constrId)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		try {
@@ -304,8 +305,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt.setInt(1, constrId);
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -330,26 +330,29 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return proj;
 	}
 
-	private LinkConstr getLinkConstraint(Connection con, int projectId) throws SQLException {
+	private LinkConstr getLinkConstraint(Connection con, int projectId)
+			throws SQLException {
 		PreparedStatement stmt = null;
 		LinkConstr proj = new LinkConstr();
 		stmt = con.prepareStatement(DBQueries.GET_LINK_CONSTR);
 		stmt.setInt(1, projectId);
 		stmt.setInt(2, projectId);
 		ResultSet rs = stmt.executeQuery();
-		proj.setId(rs.getInt(1));
-		proj.setProjectId(rs.getInt(2));
-		proj.setComment(rs.getString(3));
-		Obj obj1 = new Obj();
-		Obj obj2 = new Obj();
-		obj1.setId(rs.getInt(4));
-		obj1.setName(rs.getString(5));
-		obj1.setProjectId(projectId);
-		obj2.setId(rs.getInt(6));
-		obj2.setName(rs.getString(7));
-		obj2.setProjectId(projectId);
-		proj.setFirstObject(obj1);
-		proj.setSecondObj(obj2);
+		if (rs.next()) {
+			proj.setId(rs.getInt(1));
+			proj.setProjectId(rs.getInt(2));
+			proj.setComment(rs.getString(3));
+			Obj obj1 = new Obj();
+			Obj obj2 = new Obj();
+			obj1.setId(rs.getInt(4));
+			obj1.setName(rs.getString(5));
+			obj1.setProjectId(projectId);
+			obj2.setId(rs.getInt(6));
+			obj2.setName(rs.getString(7));
+			obj2.setProjectId(projectId);
+			proj.setFirstObject(obj1);
+			proj.setSecondObj(obj2);
+		}
 		MysqlDAOFactory.closeStatement(stmt);
 		return proj;
 	}

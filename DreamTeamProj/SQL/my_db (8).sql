@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 02 2015 г., 16:32
+-- Время создания: Сен 02 2015 г., 21:37
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -31,14 +31,14 @@ CREATE TABLE IF NOT EXISTS `algdeps` (
   `result_field` int(11) DEFAULT NULL,
   `formula` longtext,
   `name` longtext
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `algdeps`
 --
 
 INSERT INTO `algdeps` (`dep_id`, `result_field`, `formula`, `name`) VALUES
-(1, 2, 'ввы', '213');
+(1, 3, 'X + Y', 'myBestName');
 
 --
 -- Триггеры `algdeps`
@@ -65,14 +65,14 @@ CREATE TABLE IF NOT EXISTS `attrconstr` (
   `comment` longtext,
   `attr_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `attrconstr`
 --
 
 INSERT INTO `attrconstr` (`constr_id`, `comment`, `attr_id`, `project_id`) VALUES
-(1, 'DFS', 1, 1);
+(1, 'sdfsdf', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -84,15 +84,13 @@ CREATE TABLE IF NOT EXISTS `attribute` (
 `attr_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL,
   `Name` longtext COLLATE utf8_general_mysql500_ci
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `attribute`
 --
 
 INSERT INTO `attribute` (`attr_id`, `object_id`, `Name`) VALUES
-(1, 1, 'А1О1'),
-(2, 1, 'А2О1'),
 (3, 2, 'А3О2'),
 (4, 2, 'А4О2');
 
@@ -108,15 +106,11 @@ CREATE TABLE IF NOT EXISTS `depstosourfield` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Триггеры `depstosourfield`
+-- Дамп данных таблицы `depstosourfield`
 --
-DELIMITER //
-CREATE TRIGGER `depstosourfield_AFTER_DELETE` BEFORE DELETE ON `depstosourfield`
- FOR EACH ROW BEGIN
-DELETE FROM `my_db`.`sourcefield` WHERE sourcefield.field_id=OLD.field_id;
-END
-//
-DELIMITER ;
+
+INSERT INTO `depstosourfield` (`dep_id`, `field_id`) VALUES
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -136,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `diagram` (
 --
 
 INSERT INTO `diagram` (`diagram_id`, `project_id`, `Type`, `JSON`) VALUES
-(1, 0, 'ER', 'dsjhsdjfh'),
+(1, 0, 'ER', 'huy'),
 (2, 0, 'UC', 'DFSFS'),
 (3, 0, 'OR', 'cx'),
 (4, 0, 'UC', 'dfsfdsf');
@@ -164,7 +158,14 @@ CREATE TABLE IF NOT EXISTS `document` (
 CREATE TABLE IF NOT EXISTS `filter` (
 `filter_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `filter`
+--
+
+INSERT INTO `filter` (`filter_id`, `object_id`) VALUES
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -176,6 +177,13 @@ CREATE TABLE IF NOT EXISTS `filtertoattribute` (
   `filter_id` int(11) DEFAULT NULL,
   `attribute_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+--
+-- Дамп данных таблицы `filtertoattribute`
+--
+
+INSERT INTO `filtertoattribute` (`filter_id`, `attribute_id`) VALUES
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -207,14 +215,14 @@ CREATE TABLE IF NOT EXISTS `linkconstr` (
   `firstObject` int(11) DEFAULT NULL,
   `secondObject` int(11) DEFAULT NULL,
   `comment` longtext COLLATE utf8_general_mysql500_ci
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `linkconstr`
 --
 
 INSERT INTO `linkconstr` (`constr_id`, `project_id`, `firstObject`, `secondObject`, `comment`) VALUES
-(1, 1, 1, 2, 'dsfsd');
+(1, 0, 2, 3, 'mewrw');
 
 -- --------------------------------------------------------
 
@@ -226,16 +234,18 @@ CREATE TABLE IF NOT EXISTS `object` (
 `object_id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
   `objectName` longtext COLLATE utf8_general_mysql500_ci
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `object`
 --
 
 INSERT INTO `object` (`object_id`, `project_id`, `objectName`) VALUES
-(1, 0, 'МойОбъект'),
 (2, 0, 'ВторойОбъект'),
-(3, 0, 'ТретийОбъект');
+(3, 0, 'ТретийОбъект'),
+(7, 1, 'some object'),
+(8, 1, 'Четвертый объект'),
+(9, 1, 'some object');
 
 -- --------------------------------------------------------
 
@@ -296,8 +306,7 @@ CREATE TABLE IF NOT EXISTS `reporttoobject` (
 --
 
 INSERT INTO `reporttoobject` (`object_id`, `report_id`) VALUES
-(1, 2),
-(1, 3);
+(7, 4);
 
 -- --------------------------------------------------------
 
@@ -308,7 +317,14 @@ INSERT INTO `reporttoobject` (`object_id`, `report_id`) VALUES
 CREATE TABLE IF NOT EXISTS `search` (
 `search_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `search`
+--
+
+INSERT INTO `search` (`search_id`, `object_id`) VALUES
+(5, 3);
 
 -- --------------------------------------------------------
 
@@ -321,6 +337,13 @@ CREATE TABLE IF NOT EXISTS `searchtoattr` (
   `attribute_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
+--
+-- Дамп данных таблицы `searchtoattr`
+--
+
+INSERT INTO `searchtoattr` (`search_id`, `attribute_id`) VALUES
+(5, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -331,13 +354,6 @@ CREATE TABLE IF NOT EXISTS `sort` (
 `sort_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `sort`
---
-
-INSERT INTO `sort` (`sort_id`, `object_id`) VALUES
-(1, 1);
 
 -- --------------------------------------------------------
 
@@ -350,13 +366,6 @@ CREATE TABLE IF NOT EXISTS `sorttoattr` (
   `attribute_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
---
--- Дамп данных таблицы `sorttoattr`
---
-
-INSERT INTO `sorttoattr` (`sort_id`, `attribute_id`) VALUES
-(1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -367,15 +376,15 @@ CREATE TABLE IF NOT EXISTS `sourcefield` (
 `field_id` int(11) NOT NULL,
   `varName` longtext,
   `object_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `sourcefield`
 --
 
 INSERT INTO `sourcefield` (`field_id`, `varName`, `object_id`) VALUES
-(8, 'X', 1),
-(9, 'Y', 1);
+(1, 'k', 3),
+(2, 'p', 3);
 
 -- --------------------------------------------------------
 
@@ -387,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `statistic` (
 `statistic_id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
   `name` varchar(256) COLLATE utf8_general_mysql500_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `statistic`
@@ -395,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `statistic` (
 
 INSERT INTO `statistic` (`statistic_id`, `project_id`, `name`) VALUES
 (1, 0, 'С1П0'),
-(2, 0, 'С2П0');
+(2, 0, 'some name');
 
 -- --------------------------------------------------------
 
@@ -413,9 +422,7 @@ CREATE TABLE IF NOT EXISTS `stattoobj` (
 --
 
 INSERT INTO `stattoobj` (`statistic_id`, `object_id`) VALUES
-(1, 1),
 (1, 2),
-(2, 1),
 (2, 2);
 
 -- --------------------------------------------------------
@@ -584,17 +591,17 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT для таблицы `algdeps`
 --
 ALTER TABLE `algdeps`
-MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `attrconstr`
 --
 ALTER TABLE `attrconstr`
-MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `attribute`
 --
 ALTER TABLE `attribute`
-MODIFY `attr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `attr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT для таблицы `diagram`
 --
@@ -609,7 +616,7 @@ MODIFY `docment_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT для таблицы `filter`
 --
 ALTER TABLE `filter`
-MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `group`
 --
@@ -619,12 +626,12 @@ MODIFY `group_Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT для таблицы `linkconstr`
 --
 ALTER TABLE `linkconstr`
-MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `object`
 --
 ALTER TABLE `object`
-MODIFY `object_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `object_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT для таблицы `report`
 --
@@ -634,7 +641,7 @@ MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT для таблицы `search`
 --
 ALTER TABLE `search`
-MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT для таблицы `sort`
 --
@@ -644,12 +651,12 @@ MODIFY `sort_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT для таблицы `sourcefield`
 --
 ALTER TABLE `sourcefield`
-MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `statistic`
 --
 ALTER TABLE `statistic`
-MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `student`
 --
@@ -707,8 +714,8 @@ ADD CONSTRAINT `cxv` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`)
 -- Ограничения внешнего ключа таблицы `filtertoattribute`
 --
 ALTER TABLE `filtertoattribute`
-ADD CONSTRAINT `cvxvxcxcv` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `dfv` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`filter_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `cvxvxcxcv` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `dfv` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`filter_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `linkconstr`
@@ -753,8 +760,8 @@ ADD CONSTRAINT `fk2` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`)
 -- Ограничения внешнего ключа таблицы `searchtoattr`
 --
 ALTER TABLE `searchtoattr`
-ADD CONSTRAINT `cxvxcv` FOREIGN KEY (`search_id`) REFERENCES `search` (`search_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `sdfsdfsdf` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `cxvxcv` FOREIGN KEY (`search_id`) REFERENCES `search` (`search_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `sdfsdfsdf` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `sort`
@@ -766,8 +773,8 @@ ADD CONSTRAINT `fk22` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`
 -- Ограничения внешнего ключа таблицы `sorttoattr`
 --
 ALTER TABLE `sorttoattr`
-ADD CONSTRAINT `dfssd` FOREIGN KEY (`sort_id`) REFERENCES `sort` (`sort_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `ewrwer` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `dfssd` FOREIGN KEY (`sort_id`) REFERENCES `sort` (`sort_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `ewrwer` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `sourcefield`

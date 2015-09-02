@@ -143,6 +143,7 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/update", cardManager
 					.getDeclaredMethod("updateAlgDep", 
 							request, response));
+			
 			methods.put("/integrity_constraints/attributes/new", cardManager.getDeclaredMethod(
 					"insertAttrConstr", request, response));
 			methods.put("/integrity_constraints/attributes/update", cardManager.getDeclaredMethod(

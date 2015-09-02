@@ -26,39 +26,9 @@
 			.ajax({
 
 				type : "POST",
-				url : "../DreamTeamProj/project/algorithmic_dependencies/update",
+				url : "../DreamTeamProj/project/integrity_constraints/links/delete",
 				data : {
-					"algorithmicDependincy" : JSON.stringify({
-						"id":1,
-						"projectId" : 0,
-						"name" :"myBestName",
-						"resultField" : {
-							"id" : 3,
-							"attr" : {
-								"id" : 3
-							}
-						},
-						"sourceFields" : [ {
-							"fieldId" : 1,
-							"variable" : "k",
-							"object" : {
-								"id" : 3,
-								"attr" : {
-									"id" : 3
-								}
-							}
-						}, {
-							"fieldId" : 2,
-							"variable" : "p",
-							"object" : {
-								"id" : 3,
-								"attr" : {
-									"id" : 3
-								}
-							}
-						} ],
-						"formula" : "X + Y"
-					})
+					"id":2
 				},
 				dataType : "json",
 				success : function(data) {

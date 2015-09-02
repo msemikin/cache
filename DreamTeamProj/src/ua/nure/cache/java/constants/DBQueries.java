@@ -168,7 +168,7 @@ public class DBQueries {
 	
 	public static final String GET_LINK_CONSTR ="select constr_id, linkconstr.project_id,comment, o1.object_id,o1.objectName,o2.object_id,o2.objectName  "
 			+ "from linkconstr, object o1, object o2 "
-			+ "where o1.object_id = firstObject and o2.object_id = secondObject;"
+			+ "where o1.object_id = firstObject and o2.object_id = secondObject "
 			+ "AND o1.project_id = ? AND o2.project_id = ?";
 	
 	public static final String UPDATE_LINK_CONSTR ="UPDATE `my_db`.`linkconstr` SET `firstObject`=?, `secondObject`=?, `comment`=? WHERE `constr_id`=?;";
