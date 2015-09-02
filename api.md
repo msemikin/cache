@@ -598,7 +598,7 @@
 ```
 -----------------------------------------------------
 
-# POST /project/integrity_constraints/all
+# POST /project/integrity_constraints/attributes/all
 
 ## Request
 ```
@@ -609,4 +609,168 @@
 
 ## Response
 
-### Скоро заполню
+```
+{
+	"constraints": [{
+		"id": "1",
+		"object": {
+			"id": "1",
+			"name": "",
+			"attr": {
+				"id": "1",
+				"name": ""
+			}
+		},
+		"comment": "some comment"
+	}]
+}
+```
+-----------------------------------------------------
+
+# POST /project/integrity_constraints/attributes/new
+
+## Request
+```
+{  
+  "projectId": 38,
+  "constraint": {
+		"object": {
+			"id": "1",
+			"name": "",
+			"attr": {
+				"id": "1",
+				"name": ""
+			}
+		},
+		"comment": "some comment"
+	}
+}  
+```
+
+## Response
+
+```
+{
+	"success": true,
+	"id": 1
+}
+```
+-----------------------------------------------------
+
+# POST /project/integrity_constraints/attributes/update
+
+## Request
+```
+{  
+  "projectId": 38,
+  "constraint": {
+		"id": "1",
+		"object": {
+			"id": "1",
+			"name": "",
+			"attr": {
+				"id": "1",
+				"name": ""
+			}
+		},
+		"comment": "some comment"
+	}
+}  
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+
+# POST /project/integrity_constraints/links/all
+
+## Request
+```
+{  
+  "projectId": 38  
+}  
+```
+
+## Response
+
+```
+{
+	"constraints": [{
+		"id": "1",
+		"firstObject": {
+			"id": "1",
+			"name": "",
+		},
+		"secondObject": {
+			"id": "2",
+			"name": ""
+		},
+		"comment": "some comment"
+	}]
+}
+```
+-----------------------------------------------------
+
+# POST /project/integrity_constraints/links/new
+
+## Request
+```
+{  
+  "projectId": 38,
+	"constraint": {
+		"firstObject": {
+			"id": "1",
+			"name": "",
+		},
+		"secondObject": {
+			"id": "2",
+			"name": ""
+		},
+		"comment": "some comment"
+	} 
+}  
+```
+
+## Response
+
+```
+{
+	"success": "true",
+	"id": "1"
+}
+```
+-----------------------------------------------------
+
+# POST /project/integrity_constraints/links/update
+
+## Request
+```
+{  
+  "projectId": 38,
+	"constraint": {
+		"id": 1,
+		"firstObject": {
+			"id": "1",
+			"name": "",
+		},
+		"secondObject": {
+			"id": "2",
+			"name": ""
+		},
+		"comment": "some comment"
+	} 
+}  
+```
+
+## Response
+
+```
+{
+	"success": "true",
+}
+```
