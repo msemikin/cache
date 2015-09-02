@@ -880,7 +880,7 @@ data : {
 
 -----------------------------------------------------
 
-# POST /project/integrity_constraints/attributes/all
+# POST /project/integrity_constraints/attributes/all //работает
 
 ## Request
 ```
@@ -909,23 +909,26 @@ data : {
 ```
 -----------------------------------------------------
 
-# POST /project/integrity_constraints/attributes/new
+# POST /project/integrity_constraints/attributes/new //работает
 
 ## Request
 ```
 {  
-  "projectId": 38,
-  "constraint": {
-		"object": {
-			"id": "1",
-			"name": "",
-			"attr": {
-				"id": "1",
-				"name": ""
-			}
+  
+ data : {
+			"constraint" : JSON.stringify({
+				"projectId" : 0,
+				"object" : {
+					"id" : "7",
+					"name" : "",
+					"attr" : {
+						"id" : "4",
+						"name" : ""
+					}
+				},
+				"comment" : "some comment"
+			})
 		},
-		"comment": "some comment"
-	}
 }  
 ```
 
@@ -939,25 +942,43 @@ data : {
 ```
 -----------------------------------------------------
 
-# POST /project/integrity_constraints/attributes/update
+# POST /project/integrity_constraints/attributes/update //работает
 
 ## Request
 ```
-{  
-  "projectId": 38,
-  "constraint": {
-		"id": "1",
-		"object": {
-			"id": "1",
-			"name": "",
-			"attr": {
-				"id": "1",
-				"name": ""
-			}
+data : {
+			"constraint" : JSON.stringify({
+				"projectId" : 0,
+				"id":2,
+				"object" : {
+					"id" : "7",
+					"name" : "",
+					"attr" : {
+						"id" : "3",
+						"name" : ""
+					}
+				},
+				"comment" : "some comment"
+			})
 		},
-		"comment": "some comment"
-	}
-}  
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/integrity_constraints/attributes/delete //работает
+
+## Request
+```
+data : {
+				"id":2
+			})
+		},
 ```
 
 ## Response
@@ -969,7 +990,7 @@ data : {
 ```
 -----------------------------------------------------
 
-# POST /project/integrity_constraints/links/all
+# POST /project/integrity_constraints/links/all //работает
 
 ## Request
 ```
@@ -998,24 +1019,24 @@ data : {
 ```
 -----------------------------------------------------
 
-# POST /project/integrity_constraints/links/new
+# POST /project/integrity_constraints/links/new //
 
 ## Request
 ```
-{  
-  "projectId": 38,
-	"constraint": {
-		"firstObject": {
-			"id": "1",
-			"name": "",
-		},
-		"secondObject": {
-			"id": "2",
-			"name": ""
-		},
-		"comment": "some comment"
-	} 
-}  
+data : {
+					constraint : JSON.stringify({
+						"projectId":0,
+						"firstObject": {
+							"id": "2",
+							"name": "",
+						},
+						"secondObject": {
+							"id": "3",
+							"name": ""
+						},
+						"comment": "some comment"
+					})
+				},
 ```
 
 ## Response
@@ -1027,26 +1048,44 @@ data : {
 }
 ```
 -----------------------------------------------------
-
-# POST /project/integrity_constraints/links/update
+# POST /project/integrity_constraints/links/delete //работает
 
 ## Request
 ```
-{  
-  "projectId": 38,
-	"constraint": {
-		"id": 1,
-		"firstObject": {
-			"id": "1",
-			"name": "",
+data : {
+				"id":2
 		},
-		"secondObject": {
-			"id": "2",
-			"name": ""
-		},
-		"comment": "some comment"
-	} 
-}  
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+
+# POST /project/integrity_constraints/links/update //работает
+
+## Request
+```
+  data : {
+					constraint : JSON.stringify({
+						"projectId":0,
+						id : 2,
+						"firstObject": {
+							"id": "2",
+							"name": "",
+						},
+						"secondObject": {
+							"id": "3",
+							"name": ""
+						},
+						"comment": "some comment"
+					})
+				},
+ 
 ```
 
 ## Response
@@ -1056,3 +1095,4 @@ data : {
 	"success": "true",
 }
 ```
+
