@@ -10,6 +10,6 @@ public interface DiagramDAO {
 	
 	Diagram findDiagram(int diagramId, String type);
 	
-	void updateDiagram(Diagram diagr);
+	int updateDiagram(Diagram diagr);
 	
 }

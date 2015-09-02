@@ -2,6 +2,8 @@ package ua.nure.cache.java.entity;
 
 public class SourceField {
 		
+		private int filedId;
+		
 		private String variable;
 		
 		private AddObj object;
@@ -29,6 +31,14 @@ public class SourceField {
 
 		public void setObject(AddObj object) {
 			this.object = object;
+		}
+
+		public int getFiledId() {
+			return filedId;
+		}
+
+		public void setFiledId(int filedId) {
+			this.filedId = filedId;
 		}
 		
 }

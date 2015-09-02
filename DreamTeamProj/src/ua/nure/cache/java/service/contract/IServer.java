@@ -82,4 +82,33 @@ public interface IServer {
 	void deleteAlgDep(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException;
 	
+
+
+	void updateObject(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateAttribute(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateStatistic(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateReport(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateDiagram(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateSort(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateSearch(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+
+	void updateFilter(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	
+	void updateAlgDep(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	
 }

@@ -127,8 +127,42 @@ public class MysqlDiagramDAO implements DiagramDAO {
 	}
 
 	@Override
-	public void updateDiagram(Diagram diagr) {
-		
+	public int updateDiagram(Diagram diagr) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateDiagram(con, diagr);
+			if (result !=-1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int updateDiagram(Connection con, Diagram diagr) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_DIAGRAM,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, diagr.getDiagram());
+			pstmt.setInt(2, diagr.getId());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			result = diagr.getId();
+		} catch (SQLException e) {
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 
 }

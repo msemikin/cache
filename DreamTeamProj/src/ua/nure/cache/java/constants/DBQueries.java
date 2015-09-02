@@ -124,4 +124,28 @@ public class DBQueries {
 	public static final String DELETE_SF = "DELETE FROM `my_db`.`algdeps` WHERE `dep_id`=?;";
 	
 	
+	
+	public static final String UPDATE_OBJECT ="UPDATE `my_db`.`object` SET `objectName`=? WHERE `object_id`=?;";
+	
+	public static final String UPDATE_ATTRIBUTE ="UPDATE `my_db`.`attribute` SET `object_id`=?, `Name`=? "
+			+ "WHERE `attr_id`=?;";
+	
+	public static final String UPDATE_STATISTIC ="UPDATE `my_db`.`statistic` SET `name`=? WHERE `statistic_id`=?;";
+	
+	public static final String UPDATE_REPORT ="UPDATE `my_db`.`report` SET `name`=? WHERE `report_id`=?;";
+	
+	public static final String UPDATE_DIAGRAM = "UPDATE `my_db`.`diagram` SET  `JSON`=? WHERE `diagram_id`=?;";
+	
+	public static final String UPDATE_SEARCH = "UPDATE `my_db`.`search` SET `object_id`=? WHERE `search_id`=?;";
+	
+	public static final String UPDATE_FILTER = "UPDATE `my_db`.`filter` SET `object_id`=? WHERE `filter_id`=?;";
+	
+	public static final String UPDATE_SORT = "UPDATE `my_db`.`sort` SET `object_id`=? WHERE `sort_id`=?;";
+	
+	public static final String UPDATE_ALG_DEP = "UPDATE `my_db`.`algdeps` SET `result_field`=?, `formula`=?, "
+			+ "`name`=? WHERE `dep_id`=?;";
+	
+	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `object_id`=? WHERE `field_id`=?;";
+	
+	
 }

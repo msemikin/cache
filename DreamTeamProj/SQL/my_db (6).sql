@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 02 2015 г., 11:32
+-- Время создания: Сен 02 2015 г., 14:06
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -32,6 +32,13 @@ CREATE TABLE IF NOT EXISTS `algdeps` (
   `formula` longtext,
   `name` longtext
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `algdeps`
+--
+
+INSERT INTO `algdeps` (`dep_id`, `result_field`, `formula`, `name`) VALUES
+(1, 2, 'ввы', '213');
 
 --
 -- Триггеры `algdeps`

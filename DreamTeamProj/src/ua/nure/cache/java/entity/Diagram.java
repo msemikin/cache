@@ -2,6 +2,8 @@ package ua.nure.cache.java.entity;
 
 public class Diagram {
 
+	private int id;
+	
 	private String diagram;
 	
 	private String diagramType;
@@ -30,5 +32,13 @@ public class Diagram {
 
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

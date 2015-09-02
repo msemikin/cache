@@ -8,7 +8,7 @@ public interface AttributeDAO {
 	
 	boolean deleteAttribute(int attributeId);
 	
-	void updateAttribute(Attribute attr);
+	int updateAttribute(Attribute attr);
 	
 	Attribute getAttribute(int attributeId);
 	

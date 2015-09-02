@@ -101,8 +101,48 @@ public class MysqlAttributeDAO implements AttributeDAO {
 	}
 
 	@Override
-	public void updateAttribute(Attribute attr) {
-		
+	public int updateAttribute(Attribute attr) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateAttribute(con, attr);
+			if (result !=-1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int updateAttribute(Connection con, Attribute attr) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_ATTRIBUTE,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, attr.getObjectId());
+			pstmt.setString(2, attr.getName());
+			pstmt.setInt(3, attr.getId());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			ResultSet generatedKeys = pstmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				return generatedKeys.getInt(1);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 
 	@Override

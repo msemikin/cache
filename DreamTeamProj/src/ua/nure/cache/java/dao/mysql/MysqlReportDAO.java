@@ -105,5 +105,55 @@ public class MysqlReportDAO implements ReportDAO {
 		}
 		return result;
 	}
+	
+	public int updateReport(Report stat) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateReport(con, stat);
+			if (result !=-1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+	private int updateReport(Connection con, Report stat) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_REPORT,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, stat.getName());
+			pstmt.setInt(2, stat.getId());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			PreparedStatement pstmt1 = con.prepareStatement("Delete from reporttoobject where report_id =?");
+			pstmt1.setInt(1, stat.getId());
+			pstmt1.executeUpdate();
+			result = stat.getId();
+			for (Objekt obj : stat.getObjects()) {
+				PreparedStatement stmt = con.prepareStatement(
+						DBQueries.INSERT_REP_TO_OBJ,
+						Statement.RETURN_GENERATED_KEYS);
+				stmt.setInt(1, stat.getId());
+				stmt.setInt(2, obj.getId());
+				stmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
 
 }

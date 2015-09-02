@@ -114,6 +114,33 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/delete", cardManager
 					.getDeclaredMethod("deleteAlgDep", 
 							request, response));
+
+			methods.put("/objects/update", cardManager.getDeclaredMethod(
+					"updateObject", request, response));
+			methods.put("/attribute/update", cardManager.getDeclaredMethod(
+					"updateAttribute", request, response));
+			methods.put("/statistics/update", cardManager.getDeclaredMethod(
+					"updateStatistic", request, response));
+			methods.put("/reports/update", cardManager.getDeclaredMethod(
+					"updateReport", request, response));
+			methods.put("/diagrams/usecase/update", cardManager.getDeclaredMethod(
+					"updateDiagram", request, response));
+			methods.put("/diagrams/object_relations/update", cardManager.getDeclaredMethod(
+					"updateDiagram", request, response));
+			methods.put("/diagrams/er/update", cardManager.getDeclaredMethod(
+					"updateDiagram", request, response));
+			methods.put("/informational_requirements/sorts/update", cardManager
+					.getDeclaredMethod("updateSort", 
+							request, response));
+			methods.put("/informational_requirements/searches/update", cardManager
+					.getDeclaredMethod("updateSearch", 
+							request, response));
+			methods.put("/informational_requirements/filters/update", cardManager
+					.getDeclaredMethod("updateFilter", 
+							request, response));
+			methods.put("/algorithmic_dependencies/update", cardManager
+					.getDeclaredMethod("updateAlgDep", 
+							request, response));
 			
 
 		} catch (Exception e) {

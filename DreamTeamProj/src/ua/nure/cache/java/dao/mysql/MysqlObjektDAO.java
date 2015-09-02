@@ -137,7 +137,44 @@ public class MysqlObjektDAO implements ObjektDAO {
 
 	@Override
 	public boolean updateObjekt(Objekt obj) {
-		return true;
+		boolean result = true;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateObjekt(con, obj);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean updateObjekt(Connection con, Objekt obj) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_OBJECT,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, obj.getName());
+			pstmt.setInt(2, obj.getId());
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return false;
 	}
 
 }

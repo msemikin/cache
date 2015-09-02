@@ -195,7 +195,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 		return proj;
 	}
 
-	private List<AlgDeps> findAlgDeps(Connection con, int projectId) throws SQLException{
+	private List<AlgDeps> findAlgDeps(Connection con, int projectId)
+			throws SQLException {
 		PreparedStatement stmt1 = null;
 		PreparedStatement stmt2 = null;
 		List<AlgDeps> proj = new ArrayList<AlgDeps>();
@@ -219,7 +220,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertAlgDeps(con, algDeps);
-			if (result !=-1) {
+			if (result != -1) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -233,7 +234,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 		return result;
 	}
 
-	private int insertAlgDeps(Connection con, AlgDeps algDeps) throws SQLException {
+	private int insertAlgDeps(Connection con, AlgDeps algDeps)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
@@ -249,7 +251,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 			if (generatedKeys.next()) {
 				result = generatedKeys.getInt(1);
 				for (SourceField o : algDeps.getSourceFields()) {
-					PreparedStatement pstmt1 = con.prepareStatement(DBQueries.INSERT_SOURCE_FIELD,
+					PreparedStatement pstmt1 = con.prepareStatement(
+							DBQueries.INSERT_SOURCE_FIELD,
 							Statement.RETURN_GENERATED_KEYS);
 					pstmt1.setString(1, o.getVariable());
 					pstmt1.setInt(2, o.getObject().getId());
@@ -257,7 +260,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 					ResultSet genKeys = pstmt1.getGeneratedKeys();
 					if (genKeys.next()) {
 						int sfId = genKeys.getInt(1);
-						PreparedStatement pstmt2 = con.prepareStatement(DBQueries.INSERT_DEP_TO_SF,
+						PreparedStatement pstmt2 = con.prepareStatement(
+								DBQueries.INSERT_DEP_TO_SF,
 								Statement.RETURN_GENERATED_KEYS);
 						pstmt2.setInt(1, result);
 						pstmt2.setInt(2, sfId);
@@ -279,7 +283,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 		Connection con = null;
 		try {
 			con = MysqlDAOFactory.getConnection();
-			result = deleteAlgDeps(con,depId);
+			result = deleteAlgDeps(con, depId);
 			if (result) {
 				con.commit();
 			} else {
@@ -294,7 +298,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 		return result;
 	}
 
-	private boolean deleteAlgDeps(Connection con, int depId) throws SQLException {
+	private boolean deleteAlgDeps(Connection con, int depId)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		try {
@@ -303,9 +308,69 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(1, depId);
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
+	public int updateAlgDeps(AlgDeps deps) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateAlgDeps(con, deps);
+			if (result != -1) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int updateAlgDeps(Connection con, AlgDeps deps) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_ALG_DEP,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, deps.getResultField().getId());
+			pstmt.setString(2, deps.getFormula());
+			pstmt.setString(3, deps.getName());
+			pstmt.setInt(4, deps.getId());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			result = deps.getId();
+			for (SourceField o : deps.getSourceFields()) {
+				PreparedStatement pstmt1 = con.prepareStatement(
+						DBQueries.UPDATE_SF, Statement.RETURN_GENERATED_KEYS);
+				pstmt1.setString(1, o.getVariable());
+				pstmt1.setInt(2, o.getObject().getId());
+				pstmt1.setInt(3, o.getFiledId());
+				pstmt1.executeUpdate();
+				PreparedStatement pstmt2 = con.prepareStatement(
+						"Delete from depstosourfield where dep_id =?",
+						Statement.RETURN_GENERATED_KEYS);
+				pstmt2.setInt(1, result);
+				pstmt2.executeUpdate();
+				PreparedStatement pstmt3 = con.prepareStatement(
+						DBQueries.INSERT_DEP_TO_SF,
+						Statement.RETURN_GENERATED_KEYS);
+				pstmt2.setInt(1, result);
+				pstmt2.setInt(2, o.getFiledId());
+				pstmt3.executeUpdate();
 			}
 		} catch (SQLException e) {
 			log.error(e);
