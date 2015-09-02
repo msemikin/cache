@@ -32,10 +32,14 @@ angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', '
         $('.dropdown-toggle').dropdown();
     });
     $scope.objects = [];
-    $scope.selectTab = function (name) {
+    $scope.selectTab = function(name) {
         $scope.tab = tabs[name];
+        fillAvailableObjects($scope.tab.requirements);
+        if ($scope.tab.requirement) {
+            fillAvailableAttrs($scope.tab.requirement);
+        }
     };
-    $scope.selectTab('search')
+    $scope.selectTab('search');
 
     function updateObjects() {
         return Object.load().then(function(data) {
@@ -58,24 +62,29 @@ angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', '
 
     updateObjects().then(updateRequirements);
 
-    function loadObject(requirement) {
-        return Object.get(requirement.object.id).then(handleObjectLoad);
+    function getObject(requirement) {
+        var objectIndex = _.findIndex($scope.objects, {
+            id: requirement.object.id
+        });
+        return $scope.objects[objectIndex];
     }
 
-    function handleObjectLoad(object) {
-        $scope.object = object;
-        return object;
-    }
+    // function handleObjectLoad(object) {
+    //     $scope.object = object;
+    //     return object;
+    // }
+    //
 
     function selectRequirement(requirement) {
         // requirement is an id
         $scope.tab.requirement = requirement;
         if (requirement) {
-            loadObject(requirement).then(fillAvailableAttrs);
+            fillAvailableAttrs(requirement);
         }
     }
 
-    function fillAvailableAttrs(object) {
+    function fillAvailableAttrs(requirement) {
+        var object = getObject(requirement);
         $scope.availableAttrs = Utils.difference(object.attrs, $scope.tab.requirement.object.attrs);
     }
 

@@ -188,8 +188,10 @@
     margin-bottom: 0px !important;
 }
 .namePanel .panel-body {
+    overflow-y: auto;
     flex-grow: 1;
     padding: 0px;
+    height: 100%;
 }
 .objects-select {
     flex-grow: 1;
@@ -198,6 +200,7 @@
     border-left: 0 !important;
     border-right: 0 !important;
     border-radius: 0px !important;
+    margin-bottom: 0px !important;
 }
 .objects-select a {
     border-radius: 0px !important;
@@ -337,4 +340,10 @@
     position: relative;
     left:-50%;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.44);
+}
+/*integrity*/
+.button-action-constraint {
+    position: absolute;
+    margin-top: -39px;
+    right: 15px;
 }
