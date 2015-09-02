@@ -16,6 +16,8 @@ public abstract class DAOFactory {
 	
 	public abstract StatisticDAO getStatisticDAO();
 	
+	public abstract SrchFltrSrtDAO getSrchFltrSrtDAO();
+	
 	public static final int MYSQL = 1;
 
 	public static DAOFactory getDAOFactory(int whichFactory) {

@@ -6,7 +6,7 @@ public interface AttributeDAO {
 
 	int insertAttribute(Attribute attr);
 	
-	void deleteAttribute(int attributeId);
+	boolean deleteAttribute(int attributeId);
 	
 	void updateAttribute(Attribute attr);
 	

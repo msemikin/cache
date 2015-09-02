@@ -6,7 +6,7 @@ public interface DiagramDAO {
 	
 	int insertDiagram(Diagram diagram);
 	
-	void deleteDiagram(int diagrId);
+	boolean deleteDiagram(int diagrId, int projectId);
 	
 	Diagram findDiagram(int diagramId, String type);
 	

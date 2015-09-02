@@ -16,6 +16,7 @@ import ua.nure.cache.java.dao.DiagramDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
 import ua.nure.cache.java.dao.ReportDAO;
+import ua.nure.cache.java.dao.SrchFltrSrtDAO;
 import ua.nure.cache.java.dao.StatisticDAO;
 
 public class MysqlDAOFactory extends DAOFactory {
@@ -118,5 +119,10 @@ public class MysqlDAOFactory extends DAOFactory {
 	public StatisticDAO getStatisticDAO() {
 		return new MysqlStatisticDAO();
 	}
+	@Override
+	public SrchFltrSrtDAO getSrchFltrSrtDAO() {
+		return new MysqlSrchFltrSrtDAO();
+	}
+
 	
 }

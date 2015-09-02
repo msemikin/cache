@@ -163,9 +163,10 @@ public class Mapper {
 			alg.setId(rs1.getInt(1));
 			alg.setFormula(rs1.getString(2));
 			obj.setId(rs1.getInt(3));
-			obj.setName(rs1.getString(4));
-			attr.setId(rs1.getInt(5));
-			attr.setName(rs1.getString(6));
+			alg.setName(rs1.getString(4));
+			obj.setName(rs1.getString(5));
+			attr.setId(rs1.getInt(6));
+			attr.setName(rs1.getString(7));
 			if (algDeps.contains(alg)) {
 				if (attr.getId() != 0) {
 					algDeps.get(algDeps.lastIndexOf(alg)).getResultField()

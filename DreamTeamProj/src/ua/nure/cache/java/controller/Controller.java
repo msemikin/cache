@@ -88,6 +88,33 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/new", cardManager
 					.getDeclaredMethod("insertAlgDeps",
 							request, response)); 
+			methods.put("/objects/delete", cardManager.getDeclaredMethod(
+					"deleteObject", request, response));
+			methods.put("/attribute/delete", cardManager.getDeclaredMethod(
+					"deleteAttribute", request, response));
+			methods.put("/statistics/delete", cardManager.getDeclaredMethod(
+					"deleteStatistic", request, response));
+			methods.put("/reports/delete", cardManager.getDeclaredMethod(
+					"deleteReport", request, response));
+			methods.put("/diagrams/usecase/delete", cardManager.getDeclaredMethod(
+					"deleteDiagram", request, response));
+			methods.put("/diagrams/object_relations/delete", cardManager.getDeclaredMethod(
+					"deleteDiagram", request, response));
+			methods.put("/diagrams/er/delete", cardManager.getDeclaredMethod(
+					"deleteDiagram", request, response));
+			methods.put("/informational_requirements/sorts/delete", cardManager
+					.getDeclaredMethod("deleteSort", 
+							request, response));
+			methods.put("/informational_requirements/searches/delete", cardManager
+					.getDeclaredMethod("deleteSearch", 
+							request, response));
+			methods.put("/informational_requirements/filters/delete", cardManager
+					.getDeclaredMethod("deleteFilter", 
+							request, response));
+			methods.put("/algorithmic_dependencies/delete", cardManager
+					.getDeclaredMethod("deleteAlgDep", 
+							request, response));
+			
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

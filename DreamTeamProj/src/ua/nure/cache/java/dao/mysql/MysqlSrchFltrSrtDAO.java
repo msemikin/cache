@@ -78,4 +78,46 @@ public class MysqlSrchFltrSrtDAO implements SrchFltrSrtDAO {
 		return result;
 	}
 
+	@Override
+	public boolean deleteSrchFltrSrt(String sql, int id) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteSrchFltrSrt(con, sql,id);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteSrchFltrSrt(Connection con, String sql, int id) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(sql,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, id);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
 }

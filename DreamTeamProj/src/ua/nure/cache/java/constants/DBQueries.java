@@ -45,7 +45,7 @@ public class DBQueries {
 			+ "left join attribute on filtertoattribute.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY filter_id, object.object_id;";
 
-	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, algdeps.result_field,  "
+	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, algdeps.result_field,algdeps.name,  "
 			+ "object.objectName, attribute.attr_id,attribute.Name  "
 			+ "From algdeps "
 			+ "left join object on algdeps.result_field = object.object_id "
@@ -96,9 +96,32 @@ public class DBQueries {
 	public static final String SORT_TO_ATTR = "INSERT INTO sorttoattr VALUES (?,?);";
 	
 	
-	public static final String INSERT_ALG_DEPS ="INSERT INTO algdeps (`result_field`,`formula`) Values(?,?);";
+	public static final String INSERT_ALG_DEPS ="INSERT INTO algdeps (`result_field`,`formula`,'name') Values(?,?,?);";
 	
 	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`object_id`) Values(?,?);";
 	
 	public static final String INSERT_DEP_TO_SF ="INSERT INTO depstosourfield (`dep_id`,`field_id`) VALUES (?,?); ";
+	
+	
+	public static final String DELETE_OBJECT = "DELETE FROM `my_db`.`object` WHERE `object_id`=? and project_id =?;";
+	
+	public static final String DELETE_ATTRIBUTE ="DELETE FROM `my_db`.`attribute` WHERE `attr_id`=?;";
+	
+	public static final String DELETE_STATISTIC ="DELETE FROM `my_db`.`statistic` WHERE `statistic_id`=? and project_id =?;";
+	
+	public static final String DELETE_REPORT ="DELETE FROM `my_db`.`report` WHERE `report_id`=? and project_id =?;";
+	
+	public static final String DELETE_DIAGRAM ="DELETE FROM `my_db`.`diagram` WHERE `diagram_id`=? and project_id =?;";
+	
+	public static final String DELETE_SORT ="DELETE FROM `my_db`.`sort` WHERE `sort_id`=?;";
+	
+	public static final String DELETE_SEARCH ="DELETE FROM `my_db`.`search` WHERE `search_id`=?;";
+	
+	public static final String DELETE_FILTER ="DELETE FROM `my_db`.`filter` WHERE `filter_id`=?;";
+	
+	public static final String DELETE_ALG_DEP = "DELETE FROM `my_db`.`algdeps` WHERE `dep_id`=?;";
+	
+	public static final String DELETE_SF = "DELETE FROM `my_db`.`algdeps` WHERE `dep_id`=?;";
+	
+	
 }

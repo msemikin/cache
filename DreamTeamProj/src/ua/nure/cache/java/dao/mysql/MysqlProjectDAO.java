@@ -241,6 +241,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 					Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, algDeps.getResultField().getId());
 			pstmt.setString(2, algDeps.getFormula());
+			pstmt.setString(3, algDeps.getName());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			}
@@ -263,6 +264,48 @@ public class MysqlProjectDAO implements ProjectDAO {
 						pstmt2.executeUpdate();
 					}
 				}
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
+	@Override
+	public boolean deleteAlgDeps(int depId) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteAlgDeps(con,depId);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteAlgDeps(Connection con, int depId) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(DBQueries.DELETE_ALG_DEP,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, depId);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
 			}
 		} catch (SQLException e) {
 			log.error(e);

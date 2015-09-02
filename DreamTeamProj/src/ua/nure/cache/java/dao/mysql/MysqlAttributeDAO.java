@@ -59,8 +59,45 @@ public class MysqlAttributeDAO implements AttributeDAO {
 	}
 
 	@Override
-	public void deleteAttribute(int attributeId) {
-		
+	public boolean deleteAttribute(int attributeId) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteAttribute(con, attributeId);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteAttribute(Connection con, int attributeId) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(DBQueries.DELETE_ATTRIBUTE,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, attributeId);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 
 	@Override

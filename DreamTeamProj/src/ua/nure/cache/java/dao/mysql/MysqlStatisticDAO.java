@@ -67,4 +67,47 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public boolean deleteStatistic(int statId, int projectId) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteStatistic(con, statId,projectId);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteStatistic(Connection con, int statId, int projectId) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(DBQueries.DELETE_STATISTIC,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, statId);
+			pstmt.setInt(2, projectId);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
 }

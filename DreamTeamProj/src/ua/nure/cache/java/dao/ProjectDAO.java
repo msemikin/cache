@@ -32,6 +32,8 @@ public interface ProjectDAO {
 	List<AlgDeps> findAlgDeps(int projectId);
 	
 	int insertAlgDeps(AlgDeps algDeps);
+	
+	boolean deleteAlgDeps(int depId);
 
 	
 }

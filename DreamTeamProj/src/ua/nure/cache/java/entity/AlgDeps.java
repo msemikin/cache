@@ -10,6 +10,8 @@ public class AlgDeps {
 	
 	private int projectId;
 	
+	private String name;
+	
 	private AddObj resultField;
 	
 	private List<SourceField> sourceFields = new ArrayList<SourceField>();
@@ -63,6 +65,14 @@ public class AlgDeps {
 
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

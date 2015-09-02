@@ -56,8 +56,44 @@ public class MysqlDiagramDAO implements DiagramDAO {
 	}
 
 	@Override
-	public void deleteDiagram(int diagrId) {
-		
+	public boolean deleteDiagram(int diagrId, int projectId) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteDiagram(con, diagrId,projectId);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteDiagram(Connection con, int diagrId, int projectId) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(DBQueries.DELETE_DIAGRAM,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, diagrId);
+			pstmt.setInt(2, projectId);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
 	}
 
 	@Override

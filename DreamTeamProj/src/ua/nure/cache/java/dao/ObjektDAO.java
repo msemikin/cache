@@ -8,7 +8,7 @@ public interface ObjektDAO {
 	
 	Objekt findObjekt(int objId, int projId);
 	
-	boolean deleteObjekt(int objId);
+	boolean deleteObjekt(int objId, int projectId);
 	
 	boolean updateObjekt(Objekt obj);
 }

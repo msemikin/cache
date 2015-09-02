@@ -5,11 +5,15 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.AttributeDAO;
 import ua.nure.cache.java.dao.DAOFactory;
 import ua.nure.cache.java.dao.DiagramDAO;
 import ua.nure.cache.java.dao.ObjektDAO;
 import ua.nure.cache.java.dao.ProjectDAO;
+import ua.nure.cache.java.dao.ReportDAO;
+import ua.nure.cache.java.dao.SrchFltrSrtDAO;
+import ua.nure.cache.java.dao.StatisticDAO;
 import ua.nure.cache.java.dao.mysql.MysqlDiagramDAO;
 import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
 import ua.nure.cache.java.dao.mysql.MysqlReportDAO;
@@ -233,6 +237,159 @@ public class Server implements IServer{
 		}
 		else {
 			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+	}
+
+	@Override
+	public void deleteObject(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
+		Integer objectId = Integer.valueOf(req.getParameter("objectId"));
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		boolean result = dao.deleteObjekt(objectId, projectId);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void deleteAttribute(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer objectId = Integer.valueOf(req.getParameter("attributeId"));
+		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getAttributeDAO();
+		boolean result = dao.deleteAttribute(objectId);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void deleteStatistic(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
+		Integer statId = Integer.valueOf(req.getParameter("statisticId"));
+		StatisticDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getStatisticDAO();
+		boolean result = dao.deleteStatistic(statId, projectId);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+	}
+
+	@Override
+	public void deleteReport(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
+		Integer reportId = Integer.valueOf(req.getParameter("reportId"));
+		ReportDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getReportDAO();
+		boolean result = dao.deleteReport(reportId, projectId);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void deleteDiagram(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
+		Integer diagramId = Integer.valueOf(req.getParameter("diagramId"));
+		DiagramDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getDiagramDAO();
+		boolean result = dao.deleteDiagram(diagramId, projectId);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void deleteSort(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer id = Integer.valueOf(req.getParameter("Id"));
+		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
+		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_SORT, id);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+	}
+
+	@Override
+	public void deleteSearch(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer id = Integer.valueOf(req.getParameter("Id"));
+		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
+		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_SEARCH, id);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void deleteFilter(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer id = Integer.valueOf(req.getParameter("Id"));
+		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
+		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_FILTER, id);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void deleteAlgDep(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		Integer id = Integer.valueOf(req.getParameter("Id"));
+		boolean result = new MysqlProjectDAO().deleteAlgDeps(id);
+		Resp res = new Resp();
+		if (result !=false) {
+			res.setSuccess(true);
+		}
+		else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
