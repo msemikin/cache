@@ -88,6 +88,8 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/new", cardManager
 					.getDeclaredMethod("insertAlgDeps",
 							request, response)); 
+			
+			
 			methods.put("/objects/delete", cardManager.getDeclaredMethod(
 					"deleteObject", request, response));
 			methods.put("/attribute/delete", cardManager.getDeclaredMethod(
