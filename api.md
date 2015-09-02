@@ -48,21 +48,40 @@
 
 -----------------------------------------------------
 
-# POST /project/objects/new
+# POST /project/objects/new (ТАКЖЕ И ДЛЯ АПДЕЙТА)
 
 ## Request
 ```
+data : {
+				objeсt : JSON.stringify({
+					projectId : 1,
+					name : "some object"
+				})
+		},
+```
+
+## Response
+```
 {
-  "projectId": 1,
-  "object": {  
-    "id": 1,  
-    "name": "some object",  
-    "attrs": [{  
-      "id": 2,  
-      "name": "some attribute"  
-    }]  
-  }  
-}  
+	"id": 1,
+	"success": true
+}
+```
+
+-----------------------------------------------------
+-----------------------------------------------------
+
+# POST /project/attribute/new (ТАКЖЕ И ДЛЯ АПДЕЙТА)
+
+## Request
+```
+data : {
+            attribute : JSON.stringify({
+            projectId : 1,
+            objectId : 1,
+            name : "some attribute"
+            })
+    },
 ```
 
 ## Response
@@ -154,21 +173,19 @@
 
 ## Request
 ```
-{  
-  "projectId": 38,
-  "statistic": {  
-    "id": 1,  
-    "name": "some name",  
-    "objects": [{  
-		"name": "some name",
-		"attrs": [{
-			"id":"1",
-			"name":"attribute's name"
-		}			
-		]	
-    }]  
-  }  
-}  
+data : {
+			"statistic" : JSON.stringify({
+				"projectId" : 38,
+				"id" : 1,
+				"name" : "some name",
+				"objects" : [ {
+					id : 1
+					"attrs" : [ {
+						"id" : "1"
+					} ]
+				} ]
+			})
+		},  
 ```
 
 ## Response
@@ -214,22 +231,20 @@
 
 ## Request
 ```
-{  
-  "projectId": 38  ,
-  "report": {  
+data : {  
+  "reports": JSON.stringify({ 
+	"projectId": 38,  
     "id": 1,  
     "name": "some name",  
-    "objects": [{
-        "id": "1"
-		"name": "some name",
+    "objects": [{  
+		id : 1
 		"attrs": [{
-			"id":"1",
-			"name":"attribute's name"
+			"id":"1"
 		}			
 		]	
     }]  
-  }]  
-}  
+  }) 
+} 
 ```
 
 ## Response
@@ -383,19 +398,17 @@
 
 ## Request
 ```
-{  
-  "projectId": 38,
-  "search": {
-	  "object": {  
-	    "id": 1,  
-	    "name": "some object"  
-	    "attrs": [{  # list of selected attrs  
-	      "id": 1,  
-	      "name": "some attribute"  
-	    }]  
-	  }
-  }
-}  
+data : {
+			  "search": JSON.stringify({
+				  "projectId": 38,
+			      "object": {  
+			        "id": 1,
+			        "attrs": [{   
+			          "id": 1 
+			        }]  
+			      }
+			  })
+		}, 
 ```
 
 ## Response
@@ -437,19 +450,17 @@
 
 ## Request
 ```
-{  
-  "projectId": 38,
-  "sort": {
-	  "object": {  
-	    "id": 1,  
-	    "name": "some object"  
-	    "attrs": [{  # list of selected attrs  
-	      "id": 1,  
-	      "name": "some attribute"  
-	    }]  
-	  }
-  }
-}  
+data : {
+			  "sort": JSON.stringify({
+				  "projectId": 38,
+			      "object": {  
+			        "id": 1,
+			        "attrs": [{  
+			          "id": 1 
+			        }]  
+			      }
+			  })
+		},  
 ```
 
 ## Response
@@ -490,19 +501,17 @@
 
 ## Request
 ```
-{  
-  "projectId": 38,
-  "filter": {
-	  "object": {  
-	    "id": 1,  
-	    "name": "some object"  
-	    "attrs": [{  # list of selected attrs  
-	      "id": 1,  
-	      "name": "some attribute"  
-	    }]  
-	  }
-  }
-}  
+data : {
+			  "filter": JSON.stringify({
+				  "projectId": 38,
+			      "object": {  
+			        "id": 1,  
+			        "attrs": [{  # list of selected attrs  
+			          "id": 1
+			        }]  
+			      }
+			  })
+		},  
 ```
 
 ## Response
@@ -559,34 +568,36 @@
 
 ## Request
 ```
-{  
-  "projectId": 38,
-  "algorithmicDependincy{  
-	"id": 1,  
-	"resultField": { # attribute that will be influenced  
-	  "object": {  
-		"id": 1,  
-		"name": "some object"  
-		"attr": {    
-		  "id": 1,  
-		  "name": "some attribute"  
-		}  
-	  }  
-	},  
-	"sourceFields": [{  # attribute that will be part of a formula    
-	  "variable" : "X",  
-	  "object": {  
-		"id": 1,  
-		"name": "some object"  
-		"attr": {   
-		  "id": 1,  
-		  "name": "some attribute"  
-		}  
-	  }  
-	}],  
-	"formula": "X + Y"  
-  }  
-}  
+data : {
+			"algorithmicDependincy" : JSON.stringify({
+				"projectId" : 38,
+				"id" : 1,
+				"resultField" : {
+					"id" : 1,
+					"attr" : {
+						"id" : 1
+					}
+				},
+				"sourceFields" : [ {
+					"variable" : "X",
+					"object" : {
+						"id" : 1,
+						"attr" : {
+							"id" : 1
+						}
+					}
+				}, {
+					"variable" : "Y",
+					"object" : {
+						"id" : 1,
+						"attr" : {
+							"id" : 1
+						}
+					}
+				} ],
+				"formula" : "X + Y"
+			})
+		},
 ```
 
 ## Response
