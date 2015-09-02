@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -119,22 +121,22 @@ body {
 }
 
 .project-menu {
-    margin: 3 auto 3 10;
+    margin: 0;
 }
 
 .user-block {
-    color: aliceblue;
+    color: #fff;
     font-size: 25px;
     font-weight: 700;
     font: font-family: 'Open Sans', Helvetica, sans-serif;
-    margin: 3 10 3 auto;
     background: cadetblue;
-    border-radius: 3px;
-    padding: 0.26em;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
 }
 
 .add-form {
-    margin: 0 5;
+    margin: 0 5px;
 }
 
 .fullscr-button {
@@ -185,21 +187,25 @@ body {
 }
 .tbody-div {
     height: 20%;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
 .attr-box {
+    border-radius: 3px;
+    box-shadow: 3px 3px 7px -3px black;
+    background: #fff;
     position: relative;
     width: 20em;
-    height: 18em;
-    left: 20em;
+    height: 20em;
+    left: 20.5em;
     top: -20em;
     display: block;
+    padding-bottom: 5px;
+    z-index: 100;
 }
 
 .elem-name-td {
-
     display: inline-block;
     position: relative;
     width: 100%;

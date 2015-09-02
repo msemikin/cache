@@ -14,6 +14,7 @@ app.controller("guicontroller", ["$scope", function ($scope) {
         $scope.selected = obj;
         $scope.showAttrs();
     }
+    $scope.tab = 2;
 
     $scope.user = {
         FullName: "Анатолий Иваныч"

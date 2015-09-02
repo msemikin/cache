@@ -1,0 +1,38 @@
+<div class="object-container" name="objContainer">
+    <div class="gorizont objects-attr-list">
+        <div class="selects panel panel-default">
+        <!--<div class="panel-heading">
+                <h3 class="panel-title">Объекты</h3>
+            </div>-->
+            <div class="panel-body">
+                <select class="list" size="5" id="List1" name="listTab1" onclick="refreshAttr(1);"></select>
+            </div>
+        </div>
+        <div class="selects panel panel-default">
+        <!--<div class="panel-heading">
+                <h3 class="panel-title">Атрибуты</h3>
+            </div>-->
+            <div class="panel-body">
+                <select class="list" size="5" id="List2" name="listTab1"></select>
+            </div>
+        </div>
+    </div>
+    <div class="gorizont" id ="gor" ng-controller="ctrl">
+        <div class="inputs panel panel-default"  ng-model="company">
+            <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
+                <textarea class="textareas" id="wordTextBox" cols="25" rows="1" ng-model="objec.name"></textarea>
+            </div>
+            <div style="padding:0;" class="panel-body  obj-input">
+                <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="in List" ng-click="create(objec)"; objec='';>
+            </div>
+        </div>
+        <div class="inputs panel panel-default">
+            <div style="background-color: #fff; padding: 0; float:left;" class="panel-heading">
+                <textarea class="textareas" id="attrBox" cols="25" rows="1" ></textarea>
+            </div>
+            <div style="padding:0;" class="panel-body  attr-input">
+                <input type="button" style="width:100%; height:100%; margin:0;" class="btn btn-default" value="AttrInList" onclick = "addAttr()">
+            </div>
+        </div>
+    </div>
+</div>

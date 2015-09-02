@@ -1,0 +1,129 @@
+.paper {
+	position: relative;
+}
+
+.model {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin-bottom: 0px !important;
+}
+
+.functional-model {
+}
+
+.object-relation-model {
+}
+
+.model .panel-body {
+	overflow: hidden;
+    padding: 0px;
+	height: 100px;
+	flex-grow: 1;
+}
+
+.model .figuresBar {
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	border-radius:0px;
+    padding: 15px 0px 15px 15px;
+    margin:0px;
+}
+.figuresBar input {
+    height: 50px;
+    width: 100px;
+    margin-right:15px;
+}
+
+/* Dialogs */
+
+.dialog {
+    position: absolute;
+    left: 30%;
+    margin: auto;
+    margin-top: -250px;
+    box-shadow: 0px 0px 10px 0px grey !important;
+}
+
+.dialog .panel-body{
+	height:auto;
+	padding: 15px;
+}
+
+.dialog .list-group{
+	width: 100%;
+}
+
+.change-name {
+    width: 300px;
+}
+
+.options {
+    width: 40%;
+    display: flex;
+}
+
+.change-link{
+    width: 300px;
+}
+.change-link .panel-body{
+    display:flex;
+}
+
+.change-link .form-control{
+    width:100px;
+    margin: auto;
+}
+
+.options input {
+    width: 165px;
+    margin: auto;
+}
+
+.dialog .panel-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dialog .panel-footer input {
+    margin-left: 10px;
+}
+
+.entityName {
+    width: 250px;
+    height: 30px;
+    margin: auto;
+    margin-top: 0px;
+    padding: 3px;
+}
+
+.entityTitle {
+    margin: auto;
+}
+
+.entityNameButton {
+    height: 30px;
+    width: 100px;
+    background-color: skyblue;
+    margin: auto;
+    margin-top: 0px
+}
+
+.entityNameDeleteButton {
+    height: 30px;
+    width: 100px;
+    background-color: indianred;
+    margin: auto;
+    margin-top: 0px
+}
+
+.transfer {
+	position: absolute;
+	height:50px;
+	width: 100px;
+	border: 1px solid grey;
+	background-color: white;
+    border: 0;
+    box-shadow: 0.5px 0.5px 5px rgba(0,0,0,0.5);
+}
