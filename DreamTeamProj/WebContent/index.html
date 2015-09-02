@@ -1,0 +1,149 @@
+<html ng-app="db" lang="ru">
+
+<head>
+<meta charset="utf-8">
+<meta lang="ru">
+<meta name="description" content="A tool for studying DataBases.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css"
+	href="css/lib/pure-release-0.6.0/pure-nr.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css"
+	href="css/lib/font-awesome-4.4.0/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/upside-menu.css">
+<script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/lib/angular.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+<!--Online links:
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
+
+<title>Editing &ndash; Student project &ndash; DataBases</title>
+<script type="text/javascript">
+	$
+			.ajax({
+
+				type : "POST",
+				url : "../DreamTeamProj/project/integrity_constraints/links/delete",
+				data : {
+					"id":2
+				},
+				dataType : "json",
+				success : function(data) {
+					console.log(JSON.stringify(data));
+					console.log(data);
+				}
+			});
+</script>
+</head>
+
+<body ng-controller="guicontroller" data-ng-init="init()"
+	ng-click="hideAttrs();">
+	<div id="background">
+		<div id="header" class="header">
+			<div class="project-menu">
+				<div id='cssmenu'>
+					<ul>
+						<li class='active has-sub'><a href='#'><span>Menu</span></a>
+							<ul>
+								<li class=''><a href='#' class="first"><span>Сохранить</span></a>
+									<!--<ul>
+                                    <li><a href='#'><span>...</span></a></li>
+                                    <li class='last'><a href='#'><span>...</span></a></li>
+                                </ul>--></li>
+								<li class=''><a href='#' class="second"><span>Перейти
+											к другому проекту</span></a> <!--<ul>
+                                    <li><a href='#'><span>...</span></a></li>
+                                    <li class='last'><a href='#'><span>...</span></a></li>
+                                </ul>--></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+			<div class="user-block">{{ user.FullName }}</div>
+		</div>
+		<div id="main" class="main">
+			<div class="left-side">
+				<div class="pure-menu custom-restricted-width">
+					<ul class="pure-menu-list">
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Редактировать
+								<br> документ
+						</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Объекты
+								и атрибуты</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Use-Case</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Relations</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">ER-модель</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Информационные
+								<br> потребности
+						</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Статистики</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Отчеты</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Алгоритмические
+								<br> зависимости
+						</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Ограничения
+								<br> целостности
+						</a></li>
+					</ul>
+				</div>
+				<hr class="divider"></hr>
+				<!--TODO-->
+				<div class="oe">
+					<div class="table-oa">
+						<div class="objects-tr table-header">
+							<div class="obj-name-td">Объекты:</div>
+							<div class="attr-count-td">...</div>
+						</div>
+						<div class="tbody-div">
+							<div class="objects-tr" ng-repeat="object in objects"
+								ng-click="showAttrsInDiv(object); $event.stopPropagation();">
+								<div class="obj-name-td">{{object.Name}}</div>
+								<div class="attr-count-td">{{object.AttrCount}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="add-obj-input" id="addObjInput">
+						<form class="pure-form add-form">
+							<input type="text" placeholder="Object name">
+							<button type="button" class="button-success pure-button">
+								<i class="fa fa-plus"></i> Add
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="attr-box" ng-click="$event.stopPropagation();">
+					<div class="table-attr">
+						<div class="objects-tr table-header">
+							<div class="elem-name-td">Атрибуты:</div>
+						</div>
+						<!--TODO-->
+						<div class="tbody-div">
+							<div class="objects-tr"
+								ng-repeat="attribute in selected.attributes">
+								<div class="elem-name-td">{{attribute.Name}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="add-obj-input" id="addElemInput">
+						<form class="pure-form add-form">
+							<input type="text" placeholder="Element name">
+							<button type="button" class="button-success pure-button">
+								<i class="fa fa-plus"></i> Add
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="extend-box"></div>
+		</div>
+		<div id="footer" class="footer">
+			<p class="legal-copyright">© 2014 DreamTeam! All rights reserved.
+			</p>
+		</div>
+	</div>
+</body>
+
+</html>
