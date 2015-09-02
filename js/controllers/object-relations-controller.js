@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module("cache");
+var app = angular.module("db");
 app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', '$rootScope', function($scope, Diagram, $rootScope) {
     var diagram = Diagram.setup({
         name: 'objectRelations',

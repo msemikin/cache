@@ -1,4 +1,4 @@
 'use strict';
-angular.module('cache').service('Report', ['DataLoader', function (DataLoader) {
+angular.module('db').service('Report', ['DataLoader', function (DataLoader) {
     return DataLoader.extend([]);
 }]);

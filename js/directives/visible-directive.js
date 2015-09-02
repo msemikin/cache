@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').directive('visible', function() {
+angular.module('db').directive('visible', function() {
 
     return {
         restrict: 'A',

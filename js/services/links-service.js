@@ -1,6 +1,6 @@
 'use strict';
 /* globals joint g V:true */
-var app = angular.module('cache');
+var app = angular.module('db');
 
 app.service('Links', [function() {
 

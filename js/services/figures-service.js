@@ -1,6 +1,6 @@
 'use strict';
 /*globals joint:true */
-var app = angular.module('cache');
+var app = angular.module('db');
 
 app.service('Figures', ['$rootScope', function($rootScope) {
 

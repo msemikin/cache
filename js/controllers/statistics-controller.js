@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('cache');
+var app = angular.module('db');
 app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', function($scope, Statistic, Object, Utils) {
     $scope.objects = [];
     $scope.statistics = [];

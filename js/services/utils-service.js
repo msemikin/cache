@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').service('Utils', function () {
+angular.module('db').service('Utils', function () {
     var Utils = {};
 
     Utils.difference = function (list1, list2) {

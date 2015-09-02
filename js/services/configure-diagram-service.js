@@ -1,6 +1,6 @@
 'use strict';
 /* globals joint g:true */
-var app = angular.module('cache');
+var app = angular.module('db');
 app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
     /**
      * Configuration of a diagram and figures on it with access to the graph and paper objects

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').controller('ModalsCtrl', function($scope, $rootScope, Modals) {
+angular.module('db').controller('ModalsCtrl', function($scope, $rootScope, Modals) {
     var modal = null;
 
     $scope.handleClick = function () {

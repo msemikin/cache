@@ -1,3 +1,3 @@
 'use strict';
-angular.module('cache').controller('DiagramOptionsCtrl', ['$scope', function ($scope) {
+angular.module('db').controller('DiagramOptionsCtrl', ['$scope', function ($scope) {
 }]);

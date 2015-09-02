@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').factory('DataLoader', function($q) {
+angular.module('db').factory('DataLoader', function($q) {
     function indexOf(data, value) {
         var index = _.findIndex(data, function(element) {
             return element.id === value.id;

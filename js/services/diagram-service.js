@@ -1,6 +1,6 @@
 'use strict';
 /* globals joint:true */
-angular.module('cache').service('Diagram', ['configureDiagram', 'setupDragAndDrop', 'Links', 'Figures', function(configureDiagram, setupDragAndDrop, Links, Figures) {
+angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop', 'Links', 'Figures', function(configureDiagram, setupDragAndDrop, Links, Figures) {
     return {
         /**
          * Constructs and configures a diagram

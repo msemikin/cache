@@ -1,6 +1,5 @@
 'use strict';
-
-var app = angular.module('cache');
+var app = angular.module('db');
 app.controller('UsecaseCtrl', ['$scope', 'Diagram', function($scope, Diagram) {
     var diagram = Diagram.setup({
         name: 'usecase',

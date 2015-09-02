@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').service('Modals', function ($rootScope) {
+angular.module('db').service('Modals', function ($rootScope) {
 
     var modal = {
         deferred: null,

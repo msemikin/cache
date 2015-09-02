@@ -1,10 +1,10 @@
 'use strict';
-var app = angular.module('cache');
+var app = angular.module('db');
 app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency', 'Object', function($scope, AlgorithmicDependency, Object) {
     $scope.initDropdowns = function() {
-        $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
-        });
+        // $(document).ready(function() {
+        //     $('.dropdown-toggle').dropdown();
+        // });
     };
     $scope.initDropdowns();
 

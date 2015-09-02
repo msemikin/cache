@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('cache');
+var app = angular.module('db');
 app.controller('ReportsCtrl', ['$scope', 'Report', 'CommonCtrlFactory', function ($scope, Report, CommonCtrlFactory) {
     CommonCtrlFactory({
         elementName: 'report',

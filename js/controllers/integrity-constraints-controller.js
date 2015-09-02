@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('cache');
+var app = angular.module('db');
 app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint, LinkConstraint, Object) {
     $scope.objects = [];
     var tabs = {
@@ -107,9 +107,9 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
     };
 
     $scope.initDropdowns = function() {
-        $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
-        });
+        // $(document).ready(function() {
+        //     $('.dropdown-toggle').dropdown();
+        // });
     };
     $scope.initDropdowns();
 

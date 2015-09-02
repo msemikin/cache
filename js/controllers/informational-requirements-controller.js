@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', 'Object', 'Search', 'Sort', 'Filter', 'Utils', function($scope, Object, Search, Sort, Filter, Utils) {
+angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Object', 'Search', 'Sort', 'Filter', 'Utils', function($scope, Object, Search, Sort, Filter, Utils) {
 
     var tabs = {
         search: {
@@ -28,9 +28,9 @@ angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', '
         }
     };
 
-    $(document).ready(function() {
-        $('.dropdown-toggle').dropdown();
-    });
+    // $(document).ready(function() {
+    //     $('.dropdown-toggle').dropdown();
+    // });
     $scope.objects = [];
     $scope.selectTab = function(name) {
         $scope.tab = tabs[name];

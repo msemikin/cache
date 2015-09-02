@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('cache');
+var app = angular.module('db');
 app.service('setupDragAndDrop', ['Figures', function(Figures) {
 
     function getDragAndDrop(graph, diagramSelector, figureType, diagramName) {
