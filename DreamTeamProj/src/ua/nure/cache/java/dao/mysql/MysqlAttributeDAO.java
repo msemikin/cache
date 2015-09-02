@@ -14,6 +14,7 @@ import ua.nure.cache.java.entity.Attribute;
 
 public class MysqlAttributeDAO implements AttributeDAO {
 	Logger log = Logger.getLogger(MysqlAttributeDAO.class);
+
 	@Override
 	public int insertAttribute(Attribute attr) {
 		int result = -1;
@@ -21,7 +22,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertAttribute(con, attr);
-			if (result >0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -35,7 +36,8 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		return result;
 	}
 
-	private int insertAttribute(Connection con, Attribute attr) throws SQLException {
+	private int insertAttribute(Connection con, Attribute attr)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
@@ -79,7 +81,8 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		return result;
 	}
 
-	private boolean deleteAttribute(Connection con, int attributeId) throws SQLException {
+	private boolean deleteAttribute(Connection con, int attributeId)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		try {
@@ -88,8 +91,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 			pstmt.setInt(1, attributeId);
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -107,7 +109,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateAttribute(con, attr);
-			if (result >0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -121,7 +123,8 @@ public class MysqlAttributeDAO implements AttributeDAO {
 		return result;
 	}
 
-	private int updateAttribute(Connection con, Attribute attr) throws SQLException {
+	private int updateAttribute(Connection con, Attribute attr)
+			throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
@@ -133,10 +136,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			}
-			ResultSet generatedKeys = pstmt.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				return generatedKeys.getInt(1);
-			}
+			return attr.getId();
 		} catch (SQLException e) {
 			log.error(e);
 		} finally {
@@ -148,7 +148,7 @@ public class MysqlAttributeDAO implements AttributeDAO {
 	@Override
 	public Attribute getAttribute(int attributeId) {
 		return null;
-		
+
 	}
 
 }

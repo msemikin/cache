@@ -354,22 +354,23 @@ public class MysqlProjectDAO implements ProjectDAO {
 			}
 			result = deps.getId();
 			for (SourceField o : deps.getSourceFields()) {
+				
+				PreparedStatement pstmt2 = con.prepareStatement(
+						"Delete from depstosourfield where dep_id =?",
+						Statement.RETURN_GENERATED_KEYS);
+				pstmt2.setInt(1, result);
+				pstmt2.executeUpdate();
 				PreparedStatement pstmt1 = con.prepareStatement(
 						DBQueries.UPDATE_SF, Statement.RETURN_GENERATED_KEYS);
 				pstmt1.setString(1, o.getVariable());
 				pstmt1.setInt(2, o.getObject().getId());
 				pstmt1.setInt(3, o.getFiledId());
 				pstmt1.executeUpdate();
-				PreparedStatement pstmt2 = con.prepareStatement(
-						"Delete from depstosourfield where dep_id =?",
-						Statement.RETURN_GENERATED_KEYS);
-				pstmt2.setInt(1, result);
-				pstmt2.executeUpdate();
 				PreparedStatement pstmt3 = con.prepareStatement(
 						DBQueries.INSERT_DEP_TO_SF,
 						Statement.RETURN_GENERATED_KEYS);
-				pstmt2.setInt(1, result);
-				pstmt2.setInt(2, o.getFiledId());
+				pstmt3.setInt(1, result);
+				pstmt3.setInt(2, o.getFiledId());
 				pstmt3.executeUpdate();
 			}
 		} catch (SQLException e) {

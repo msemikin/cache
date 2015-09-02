@@ -22,46 +22,50 @@
 
 <title>Editing &ndash; Student project &ndash; DataBases</title>
 <script type="text/javascript">
-	$.ajax({
+	$
+			.ajax({
 
-		type : "POST",
-		url : "../DreamTeamProj/project/algorithmic_dependencies/new",
-		data : {
-            "algorithmicDependincy" : JSON.stringify({
-                "projectId" : 1,
-                "id" : 1,
-                "resultField" : {
-                    "id" : 1,
-                    "attr" : {
-                        "id" : 1
-                    }
-                },
-                "sourceFields" : [ {
-                    "variable" : "X",
-                    "object" : {
-                        "id" : 1,
-                        "attr" : {
-                            "id" : 1
-                        }
-                    }
-                }, {
-                    "variable" : "Y",
-                    "object" : {
-                        "id" : 1,
-                        "attr" : {
-                            "id" : 1
-                        }
-                    }
-                } ],
-                "formula" : "X + Y"
-            })
-        },
-		dataType : "json",
-		success : function(data) {
-			console.log(JSON.stringify(data));
-			console.log(data);
-		}
-	});
+				type : "POST",
+				url : "../DreamTeamProj/project/algorithmic_dependencies/update",
+				data : {
+					"algorithmicDependincy" : JSON.stringify({
+						"id":1,
+						"projectId" : 0,
+						"name" :"myBestName",
+						"resultField" : {
+							"id" : 3,
+							"attr" : {
+								"id" : 3
+							}
+						},
+						"sourceFields" : [ {
+							"fieldId" : 1,
+							"variable" : "k",
+							"object" : {
+								"id" : 3,
+								"attr" : {
+									"id" : 3
+								}
+							}
+						}, {
+							"fieldId" : 2,
+							"variable" : "p",
+							"object" : {
+								"id" : 3,
+								"attr" : {
+									"id" : 3
+								}
+							}
+						} ],
+						"formula" : "X + Y"
+					})
+				},
+				dataType : "json",
+				success : function(data) {
+					console.log(JSON.stringify(data));
+					console.log(data);
+				}
+			});
 </script>
 </head>
 

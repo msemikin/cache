@@ -335,7 +335,7 @@ public class Server implements IServer{
 	@Override
 	public void deleteSort(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		Integer id = Integer.valueOf(req.getParameter("Id"));
+		Integer id = Integer.valueOf(req.getParameter("id"));
 		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
 		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_SORT, id);
 		Resp res = new Resp();
@@ -351,7 +351,7 @@ public class Server implements IServer{
 	@Override
 	public void deleteSearch(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		Integer id = Integer.valueOf(req.getParameter("Id"));
+		Integer id = Integer.valueOf(req.getParameter("id"));
 		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
 		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_SEARCH, id);
 		Resp res = new Resp();
@@ -368,7 +368,7 @@ public class Server implements IServer{
 	@Override
 	public void deleteFilter(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		Integer id = Integer.valueOf(req.getParameter("Id"));
+		Integer id = Integer.valueOf(req.getParameter("id"));
 		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
 		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_FILTER, id);
 		Resp res = new Resp();
@@ -385,7 +385,7 @@ public class Server implements IServer{
 	@Override
 	public void deleteAlgDep(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		Integer id = Integer.valueOf(req.getParameter("Id"));
+		Integer id = Integer.valueOf(req.getParameter("id"));
 		boolean result = new MysqlProjectDAO().deleteAlgDeps(id);
 		Resp res = new Resp();
 		if (result !=false) {
@@ -480,6 +480,7 @@ public class Server implements IServer{
 	public void updateDiagram(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		Diagram d = new Diagram();
+		d.setId(Integer.valueOf(req.getParameter("diagramId")));
 		d.setDiagram(req.getParameter("diagram"));
 		int result = new MysqlDiagramDAO().updateDiagram(d);
 		Resp res = new Resp();

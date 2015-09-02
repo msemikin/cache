@@ -68,9 +68,11 @@ public class DBQueries {
 	public static final String INSERT_OBJECT ="INSERT INTO `my_db`.`object` "
 			+ "(`project_id`,`objectName`) "
 			+ "VALUES (?,?);";
+	
 	public static final String INSERT_ATTRIBUTE = "INSERT INTO `my_db`.`attribute` "
 			+ "(`object_id`,`Name`) "
-			+ "VALUES (?,?);";
+			+ "VALUES (?,?) ";
+	
 	public static final String INSERT_STATISTIC = "INSERT INTO `my_db`.`statistic` "
 			+ "(`project_id`,`name`) "
 			+ "VALUES (?,?);";
@@ -96,11 +98,11 @@ public class DBQueries {
 	public static final String SORT_TO_ATTR = "INSERT INTO sorttoattr VALUES (?,?);";
 	
 	
-	public static final String INSERT_ALG_DEPS ="INSERT INTO algdeps (`result_field`,`formula`,'name') Values(?,?,?);";
+	public static final String INSERT_ALG_DEPS ="INSERT INTO `my_db`.`algdeps` (`result_field`, `formula`, `name`) VALUES (?,?,?);";
 	
 	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`object_id`) Values(?,?);";
 	
-	public static final String INSERT_DEP_TO_SF ="INSERT INTO depstosourfield (`dep_id`,`field_id`) VALUES (?,?); ";
+	public static final String INSERT_DEP_TO_SF ="INSERT INTO depstosourfield (`dep_id`,`field_id`) VALUES (?,?);  ";
 	
 	
 	public static final String DELETE_OBJECT = "DELETE FROM `my_db`.`object` WHERE `object_id`=? and project_id =?;";
