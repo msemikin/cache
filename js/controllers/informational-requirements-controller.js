@@ -1,5 +1,5 @@
 'use strict';
-angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', 'Object', 'Search', 'Sort', 'Filter', function($scope, Object, Search, Sort, Filter) {
+angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', 'Object', 'Search', 'Sort', 'Filter', 'Utils', function($scope, Object, Search, Sort, Filter, Utils) {
 
     var tabs = {
         search: {
@@ -75,35 +75,15 @@ angular.module('cache').controller('InformationalRequirementsCtrl', ['$scope', '
         }
     }
 
-    function difference(list1, list2) {
-        var diff = [];
-        if (!list1.length) {
-            return list2;
-        } else if (!list2.length) {
-            return list1;
-        }
-        _.each(list1, function(elOuter) {
-            if (!_.contains(
-                    _.map(list2, function(elInner) {
-                        return elInner.id;
-                    }),
-                    elOuter.id
-                )) {
-                diff.push(elOuter);
-            }
-        });
-        return diff;
-    }
-
     function fillAvailableAttrs(object) {
-        $scope.availableAttrs = difference(object.attrs, $scope.tab.requirement.object.attrs);
+        $scope.availableAttrs = Utils.difference(object.attrs, $scope.tab.requirement.object.attrs);
     }
 
     function fillAvailableObjects(requirements) {
         var requirementObjects = _.map(requirements, function(requirement) {
             return requirement.object;
         });
-        $scope.availableObjects = difference($scope.objects, requirementObjects);
+        $scope.availableObjects = Utils.difference($scope.objects, requirementObjects);
         return requirements;
     }
 

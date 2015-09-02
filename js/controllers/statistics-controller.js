@@ -1,107 +1,126 @@
-var statistics = [];
-var sc;
-
+'use strict';
 var app = angular.module('cache');
-app.controller('StatisticsCtrl', ['$scope', function($scope){
+app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', function($scope, Statistic, Object, Utils) {
+    $scope.objects = [];
+    $scope.statistics = [];
+    $scope.statistic = null;
+    $scope.statisticName = null;
+    $scope.availableAttrs = {};
+
+    function updateObjects() {
+        return Object.load().then(function(data) {
+            $scope.objects = data;
+        });
+    }
+
+    function fillAvailableAttrs(statistic) {
+        var statisticObjects = statistic.objects;
+        _.each(statisticObjects, function(statisticObject) {
+            var originalObject = _.findWhere($scope.objects, {
+                id: statisticObject.id
+            });
+            $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, statisticObject.attrs);
+        });
+    }
+
+    function fillAvailableObjects(statistic) {
+        $scope.availableObjects = Utils.difference($scope.objects, statistic.objects);
+        return statistic;
+    }
+
+    function selectStatistic(statistic) {
+        // statistic is an id
+        $scope.statistic = statistic;
+        if (statistic) {
+            fillAvailableObjects(statistic);
+            fillAvailableAttrs(statistic);
+        }
+        return statistic;
+    }
+
+    function updateStatistics(statisticId) {
+        return Statistic.load()
+            .then(function(statistics) {
+                var statistic = typeof statisticId === 'number' ? _.findWhere(statistics, {
+                    id: statisticId
+                }) : statistics[0];
+                $scope.statistics = statistics;
+                selectStatistic(statistic);
+                return statistic;
+            });
+    }
+
+
+    $scope.selectStatistic = selectStatistic;
+
+    $scope.addStatistic = function() {
+        var statistic = {
+            name: $scope.statisticName,
+            objects: []
+        };
+        Statistic.create(statistic)
+            .then(function(response) {
+                $scope.statisticName = '';
+                return updateStatistics(response.id);
+            });
+    };
+
+    $scope.addObject = function(object) {
+        var statistic = $scope.statistic;
+        var statisticObject = $.extend({}, object, {attrs: []});
+        statistic.objects.push(statisticObject);
+        Statistic.update(statistic).then(function(response) {
+            updateStatistics(statistic.id);
+        });
+    };
+
+    $scope.addAttr = function(object, attr) {
+        var statistic = $scope.statistic;
+        var objectIndex = _.findIndex(statistic.objects, {
+            id: object.id
+        });
+        statistic.objects[objectIndex].attrs.push(attr);
+        Statistic.update(statistic).then(function(response) {
+            updateStatistics(statistic.id);
+        });
+    };
+
+    $scope.removeAttr = function(object, attr) {
+        var statistic = $scope.statistic;
+        var objectIndex = _.findIndex(statistic.objects, {
+            id: object.id
+        });
+        var attrIndex = _.findIndex(statistic.objects[objectIndex].attrs, {
+            id: attr.id
+        });
+        statistic.objects[objectIndex].attrs.splice(attrIndex, 1);
+        Statistic.update(statistic).then(function(response) {
+            updateStatistics(statistic.id);
+        });
+    };
+
+    $scope.removeObject = function(object) {
+        var statistic = $scope.statistic;
+        var objectIndex = _.findIndex(statistic.objects, {
+            id: object.id
+        });
+        statistic.objects.splice(objectIndex, 1);
+        Statistic.update(statistic).then(function(response) {
+            updateStatistics(statistic.id);
+        });
+    };
+
     $scope.initDropdowns = function () {
-        console.log('initDropdowns');
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.dropdown-toggle').dropdown();
         });
     };
-    $scope.initDropdowns();
 
-    $scope.statistics = statistics;
-    $scope.selectedStatistic = undefined;
-    sc = $scope;
-
-    $scope.newStatisticName = '';
-
-	$scope.addStatistic = function() {
-        var statisticObjects = [];
-        for(var i = 0; i<objects.length; i++) {
-
-            var obj = objects[i];
-            var objectAttrs = [];
-            for(var j = 0; j < obj.attribute.length; j++) {
-                objectAttrs.push({
-                    name: obj.attribute[j],
-                    added: false
-                });
-            }
-
-            statisticObjects.push({
-                name: objects[i].name,
-                attrs: objectAttrs,
-                added: false
-            });
+    $scope.onKeypress = function (event) {
+        if(event.keyCode === 13) {
+            $scope.addStatistic();
         }
-
-        statistics.push({
-            name: this.newStatisticName,
-            objects: statisticObjects
-        });
-
-        this.selectStatistic(statistics.length-1);
-	}
-
-    $scope.addObject = function(objectName){
-    	$('.objDropup').toggleClass('open');
-
-        var obj = _.first(_.where(this.selectedStatistic.objects, {name: objectName}));
-        obj.added = true;
-        this.initDropdowns();
     };
 
-    $scope.getUnaddedObjects = function() {
-        if(this.selectedStatistic) {
-            return _.where(this.selectedStatistic.objects, {added: false});
-        }
-    }
-    $scope.getAddedObjects = function() {
-        if(this.selectedStatistic) {
-            return _.where(this.selectedStatistic.objects, {added: true});
-        }
-    }
-
-    $scope.addAttr = function(objectName, attrName){
-    	$('.attrDropup').toggleClass('open');
-
-        var obj = _.first(_.where(this.selectedStatistic.objects, {name: objectName}));
-        var attr = _.first(_.where(obj.attrs, {name: attrName}));
-        attr.added = true;
-    };
-
-	$scope.removeAttr = function(objectName, attrName){
-        var obj = _.first(_.where(this.selectedStatistic.objects, {name: objectName}));
-        var attr = _.first(_.where(obj.attrs, {name: attrName}));
-            attr.added = false;
-	}
-
-	$scope.selectStatistic = function(index) {
-        this.selectedStatistic = statistics[index];
-
-	}
-
-    $scope.isSelected = function(statisticName) {
-        var result = this.selectedStatistic.name === statisticName;
-        console.log(this.selectedStatistic.name + ' ' + statisticName + ' ' + result);
-        return result;
-    }
-
-	$scope.getUnaddedAttrs = function(objectName) {
-        if(this.selectedStatistic) {
-            var obj = _.first(_.where(this.selectedStatistic.objects, {name: objectName}));
-            var res = _.where(obj.attrs, {added: false});
-            return res;
-        }
-	}
-
-	$scope.getAddedAttrs = function(objectName) {
-        if(this.selectedStatistic) {
-            var obj = _.first(_.where(this.selectedStatistic.objects, {name: objectName}));
-            return _.where(obj.attrs, {added: true});
-        }
-	}
-
+    updateObjects().then(updateStatistics);
 }]);

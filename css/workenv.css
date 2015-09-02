@@ -151,6 +151,7 @@
 
 .tile {
     height: 100%;
+    overflow-y: auto;
 }
 
 /* -------------------- */
@@ -184,7 +185,7 @@
     position: relative;
     min-width: 200px;
     height: 100%;
-    ;
+    margin-bottom: 0px !important;
 }
 .namePanel .panel-body {
     flex-grow: 1;
@@ -219,9 +220,10 @@
     position: relative;
     flex-grow: 1;
     border-left: 0 !important;
+    margin-bottom: 0px !important;
 }
 .detailsPanel .panel-body {
-    overflow-y: scroll;
+    overflow-y: auto;
     flex-grow: 1;
 }
 .deleteButton {
@@ -241,14 +243,50 @@
 .statistics-name {
     margin-bottom: 15px;
 }
-.attr-src table {
-    text-align: center;
+/* algorithmic dependencies */
+.attr-src th{
+    padding-left: 20px !important;
+    vertical-align: middle !important;
+}
+
+.attr-src td {
+    vertical-align: middle !important;
+}
+.attr-src button, .attr-src input {
+    border-color: white;
+    box-shadow: none;
+}
+.attr-src button:hover, .attr-src input:hover {
+    border-color: #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+.remove-attr-src-cell {
+    text-align: right;
+}
+.attr-src-new .table{
+    background-color: #f5f5f5 !important;
+    margin-bottom: 0px;
+}
+.attr-src-new button, .attr-src-new input {
+    border-color: #ccc;
+}
+.algorithmic-dependency {
+    margin: 10px;
+}
+.attr-src-new tr:first-child > td{
+    border-top: 0;
 }
 .badge {
     cursor: pointer;
 }
 .stat-object {
+    position: relative;
     overflow-y: visible !important;
+}
+.stat-object .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 /* informational rquirements */
 .inf-req-tab {
@@ -282,13 +320,21 @@
 }
 /* algo */
 
+.form-group {
+    margin-bottom: 30px !important;
+}
 .algo-list {
     overflow: auto;
     height: 100%;
     padding-bottom: 50px;
 }
-.button-add-algo {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.44);
+.fixed-container {
+    left: 50%;
     position: absolute;
     bottom: 25px;
+}
+.button-fixed {
+    position: relative;
+    left:-50%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.44);
 }
