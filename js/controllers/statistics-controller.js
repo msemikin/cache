@@ -19,7 +19,9 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
             var originalObject = _.findWhere($scope.objects, {
                 id: statisticObject.id
             });
-            $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, statisticObject.attrs);
+            if (originalObject) {
+                $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, statisticObject.attrs);
+            }
         });
     }
 
@@ -111,9 +113,9 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
     };
 
     $scope.initDropdowns = function () {
-        $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
-        });
+        // $(document).ready(function() {
+        //     $('.dropdown-toggle').dropdown();
+        // });
     };
 
     $scope.onKeypress = function (event) {

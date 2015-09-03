@@ -34,12 +34,9 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
     $scope.objects = [];
     $scope.selectTab = function(name) {
         $scope.tab = tabs[name];
-        fillAvailableObjects($scope.tab.requirements);
-        if ($scope.tab.requirement) {
-            fillAvailableAttrs($scope.tab.requirement);
-        }
+        updateRequirements();
     };
-    $scope.selectTab('search');
+    $scope.tab = tabs.search;
 
     function updateObjects() {
         return Object.load().then(function(data) {

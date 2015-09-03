@@ -34,7 +34,9 @@ app.factory('CommonCtrlFactory', function(Utils, Object) {
                 var originalObject = _.findWhere($scope.objects, {
                     id: elementObject.id
                 });
-                $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, elementObject.attrs);
+                if (originalObject) {
+                    $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, elementObject.attrs);
+                }
             });
         }
 

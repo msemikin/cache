@@ -1,5 +1,5 @@
 'use strict';
-angular.module('db').factory('DataLoader', function($q) {
+angular.module('db').factory('DataLoader', function($q, $http) {
     function indexOf(data, value) {
         var index = _.findIndex(data, function(element) {
             return element.id === value.id;
@@ -8,8 +8,53 @@ angular.module('db').factory('DataLoader', function($q) {
     }
 
     return {
-        extend: function(data) {
+        extend: function(data, params) {
             var id = 0;
+            if (params) {
+                var loadPath = params.basicPath + 'all',
+                    createPath = params.basicPath + 'create',
+                    updatePath = params.basicPath + 'update',
+                    removePath = params.basicPath + 'remove';
+                return {
+                    create: function(value) {
+                        var deferred = $q.defer();
+                        var requestData = {
+                            projectId: '1'
+                        };
+                        requestData[params.requestProp] = value;
+                        $.post(createPath, requestData).then(function(response) {
+                            deferred.resolve(JSON.parse(response));
+                        });
+                        return deferred.promise;
+                    },
+                    load: function() {
+                        var deferred = $q.defer();
+                        var requestData = {
+                            projectId: '1'
+                        };
+                        $.post(loadPath, requestData).then(function(response) {
+                            deferred.resolve(JSON.parse(response));
+                        });
+                        return deferred.promise;
+                    },
+                    update: function(value) {
+                        var deferred = $q.defer();
+                        var requestData = {
+                            projectId: 1
+                        };
+                        requestData[params.requestProp] = value;
+                        $.post(updatePath, requestData).then(function(response) {
+                            deferred.resolve(JSON.parse(response));
+                        });
+                        return deferred.promise;
+                    },
+                    delete: function(value) {
+                        return $http.post(removePath, {
+                            id: value.id
+                        });
+                    }
+                };
+            }
             return {
                 create: function(value) {
                     var deferred = $q.defer();

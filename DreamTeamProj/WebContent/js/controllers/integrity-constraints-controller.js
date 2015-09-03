@@ -26,8 +26,9 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
     };
     $scope.selectTab = function(name) {
         $scope.tab = tabs[name];
+        updateConstraints();
     };
-    $scope.selectTab('attribute');
+    $scope.tab = tabs.attribute;
 
 
     function updateObjects() {
