@@ -110,6 +110,7 @@ body {
     padding: 0;
     box-shadow: 0px 0px 5px black;
     width: 20em;
+    z-index: 1;
 }
 
 .add-obj-input {
@@ -118,6 +119,7 @@ body {
 
 .extend-box {
     flex-grow: 5;
+    z-index: 0;
 }
 
 .project-menu {
@@ -126,9 +128,6 @@ body {
 
 .user-block {
     color: #fff;
-    font-size: 25px;
-    font-weight: 700;
-    font: font-family: 'Open Sans', Helvetica, sans-serif;
     background: cadetblue;
     font-family: 'Open Sans', Helvetica, sans-serif;
     font-size: 19px;
@@ -209,4 +208,37 @@ body {
     display: inline-block;
     position: relative;
     width: 100%;
+}
+
+.user-name-block {
+    padding: 0.7em;
+    color: #fff;
+    background: cadetblue;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.left-dash-side {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    padding: 0;
+    box-shadow: 0px 0px 5px black;
+    width: 13em;
+    z-index: 2;
+}
+
+.user-logout-block {
+    padding: 0.7em;
+    color: #fff;
+    background: cadetblue;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.pointer {
+    cursor: pointer;
 }
