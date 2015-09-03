@@ -19,6 +19,7 @@ body {
 
 .header,
 .footer {
+    position: absolute;
     background-color: darkgrey;
     width: 100%;
     z-index: 5;
@@ -34,6 +35,7 @@ body {
 }
 
 .header {
+    top: 0px;
     height: 3em;
     order: 1;
     display: flex;
@@ -42,6 +44,7 @@ body {
 }
 
 .footer {
+    bottom: 0px;
     order: 3;
     height: 1.3em;
     padding-bottom: 3;
@@ -50,6 +53,8 @@ body {
 }
 
 .main {
+    padding-top: 3em;
+    padding-bottom: 1.3em;
     order: 2;
     background-color: whitesmoke;
     width: 100%;
@@ -118,6 +123,7 @@ body {
 }
 
 .extend-box {
+    position: relative;
     flex-grow: 5;
     z-index: 0;
 }
