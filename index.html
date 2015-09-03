@@ -18,7 +18,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
 
-    <title>Editing &ndash; Student project &ndash; DataBases</title>
+    <title>Document &ndash; Student project &ndash; DataBases</title>
 </head>
 
 <body ng-controller="guicontroller" data-ng-init="init()" ng-click="hideAttrs();">
@@ -31,7 +31,7 @@
                             <ul>
                                 <li class=''><a href='#' class="first"><span>Сохранить</span></a>
                                 </li>
-                                <li class=''><a href='#' class="second"><span>Перейти к другому проекту</span></a>
+                                <li class=''><a href='dashboard.html#projects' class="second"><span>Перейти к другому проекту</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -44,7 +44,7 @@
                         <li class='active'>
                             <a href='#'><span>{{ user.FullName }}</span></a>
                             <ul>
-                                <li class=''><a href='#' class="first"><span>Редактировать информацию</span></a>
+                                <li class=''><a href='dashboard.html#user' class="first"><span>Редактировать информацию</span></a>
                                 </li>
                                 <li class=''><a href='#' class="second"><span>Выход</span></a>
                                 </li>
@@ -79,7 +79,7 @@
                             <div class="attr-count-td">...</div>
                         </div>
                         <div class="tbody-div">
-                            <div class="objects-tr" ng-repeat="object in objects" ng-click="showAttrsInDiv(object); $event.stopPropagation();">
+                            <div class="objects-tr pointer" ng-repeat="object in objects" ng-click="showAttrsInDiv(object); $event.stopPropagation();">
                                 <div class="obj-name-td">{{object.Name}}</div>
                                 <div class="attr-count-td">{{object.AttrCount}}</div>
                             </div>
@@ -101,7 +101,7 @@
                         </div>
                         <!--TODO-->
                         <div class="tbody-div">
-                            <div class="objects-tr" ng-repeat="attribute in selected.attributes">
+                            <div class="objects-tr pointer" ng-repeat="attribute in selected.attributes">
                                 <div class="elem-name-td">{{attribute.Name}}</div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="extend-box"></div>
+            <div class="extend-box" ng-include=""></div>
         </div>
         <div id="footer" class="footer">
             <p class="legal-copyright">

@@ -1,5 +1,7 @@
 /*FANTOM DATA*/
-var app = angular.module("db");
+var app = angular.module("db", [], function ($locationProvider) {
+    $locationProvider.html5Mode(true);
+});
 app.controller("guicontroller", ["$scope", function ($scope) {
     $scope.hideAttrs = function () {
         $(".attr-box").css("visibility", "hidden");
@@ -90,6 +92,92 @@ app.controller("guicontroller", ["$scope", function ($scope) {
 
             }]);
 
+app.controller("dashboard", ["$scope", function ($scope, $location) {
+    $scope.user = {
+        FullName: "Анатолий Иваныч"
+    };
+    $scope.included = "/pg/projects.html";
+    $scope.setPage = function (value) {
+        if (value == "projects") {
+            $scope.included = "/pg/projects.html";
+        } else if (value == "profile") {
+            $scope.included = "/pg/profile.html";
+        }
+    }
+    $scope.init = function () {
+        var pId = $location.path().split("/")[3] || "Unknown";
+        console.log(pId);
+    }
+}]);
+
+app.controller("setprojects", ["$scope", function ($scope) {
+    $scope.projects = [
+        {
+            DateOfLastChange: 111,
+            Title: "Hockey puck"
+        },
+        {
+            DateOfLastChange: 22,
+            Title: "Golf club"
+        },
+        {
+            DateOfLastChange: 31,
+            Title: "Baseball bat"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Name: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        },
+        {
+            DateOfLastChange: 4,
+            Title: "Lacrosse stick"
+        }
+		];
+}]);
 
 (function ($) {
     $(document).ready(function () {
