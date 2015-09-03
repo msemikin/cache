@@ -1,7 +1,5 @@
 /*FANTOM DATA*/
-var app = angular.module("db", [], function ($locationProvider) {
-    $locationProvider.html5Mode(true);
-});
+var app = angular.module("db");
 app.controller("guicontroller", ["$scope", function ($scope) {
     $scope.hideAttrs = function () {
         $(".attr-box").css("visibility", "hidden");
@@ -105,8 +103,6 @@ app.controller("dashboard", ["$scope", function ($scope, $location) {
         }
     }
     $scope.init = function () {
-        var pId = $location.path().split("/")[3] || "Unknown";
-        console.log(pId);
     }
 }]);
 

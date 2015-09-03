@@ -15,33 +15,10 @@
     <!--Online links:
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
 
-    <title>Dashboard &ndash; User information &ndash; DataBases</title>
 </head>
 
-<body ng-controller="dashboard" data-ng-init="init()" ng-click="hideAttrs();">
+<body ng-controller="profile">
     <div id="background">
-        <div id="header" class="header">
-            <div class="user-name-block">
-                {{ user.FullName }}
-            </div>
-            <div class="user-logout-block pointer">Выход</div>
-        </div>
-        <div id="main" class="main">
-            <div class="left-dash-side">
-                <div class="pure-menu custom-restricted-width">
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item"><a href="#user" class="pure-menu-link">Информация студента</a></li>
-                    </ul>
-                </div>
-                <hr class="divider"></hr>
-            </div>
-            <div class="extend-box" ng-include=""></div>
-        </div>
-        <div id="footer" class="footer">
-            <p class="legal-copyright">
-                © 2014 DreamTeam! All rights reserved.
-            </p>
-        </div>
     </div>
 </body>
 

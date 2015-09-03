@@ -19,11 +19,23 @@
 <body ng-controller="setprojects">
     <div id="background">
         <div class="projects-container">
+            <div class="projects-header">
+                <div class="header-name projects-title">Название проекта:</div>
+                <div class="header-date projects-date">Дата изменения:</div>
+                <div class="header-status projects-status">Статус:</div>
+                <div class="header-send projects-send">...</div>
+            </div>
             <div class="projects-tr" ng-repeat="project in projects">
                 <div class="projects-title">
-                   {{ project.Title }}
+                    {{ project.Title }}
                 </div>
-                <div>
+                <div class="projects-date">
+                    {{ project.DateOfLastChange }}
+                </div>
+                <div class="projects-status">
+                    {{ project.Status }}
+                </div>
+                <div class="projects-send">
                     {{ project.DateOfLastChange }}
                 </div>
             </div>
