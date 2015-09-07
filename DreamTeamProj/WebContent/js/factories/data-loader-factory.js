@@ -12,16 +12,16 @@ angular.module('db').factory('DataLoader', function($q, $http) {
             var id = 0;
             if (params) {
                 var loadPath = params.basicPath + 'all',
-                    createPath = params.basicPath + 'create',
+                    createPath = params.basicPath + 'new',
                     updatePath = params.basicPath + 'update',
-                    removePath = params.basicPath + 'remove';
+                    removePath = params.basicPath + 'delete';
                 return {
                     create: function(value) {
                         var deferred = $q.defer();
                         var requestData = {
                             projectId: '1'
                         };
-                        requestData[params.requestProp] = value;
+                        requestData[params.requestProp] = JSON.stringify(value);
                         $.post(createPath, requestData).then(function(response) {
                             deferred.resolve(JSON.parse(response));
                         });
@@ -43,7 +43,7 @@ angular.module('db').factory('DataLoader', function($q, $http) {
                             projectId: 1
                         };
                         requestData[params.requestProp] = value;
-                        $.post(updatePath, requestData).then(function(response) {
+                        $.post(loadPath, requestData).then(function(response) {
                             deferred.resolve(JSON.parse(response));
                         });
                         return deferred.promise;
