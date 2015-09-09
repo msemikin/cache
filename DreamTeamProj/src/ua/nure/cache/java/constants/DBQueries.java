@@ -27,19 +27,22 @@ public class DBQueries {
 
 	public static final String FIND_DIAGRAM_BY_TYPE_PROJ = "Select JSON From diagram where project_id=? AND Type = ?";
 
-	public static final String FIND_SEARCH_BY_PROJ_ID = " SELECT search.search_id,object.object_id, objectName,attribute.attr_id,attribute.Name FROM search    "
+	public static final String FIND_SEARCH_BY_PROJ_ID = " SELECT search.search_id,object.object_id, "
+			+ "objectName,attribute.attr_id,attribute.Name FROM search    "
 			+ "left JOIN object on object.object_id = search.object_id  "
 			+ "left join searchtoattr on searchtoattr.search_id = object.object_id "
 			+ "left join attribute on searchtoattr.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY search_id, object.object_id;";
 
-	public static final String FIND_SORTS_BY_PROJ_ID = "SELECT sort.sort_id,object.object_id, objectName,attribute.attr_id,attribute.Name FROM sort "
+	public static final String FIND_SORTS_BY_PROJ_ID = "SELECT sort.sort_id,object.object_id, "
+			+ "objectName,attribute.attr_id,attribute.Name FROM sort "
 			+ "left JOIN object on object.object_id = sort.object_id  "
 			+ "left join sorttoattr on sorttoattr.sort_id = object.object_id "
 			+ "left join attribute on sorttoattr.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ? ORDER BY sort_id, object.object_id;";
 
-	public static final String FIND_FILTERS_BY_PROJ_ID = "SELECT filter.filter_id,object.object_id, objectName,attribute.attr_id,attribute.Name FROM filter     "
+	public static final String FIND_FILTERS_BY_PROJ_ID = "SELECT filter.filter_id,object.object_id, "
+			+ "objectName,attribute.attr_id,attribute.Name FROM filter     "
 			+ "left JOIN object on object.object_id = filter.object_id   "
 			+ "left join filtertoattribute on filtertoattribute.filter_id = object.object_id  "
 			+ "left join attribute on filtertoattribute.attribute_id = attribute.attr_id "
@@ -150,28 +153,28 @@ public class DBQueries {
 	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `object_id`=? WHERE `field_id`=?;";
 	
 	
-	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`) VALUES (?, ?, ?);";
+	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`,'name') VALUES (?, ?, ?,?);";
 	
 	public static final String GET_ATTR_CONSTR ="SELECT attrconstr.constr_id,attrconstr.comment,attrconstr.project_id, attrconstr.attr_id, "
-			+ "attribute.name,object.object_id,object.objectName "
+			+ "attribute.name,object.object_id,object.objectName, attrconstr.name "
 			+ "FROM attrconstr  "
 			+ "left join attribute on attrconstr.attr_id = attribute.attr_id "
 			+ "left join object on attribute.object_id = object.object_id "
 			+ "where object.project_id = ?";
 	
-	public static final String UPDATE_ATTR_CONSTR ="UPDATE `my_db`.`attrconstr` SET `comment`=?, `attr_id`=? WHERE `constr_id`=?;";
+	public static final String UPDATE_ATTR_CONSTR ="UPDATE `my_db`.`attrconstr` SET `comment`=?, `attr_id`=?, 'name'=? WHERE `constr_id`=?;";
 	
 	public static final String DELETE_ATTR_CONSTR ="DELETE FROM `my_db`.`attrconstr` WHERE `constr_id`=?;";
 	
 	
-	public static final String INSERT_LINK_CONSTR ="INSERT INTO `my_db`.`linkconstr` (`project_id`, `firstObject`, `secondObject`, `comment`) VALUES (?,?,?,?);";
+	public static final String INSERT_LINK_CONSTR ="INSERT INTO `my_db`.`linkconstr` (`project_id`, `firstObject`, `secondObject`, `comment`,'name') VALUES (?,?,?,?,?);";
 	
-	public static final String GET_LINK_CONSTR ="select constr_id, linkconstr.project_id,comment, o1.object_id,o1.objectName,o2.object_id,o2.objectName  "
+	public static final String GET_LINK_CONSTR ="select constr_id, linkconstr.project_id,comment, o1.object_id,o1.objectName,o2.object_id,o2.objectName,linkconstr.name  "
 			+ "from linkconstr, object o1, object o2 "
 			+ "where o1.object_id = firstObject and o2.object_id = secondObject "
 			+ "AND o1.project_id = ? AND o2.project_id = ?";
 	
-	public static final String UPDATE_LINK_CONSTR ="UPDATE `my_db`.`linkconstr` SET `firstObject`=?, `secondObject`=?, `comment`=? WHERE `constr_id`=?;";
+	public static final String UPDATE_LINK_CONSTR ="UPDATE `my_db`.`linkconstr` SET `firstObject`=?, `secondObject`=?, `comment`=?, 'name' =? WHERE `constr_id`=?;";
 	
 	public static final String DELETE_LINK_CONSTR ="DELETE FROM `my_db`.`linkconstr` WHERE `constr_id`=?;";
 	

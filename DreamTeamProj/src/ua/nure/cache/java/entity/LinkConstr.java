@@ -12,6 +12,8 @@ public class LinkConstr {
 	
 	private String comment;
 	
+	private String name;
+	
 	public Obj getFirstObject() {
 		return firstObject;
 	}
@@ -50,5 +52,13 @@ public class LinkConstr {
 
 	public void setSecondObj(Obj secondObj) {
 		this.secondObject = secondObj;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 02 2015 г., 21:37
+-- Время создания: Сен 09 2015 г., 22:38
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -64,15 +64,16 @@ CREATE TABLE IF NOT EXISTS `attrconstr` (
 `constr_id` int(11) NOT NULL,
   `comment` longtext,
   `attr_id` int(11) DEFAULT NULL,
-  `project_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `project_id` int(11) DEFAULT NULL,
+  `name` longtext
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `attrconstr`
 --
 
-INSERT INTO `attrconstr` (`constr_id`, `comment`, `attr_id`, `project_id`) VALUES
-(1, 'sdfsdf', 3, 0);
+INSERT INTO `attrconstr` (`constr_id`, `comment`, `attr_id`, `project_id`, `name`) VALUES
+(1, 'sdfsdf', 3, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -214,15 +215,16 @@ CREATE TABLE IF NOT EXISTS `linkconstr` (
   `project_id` int(11) DEFAULT NULL,
   `firstObject` int(11) DEFAULT NULL,
   `secondObject` int(11) DEFAULT NULL,
-  `comment` longtext COLLATE utf8_general_mysql500_ci
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+  `comment` longtext COLLATE utf8_general_mysql500_ci,
+  `name` longtext COLLATE utf8_general_mysql500_ci
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `linkconstr`
 --
 
-INSERT INTO `linkconstr` (`constr_id`, `project_id`, `firstObject`, `secondObject`, `comment`) VALUES
-(1, 0, 2, 3, 'mewrw');
+INSERT INTO `linkconstr` (`constr_id`, `project_id`, `firstObject`, `secondObject`, `comment`, `name`) VALUES
+(1, 0, 2, 3, 'mewrw', NULL);
 
 -- --------------------------------------------------------
 
@@ -353,7 +355,7 @@ INSERT INTO `searchtoattr` (`search_id`, `attribute_id`) VALUES
 CREATE TABLE IF NOT EXISTS `sort` (
 `sort_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -596,7 +598,7 @@ MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT для таблицы `attrconstr`
 --
 ALTER TABLE `attrconstr`
-MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `attribute`
 --
@@ -626,7 +628,7 @@ MODIFY `group_Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT для таблицы `linkconstr`
 --
 ALTER TABLE `linkconstr`
-MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `object`
 --
@@ -646,7 +648,7 @@ MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT для таблицы `sort`
 --
 ALTER TABLE `sort`
-MODIFY `sort_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `sort_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `sourcefield`
 --
