@@ -8,6 +8,8 @@ public class Constraint {
 	private AddObj object;
 	
 	private String comment;
+	
+	private String name;
 
 	public AddObj getObject() {
 		return object;
@@ -39,5 +41,13 @@ public class Constraint {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

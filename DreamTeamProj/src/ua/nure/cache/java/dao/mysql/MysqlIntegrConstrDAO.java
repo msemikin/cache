@@ -46,6 +46,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt.setString(1, constr.getComment());
 			pstmt.setInt(2, constr.getObject().getAttr().getId());
 			pstmt.setInt(3, constr.getProjectId());
+			pstmt.setString(4, constr.getName());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			} else {
@@ -91,7 +92,8 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 					Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, constr.getComment());
 			pstmt.setInt(2, constr.getObject().getAttr().getId());
-			pstmt.setInt(3, constr.getId());
+			pstmt.setString(3, constr.getName());
+			pstmt.setInt(4, constr.getId());
 			result = constr.getId();
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
@@ -178,6 +180,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			obj1.setId(rs.getInt(6));
 			obj1.setName(rs.getString(7));
 			obj1.setProjectId(projectId);
+			proj.setName(rs.getString(8));
 			proj.setObject(obj1);
 		}
 		MysqlDAOFactory.closeStatement(stmt);
@@ -215,6 +218,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt.setInt(2, constr.getFirstObject().getId());
 			pstmt.setInt(3, constr.getSecondObj().getId());
 			pstmt.setString(4, constr.getComment());
+			pstmt.setString(5, constr.getName());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			} else {
@@ -261,7 +265,8 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt.setInt(1, constr.getFirstObject().getId());
 			pstmt.setInt(2, constr.getSecondObj().getId());
 			pstmt.setString(3, constr.getComment());
-			pstmt.setInt(4, constr.getId());
+			pstmt.setString(4, constr.getName());
+			pstmt.setInt(5, constr.getId());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			} else {
@@ -352,6 +357,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			obj2.setProjectId(projectId);
 			proj.setFirstObject(obj1);
 			proj.setSecondObj(obj2);
+			proj.setName(rs.getString(8));
 		}
 		MysqlDAOFactory.closeStatement(stmt);
 		return proj;
