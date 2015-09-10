@@ -144,6 +144,10 @@ body {
     margin: 0 5px;
 }
 
+.add-form input {
+    width: 70%;
+}
+
 .fullscr-button {
     align-self: center;
 }
@@ -247,4 +251,9 @@ body {
 
 .pointer {
     cursor: pointer;
+}
+
+.pure-menu-selected .pure-menu-link {
+    color: cadetblue !important;
+    font-weight: 700;
 }

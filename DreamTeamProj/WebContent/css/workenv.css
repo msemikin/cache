@@ -163,9 +163,14 @@
 }
 .content-header {
     position: absolute;
-    line-height: 75px;
-    height:75px;
+    height: 75px;
     padding-left: 20px;
+    width: 100%;
+}
+.content-header .buttonsBar {
+    top: 50%;
+    position:absolute;
+    transform: translateY(-50%);
 }
 .box {
     display: flex;
@@ -191,7 +196,6 @@
     overflow-y: auto;
     flex-grow: 1;
     padding: 0px;
-    height: 100%;
 }
 .objects-select {
     flex-grow: 1;

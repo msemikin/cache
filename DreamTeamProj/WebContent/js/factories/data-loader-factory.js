@@ -19,7 +19,7 @@ angular.module('db').factory('DataLoader', function($q, $http) {
                     create: function(value) {
                         var deferred = $q.defer();
                         var requestData = {
-                            projectId: '1'
+                            projectId: 0
                         };
                         requestData[params.requestProp] = JSON.stringify(value);
                         $.post(createPath, requestData).then(function(response) {
@@ -30,7 +30,7 @@ angular.module('db').factory('DataLoader', function($q, $http) {
                     load: function() {
                         var deferred = $q.defer();
                         var requestData = {
-                            projectId: '1'
+                            projectId: 0
                         };
                         $.post(loadPath, requestData).then(function(response) {
                             deferred.resolve(JSON.parse(response));
@@ -40,10 +40,10 @@ angular.module('db').factory('DataLoader', function($q, $http) {
                     update: function(value) {
                         var deferred = $q.defer();
                         var requestData = {
-                            projectId: 1
+                            projectId: 0
                         };
-                        requestData[params.requestProp] = value;
-                        $.post(loadPath, requestData).then(function(response) {
+                        requestData[params.requestProp] = JSON.stringify(value);
+                        $.post(updatePath, requestData).then(function(response) {
                             deferred.resolve(JSON.parse(response));
                         });
                         return deferred.promise;

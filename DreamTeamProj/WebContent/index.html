@@ -1,6 +1,7 @@
 <html ng-app="db" lang="ru">
 
 <head>
+    <base href="/DreamTeamProj/">
     <meta charset="utf-8">
     <meta lang="ru">
     <meta name="description" content="A tool for studying DataBases.">
@@ -101,16 +102,16 @@
             <div class="left-side">
                 <div class="pure-menu custom-restricted-width">
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Редактировать <br> документ</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Объекты и атрибуты</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 3">Use-Case</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 4">Relations</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 5">ER-модель</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 6">Информационные <br> потребности</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 7">Статистики</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 8">Отчеты</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 9">Алгоритмические <br> зависимости</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link" ng-click="tab = 10">Ограничения <br> целостности</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 1">Редактировать <br> документ</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 2}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Объекты и атрибуты</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 3}"><a href="#" class="pure-menu-link" ng-click="tab = 3">Use-Case</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 4}"><a href="#" class="pure-menu-link" ng-click="tab = 4">Relations</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 5}"><a href="#" class="pure-menu-link" ng-click="tab = 5">ER-модель</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 6}"><a href="#" class="pure-menu-link" ng-click="tab = 6">Информационные <br> потребности</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 7}"><a href="#" class="pure-menu-link" ng-click="tab = 7">Статистики</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 8}"><a href="#" class="pure-menu-link" ng-click="tab = 8">Отчеты</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 9}"><a href="#" class="pure-menu-link" ng-click="tab = 9">Алгоритмические <br> зависимости</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 10}"><a href="#" class="pure-menu-link" ng-click="tab = 10">Ограничения <br> целостности</a></li>
                     </ul>
                 </div>
                 <hr class="divider"></hr>
@@ -160,6 +161,8 @@
                 </div>
             </div>
             <div class="extend-box">
+                <div visible="tab === 1" class="tile-container" ng-include="'tpl/objects-attributes.html'"></div>
+                <div visible="tab === 2" class="tile-container" ng-include="'tpl/document.html'"></div>
                 <div visible="tab === 3" class="tile-container" ng-include="'tpl/use-case.html'"></div>
                 <div visible="tab === 4" class="tile-container" ng-include="'tpl/object-relations.html'"></div>
                 <div visible="tab === 5" class="tile-container" ng-include="'tpl/er.html'"></div>
