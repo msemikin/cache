@@ -5,11 +5,11 @@
   			auth="Container" 
   			type="javax.sql.DataSource"
 			maxActive="100" maxIdle="30" maxWait="10000"
-			username="root" password="root" 
+			username="root" password="" 
 			driverClassName="com.mysql.jdbc.Driver"
 			defaultAutoCommit="false"
 			defaultTransactionIsolation="READ_COMMITTED"
-			url="jdbc:mysql://localhost:3306/my_db">
+			url="jdbc:mysql://localhost:3306/my_db?characterEncoding=utf8">
 			</Resource>
 			
 </Context>
