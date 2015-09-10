@@ -50,9 +50,9 @@ public class Controller {
 			methods.put("/diagrams/er", cardManager.getDeclaredMethod(
 					"getDiagramByType", String.class, request, response));
 			methods.put("/informational_requirements/searches/all", cardManager
-					.getDeclaredMethod("getInformReqSorts", request, response));
+					.getDeclaredMethod("getInformReqSearches", request, response));
 			methods.put("/informational_requirements/sorts/all", cardManager
-					.getDeclaredMethod("getInformReqSearches", request,
+					.getDeclaredMethod("getInformReqSorts", request,
 							response));
 			methods.put("/informational_requirements/filters/all",
 					cardManager.getDeclaredMethod("getInformReqFilters",
