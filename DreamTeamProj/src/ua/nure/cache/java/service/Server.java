@@ -1,6 +1,7 @@
 package ua.nure.cache.java.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -624,7 +625,7 @@ public class Server implements IServer{
 	public void findAttrConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		Constraint result = new MysqlIntegrConstrDAO().getConstraint(Integer.valueOf(line));
+		List<Constraint> result = new MysqlIntegrConstrDAO().getConstraint(Integer.valueOf(line));
 		resp.getWriter().print(new Gson().toJson(result));
 	}
 
@@ -684,7 +685,7 @@ public class Server implements IServer{
 	public void findLinkConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		LinkConstr result = new MysqlIntegrConstrDAO().getLinkConstraint(Integer.valueOf(line));
+		List<LinkConstr> result = new MysqlIntegrConstrDAO().getLinkConstraint(Integer.valueOf(line));
 		resp.getWriter().print(new Gson().toJson(result));		
 	}
 

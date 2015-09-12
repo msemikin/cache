@@ -27,24 +27,24 @@ public class DBQueries {
 
 	public static final String FIND_DIAGRAM_BY_TYPE_PROJ = "Select JSON From diagram where project_id=? AND Type = ?";
 
-	public static final String FIND_SEARCH_BY_PROJ_ID = " SELECT search.search_id,object.object_id, "
-			+ "objectName,attribute.attr_id,attribute.Name FROM search    "
+	public static final String FIND_SEARCH_BY_PROJ_ID = "SELECT search.search_id,object.object_id, "
+			+ "objectName, attribute.attr_id,attribute.Name FROM search "
 			+ "left JOIN object on object.object_id = search.object_id  "
-			+ "left join searchtoattr on searchtoattr.search_id = object.object_id "
+			+ "left join searchtoattr on searchtoattr.search_id = search.search_id "
 			+ "left join attribute on searchtoattr.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY search_id, object.object_id;";
 
 	public static final String FIND_SORTS_BY_PROJ_ID = "SELECT sort.sort_id,object.object_id, "
 			+ "objectName,attribute.attr_id,attribute.Name FROM sort "
 			+ "left JOIN object on object.object_id = sort.object_id  "
-			+ "left join sorttoattr on sorttoattr.sort_id = object.object_id "
+			+ "left join sorttoattr on sorttoattr.sort_id = sort.sort_id "
 			+ "left join attribute on sorttoattr.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ? ORDER BY sort_id, object.object_id;";
 
 	public static final String FIND_FILTERS_BY_PROJ_ID = "SELECT filter.filter_id,object.object_id, "
 			+ "objectName,attribute.attr_id,attribute.Name FROM filter     "
 			+ "left JOIN object on object.object_id = filter.object_id   "
-			+ "left join filtertoattribute on filtertoattribute.filter_id = object.object_id  "
+			+ "left join filtertoattribute on filtertoattribute.filter_id = filter.filter_id  "
 			+ "left join attribute on filtertoattribute.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY filter_id, object.object_id;";
 

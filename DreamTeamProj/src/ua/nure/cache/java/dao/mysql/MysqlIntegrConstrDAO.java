@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.IntegrityConstrDAO;
@@ -148,9 +150,9 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 	}
 
 	@Override
-	public Constraint getConstraint(int projectId) {
+	public List<Constraint> getConstraint(int projectId) {
 		Connection con = null;
-		Constraint proj = new Constraint();
+		List<Constraint> proj = new ArrayList<Constraint>();
 		try {
 			con = MysqlDAOFactory.getConnection();
 			proj = getConstraint(con, projectId);
@@ -162,14 +164,15 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return proj;
 	}
 
-	private Constraint getConstraint(Connection con, int projectId)
+	private List<Constraint> getConstraint(Connection con, int projectId)
 			throws SQLException {
 		PreparedStatement stmt = null;
-		Constraint proj = new Constraint();
+		List<Constraint> constrs = new ArrayList<Constraint>();
 		stmt = con.prepareStatement(DBQueries.GET_ATTR_CONSTR);
 		stmt.setInt(1, projectId);
 		ResultSet rs = stmt.executeQuery();
-		if (rs.next()) {
+		while (rs.next()) {
+			Constraint proj = new Constraint();
 			proj.setId(rs.getInt(1));
 			proj.setComment(rs.getString(2));
 			proj.setProjectId(rs.getInt(3));
@@ -182,9 +185,10 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			obj1.setProjectId(projectId);
 			proj.setName(rs.getString(8));
 			proj.setObject(obj1);
+			constrs.add(proj);
 		}
 		MysqlDAOFactory.closeStatement(stmt);
-		return proj;
+		return constrs;
 	}
 
 	@Override
@@ -321,9 +325,9 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 	}
 
 	@Override
-	public LinkConstr getLinkConstraint(int projectId) {
+	public List<LinkConstr> getLinkConstraint(int projectId) {
 		Connection con = null;
-		LinkConstr proj = new LinkConstr();
+		List<LinkConstr> proj = new ArrayList<LinkConstr>();
 		try {
 			con = MysqlDAOFactory.getConnection();
 			proj = getLinkConstraint(con, projectId);
@@ -335,15 +339,16 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 		return proj;
 	}
 
-	private LinkConstr getLinkConstraint(Connection con, int projectId)
+	private List<LinkConstr> getLinkConstraint(Connection con, int projectId)
 			throws SQLException {
 		PreparedStatement stmt = null;
-		LinkConstr proj = new LinkConstr();
+		List<LinkConstr> lConstrs = new ArrayList<LinkConstr>();
 		stmt = con.prepareStatement(DBQueries.GET_LINK_CONSTR);
 		stmt.setInt(1, projectId);
 		stmt.setInt(2, projectId);
 		ResultSet rs = stmt.executeQuery();
-		if (rs.next()) {
+		while (rs.next()) {
+			LinkConstr proj = new LinkConstr();
 			proj.setId(rs.getInt(1));
 			proj.setProjectId(rs.getInt(2));
 			proj.setComment(rs.getString(3));
@@ -358,9 +363,10 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			proj.setFirstObject(obj1);
 			proj.setSecondObj(obj2);
 			proj.setName(rs.getString(8));
+			lConstrs.add(proj);
 		}
 		MysqlDAOFactory.closeStatement(stmt);
-		return proj;
+		return lConstrs;
 	}
 
 }

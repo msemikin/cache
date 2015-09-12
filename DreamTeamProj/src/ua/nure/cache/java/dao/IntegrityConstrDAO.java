@@ -1,5 +1,7 @@
 package ua.nure.cache.java.dao;
 
+import java.util.List;
+
 import ua.nure.cache.java.entity.Constraint;
 import ua.nure.cache.java.entity.LinkConstr;
 
@@ -11,7 +13,7 @@ public interface IntegrityConstrDAO {
 
 	boolean deleteConstraint(int constrId);
 
-	Constraint getConstraint(int projectId);
+	List<Constraint> getConstraint(int projectId);
 
 	int insertLinkConstraint(LinkConstr constr);
 
@@ -19,5 +21,5 @@ public interface IntegrityConstrDAO {
 
 	boolean deleteLinkConstraint(int constrId);
 
-	LinkConstr getLinkConstraint(int projectId);
+	List<LinkConstr> getLinkConstraint(int projectId);
 }
