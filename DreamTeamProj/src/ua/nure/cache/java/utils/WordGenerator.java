@@ -20,7 +20,9 @@ import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.LinkConstr;
 import ua.nure.cache.java.entity.Objekt;
+import ua.nure.cache.java.entity.Report;
 import ua.nure.cache.java.entity.SrchFltSrt;
+import ua.nure.cache.java.entity.Statistic;
 
 public class WordGenerator {
 
@@ -88,7 +90,7 @@ public class WordGenerator {
 				""));
 		
 		insertIntegrConstr();
-		
+		//SrchFiltSorts etc
 		createJustifyiedList( Arrays.asList("","Информационными потребностями пользователей "
 				+ "являются потребности в сортировке, "
 				+ "поиске, фильтрации информации и получении статистики, а именно:",
@@ -98,6 +100,12 @@ public class WordGenerator {
 		insertSearches();
 		createJustifyiedList( Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
 		insertFilters();
+		//Statistic
+		createJustifyiedList( Arrays.asList("У пользователей существует потребность "
+				+ "получения разного рода статистики, а именно:"));
+		insertStat();
+		createJustifyiedList( Arrays.asList("","В предметной области для работы необходимы ряд документов, например: "));
+		insertReport();
 		document.write(out);
 		out.close();
 		System.out.println("createparagraph.docx written successfully");
@@ -330,6 +338,60 @@ public class WordGenerator {
 			names.add(sb.toString());
 		}
 		createNumericList(names, 1420);
+	}
+	public static List<Statistic> getStats() {
+		return new MysqlProjectDAO().findProjStat(projectId);
+	}
+	
+	public static void insertStat() {
+		List<Statistic> objs = getStats();
+		List<String> names = new ArrayList<String>();
+		for (Statistic obj : objs) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Статистика \"");
+			sb.append(obj.getName());
+			sb.append("\", которая содержит следующую информацию: ");
+			for (Objekt o : obj.getObjects()) {
+				sb.append("атрибуты: ");
+				for (Attribute a : o.getAttrs()) {
+					sb.append("\"");
+					sb.append(a.getName());
+					sb.append("\";");
+				}
+				sb.append("из объекта \"");
+				sb.append(o.getName());
+				sb.append("\";");
+			}
+			names.add(sb.toString());
+		}
+		createHyphenatedList(names);
+	}
+	public static List<Report> getReports() {
+		return new MysqlProjectDAO().findProjReport(projectId);
+	}
+	
+	public static void insertReport() {
+		List<Report> objs = getReports();
+		List<String> names = new ArrayList<String>();
+		for (Report obj : objs) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Документ \"");
+			sb.append(obj.getName());
+			sb.append("\", который содержит следующую информацию: ");
+			for (Objekt o : obj.getObjects()) {
+				sb.append("атрибуты: ");
+				for (Attribute a : o.getAttrs()) {
+					sb.append("\"");
+					sb.append(a.getName());
+					sb.append("\";");
+				}
+				sb.append("из объекта \"");
+				sb.append(o.getName());
+				sb.append("\";");
+			}
+			names.add(sb.toString());
+		}
+		createHyphenatedList(names);
 	}
 
 }
