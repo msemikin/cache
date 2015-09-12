@@ -10,17 +10,6 @@ body {
     height: 100%;
 }
 
-a {
-    color: #00aff0;
-    text-decoration: none
-}
-
-a:hover,
-a:focus {
-    color: #0077a3;
-    text-decoration: underline
-}
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -61,8 +50,7 @@ a:focus {
     background-image: -ms-linear-gradient(to bottom right, #2c3042, #4d394b)
 }
 
-.front,
-.back {
+.front {
     width: 100%;
     padding: 20px;
     transition: 0.6s;
@@ -72,42 +60,6 @@ a:focus {
 
 #login_form {
     margin: 16px;
-}
-
-.show-forgot-password {
-    background-clip: border-box;
-    background-origin: padding-box;
-    background-size: auto;
-    box-sizing: border-box;
-    color: rgb(0, 175, 240);
-    cursor: auto;
-    display: block;
-    float: right;
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    height: 17px;
-    text-decoration: none;
-}
-
-.alert-border {
-    color: rgb(49, 176, 213)!important;
-    display: block;
-    background-color: #f8fcfe!important;
-    border-style: solid !important;
-    border-color: rgb(197, 233, 243)!important;
-    margin-bottom: 17px!important;
-    padding-bottom: 15px!important;
-    padding-left: 50px!important;
-    padding-right: 15px!important;
-    padding-top: 15px!important;
-    position: relative;
-}
-
-.alert-border p {
-    color: rgb(49, 176, 213)!important;
 }
 
 .bord-trans {
