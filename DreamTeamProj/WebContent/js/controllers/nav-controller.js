@@ -36,7 +36,7 @@ angular.module('db').controller("NavCtrl", function($scope, Config) {
             ctx.clearRect(0, 0, $(canvas).width(), $(canvas).height());
         });
 
-        $.post(Config.API_PATH + 'project/generate_document', data).then(function (response) {
+        $.post(Config.API_PATH + 'project/document/generate', data).then(function (response) {
             console.log(response);
         }, function (response) {
             console.log(response);

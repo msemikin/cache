@@ -409,8 +409,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 		try {
 			pstmt = con.prepareStatement(DBQueries.INSERT_LINK,
 					Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, obj.getFirstObjName());
-			pstmt.setString(2, obj.getSeondObjName());
+			pstmt.setInt(1, obj.getFirstObjName().getId());
+			pstmt.setInt(2, obj.getSeondObjName().getId());
 			pstmt.setString(3, obj.getLinkType());
 			pstmt.setString(4, obj.getComment());
 			pstmt.setInt(5, obj.getProjectId());
@@ -456,8 +456,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 		while (rs.next()) {
 			Link link = new Link();
 			link.setLinkId(rs.getInt(1));
-			link.setFirstObjName(rs.getString(2));
-			link.setSeondObjName(rs.getString(3));
+			link.getFirstObjName().setName(rs.getString(2));
+			link.getSeondObjName().setName(rs.getString(2));
 			link.setLinkType(rs.getString(4));
 			link.setComment(rs.getString(5));
 			link.setProjectId(rs.getInt(6));
@@ -533,8 +533,8 @@ public class MysqlProjectDAO implements ProjectDAO {
 		try {
 			pstmt = con.prepareStatement(DBQueries.UPDATE_LINK,
 					Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, obj.getFirstObjName());
-			pstmt.setString(2, obj.getSeondObjName());
+			pstmt.setInt(1, obj.getFirstObjName().getId());
+			pstmt.setInt(2, obj.getSeondObjName().getId());
 			pstmt.setString(3, obj.getLinkType());
 			pstmt.setString(4, obj.getComment());
 			pstmt.setInt(5, obj.getProjectId());
