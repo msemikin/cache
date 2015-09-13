@@ -1,5 +1,5 @@
 'use strict';
-/* globals document, canvg, atob, Blob: true */
+/* globals document, canvg, atob, Blob, FormData: true */
 angular.module('db').controller("NavCtrl", function($scope, Config) {
     function toBlob(dataURL) {
         var base64 = dataURL.split(',')[1],
@@ -24,21 +24,23 @@ angular.module('db').controller("NavCtrl", function($scope, Config) {
                 objectRelations: '#object-relations',
                 er: '#er'
             },
-            data = {
-                projectId: 0
-            },
+            formData = new FormData(),
             markup;
 
         $.each(diagrams, function(key, value) {
             markup = $('<div>').append($(value).children('svg').clone()).html();
             canvg(canvas, markup);
-            data[key] = toBlob(canvas.toDataURL());
+            formData.append(key, toBlob(canvas.toDataURL()));
             ctx.clearRect(0, 0, $(canvas).width(), $(canvas).height());
         });
 
-        $.post(Config.API_PATH + 'project/document/generate', data).then(function (response) {
-            console.log(response);
-        }, function (response) {
+        $.ajax({
+            type: 'POST',
+            url: Config.API_PATH + 'project/document/generate',
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function(response) {
             console.log(response);
         });
     };
