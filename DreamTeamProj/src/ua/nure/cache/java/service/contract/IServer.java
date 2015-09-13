@@ -128,4 +128,22 @@ public interface IServer {
 			throws IOException;
 	void findLinkConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException;
+	
+	void insertActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void updateActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void deleteActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void findActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	
+	void insertLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void updateLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void deleteLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
+	void findLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
 }

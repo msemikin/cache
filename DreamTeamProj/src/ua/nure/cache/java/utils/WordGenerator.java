@@ -18,9 +18,11 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import ua.nure.cache.java.dao.mysql.MysqlIntegrConstrDAO;
 import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
+import ua.nure.cache.java.entity.Actor;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Constraint;
+import ua.nure.cache.java.entity.Link;
 import ua.nure.cache.java.entity.LinkConstr;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Report;
@@ -34,7 +36,7 @@ public class WordGenerator {
 	
 	private static XWPFDocument document;
 
-	public static void generateDoc() throws IOException, InvalidFormatException {
+	public static synchronized void generateDoc() throws IOException, InvalidFormatException {
 		document = new XWPFDocument();
 		FileOutputStream out = new FileOutputStream(new File(
 				"createparagraph.docx"));
@@ -59,16 +61,12 @@ public class WordGenerator {
 				
 				Arrays.asList(
 						"Проведем концептуальное моделирование нашей предметной области.",
-						"Пользователями системы являются:", ""));
+						"Пользователями системы являются:"));
 		// Actors List from the diagram
-		createJustifyiedList(
-				
-				Arrays.asList(
-						"Пользователи могут выполнять в системе следующие функции:",
-						""));
-		createHyphenatedList( Arrays.asList(
+		insertActors();
+		createJustifyiedList( Arrays.asList("", "Пользователи могут выполнять в системе следующие функции: ",
 				"секретари -  фиксируют результаты обучения студентов;"
-						.toUpperCase(), "актер – его функция.".toUpperCase()));
+						, "актер – его функция."));
 		// Functions of the actor;
 		createJustifyiedList(
 				
@@ -127,7 +125,7 @@ public class WordGenerator {
 		
 		createJustifyiedList( Arrays.asList("","Следующие ограничения описывают требования,"
 				+ " которые касаются связей между объектами предметной области, а именно:"));
-		
+		insertLinks();
 		//сюда вставить ссылки
 		
 		createJustifyiedList( Arrays.asList("","В данной предметной области существует "
@@ -533,5 +531,23 @@ public class WordGenerator {
 		insertReport();
 		createHyphenatedList(Arrays.asList("система должна реализовывать следующую задачу автоматизации: "
 				,"<здесь Вы должны вставить описание задачи автоматизации>"));
+	}
+	
+	public static void insertLinks() {
+		List<Link> links = new MysqlProjectDAO().findLinks(projectId);
+		List<String> names = new ArrayList<String>();
+		for (Link link : links) {
+			names.add(link.returnDesr());
+		}
+		createHyphenatedList(names);
+	}
+	
+	public static void insertActors() {
+		List<Actor> actors = new MysqlProjectDAO().findActors(projectId);
+		List<String> names = new ArrayList<String>();
+		for (Actor link : actors) {
+			names.add(link.getActorName());
+		}
+		createHyphenatedList(names);
 	}
 }

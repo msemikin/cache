@@ -180,4 +180,29 @@ public class DBQueries {
 	
 	public static final String DELETE_LINK_CONSTR ="DELETE FROM `my_db`.`linkconstr` WHERE `constr_id`=?;";
 	
+	
+	public static final String INSERT_ACTOR ="INSERT INTO `my_db`.`actors` (`actor_name`, `project_id`) VALUES (?, ?);";
+	
+	public static final String DELETE_ACTOR = "DELETE FROM `my_db`.`actors` WHERE `actor_id`=?;";
+	
+	public static final String UPDATE_ACTOR = "UPDATE `my_db`.`actors` SET `actor_name`=?, `project_id`=? WHERE `actor_id`=?;";
+	
+	public static final String GET_ACTOR = "SELECT * FROM my_db.actors WHERE project_id =?;";
+	
+	
+	
+	public static final String INSERT_LINK ="INSERT INTO `my_db`.`link` "
+			+ "(`firstObj`, `secondObj`, `linkType`, `comment`, `project_id`) "
+			+ "VALUES (?,?,?,?);";
+	
+	public static final String DELETE_LINK = "DELETE FROM `my_db`.`link` WHERE `link_id`=?;";
+	
+	public static final String UPDATE_LINK = "UPDATE `my_db`.`link` SET `firstObj`=?, `secondObj`=?, `linkType`=?, "
+			+ "`comment`=?, `project_id`=? WHERE `link_id`=?;";
+	
+	public static final String GET_LINK = "SELECT link_id, o1.objectName, o2.objectName, linkType,comment,  "
+			+ "link.project_id From link "
+			+ "left join object o1 on firstObj = o1.object_id "
+			+ "left join object o2 on secondObj = o2.object_id "
+			+ "Where link.project_id =?";
 }
