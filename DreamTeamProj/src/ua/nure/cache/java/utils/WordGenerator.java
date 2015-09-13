@@ -17,10 +17,12 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import ua.nure.cache.java.dao.mysql.MysqlIntegrConstrDAO;
 import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
+import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.LinkConstr;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Report;
+import ua.nure.cache.java.entity.SourceField;
 import ua.nure.cache.java.entity.SrchFltSrt;
 import ua.nure.cache.java.entity.Statistic;
 
@@ -101,11 +103,19 @@ public class WordGenerator {
 		createJustifyiedList( Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
 		insertFilters();
 		//Statistic
+		
 		createJustifyiedList( Arrays.asList("У пользователей существует потребность "
 				+ "получения разного рода статистики, а именно:"));
 		insertStat();
+		//Отчет
 		createJustifyiedList( Arrays.asList("","В предметной области для работы необходимы ряд документов, например: "));
 		insertReport();
+		
+		createJustifyiedList( Arrays.asList("","При представлении информации пользователю некоторые порции "
+				+ "информации требуют математической (или алгоритмической) обработки. "
+				+ "Таким образом, в предметной области существуют следующие алгоритмические зависимости:"));
+		insertAlgDeps();
+		
 		document.write(out);
 		out.close();
 		System.out.println("createparagraph.docx written successfully");
@@ -388,6 +398,33 @@ public class WordGenerator {
 				sb.append("из объекта \"");
 				sb.append(o.getName());
 				sb.append("\";");
+			}
+			names.add(sb.toString());
+		}
+		createHyphenatedList(names);
+	}
+	
+	public static List<AlgDeps> getAlgDeps() {
+		return new MysqlProjectDAO().findAlgDeps(projectId);
+	}
+	
+	public static void insertAlgDeps() {
+		List<AlgDeps> objs = getAlgDeps();
+		List<String> names = new ArrayList<String>();
+		for (AlgDeps obj : objs) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Атрибут \"");
+			sb.append(obj.getResultField().getAttr().getName());
+			sb.append("\",который вычисляется на основании следующих атрибутов по формуле: ");
+			sb.append(obj.getFormula());
+			sb.append(" где ");
+			for (SourceField sf : obj.getSourceFields()) {
+				sb.append(sf.getVariable());
+				sb.append(" - \"");
+				sb.append(sf.getObject().getAttr().getName());
+				sb.append("\" из \"");
+				sb.append(sf.getObject().getName());
+				sb.append("\"; ");
 			}
 			names.add(sb.toString());
 		}

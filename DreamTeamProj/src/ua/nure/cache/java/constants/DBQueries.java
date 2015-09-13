@@ -48,20 +48,22 @@ public class DBQueries {
 			+ "left join attribute on filtertoattribute.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY filter_id, object.object_id;";
 
-	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, algdeps.result_field,algdeps.name,  "
+	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, "
+			+ "algdeps.result_field,algdeps.name,  "
 			+ "object.objectName, attribute.attr_id,attribute.Name  "
 			+ "From algdeps "
 			+ "left join object on algdeps.result_field = object.object_id "
 			+ "left join attribute on attribute.object_id = algdeps.result_field "
 			+ "WHERE OBJECT.project_id = ?";
 
-	public static final String FIND_SOURCE_FIELDS = "select algdeps.dep_id, sourcefield.varName, object.object_id,object.objectName,attribute.attr_id,attribute.Name "
-			+ "FROM algdeps  "
-			+ "left join depstosourfield on algdeps.dep_id = depstosourfield.dep_id "
-			+ "left join sourcefield on depstosourfield.field_id = sourcefield.field_id "
-			+ "left join object on sourcefield.object_id = object.object_id "
-			+ "left join attribute on attribute.object_id = object.object_id "
-			+ "WHERE OBJECT.project_id = ? " + "ORDER BY dep_id";
+	public static final String FIND_SOURCE_FIELDS = " select algdeps.dep_id, sourcefield.varName, "
+			+ "object.object_id,object.objectName,attribute.attr_id,attribute.Name  "
+			+ "FROM algdeps   "
+			+ "left join depstosourfield on algdeps.dep_id = depstosourfield.dep_id  "
+			+ "left join sourcefield on depstosourfield.field_id = sourcefield.field_id  "
+			+ "left join attribute on sourcefield.attr_id = attribute.attr_id "
+			+ "left join object on attribute.object_id = object.object_id  "
+			+ "WHERE OBJECT.project_id = ?   ORDER BY dep_id";
 
 	public static final String GET_OBJ_BY_ID = "SELECT object.object_id, objectName, "
 			+ "attribute.attr_id, attribute.Name FROM my_db.object "
@@ -103,7 +105,7 @@ public class DBQueries {
 	
 	public static final String INSERT_ALG_DEPS ="INSERT INTO `my_db`.`algdeps` (`result_field`, `formula`, `name`) VALUES (?,?,?);";
 	
-	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`object_id`) Values(?,?);";
+	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`attr_id`) Values(?,?);";
 	
 	public static final String INSERT_DEP_TO_SF ="INSERT INTO depstosourfield (`dep_id`,`field_id`) VALUES (?,?);  ";
 	
@@ -150,7 +152,7 @@ public class DBQueries {
 	public static final String UPDATE_ALG_DEP = "UPDATE `my_db`.`algdeps` SET `result_field`=?, `formula`=?, "
 			+ "`name`=? WHERE `dep_id`=?;";
 	
-	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `object_id`=? WHERE `field_id`=?;";
+	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `attr_id`=? WHERE `field_id`=?;";
 	
 	
 	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`,'name') VALUES (?, ?, ?,?);";

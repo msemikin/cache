@@ -255,7 +255,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 							DBQueries.INSERT_SOURCE_FIELD,
 							Statement.RETURN_GENERATED_KEYS);
 					pstmt1.setString(1, o.getVariable());
-					pstmt1.setInt(2, o.getObject().getId());
+					pstmt1.setInt(2, o.getObject().getAttr().getId());
 					pstmt1.executeUpdate();
 					ResultSet genKeys = pstmt1.getGeneratedKeys();
 					if (genKeys.next()) {
@@ -363,7 +363,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 				PreparedStatement pstmt1 = con.prepareStatement(
 						DBQueries.UPDATE_SF, Statement.RETURN_GENERATED_KEYS);
 				pstmt1.setString(1, o.getVariable());
-				pstmt1.setInt(2, o.getObject().getId());
+				pstmt1.setInt(2, o.getObject().getAttr().getId());
 				pstmt1.setInt(3, o.getFiledId());
 				pstmt1.executeUpdate();
 				PreparedStatement pstmt3 = con.prepareStatement(
