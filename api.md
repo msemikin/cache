@@ -1144,7 +1144,7 @@ data : {
 ## Request
 ```
 data : {
-			id:2
+			"id":2
 		},
 ```
 
@@ -1173,12 +1173,22 @@ data : {
 }
 ```
 -----------------------------------------------------
-# POST /project/links/new (обрати внимание, что мне нужно, чтобы в )
+# POST /project/links/new 
 
 ## Request
 ```
 data : {
-			
+			link : JSON.stringify({
+						"firstObjName": {
+							"id": "2"
+						},
+						"seondObjName": {
+							"id": "3"
+						},
+						"linkType" : "1:M"||"M:1"||"M:M"||"1:1",
+						"comment" (optional):"",
+						"projectId":0
+			});
 		},
 ```
 
@@ -1195,7 +1205,18 @@ data : {
 ## Request
 ```
 data : {
-			
+			link : JSON.stringify({
+						"linkId":1,
+						"firstObjName": {
+							"id": "2"
+						},
+						"seondObjName": {
+							"id": "3"
+						},
+						"linkType" : "1:M"||"M:1"||"M:M"||"1:1",
+						"comment" (optional):"",
+						"projectId":0
+			});
 		},
 ```
 
@@ -1212,7 +1233,7 @@ data : {
 ## Request
 ```
 data : {
-			
+			"linkId":0
 		},
 ```
 
@@ -1229,7 +1250,7 @@ data : {
 ## Request
 ```
 data : {
-			
+			"projectId":0
 		},
 ```
 
