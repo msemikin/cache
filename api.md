@@ -1263,3 +1263,23 @@ data : {
 ```
 -----------------------------------------------------
 
+## POST /project/document/generate
+
+```
+
+### Request
+
+{
+	"projectId": 0,
+	"useCase": "binary PNG",
+	"objectRelation": "binary PNG",
+	"er": "binary PNG"
+	
+}
+
+### Response
+
+
+{
+	"success": true # не знаю что тут
+}
