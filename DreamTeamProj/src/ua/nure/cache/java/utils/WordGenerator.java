@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
+import org.apache.poi.xwpf.usermodel.BreakType;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -81,7 +82,7 @@ public class WordGenerator {
 		createJustifyiedList( Arrays.asList("","<здесь могут быть более развернутые пояснения по диаграмме>",
 				"","Проведем описание объектов предметной области и связей между ними. Основными объектами предметной области являются:"));
 		//Objects
-		createHyphenatedList(getObjektNames(document));
+		createHyphenatedList(getObjektNames());
 		//Objects avec attributes 
 		insertObjWithAttr(document);
 		
@@ -135,7 +136,29 @@ public class WordGenerator {
 				+ " а именно: ", "Здесь вставляются описания терминов типа", "- объект объект – это определение; ","",
 				"Кроме того, данная предметная область требует существенного облегчения некоторых процессов работы с информацией, "
 				+ "что можно решить путем автоматизации такого рода деятельности.","<здесь Вы должны вставить описание задачи автоматизации>"));
+		document.createParagraph().createRun().addBreak(BreakType.PAGE);
 		
+		generateTitle(
+				"2 ПОСТАНОВКА ЗАДАЧИ");
+		createJustifyiedList( Arrays.asList("","На основании проведенного анализа и концептуального моделирования может "
+				+ "быть сформулирована следующая постановка задачи на разработку информационной системы. "
+				+ "Программная система должна поддерживать следующие функции: ","- система должна отображать данные:"));
+		
+		doSmth();
+		
+		getAlgDepsNames();
+		
+		document.createParagraph().createRun().addBreak(BreakType.PAGE);
+		generateTitle(
+				"3 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ");
+		insertSmallTitle("3.1 UML-моделирование");
+		insertImage("");
+		createJustifyiedList( Arrays.asList("","<здесь Вы должны вставить описания и рисунки с диаграммами>"));
+		insertSmallTitle("3.2 Построение ER-диаграммы");
+		createJustifyiedList( Arrays.asList("","<здесь Вы должны вставить краткое описание, как Вы строили ER-диаграмму>",
+				"На рисунке 3.3 приведена ER-диаграмм для базы данных."));
+		insertImage("");
+		generateTitle("Рисунок 3.3 - ER-диаграмма предметной области");
 		document.write(out);
 		out.close();
 		System.out.println("createparagraph.docx written successfully");
@@ -256,7 +279,7 @@ public class WordGenerator {
 	public static List<Objekt> getObj() {
 		return new MysqlProjectDAO().findProcectObj(projectId);
 	}
-	public static List<String> getObjektNames(XWPFDocument document) {
+	public static List<String> getObjektNames() {
 		List<Objekt> objs = getObj();
 		List<String> names = new ArrayList<String>();
 		for (Objekt obj : objs) {
@@ -463,5 +486,52 @@ public class WordGenerator {
 			names.add(sb.toString());
 		}
 		createHyphenatedList(names);
+	}
+	
+	public static void doSmth() {
+		StringBuilder sb = new StringBuilder(); 
+		List<String> names = new ArrayList<String>();
+		sb.append("непосредственно о главных объектах: " );
+		for (String name:getObjektNames()) {
+			sb.append(name);
+			sb.append("; " );
+		}
+		names.add(sb.toString());
+		sb = new StringBuilder();
+		sb.append("о связанных объектах: ассоциация из ER-диаграммы");
+		names.add(sb.toString());
+		createNumericList(names, 1420);
+	}
+	
+	public static void getAlgDepsNames()  {
+		List<AlgDeps> objs = getAlgDeps();
+		StringBuilder sb = new StringBuilder();
+		sb.append("система должна поддерживать арифметическую обработку данных в виде вычислений полей: ");
+		for (AlgDeps obj : objs) {
+			sb.append(" \"" );
+			sb.append(obj.getName());
+			sb.append("\" ");
+		}
+		createHyphenatedList(Arrays.asList(sb.toString(),"система должна поддерживать сортировку, поиск и фильтрация данных:"));
+		createJustifyiedList(Arrays.asList("Здесь вставляется кусок об информационных потребностях из раздела 1.2, только с изменением списков по ГОСТам"));
+		createJustifyiedList( Arrays.asList("",
+				"а) сортировка информации о следующих объектах по их атрибутам: "));
+		insertSorts();
+		createJustifyiedList( Arrays.asList("б) поиск информации о следующих объектах по их атрибутам:"));
+		insertSearches();
+		createJustifyiedList( Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
+		insertFilters();
+		createHyphenatedList(Arrays.asList("система должна поддерживать добавление новых данных о (список объектов)"
+				,"система должна поддерживать возможность редактировать информацию о (список объектов)",
+				"система должна поддерживать возможность удалять информацию о (список объектов)","система должна поддерживать следующие часто возникающие запросы:"));
+		
+		createJustifyiedList(Arrays.asList("Здесь вставляется кусок об информационных потребностях из раздела 1.2, только с изменением списков по ГОСТам"));
+		insertStat();
+		createHyphenatedList(Arrays.asList("система должна поддерживать возможность формирования "
+				+ "произвольных запросов в базы данных язык SQL с поддержкой для пользователя сведения о схеме DB;",
+				"система должна поддерживать подготовку и печать следующих отчетов:"));
+		insertReport();
+		createHyphenatedList(Arrays.asList("система должна реализовывать следующую задачу автоматизации: "
+				,"<здесь Вы должны вставить описание задачи автоматизации>"));
 	}
 }
