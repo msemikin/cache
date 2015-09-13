@@ -1,0 +1,109 @@
+<div ng-controller="ObjectsAttrsCtrl" class="object-container">
+    <div class="object-box panel panel-default">
+        <!-- <div class="table-oa"> -->
+        <div class="objects-tr table-header panel-heading">
+            <h3 class="obj-name-td panel-title">Объекты:</h3>
+            <h3 class="attr-count-td panel-title">...</h3>
+        </div>
+        <div class="tbody-div panel-body">
+            <!-- <div class="objects-tr pointer" ng-repeat="obj in objects" ng-class="{'selected': obj.id === object.id}" ng-click="selectObject(obj); $event.stopPropagation();">
+                <div class="obj-name-td">{{obj.name}}</div>
+                <div class="attr-count-td">{{obj.attrs.length}}</div>
+            </div> -->
+            <div class="list-group  objects-select">
+                <a ng-repeat="obj in objects" ng-class="{active: obj.id === object.id && $root.showAttributes}" href="#" ng-click="selectObject(obj); $event.stopPropagation();" class="list-group-item objects-tr">
+                    <div class="obj-name-td">{{obj.name}}</div>
+                    <div class="attr-count-td">{{obj.attrs.length}}</div>
+                </a>
+                    <!-- {{obj.name}}</a> -->
+            </div>
+        </div>
+        <!-- </div> -->
+        <div class="add-obj-input panel-footer" id="addObjInput">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Название..." ng-model="objectName" ng-keypress="onKeypress($event, addObject)">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addObject()">+</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="attr-box panel panel-default" ng-show="$root.showAttributes" ng-click="$event.stopPropagation();">
+        <div class="table-attr">
+            <div class="objects-tr table-header panel-heading">
+                <h3 class="elem-name-td panel-title">Атрибуты:</h3>
+            </div>
+            <!--TODO-->
+            <div class="tbody-div panel-body">
+                <!-- <div class="objects-tr pointer" ng-repeat="attr in object.attrs">
+                    <div class="elem-name-td">{{attr.name}}</div>
+                </div> -->
+                <div class="objects-tr list-group objects-select">
+                    <a ng-repeat="attr in object.attrs" href="#" class="list-group-item">{{attr.name}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="add-obj-input panel-footer" id="addElemInput">
+            <!-- <form class="pure-form add-form">
+                <input type="text" placeholder="Element name">
+                <button type="button" class="button-success pure-button" ng-click="addAttr()">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+            </form> -->
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Название..." ng-model="attrName" ng-keypress="onKeypress($event, addAttr)">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addAttr()">+</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="object-box">
+        <div class="table-oa">
+            <div class="objects-tr table-header">
+                <div class="obj-name-td">Объекты:</div>
+                <div class="attr-count-td">...</div>
+            </div>
+            <div class="tbody-div">
+                <div class="objects-tr pointer" ng-repeat="obj in objects" ng-class="{'selected': obj.id === object.id}" ng-click="selectObject(obj); $event.stopPropagation();">
+                    <div class="obj-name-td">{{obj.name}}</div>
+                    <div class="attr-count-td">{{obj.attrs.length}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="add-obj-input" id="addObjInput">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Название..." ng-model="objectName" ng-keypress="onKeypress($event, addObject)">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addObject()">+</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="attr-box" ng-show="$root.showAttributes">
+        <div class="table-attr">
+            <div class="objects-tr table-header">
+                <div class="elem-name-td">Атрибуты:</div>
+            </div>
+            <div class="tbody-div">
+                <div class="objects-tr pointer" ng-repeat="attr in object.attrs">
+                    <div class="elem-name-td">{{attr.name}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="add-obj-input" id="addElemInput">
+            <form class="pure-form add-form">
+                <input type="text" placeholder="Element name">
+                <button type="button" class="button-success pure-button" ng-click="addAttr()">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+            </form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Название..." ng-model="attrName" ng-keypress="onKeypress($event, addAttr)">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addAttr()">+</button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+</div>

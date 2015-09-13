@@ -1,3 +1,9 @@
+/* bootstrap */
+.list-group-item.active {
+    background-color: cadetblue !important;
+    border-color: cadetblue !important;
+}
+/**/
 .selects {
     display: flex;
     flex-direction: column;
@@ -189,13 +195,13 @@
     float: left;
     position: relative;
     min-width: 200px;
-    height: 100%;
     margin-bottom: 0px !important;
 }
 .namePanel .panel-body {
     overflow-y: auto;
     flex-grow: 1;
     padding: 0px;
+    height: 0;
 }
 .objects-select {
     flex-grow: 1;

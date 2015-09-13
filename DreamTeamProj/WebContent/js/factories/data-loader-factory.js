@@ -21,6 +21,7 @@ angular.module('db').factory('DataLoader', function($q, $http) {
                         var requestData = {
                             projectId: 0
                         };
+                        value.projectId = 0;
                         requestData[params.requestProp] = JSON.stringify(value);
                         $.post(createPath, requestData).then(function(response) {
                             deferred.resolve(JSON.parse(response));
