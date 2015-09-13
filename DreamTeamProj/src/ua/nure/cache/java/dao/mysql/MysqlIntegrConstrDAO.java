@@ -183,6 +183,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			obj1.setId(rs.getInt(6));
 			obj1.setName(rs.getString(7));
 			obj1.setProjectId(projectId);
+			obj1.setAttr(attr);
 			proj.setName(rs.getString(8));
 			proj.setObject(obj1);
 			constrs.add(proj);

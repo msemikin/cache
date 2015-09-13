@@ -19,6 +19,7 @@ import ua.nure.cache.java.dao.mysql.MysqlIntegrConstrDAO;
 import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
+import ua.nure.cache.java.entity.Constraint;
 import ua.nure.cache.java.entity.LinkConstr;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Report;
@@ -111,10 +112,29 @@ public class WordGenerator {
 		createJustifyiedList( Arrays.asList("","В предметной области для работы необходимы ряд документов, например: "));
 		insertReport();
 		
+		//AlgDeps
 		createJustifyiedList( Arrays.asList("","При представлении информации пользователю некоторые порции "
 				+ "информации требуют математической (или алгоритмической) обработки. "
 				+ "Таким образом, в предметной области существуют следующие алгоритмические зависимости:"));
 		insertAlgDeps();
+		
+		createJustifyiedList( Arrays.asList("","При рассмотрении атрибутов объектов "
+				+ "из предметной области можно выделить следующие ограничения, "
+				+ "которые накладываются предметной областью (ограничения целостности). ",
+				"Следующие ограничения описывают требования уникальности, а именно:"));
+		insertAttrConstr();
+		
+		createJustifyiedList( Arrays.asList("","Следующие ограничения описывают требования,"
+				+ " которые касаются связей между объектами предметной области, а именно:"));
+		
+		//сюда вставить ссылки
+		
+		createJustifyiedList( Arrays.asList("","В данной предметной области существует "
+				+ "ряд наименований объектов, которые специфичны для данной предметной области и могут "
+				+ "быть отнесены к терминологии, которая должна быть учтена при составлении интерфейса приложения,"
+				+ " а именно: ", "Здесь вставляются описания терминов типа", "- объект объект – это определение; ","",
+				"Кроме того, данная предметная область требует существенного облегчения некоторых процессов работы с информацией, "
+				+ "что можно решить путем автоматизации такого рода деятельности.","<здесь Вы должны вставить описание задачи автоматизации>"));
 		
 		document.write(out);
 		out.close();
@@ -415,7 +435,7 @@ public class WordGenerator {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Атрибут \"");
 			sb.append(obj.getResultField().getAttr().getName());
-			sb.append("\",который вычисляется на основании следующих атрибутов по формуле: ");
+			sb.append("\", который вычисляется на основании следующих атрибутов по формуле: ");
 			sb.append(obj.getFormula());
 			sb.append(" где ");
 			for (SourceField sf : obj.getSourceFields()) {
@@ -430,5 +450,18 @@ public class WordGenerator {
 		}
 		createHyphenatedList(names);
 	}
-
+	public static void insertAttrConstr() {
+		List<Constraint> objs = new MysqlIntegrConstrDAO().getConstraint(projectId);
+		List<String> names = new ArrayList<String>();
+		for (Constraint obj : objs) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Для объекта  \"");
+			sb.append(obj.getObject().getName());
+			sb.append("\", атрибут  \"");
+			sb.append(obj.getObject().getAttr().getName());
+			sb.append("\" является уникальным");
+			names.add(sb.toString());
+		}
+		createHyphenatedList(names);
+	}
 }
