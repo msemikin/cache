@@ -115,7 +115,7 @@ public class Server implements IServer{
 	@Override
 	public void insertObject(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String line = req.getParameter("obje�t");
+		String line = req.getParameter("object");
 		System.out.println(line);
 		Objekt jsonJavaRootObject = new Gson().fromJson(line, Objekt.class);
 		System.out.println(jsonJavaRootObject.getName());

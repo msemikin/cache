@@ -23,12 +23,12 @@
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 
-    <!--Online links:
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
 
     <script src="js/lib/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/lib/joint.js" type="text/javascript"></script>
+    <script src="js/lib/html2canvas.js" type="text/javascript"></script>
+    <script src="js/lib/canvg.js" type="text/javascript"></script>
 
     <script src="js/services/diagram-service.js"></script>
     <script src="js/services/figures-service.js"></script>
@@ -38,6 +38,7 @@
 
     <script src="js/services/algorithmic-dependency-service.js"></script>
     <script src="js/services/object-service.js"></script>
+    <script src="js/services/attribute-service.js"></script>
     <script src="js/services/report-service.js"></script>
     <script src="js/services/statistic-service.js"></script>
     <script src="js/services/search-service.js"></script>
@@ -53,6 +54,7 @@
     <script src="js/directives/visible-directive.js"></script>
 
     <script src="js/controllers/dashboard-controller.js" type="text/javascript"></script>
+    <script src="js/controllers/nav-controller.js" type="text/javascript"></script>
     <script src="js/controllers/objects-attrs-controller.js" type="text/javascript"></script>
     <script src="js/controllers/workenv-controller.js" type="text/javascript"></script>
     <script src="js/controllers/er-controller.js" type="text/javascript"></script>
@@ -69,51 +71,21 @@
 
 <body ng-controller="DashboardCtrl" data-ng-init="init()" ng-click="hideAttrs();">
     <div id="background">
-        <div id="header" class="header">
-            <div class="project-menu">
-                <div id='cssmenu'>
-                    <ul>
-                        <li class='active has-sub'><a href='#'><span>Menu</span></a>
-                            <ul>
-                                <li class=''><a href='#' class="first"><span>Сохранить</span></a>
-                                </li>
-                                <li class=''><a href='dashboard.html#projects' class="second"><span>Перейти к другому проекту</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="user-block">
-                <div id='cssmenu'>
-                    <ul>
-                        <li class='active'>
-                            <a href='#'><span>{{ user.FullName }}</span></a>
-                            <ul>
-                                <li class=''><a href='dashboard.html#user' class="first"><span>Редактировать информацию</span></a>
-                                </li>
-                                <li class=''><a href='#' class="second"><span>Выход</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <div ng-include="'tpl/nav.html'"></div>
         <div id="main" class="main">
             <div class="left-side">
                 <div class="pure-menu custom-restricted-width">
                     <ul class="pure-menu-list">
-                        <!-- <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 1">Редактировать <br> документ</a></li> -->
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 2}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Объекты и атрибуты</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 3}"><a href="#" class="pure-menu-link" ng-click="tab = 3">Use-Case</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 4}"><a href="#" class="pure-menu-link" ng-click="tab = 4">Relations</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 5}"><a href="#" class="pure-menu-link" ng-click="tab = 5">ER-модель</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 6}"><a href="#" class="pure-menu-link" ng-click="tab = 6">Информационные <br> потребности</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 7}"><a href="#" class="pure-menu-link" ng-click="tab = 7">Статистики</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 8}"><a href="#" class="pure-menu-link" ng-click="tab = 8">Отчеты</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 9}"><a href="#" class="pure-menu-link" ng-click="tab = 9">Алгоритмические <br> зависимости</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 10}"><a href="#" class="pure-menu-link" ng-click="tab = 10">Ограничения <br> целостности</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 1">Документ</a></li>
+                        <!-- <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Объекты и атрибуты</a></li> -->
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 2}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Use-Case</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 3}"><a href="#" class="pure-menu-link" ng-click="tab = 3">Relations</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 4}"><a href="#" class="pure-menu-link" ng-click="tab = 4">ER-модель</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 5}"><a href="#" class="pure-menu-link" ng-click="tab = 5">Информационные <br> потребности</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 6}"><a href="#" class="pure-menu-link" ng-click="tab = 6">Статистики</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 7}"><a href="#" class="pure-menu-link" ng-click="tab = 7">Отчеты</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 8}"><a href="#" class="pure-menu-link" ng-click="tab = 8">Алгоритмические <br> зависимости</a></li>
+                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 9}"><a href="#" class="pure-menu-link" ng-click="tab = 9">Ограничения целостности</a></li>
                     </ul>
                 </div>
                 <!-- <hr class="divider"></hr> -->
@@ -122,15 +94,15 @@
             </div>
             <div class="extend-box">
                 <!-- <div visible="tab === 1" class="tile-container" ng-include="'tpl/objects-attributes.html'"></div> -->
-                <div visible="tab === 2" class="tile-container" ng-include="'tpl/document.html'"></div>
-                <div visible="tab === 3" class="tile-container" ng-include="'tpl/use-case.html'"></div>
-                <div visible="tab === 4" class="tile-container" ng-include="'tpl/object-relations.html'"></div>
-                <div visible="tab === 5" class="tile-container" ng-include="'tpl/er.html'"></div>
-                <div visible="tab === 6" class="tile-container" ng-include="'tpl/informational-requirements.html'"></div>
-                <div visible="tab === 7" class="tile-container" ng-include="'tpl/statistics.html'"></div>
-                <div visible="tab === 8" class="tile-container" ng-include="'tpl/reports.html'"></div>
-                <div visible="tab === 9" class="tile-container" ng-include="'tpl/algorithmic-dependencies.html'"></div>
-                <div visible="tab === 10" class="tile-container" ng-include="'tpl/integrity-constraints.html'"></div>
+                <div visible="tab === 1" class="tile-container" ng-include="'tpl/document.html'"></div>
+                <div visible="tab === 2" class="tile-container" ng-include="'tpl/use-case.html'"></div>
+                <div visible="tab === 3" class="tile-container" ng-include="'tpl/object-relations.html'"></div>
+                <div visible="tab === 4" class="tile-container" ng-include="'tpl/er.html'"></div>
+                <div visible="tab === 5" class="tile-container" ng-include="'tpl/informational-requirements.html'"></div>
+                <div visible="tab === 6" class="tile-container" ng-include="'tpl/statistics.html'"></div>
+                <div visible="tab === 7" class="tile-container" ng-include="'tpl/reports.html'"></div>
+                <div visible="tab === 8" class="tile-container" ng-include="'tpl/algorithmic-dependencies.html'"></div>
+                <div visible="tab === 9" class="tile-container" ng-include="'tpl/integrity-constraints.html'"></div>
             </div>
         </div>
         <div id="footer" class="footer">
@@ -138,6 +110,7 @@
                 © 2014 DreamTeam! All rights reserved.
             </p>
         </div>
+        <canvas id="canvas"></canvas>
     </div>
 </body>
 

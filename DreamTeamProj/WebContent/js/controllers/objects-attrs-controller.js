@@ -1,5 +1,5 @@
 'use strict';
-angular.module('db').controller('ObjectsAttrsCtrl', function (Object, $scope, $rootScope) {
+angular.module('db').controller('ObjectsAttrsCtrl', function (Object, Attribute, $scope, $rootScope) {
     $scope.objects = [];
     $scope.object = null;
     $scope.objectName = '';
@@ -26,6 +26,7 @@ angular.module('db').controller('ObjectsAttrsCtrl', function (Object, $scope, $r
         var object = {
             name: $scope.objectName
         };
+        $scope.objectName = '';
         Object.create(object).then(function (response) {
             updateObjects(response.id);
         });
@@ -33,11 +34,13 @@ angular.module('db').controller('ObjectsAttrsCtrl', function (Object, $scope, $r
     $scope.addAttr = function () {
         var object = $scope.object;
         var attr = {
+            objectId: object.id,
             name: $scope.attrName
         };
         object.attrs.push(attr);
-        Object.update(object).then(function () {
+        Attribute.create(attr).then(function () {
             updateObjects(object.id);
+            $scope.attrName = '';
         });
     };
     $scope.onKeypress = function(event, callback) {

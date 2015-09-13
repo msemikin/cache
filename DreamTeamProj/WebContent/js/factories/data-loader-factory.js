@@ -1,5 +1,5 @@
 'use strict';
-angular.module('db').factory('DataLoader', function($q, $http) {
+angular.module('db').factory('DataLoader', function($q, $http, Config) {
     function indexOf(data, value) {
         var index = _.findIndex(data, function(element) {
             return element.id === value.id;
@@ -11,10 +11,11 @@ angular.module('db').factory('DataLoader', function($q, $http) {
         extend: function(data, params) {
             var id = 0;
             if (params) {
-                var loadPath = params.basicPath + 'all',
-                    createPath = params.basicPath + 'new',
-                    updatePath = params.basicPath + 'update',
-                    removePath = params.basicPath + 'delete';
+                var base = Config.API_PATH + params.basicPath,
+                    loadPath = base + '/all',
+                    createPath = base + params.basicPath + '/new',
+                    updatePath = base + '/update',
+                    removePath = base + '/delete';
                 return {
                     create: function(value) {
                         var deferred = $q.defer();

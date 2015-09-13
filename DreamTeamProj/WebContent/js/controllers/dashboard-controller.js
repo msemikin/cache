@@ -20,4 +20,5 @@ angular.module('db').controller("DashboardCtrl", function($scope, $location, $ro
     $rootScope.showAttrs = function () {
         $rootScope.showAttributes = true;
     };
+    $scope.tab = 1;
 });

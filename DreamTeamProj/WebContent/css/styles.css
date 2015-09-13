@@ -242,3 +242,7 @@ html, body {
     color: cadetblue !important;
     font-weight: 700;
 }
+/* canvas for diagrams export */
+#canvas {
+    display: none;
+}
