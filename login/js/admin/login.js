@@ -11,35 +11,7 @@ $(document).ready(function() {
 			}
 		},
 		submitHandler: function(form) {
-			doAjaxLogin($('#redirect').val());
-		},
-		// override jquery validate plugin defaults for bootstrap 3
-		highlight: function(element) {
-			$(element).closest('.form-group').addClass('has-error');
-		},
-		unhighlight: function(element) {
-			$(element).closest('.form-group').removeClass('has-error');
-		},
-		errorElement: 'span',
-		errorClass: 'help-block',
-		errorPlacement: function(error, element) {
-			if(element.parent('.input-group').length) {
-				error.insertAfter(element.parent());
-			} else {
-				error.insertAfter(element);
-			}
-		}
-	});
-
-	$("#forgot_password_form").validate({
-		rules: {
-			"email_forgot": {
-				"email": true,
-				"required": true
-			}
-		},
-		submitHandler: function(form) {
-		  doAjaxForgot();
+			doAjaxLogin();
 		},
 		// override jquery validate plugin defaults for bootstrap 3
 		highlight: function(element) {
@@ -60,6 +32,12 @@ $(document).ready(function() {
 	});
 
 	$('#email').focus();
+
+
+    var l = new Object();
++function feedbackSubmit() {
++	l = Ladda.create( document.querySelector( 'button[type=submit]' ) );
++}
 
 	//Tab-index loop
 	$('form').each(function(){
@@ -84,39 +62,38 @@ function doAjaxLogin(redirect) {
 		$.ajax({
 			type: "POST",
 			headers: { "cache-control": "no-cache" },
-			url: "ajax-tab.php" + '?rand=' + new Date().getTime(),
+			url: "/login",
 			async: true,
 			dataType: "json",
 			data: {
 				ajax: "1",
 				token: "",
-				controller: "AdminLogin",
-				submitLogin: "1",
 				passwd: $('#passwd').val(),
 				email: $('#email').val(),
-				redirect: redirect,
-				stay_logged_in: $('#stay_logged_in:checked').val()
+				redirect: redirect
 			},
 			beforeSend: function() {
 				feedbackSubmit();
 				l.start();
 			},
 			success: function(jsonData) {
-				if (jsonData.hasErrors) {
-					displayErrors(jsonData.errors);
-					l.stop();
+				if (jsonData <= 0) {
+					displayErrors("Can't redirect");
+                    l.stop();
 				} else {
 					window.location.assign(jsonData.redirect);
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				l.stop();
 				$('#error').html('<h3>TECHNICAL ERROR:</h3><p>Details: Error thrown: ' + XMLHttpRequest + '</p><p>Text status: ' + textStatus + '</p>').removeClass('hide');
 				$('#login_form').fadeOut('slow');
+                l.stop();
 			}
 		});
 	});
 }
+
+
 
 function displayErrors(errors) {
 	str_errors = '<p><strong>' + (errors.length > 1 ? more_errors : one_error) + '</strong></p><ol>';
