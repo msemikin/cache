@@ -1095,4 +1095,150 @@ data : {
 	"success": "true",
 }
 ```
+-----------------------------------------------------
+# POST /project/actors/new
+
+## Request
+```
+data : {
+			actor : JSON.stringify({
+						"actorName":"Имя актера",
+						"projectId": 0
+					})
+				},
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/actors/update
+
+## Request
+```
+data : {
+			actor : JSON.stringify({
+						"actorId":1,
+						"actorName":"Имя актера",
+						"projectId": 0
+					})
+				},
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/actors/delete
+
+## Request
+```
+data : {
+			id:2
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/actors/all
+
+## Request
+```
+data : {
+			"projectId":0
+		},
+```
+
+## Response
+
+```
+{
+	А ФИГ ЕГО ЧТО ОН ВЕРНЕТ - Я НЕ ЗНАЮ) 
+}
+```
+-----------------------------------------------------
+# POST /project/links/new (обрати внимание, что мне нужно, чтобы в )
+
+## Request
+```
+data : {
+			
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/links/update
+
+## Request
+```
+data : {
+			
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/links/delete
+
+## Request
+```
+data : {
+			
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
+# POST /project/links/all
+
+## Request
+```
+data : {
+			
+		},
+```
+
+## Response
+
+```
+{
+	"success": true
+}
+```
+-----------------------------------------------------
 
