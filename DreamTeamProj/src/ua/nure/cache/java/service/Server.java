@@ -1,6 +1,7 @@
 package ua.nure.cache.java.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +21,12 @@ import ua.nure.cache.java.dao.mysql.MysqlProjectDAO;
 import ua.nure.cache.java.dao.mysql.MysqlReportDAO;
 import ua.nure.cache.java.dao.mysql.MysqlSrchFltrSrtDAO;
 import ua.nure.cache.java.dao.mysql.MysqlStatisticDAO;
+import ua.nure.cache.java.entity.Actor;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Constraint;
 import ua.nure.cache.java.entity.Diagram;
+import ua.nure.cache.java.entity.Link;
 import ua.nure.cache.java.entity.LinkConstr;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Report;
@@ -624,7 +627,7 @@ public class Server implements IServer{
 	public void findAttrConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		Constraint result = new MysqlIntegrConstrDAO().getConstraint(Integer.valueOf(line));
+		List<Constraint> result = new MysqlIntegrConstrDAO().getConstraint(Integer.valueOf(line));
 		resp.getWriter().print(new Gson().toJson(result));
 	}
 
@@ -684,7 +687,127 @@ public class Server implements IServer{
 	public void findLinkConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		LinkConstr result = new MysqlIntegrConstrDAO().getLinkConstraint(Integer.valueOf(line));
+		List<LinkConstr> result = new MysqlIntegrConstrDAO().getLinkConstraint(Integer.valueOf(line));
+		resp.getWriter().print(new Gson().toJson(result));		
+	}
+
+	@Override
+	public void insertActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("actor");
+		Actor deps = new Gson().fromJson(line, Actor.class);
+		int result = new MysqlProjectDAO().insertActor(deps);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void updateActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("actor");
+		Actor deps = new Gson().fromJson(line, Actor.class);
+		boolean result = new MysqlProjectDAO().updateActor(deps);
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));	
+		
+	}
+
+	@Override
+	public void deleteActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("id");
+		boolean result = new MysqlProjectDAO().deleteActor(Integer.valueOf(line));
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void findActor(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("projectId");
+		List<Actor> result = new MysqlProjectDAO().findActors(Integer.valueOf(line));
+		resp.getWriter().print(new Gson().toJson(result));
+		
+	}
+
+	@Override
+	public void insertLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("link");
+		Link deps = new Gson().fromJson(line, Link.class);
+		int result = new MysqlProjectDAO().insertLink(deps);
+		Resp res = new Resp();
+		if (result !=-1) {
+			res.setId(result);
+			res.setSuccess(true);
+		}
+		else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));		
+	}
+
+	@Override
+	public void updateLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("link");
+		Actor deps = new Gson().fromJson(line, Actor.class);
+		boolean result = new MysqlProjectDAO().updateActor(deps);
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));	
+		
+	}
+
+	@Override
+	public void deleteLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("id");
+		boolean result = new MysqlProjectDAO().deleteLink(Integer.valueOf(line));
+		Resp res = new Resp();
+		if (result) {
+			res.setSuccess(true);
+		}
+		else {
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+		
+	}
+
+	@Override
+	public void findLink(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String line = req.getParameter("projectId");
+		List<Link> result = new MysqlProjectDAO().findLinks(Integer.valueOf(line));
 		resp.getWriter().print(new Gson().toJson(result));		
 	}
 

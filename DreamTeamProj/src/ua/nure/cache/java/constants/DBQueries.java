@@ -27,41 +27,43 @@ public class DBQueries {
 
 	public static final String FIND_DIAGRAM_BY_TYPE_PROJ = "Select JSON From diagram where project_id=? AND Type = ?";
 
-	public static final String FIND_SEARCH_BY_PROJ_ID = " SELECT search.search_id,object.object_id, "
-			+ "objectName,attribute.attr_id,attribute.Name FROM search    "
+	public static final String FIND_SEARCH_BY_PROJ_ID = "SELECT search.search_id,object.object_id, "
+			+ "objectName, attribute.attr_id,attribute.Name FROM search "
 			+ "left JOIN object on object.object_id = search.object_id  "
-			+ "left join searchtoattr on searchtoattr.search_id = object.object_id "
+			+ "left join searchtoattr on searchtoattr.search_id = search.search_id "
 			+ "left join attribute on searchtoattr.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY search_id, object.object_id;";
 
 	public static final String FIND_SORTS_BY_PROJ_ID = "SELECT sort.sort_id,object.object_id, "
 			+ "objectName,attribute.attr_id,attribute.Name FROM sort "
 			+ "left JOIN object on object.object_id = sort.object_id  "
-			+ "left join sorttoattr on sorttoattr.sort_id = object.object_id "
+			+ "left join sorttoattr on sorttoattr.sort_id = sort.sort_id "
 			+ "left join attribute on sorttoattr.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ? ORDER BY sort_id, object.object_id;";
 
 	public static final String FIND_FILTERS_BY_PROJ_ID = "SELECT filter.filter_id,object.object_id, "
 			+ "objectName,attribute.attr_id,attribute.Name FROM filter     "
 			+ "left JOIN object on object.object_id = filter.object_id   "
-			+ "left join filtertoattribute on filtertoattribute.filter_id = object.object_id  "
+			+ "left join filtertoattribute on filtertoattribute.filter_id = filter.filter_id  "
 			+ "left join attribute on filtertoattribute.attribute_id = attribute.attr_id "
 			+ "WHERE object.project_id = ?  ORDER BY filter_id, object.object_id;";
 
-	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, algdeps.result_field,algdeps.name,  "
+	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, "
+			+ "algdeps.result_field,algdeps.name,  "
 			+ "object.objectName, attribute.attr_id,attribute.Name  "
 			+ "From algdeps "
 			+ "left join object on algdeps.result_field = object.object_id "
 			+ "left join attribute on attribute.object_id = algdeps.result_field "
 			+ "WHERE OBJECT.project_id = ?";
 
-	public static final String FIND_SOURCE_FIELDS = "select algdeps.dep_id, sourcefield.varName, object.object_id,object.objectName,attribute.attr_id,attribute.Name "
-			+ "FROM algdeps  "
-			+ "left join depstosourfield on algdeps.dep_id = depstosourfield.dep_id "
-			+ "left join sourcefield on depstosourfield.field_id = sourcefield.field_id "
-			+ "left join object on sourcefield.object_id = object.object_id "
-			+ "left join attribute on attribute.object_id = object.object_id "
-			+ "WHERE OBJECT.project_id = ? " + "ORDER BY dep_id";
+	public static final String FIND_SOURCE_FIELDS = " select algdeps.dep_id, sourcefield.varName, "
+			+ "object.object_id,object.objectName,attribute.attr_id,attribute.Name  "
+			+ "FROM algdeps   "
+			+ "left join depstosourfield on algdeps.dep_id = depstosourfield.dep_id  "
+			+ "left join sourcefield on depstosourfield.field_id = sourcefield.field_id  "
+			+ "left join attribute on sourcefield.attr_id = attribute.attr_id "
+			+ "left join object on attribute.object_id = object.object_id  "
+			+ "WHERE OBJECT.project_id = ?   ORDER BY dep_id";
 
 	public static final String GET_OBJ_BY_ID = "SELECT object.object_id, objectName, "
 			+ "attribute.attr_id, attribute.Name FROM my_db.object "
@@ -103,7 +105,7 @@ public class DBQueries {
 	
 	public static final String INSERT_ALG_DEPS ="INSERT INTO `my_db`.`algdeps` (`result_field`, `formula`, `name`) VALUES (?,?,?);";
 	
-	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`object_id`) Values(?,?);";
+	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`attr_id`) Values(?,?);";
 	
 	public static final String INSERT_DEP_TO_SF ="INSERT INTO depstosourfield (`dep_id`,`field_id`) VALUES (?,?);  ";
 	
@@ -150,7 +152,7 @@ public class DBQueries {
 	public static final String UPDATE_ALG_DEP = "UPDATE `my_db`.`algdeps` SET `result_field`=?, `formula`=?, "
 			+ "`name`=? WHERE `dep_id`=?;";
 	
-	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `object_id`=? WHERE `field_id`=?;";
+	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `attr_id`=? WHERE `field_id`=?;";
 	
 	
 	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`,'name') VALUES (?, ?, ?,?);";
@@ -178,4 +180,29 @@ public class DBQueries {
 	
 	public static final String DELETE_LINK_CONSTR ="DELETE FROM `my_db`.`linkconstr` WHERE `constr_id`=?;";
 	
+	
+	public static final String INSERT_ACTOR ="INSERT INTO `my_db`.`actors` (`actor_name`, `project_id`) VALUES (?, ?);";
+	
+	public static final String DELETE_ACTOR = "DELETE FROM `my_db`.`actors` WHERE `actor_id`=?;";
+	
+	public static final String UPDATE_ACTOR = "UPDATE `my_db`.`actors` SET `actor_name`=?, `project_id`=? WHERE `actor_id`=?;";
+	
+	public static final String GET_ACTOR = "SELECT * FROM my_db.actors WHERE project_id =?;";
+	
+	
+	
+	public static final String INSERT_LINK ="INSERT INTO `my_db`.`link` "
+			+ "(`firstObj`, `secondObj`, `linkType`, `comment`, `project_id`) "
+			+ "VALUES (?,?,?,?);";
+	
+	public static final String DELETE_LINK = "DELETE FROM `my_db`.`link` WHERE `link_id`=?;";
+	
+	public static final String UPDATE_LINK = "UPDATE `my_db`.`link` SET `firstObj`=?, `secondObj`=?, `linkType`=?, "
+			+ "`comment`=?, `project_id`=? WHERE `link_id`=?;";
+	
+	public static final String GET_LINK = "SELECT link_id, o1.objectName, o2.objectName, linkType,comment,  "
+			+ "link.project_id From link "
+			+ "left join object o1 on firstObj = o1.object_id "
+			+ "left join object o2 on secondObj = o2.object_id "
+			+ "Where link.project_id =?";
 }

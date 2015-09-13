@@ -12,7 +12,9 @@ import org.apache.log4j.Logger;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.ProjectDAO;
+import ua.nure.cache.java.entity.Actor;
 import ua.nure.cache.java.entity.AlgDeps;
+import ua.nure.cache.java.entity.Link;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Project;
 import ua.nure.cache.java.entity.Report;
@@ -255,7 +257,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 							DBQueries.INSERT_SOURCE_FIELD,
 							Statement.RETURN_GENERATED_KEYS);
 					pstmt1.setString(1, o.getVariable());
-					pstmt1.setInt(2, o.getObject().getId());
+					pstmt1.setInt(2, o.getObject().getAttr().getId());
 					pstmt1.executeUpdate();
 					ResultSet genKeys = pstmt1.getGeneratedKeys();
 					if (genKeys.next()) {
@@ -363,7 +365,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 				PreparedStatement pstmt1 = con.prepareStatement(
 						DBQueries.UPDATE_SF, Statement.RETURN_GENERATED_KEYS);
 				pstmt1.setString(1, o.getVariable());
-				pstmt1.setInt(2, o.getObject().getId());
+				pstmt1.setInt(2, o.getObject().getAttr().getId());
 				pstmt1.setInt(3, o.getFiledId());
 				pstmt1.executeUpdate();
 				PreparedStatement pstmt3 = con.prepareStatement(
@@ -379,5 +381,336 @@ public class MysqlProjectDAO implements ProjectDAO {
 			MysqlDAOFactory.closeStatement(pstmt);
 		}
 		return result;
+	}
+	
+	public int insertLink(Link obj) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = insertLink(con, obj);
+			if (result >0) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int insertLink(Connection con, Link obj) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.INSERT_LINK,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, obj.getFirstObjName());
+			pstmt.setString(2, obj.getSeondObjName());
+			pstmt.setString(3, obj.getLinkType());
+			pstmt.setString(4, obj.getComment());
+			pstmt.setInt(5, obj.getProjectId());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			else {
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					result = generatedKeys.getInt(1);
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
+	public List<Link> findLinks(int projectId) {
+		Connection con = null;
+		List<Link> proj = new ArrayList<Link>();
+		try {
+			con = MysqlDAOFactory.getConnection();
+			proj = findLink(con, projectId);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return proj;
+		
+	}
+
+	private List<Link> findLink(Connection con, int projectId) throws SQLException {
+		PreparedStatement stmt = null;
+		List<Link> proj = new ArrayList<Link>();
+		stmt = con.prepareStatement(DBQueries.GET_LINK);
+		stmt.setInt(1, projectId);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			Link link = new Link();
+			link.setLinkId(rs.getInt(1));
+			link.setFirstObjName(rs.getString(2));
+			link.setSeondObjName(rs.getString(3));
+			link.setLinkType(rs.getString(4));
+			link.setComment(rs.getString(5));
+			link.setProjectId(rs.getInt(6));
+			proj.add(link);
+		}
+		MysqlDAOFactory.closeStatement(stmt);
+		return proj;
+	}
+
+	public boolean deleteLink(int linkId) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteLink(con, linkId);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteLink(Connection con, int linkId) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(DBQueries.DELETE_LINK,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, linkId);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
+	public boolean updateLink(Link obj) {
+		boolean result = true;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateLink(con, obj);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean updateLink(Connection con, Link obj) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_LINK,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, obj.getFirstObjName());
+			pstmt.setString(2, obj.getSeondObjName());
+			pstmt.setString(3, obj.getLinkType());
+			pstmt.setString(4, obj.getComment());
+			pstmt.setInt(5, obj.getProjectId());
+			pstmt.setInt(6, obj.getLinkId());
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return false;
+	}
+	
+	public int insertActor(Actor obj) {
+		int result = -1;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = insertActor(con, obj);
+			if (result >0) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private int insertActor(Connection con, Actor obj) throws SQLException {
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			pstmt = con.prepareStatement(DBQueries.INSERT_ACTOR,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, obj.getActorName());
+			pstmt.setInt(2, obj.getProjectId());
+			if (pstmt.executeUpdate() != 1) {
+				return -1;
+			}
+			else {
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					result = generatedKeys.getInt(1);
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
+	public List<Actor> findActors(int projectId) {
+		Connection con = null;
+		List<Actor> proj = new ArrayList<Actor>();
+		try {
+			con = MysqlDAOFactory.getConnection();
+			proj = findActors(con, projectId);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return proj;
+		
+	}
+
+	private List<Actor> findActors(Connection con, int projectId) throws SQLException {
+		PreparedStatement stmt = null;
+		List<Actor> proj = new ArrayList<Actor>();
+		stmt = con.prepareStatement(DBQueries.GET_ACTOR);
+		stmt.setInt(1, projectId);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			Actor actor = new Actor();
+			actor.setActorId(rs.getInt(1));
+			actor.setActorName(rs.getString(2));
+			actor.setProjectId(rs.getInt(3));
+			proj.add(actor);
+		}
+		MysqlDAOFactory.closeStatement(stmt);
+		return proj;
+	}
+
+	public boolean deleteActor(int actorId) {
+		boolean result = false;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = deleteActor(con, actorId);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean deleteActor(Connection con, int linkId) throws SQLException {
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(DBQueries.DELETE_ACTOR,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, linkId);
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return result;
+	}
+
+	public boolean updateActor(Actor obj) {
+		boolean result = true;
+		Connection con = null;
+		try {
+			con = MysqlDAOFactory.getConnection();
+			result = updateActor(con, obj);
+			if (result) {
+				con.commit();
+			} else {
+				MysqlDAOFactory.roolback(con);
+			}
+		} catch (SQLException e) {
+			log.error(e);
+			MysqlDAOFactory.roolback(con);
+		} finally {
+			MysqlDAOFactory.close(con);
+		}
+		return result;
+	}
+
+	private boolean updateActor(Connection con, Actor obj) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(DBQueries.UPDATE_ACTOR,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, obj.getActorName());
+			pstmt.setInt(2, obj.getProjectId());
+			pstmt.setInt(3, obj.getActorId());
+			if (pstmt.executeUpdate() != 1) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		} finally {
+			MysqlDAOFactory.closeStatement(pstmt);
+		}
+		return false;
 	}
 }

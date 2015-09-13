@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 09 2015 г., 22:38
+-- Время создания: Сен 13 2015 г., 18:12
 -- Версия сервера: 5.6.21
 -- Версия PHP: 5.6.3
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- База данных: `my_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `actors`
+--
+
+CREATE TABLE IF NOT EXISTS `actors` (
+`actor_id` int(11) NOT NULL,
+  `actor_name` longtext COLLATE utf8_general_mysql500_ci,
+  `project_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+--
+-- Дамп данных таблицы `actors`
+--
+
+INSERT INTO `actors` (`actor_id`, `actor_name`, `project_id`) VALUES
+(1, 'Актер', 0),
+(2, 'Actor', 0);
 
 -- --------------------------------------------------------
 
@@ -85,15 +105,17 @@ CREATE TABLE IF NOT EXISTS `attribute` (
 `attr_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL,
   `Name` longtext COLLATE utf8_general_mysql500_ci
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `attribute`
 --
 
 INSERT INTO `attribute` (`attr_id`, `object_id`, `Name`) VALUES
-(3, 2, 'А3О2'),
-(4, 2, 'А4О2');
+(3, 3, 'А3О3'),
+(4, 2, 'А4О2'),
+(5, 7, 'АТРИБУТ7'),
+(6, 3, 'Еще один атрибут');
 
 -- --------------------------------------------------------
 
@@ -111,7 +133,8 @@ CREATE TABLE IF NOT EXISTS `depstosourfield` (
 --
 
 INSERT INTO `depstosourfield` (`dep_id`, `field_id`) VALUES
-(1, 2);
+(1, 2),
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -159,13 +182,14 @@ CREATE TABLE IF NOT EXISTS `document` (
 CREATE TABLE IF NOT EXISTS `filter` (
 `filter_id` int(11) NOT NULL,
   `object_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `filter`
 --
 
 INSERT INTO `filter` (`filter_id`, `object_id`) VALUES
+(4, 2),
 (3, 3);
 
 -- --------------------------------------------------------
@@ -178,13 +202,6 @@ CREATE TABLE IF NOT EXISTS `filtertoattribute` (
   `filter_id` int(11) DEFAULT NULL,
   `attribute_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
-
---
--- Дамп данных таблицы `filtertoattribute`
---
-
-INSERT INTO `filtertoattribute` (`filter_id`, `attribute_id`) VALUES
-(3, 3);
 
 -- --------------------------------------------------------
 
@@ -207,6 +224,31 @@ INSERT INTO `group` (`group_Id`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `link`
+--
+
+CREATE TABLE IF NOT EXISTS `link` (
+`link_id` int(11) NOT NULL,
+  `firstObj` int(11) DEFAULT NULL,
+  `secondObj` int(11) DEFAULT NULL,
+  `linkType` longtext COLLATE utf8_general_mysql500_ci,
+  `comment` longtext COLLATE utf8_general_mysql500_ci,
+  `project_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+
+--
+-- Дамп данных таблицы `link`
+--
+
+INSERT INTO `link` (`link_id`, `firstObj`, `secondObj`, `linkType`, `comment`, `project_id`) VALUES
+(1, 2, 3, '1:M', 'ничего', 0),
+(2, 3, 7, 'M:M', 'коммент', 0),
+(3, 8, 9, 'M:1', 'cvd', 0),
+(4, 9, 2, '1:1', 'csdfs', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `linkconstr`
 --
 
@@ -224,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `linkconstr` (
 --
 
 INSERT INTO `linkconstr` (`constr_id`, `project_id`, `firstObject`, `secondObject`, `comment`, `name`) VALUES
-(1, 0, 2, 3, 'mewrw', NULL);
+(1, 0, 2, 3, 'учится в', 'some name');
 
 -- --------------------------------------------------------
 
@@ -290,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `report` (
 INSERT INTO `report` (`report_id`, `project_id`, `name`) VALUES
 (2, 0, 'Отчет2'),
 (3, 0, 'Отчет3'),
-(4, 1, 'some name');
+(4, 0, 'some name');
 
 -- --------------------------------------------------------
 
@@ -377,16 +419,16 @@ CREATE TABLE IF NOT EXISTS `sorttoattr` (
 CREATE TABLE IF NOT EXISTS `sourcefield` (
 `field_id` int(11) NOT NULL,
   `varName` longtext,
-  `object_id` int(11) DEFAULT NULL
+  `attr_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `sourcefield`
 --
 
-INSERT INTO `sourcefield` (`field_id`, `varName`, `object_id`) VALUES
-(1, 'k', 3),
-(2, 'p', 3);
+INSERT INTO `sourcefield` (`field_id`, `varName`, `attr_id`) VALUES
+(1, 'X', 3),
+(2, 'Y', 6);
 
 -- --------------------------------------------------------
 
@@ -397,8 +439,8 @@ INSERT INTO `sourcefield` (`field_id`, `varName`, `object_id`) VALUES
 CREATE TABLE IF NOT EXISTS `statistic` (
 `statistic_id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
-  `name` varchar(256) COLLATE utf8_general_mysql500_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+  `name` longtext CHARACTER SET utf8
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `statistic`
@@ -406,7 +448,9 @@ CREATE TABLE IF NOT EXISTS `statistic` (
 
 INSERT INTO `statistic` (`statistic_id`, `project_id`, `name`) VALUES
 (1, 0, 'С1П0'),
-(2, 0, 'some name');
+(5, 0, 'MyStat'),
+(9, 0, 'Моя'),
+(13, 0, 'Мо');
 
 -- --------------------------------------------------------
 
@@ -418,14 +462,6 @@ CREATE TABLE IF NOT EXISTS `stattoobj` (
   `statistic_id` int(11) DEFAULT NULL,
   `object_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
-
---
--- Дамп данных таблицы `stattoobj`
---
-
-INSERT INTO `stattoobj` (`statistic_id`, `object_id`) VALUES
-(1, 2),
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -452,6 +488,12 @@ INSERT INTO `student` (`student_id`, `group_Id`, `Email`, `Password`, `FullName`
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `actors`
+--
+ALTER TABLE `actors`
+ ADD PRIMARY KEY (`actor_id`), ADD KEY `vjscxbn_idx` (`project_id`);
 
 --
 -- Индексы таблицы `algdeps`
@@ -506,6 +548,12 @@ ALTER TABLE `filtertoattribute`
 --
 ALTER TABLE `group`
  ADD PRIMARY KEY (`group_Id`);
+
+--
+-- Индексы таблицы `link`
+--
+ALTER TABLE `link`
+ ADD PRIMARY KEY (`link_id`), ADD KEY `dsfsdfgdfdf_idx` (`firstObj`), ADD KEY `dsfsdfsdfvcx_idx` (`secondObj`), ADD KEY `xcvxc_idx` (`project_id`);
 
 --
 -- Индексы таблицы `linkconstr`
@@ -565,7 +613,7 @@ ALTER TABLE `sorttoattr`
 -- Индексы таблицы `sourcefield`
 --
 ALTER TABLE `sourcefield`
- ADD PRIMARY KEY (`field_id`), ADD KEY `mkey_idx` (`object_id`);
+ ADD PRIMARY KEY (`field_id`), ADD KEY `mkey_idx` (`attr_id`);
 
 --
 -- Индексы таблицы `statistic`
@@ -590,6 +638,11 @@ ALTER TABLE `student`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `actors`
+--
+ALTER TABLE `actors`
+MODIFY `actor_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT для таблицы `algdeps`
 --
 ALTER TABLE `algdeps`
@@ -603,7 +656,7 @@ MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT для таблицы `attribute`
 --
 ALTER TABLE `attribute`
-MODIFY `attr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `attr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT для таблицы `diagram`
 --
@@ -618,12 +671,17 @@ MODIFY `docment_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT для таблицы `filter`
 --
 ALTER TABLE `filter`
-MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT для таблицы `group`
 --
 ALTER TABLE `group`
 MODIFY `group_Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `link`
+--
+ALTER TABLE `link`
+MODIFY `link_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT для таблицы `linkconstr`
 --
@@ -658,7 +716,7 @@ MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT для таблицы `statistic`
 --
 ALTER TABLE `statistic`
-MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT для таблицы `student`
 --
@@ -667,6 +725,12 @@ MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `actors`
+--
+ALTER TABLE `actors`
+ADD CONSTRAINT `vjscxbn` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `algdeps`
@@ -718,6 +782,14 @@ ADD CONSTRAINT `cxv` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`)
 ALTER TABLE `filtertoattribute`
 ADD CONSTRAINT `cvxvxcxcv` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
 ADD CONSTRAINT `dfv` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`filter_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `link`
+--
+ALTER TABLE `link`
+ADD CONSTRAINT `dsfsdfgdfdf` FOREIGN KEY (`firstObj`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `dsfsdfsdfvcx` FOREIGN KEY (`secondObj`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `xcvxc` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `linkconstr`
@@ -782,7 +854,7 @@ ADD CONSTRAINT `ewrwer` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`at
 -- Ограничения внешнего ключа таблицы `sourcefield`
 --
 ALTER TABLE `sourcefield`
-ADD CONSTRAINT `mkey` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ADD CONSTRAINT `mkey` FOREIGN KEY (`attr_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `statistic`

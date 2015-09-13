@@ -1,6 +1,7 @@
 package ua.nure.cache.java.dao.mysql;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -40,10 +41,26 @@ public class MysqlDAOFactory extends DAOFactory {
 		Connection con = null;
 		try {
 			con = getDataSource().getConnection();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			con = getExceptCon();
 		}
 		return con;
+	}
+	private static Connection getExceptCon() {
+		Connection dbConnection = null;
+	    try {
+	        Class.forName("com.mysql.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        System.out.println(e.getMessage());
+	    }
+	    try {
+	        dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_db?characterEncoding=utf8"
+	        		, "root","");
+	        return dbConnection;
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    }
+	    return dbConnection;
 	}
 	public static void roolback(Connection con) {
 		if (con != null) {

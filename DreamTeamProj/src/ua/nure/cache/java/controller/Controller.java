@@ -162,6 +162,24 @@ public class Controller {
 			methods.put("/integrity_constraints/links/all", cardManager.getDeclaredMethod(
 					"findLinkConstr", request, response));
 			
+			methods.put("/actors/new", cardManager.getDeclaredMethod(
+					"insertActor", request, response));
+			methods.put("/actors/update", cardManager.getDeclaredMethod(
+					"updateActor", request, response));
+			methods.put("/actors/delete", cardManager.getDeclaredMethod(
+					"deleteActor", request, response));
+			methods.put("/actors/all", cardManager.getDeclaredMethod(
+					"findActors", request, response));
+			
+			methods.put("/links/new", cardManager.getDeclaredMethod(
+					"insertLink", request, response));
+			methods.put("/links/update", cardManager.getDeclaredMethod(
+					"updateLink", request, response));
+			methods.put("/links/delete", cardManager.getDeclaredMethod(
+					"deleteLink", request, response));
+			methods.put("/links/all", cardManager.getDeclaredMethod(
+					"findLink", request, response));
+			
 			
 
 		} catch (Exception e) {
