@@ -27,6 +27,7 @@ angular.module('db').controller("NavCtrl", function($scope, Config) {
             formData = new FormData(),
             markup;
 
+        formData.append('projectId', 0);
         $.each(diagrams, function(key, value) {
             markup = $('<div>').append($(value).children('svg').clone()).html();
             canvg(canvas, markup);
