@@ -32,129 +32,122 @@ import ua.nure.cache.java.entity.Statistic;
 
 public class WordGenerator {
 
-	private static int projectId = 0;
-	
-	private static XWPFDocument document;
+	private int projectId = 0;
 
-	public static synchronized void generateDoc() throws IOException, InvalidFormatException {
+	private XWPFDocument document;
+
+	public synchronized void generateDoc(int projectId) throws IOException, InvalidFormatException {
+		this.projectId = projectId;
 		document = new XWPFDocument();
-		FileOutputStream out = new FileOutputStream(new File(
-				"createparagraph.docx"));
-		generateTitle(
-				"1 АНАЛИЗ И КОНЦЕПТАЛЬНОЕ МОДЕЛИРОВАНИЕ ПРЕДМЕТНОЙ ОБЛАСТИ");
-		insertSmallTitle( "1.1 Анализ предметной области");
-		insertContent( "Здесь можно вставить текст того документа, "
-				+ "на основании которого проводился анализ.");
-		insertSmallTitle(
-				"1.2 Концептуальное моделирование предметной области");
-		insertContent(
-				"Основным компонентами концептуальной модели являются:");
-		createHyphenatedList(Arrays.asList(
-				"описание функциональной структуры системы;",
+		FileOutputStream out = new FileOutputStream(new File("createparagraph.docx"));
+		generateTitle("1 АНАЛИЗ И КОНЦЕПТАЛЬНОЕ МОДЕЛИРОВАНИЕ ПРЕДМЕТНОЙ ОБЛАСТИ");
+		insertSmallTitle("1.1 Анализ предметной области");
+		insertContent("Здесь можно вставить текст того документа, " + "на основании которого проводился анализ.");
+		insertSmallTitle("1.2 Концептуальное моделирование предметной области");
+		insertContent("Основным компонентами концептуальной модели являются:");
+		createHyphenatedList(Arrays.asList("описание функциональной структуры системы;",
 				"описание объектов предметной области и связей между ними;",
-				"описание информационных потребностей пользователей;",
-				"описание существующего документооборота;",
-				"описание алгоритмических зависимостей;",
-				"описание ограничений целостности;",
+				"описание информационных потребностей пользователей;", "описание существующего документооборота;",
+				"описание алгоритмических зависимостей;", "описание ограничений целостности;",
 				"описание лингвистических отношений."));
 		createJustifyiedList(
-				
-				Arrays.asList(
-						"Проведем концептуальное моделирование нашей предметной области.",
-						"Пользователями системы являются:"));
+
+		Arrays.asList("Проведем концептуальное моделирование нашей предметной области.",
+				"Пользователями системы являются:"));
 		// Actors List from the diagram
 		insertActors();
-		createJustifyiedList( Arrays.asList("", "Пользователи могут выполнять в системе следующие функции: ",
-				"секретари -  фиксируют результаты обучения студентов;"
-						, "актер – его функция."));
+		createJustifyiedList(Arrays.asList("", "Пользователи могут выполнять в системе следующие функции: ",
+				"секретари -  фиксируют результаты обучения студентов;", "актер – его функция."));
 		// Functions of the actor;
 		createJustifyiedList(
-				
-				Arrays.asList(
-						"На рисунке 1.1 приведена Use-case  диаграмма системы, "
-								+ "которая отражает функции пользователей в системе, "
-								+ "что можно рассматривать как ее функциональную структуру.",
-						""));
-		insertImage(""); //test image
+
+		Arrays.asList("На рисунке 1.1 приведена Use-case  диаграмма системы, "
+				+ "которая отражает функции пользователей в системе, "
+				+ "что можно рассматривать как ее функциональную структуру.", ""));
+		insertImage(""); // test image
 		generateTitle("Рисунок 1.1 - Use-case  диаграмма системы");
-		createJustifyiedList( Arrays.asList("","<здесь могут быть более развернутые пояснения по диаграмме>",
-				"","Проведем описание объектов предметной области и связей между ними. Основными объектами предметной области являются:"));
-		//Objects
+		createJustifyiedList(Arrays.asList("", "<здесь могут быть более развернутые пояснения по диаграмме>", "",
+				"Проведем описание объектов предметной области и связей между ними. Основными объектами предметной области являются:"));
+		// Objects
 		createHyphenatedList(getObjektNames());
-		//Objects avec attributes 
+		// Objects avec attributes
 		insertObjWithAttr(document);
-		
-		createJustifyiedList( Arrays.asList("","На рисунке 1.2 приведена схема взаимодействия объектов системы.",
-				""));
-		insertImage("");//test image
+
+		createJustifyiedList(Arrays.asList("", "На рисунке 1.2 приведена схема взаимодействия объектов системы.", ""));
+		insertImage("");// test image
 		generateTitle("Рисунок 1.2 -  Схема взаимосвязи объектов предметной области");
-		createJustifyiedList( Arrays.asList("","Между объектами существуют следующие связи: ",
-				""));
-		
+		createJustifyiedList(Arrays.asList("", "Между объектами существуют следующие связи: ", ""));
+
 		insertIntegrConstr();
-		//SrchFiltSorts etc
-		createJustifyiedList( Arrays.asList("","Информационными потребностями пользователей "
-				+ "являются потребности в сортировке, "
-				+ "поиске, фильтрации информации и получении статистики, а именно:",
+		// SrchFiltSorts etc
+		createJustifyiedList(Arrays.asList("",
+				"Информационными потребностями пользователей " + "являются потребности в сортировке, "
+						+ "поиске, фильтрации информации и получении статистики, а именно:",
 				"а) сортировка информации о следующих объектах по их атрибутам: "));
 		insertSorts();
-		createJustifyiedList( Arrays.asList("б) поиск информации о следующих объектах по их атрибутам:"));
+		createJustifyiedList(Arrays.asList("б) поиск информации о следующих объектах по их атрибутам:"));
 		insertSearches();
-		createJustifyiedList( Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
+		createJustifyiedList(Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
 		insertFilters();
-		//Statistic
-		
-		createJustifyiedList( Arrays.asList("У пользователей существует потребность "
-				+ "получения разного рода статистики, а именно:"));
+		// Statistic
+
+		createJustifyiedList(Arrays
+				.asList("У пользователей существует потребность " + "получения разного рода статистики, а именно:"));
 		insertStat();
-		//Отчет
-		createJustifyiedList( Arrays.asList("","В предметной области для работы необходимы ряд документов, например: "));
+		// Отчет
+		createJustifyiedList(
+				Arrays.asList("", "В предметной области для работы необходимы ряд документов, например: "));
 		insertReport();
-		
-		//AlgDeps
-		createJustifyiedList( Arrays.asList("","При представлении информации пользователю некоторые порции "
-				+ "информации требуют математической (или алгоритмической) обработки. "
-				+ "Таким образом, в предметной области существуют следующие алгоритмические зависимости:"));
+
+		// AlgDeps
+		createJustifyiedList(Arrays.asList("",
+				"При представлении информации пользователю некоторые порции "
+						+ "информации требуют математической (или алгоритмической) обработки. "
+						+ "Таким образом, в предметной области существуют следующие алгоритмические зависимости:"));
 		insertAlgDeps();
-		
-		createJustifyiedList( Arrays.asList("","При рассмотрении атрибутов объектов "
-				+ "из предметной области можно выделить следующие ограничения, "
-				+ "которые накладываются предметной областью (ограничения целостности). ",
+
+		createJustifyiedList(Arrays.asList("",
+				"При рассмотрении атрибутов объектов " + "из предметной области можно выделить следующие ограничения, "
+						+ "которые накладываются предметной областью (ограничения целостности). ",
 				"Следующие ограничения описывают требования уникальности, а именно:"));
 		insertAttrConstr();
-		
-		createJustifyiedList( Arrays.asList("","Следующие ограничения описывают требования,"
+
+		createJustifyiedList(Arrays.asList("", "Следующие ограничения описывают требования,"
 				+ " которые касаются связей между объектами предметной области, а именно:"));
 		insertLinks();
-		//сюда вставить ссылки
-		
-		createJustifyiedList( Arrays.asList("","В данной предметной области существует "
-				+ "ряд наименований объектов, которые специфичны для данной предметной области и могут "
-				+ "быть отнесены к терминологии, которая должна быть учтена при составлении интерфейса приложения,"
-				+ " а именно: ", "Здесь вставляются описания терминов типа", "- объект объект – это определение; ","",
+		// сюда вставить ссылки
+
+		createJustifyiedList(Arrays.asList("",
+				"В данной предметной области существует "
+						+ "ряд наименований объектов, которые специфичны для данной предметной области и могут "
+						+ "быть отнесены к терминологии, которая должна быть учтена при составлении интерфейса приложения,"
+						+ " а именно: ",
+				"Здесь вставляются описания терминов типа", "- объект объект – это определение; ", "",
 				"Кроме того, данная предметная область требует существенного облегчения некоторых процессов работы с информацией, "
-				+ "что можно решить путем автоматизации такого рода деятельности.","<здесь Вы должны вставить описание задачи автоматизации>"));
+						+ "что можно решить путем автоматизации такого рода деятельности.",
+				"<здесь Вы должны вставить описание задачи автоматизации>"));
 		document.createParagraph().createRun().addBreak(BreakType.PAGE);
-		
-		generateTitle(
-				"2 ПОСТАНОВКА ЗАДАЧИ");
-		createJustifyiedList( Arrays.asList("","На основании проведенного анализа и концептуального моделирования может "
-				+ "быть сформулирована следующая постановка задачи на разработку информационной системы. "
-				+ "Программная система должна поддерживать следующие функции: ","- система должна отображать данные:"));
-		
+
+		generateTitle("2 ПОСТАНОВКА ЗАДАЧИ");
+		createJustifyiedList(Arrays.asList("",
+				"На основании проведенного анализа и концептуального моделирования может "
+						+ "быть сформулирована следующая постановка задачи на разработку информационной системы. "
+						+ "Программная система должна поддерживать следующие функции: ",
+				"- система должна отображать данные:"));
+
 		doSmth();
-		
+
 		getAlgDepsNames();
-		
+
 		document.createParagraph().createRun().addBreak(BreakType.PAGE);
-		generateTitle(
-				"3 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ");
+		generateTitle("3 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ");
 		insertSmallTitle("3.1 UML-моделирование");
 		insertImage("");
-		createJustifyiedList( Arrays.asList("","<здесь Вы должны вставить описания и рисунки с диаграммами>"));
+		createJustifyiedList(Arrays.asList("", "<здесь Вы должны вставить описания и рисунки с диаграммами>"));
 		insertSmallTitle("3.2 Построение ER-диаграммы");
-		createJustifyiedList( Arrays.asList("","<здесь Вы должны вставить краткое описание, как Вы строили ER-диаграмму>",
-				"На рисунке 3.3 приведена ER-диаграмм для базы данных."));
+		createJustifyiedList(
+				Arrays.asList("", "<здесь Вы должны вставить краткое описание, как Вы строили ER-диаграмму>",
+						"На рисунке 3.3 приведена ER-диаграмм для базы данных."));
 		insertImage("");
 		generateTitle("Рисунок 3.3 - ER-диаграмма предметной области");
 		document.write(out);
@@ -162,15 +155,7 @@ public class WordGenerator {
 		System.out.println("createparagraph.docx written successfully");
 	}
 
-	public static void main(String[] args) {
-		try {
-			generateDoc();
-		} catch (IOException | InvalidFormatException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void generateTitle(String text) {
+	private void generateTitle(String text) {
 		XWPFParagraph paragraph = document.createParagraph();
 		paragraph.setAlignment(ParagraphAlignment.CENTER);
 		paragraph.setSpacingAfter(0);
@@ -181,7 +166,7 @@ public class WordGenerator {
 		run.setText(text);
 	}
 
-	public static void insertSmallTitle(String text) {
+	private void insertSmallTitle(String text) {
 		XWPFParagraph paragraph = document.createParagraph();
 		paragraph.setAlignment(ParagraphAlignment.BOTH);
 		paragraph.setSpacingAfter(0);
@@ -193,7 +178,7 @@ public class WordGenerator {
 		run.setText(text);
 	}
 
-	public static void insertContent(String text) {
+	private void insertContent(String text) {
 		XWPFParagraph paragraph = document.createParagraph();
 		paragraph.setAlignment(ParagraphAlignment.BOTH);
 		paragraph.setSpacingAfter(0);
@@ -205,8 +190,7 @@ public class WordGenerator {
 		run.setText(text);
 	}
 
-	public static void createNumericList(
-			List<String> items) {
+	private void createNumericList(List<String> items) {
 		for (int i = 1; i <= items.size(); i++) {
 			XWPFParagraph paragraph = document.createParagraph();
 			paragraph.setAlignment(ParagraphAlignment.BOTH);
@@ -219,8 +203,8 @@ public class WordGenerator {
 			run.setText(i + ") " + items.get(i - 1));
 		}
 	}
-	public static void createNumericList(
-			List<String> items , int intendation) {
+
+	private void createNumericList(List<String> items, int intendation) {
 		for (int i = 1; i <= items.size(); i++) {
 			XWPFParagraph paragraph = document.createParagraph();
 			paragraph.setAlignment(ParagraphAlignment.BOTH);
@@ -233,8 +217,8 @@ public class WordGenerator {
 			run.setText(i + ") " + items.get(i - 1));
 		}
 	}
-	public static void createHyphenatedList(
-			List<String> items) {
+
+	private void createHyphenatedList(List<String> items) {
 		for (int i = 1; i <= items.size(); i++) {
 			XWPFParagraph paragraph = document.createParagraph();
 			paragraph.setAlignment(ParagraphAlignment.BOTH);
@@ -248,8 +232,7 @@ public class WordGenerator {
 		}
 	}
 
-	public static void createJustifyiedList(
-			List<String> items) {
+	private void createJustifyiedList(List<String> items) {
 		for (int i = 1; i <= items.size(); i++) {
 			XWPFParagraph paragraph = document.createParagraph();
 			paragraph.setAlignment(ParagraphAlignment.BOTH);
@@ -263,21 +246,21 @@ public class WordGenerator {
 		}
 	}
 
-	public static void insertImage(String imgName)
-			throws InvalidFormatException, IOException {
+	private void insertImage(String imgName) throws InvalidFormatException, IOException {
 		XWPFParagraph title = document.createParagraph();
 		XWPFRun run = title.createRun();
 		title.setAlignment(ParagraphAlignment.LEFT);
 		String imgFile = "testImage.jpg";
 		FileInputStream is = new FileInputStream(imgFile);
 		run.addBreak();
-		run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile,
-				Units.toEMU(424), Units.toEMU(236));
+		run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile, Units.toEMU(424), Units.toEMU(236));
 	}
-	public static List<Objekt> getObj() {
+
+	private List<Objekt> getObj() {
 		return new MysqlProjectDAO().findProcectObj(projectId);
 	}
-	public static List<String> getObjektNames() {
+
+	private List<String> getObjektNames() {
 		List<Objekt> objs = getObj();
 		List<String> names = new ArrayList<String>();
 		for (Objekt obj : objs) {
@@ -285,8 +268,8 @@ public class WordGenerator {
 		}
 		return names;
 	}
-	
-	public static void insertObjWithAttr(XWPFDocument document) {
+
+	private void insertObjWithAttr(XWPFDocument document) {
 		List<Objekt> objs = getObj();
 		List<String> names = new ArrayList<String>();
 		for (Objekt obj : objs) {
@@ -295,20 +278,20 @@ public class WordGenerator {
 			sb.append(obj.getName());
 			sb.append("\" имеет следующие атрибуты: ");
 			for (Attribute attr : obj.getAttrs()) {
-				sb.append("\"" );
+				sb.append("\"");
 				sb.append(attr.getName());
-				sb.append("\"; " );
+				sb.append("\"; ");
 			}
 			names.add(sb.toString());
 		}
 		createJustifyiedList(names);
 	}
-	
-	public static List<LinkConstr> getLinkConstrs () {
+
+	private List<LinkConstr> getLinkConstrs() {
 		return new MysqlIntegrConstrDAO().getLinkConstraint(projectId);
 	}
-	
-	public static void insertIntegrConstr() {
+
+	private void insertIntegrConstr() {
 		List<LinkConstr> objs = getLinkConstrs();
 		List<String> names = new ArrayList<String>();
 		for (LinkConstr obj : objs) {
@@ -324,20 +307,20 @@ public class WordGenerator {
 		}
 		createJustifyiedList(names);
 	}
-	
-	public static List<SrchFltSrt> getSorts() {
+
+	private List<SrchFltSrt> getSorts() {
 		return new MysqlProjectDAO().findSorts(projectId);
 	}
-	
-	public static List<SrchFltSrt> getSearches() {
+
+	private List<SrchFltSrt> getSearches() {
 		return new MysqlProjectDAO().findSearches(projectId);
 	}
-	
-	public static List<SrchFltSrt> getFilters() {
+
+	private List<SrchFltSrt> getFilters() {
 		return new MysqlProjectDAO().findFilters(projectId);
 	}
-	
-	public static void insertSorts() {
+
+	private void insertSorts() {
 		List<SrchFltSrt> objs = getSorts();
 		List<String> names = new ArrayList<String>();
 		for (SrchFltSrt obj : objs) {
@@ -346,16 +329,16 @@ public class WordGenerator {
 			sb.append(obj.getObject().getName());
 			sb.append("\" по атрибутам: ");
 			for (Attribute attr : obj.getObject().getAttrs()) {
-				sb.append("\"" );
+				sb.append("\"");
 				sb.append(attr.getName());
-				sb.append("\"; " );
+				sb.append("\"; ");
 			}
 			names.add(sb.toString());
 		}
 		createNumericList(names, 1420);
 	}
-	
-	public static void insertSearches() {
+
+	private void insertSearches() {
 		List<SrchFltSrt> objs = getSearches();
 		List<String> names = new ArrayList<String>();
 		for (SrchFltSrt obj : objs) {
@@ -364,16 +347,16 @@ public class WordGenerator {
 			sb.append(obj.getObject().getName());
 			sb.append("\" по атрибутам: ");
 			for (Attribute attr : obj.getObject().getAttrs()) {
-				sb.append("\"" );
+				sb.append("\"");
 				sb.append(attr.getName());
-				sb.append("\"; " );
+				sb.append("\"; ");
 			}
 			names.add(sb.toString());
 		}
 		createNumericList(names, 1420);
 	}
-	
-	public static void insertFilters() {
+
+	private void insertFilters() {
 		List<SrchFltSrt> objs = getFilters();
 		List<String> names = new ArrayList<String>();
 		for (SrchFltSrt obj : objs) {
@@ -382,19 +365,20 @@ public class WordGenerator {
 			sb.append(obj.getObject().getName());
 			sb.append("\" по атрибутам: ");
 			for (Attribute attr : obj.getObject().getAttrs()) {
-				sb.append("\"" );
+				sb.append("\"");
 				sb.append(attr.getName());
-				sb.append("\"; " );
+				sb.append("\"; ");
 			}
 			names.add(sb.toString());
 		}
 		createNumericList(names, 1420);
 	}
-	public static List<Statistic> getStats() {
+
+	private List<Statistic> getStats() {
 		return new MysqlProjectDAO().findProjStat(projectId);
 	}
-	
-	public static void insertStat() {
+
+	private void insertStat() {
 		List<Statistic> objs = getStats();
 		List<String> names = new ArrayList<String>();
 		for (Statistic obj : objs) {
@@ -417,11 +401,12 @@ public class WordGenerator {
 		}
 		createHyphenatedList(names);
 	}
-	public static List<Report> getReports() {
+
+	private List<Report> getReports() {
 		return new MysqlProjectDAO().findProjReport(projectId);
 	}
-	
-	public static void insertReport() {
+
+	private void insertReport() {
 		List<Report> objs = getReports();
 		List<String> names = new ArrayList<String>();
 		for (Report obj : objs) {
@@ -444,12 +429,12 @@ public class WordGenerator {
 		}
 		createHyphenatedList(names);
 	}
-	
-	public static List<AlgDeps> getAlgDeps() {
+
+	private List<AlgDeps> getAlgDeps() {
 		return new MysqlProjectDAO().findAlgDeps(projectId);
 	}
-	
-	public static void insertAlgDeps() {
+
+	private void insertAlgDeps() {
 		List<AlgDeps> objs = getAlgDeps();
 		List<String> names = new ArrayList<String>();
 		for (AlgDeps obj : objs) {
@@ -471,7 +456,8 @@ public class WordGenerator {
 		}
 		createHyphenatedList(names);
 	}
-	public static void insertAttrConstr() {
+
+	private void insertAttrConstr() {
 		List<Constraint> objs = new MysqlIntegrConstrDAO().getConstraint(projectId);
 		List<String> names = new ArrayList<String>();
 		for (Constraint obj : objs) {
@@ -485,14 +471,14 @@ public class WordGenerator {
 		}
 		createHyphenatedList(names);
 	}
-	
-	public static void doSmth() {
-		StringBuilder sb = new StringBuilder(); 
+
+	private void doSmth() {
+		StringBuilder sb = new StringBuilder();
 		List<String> names = new ArrayList<String>();
-		sb.append("непосредственно о главных объектах: " );
-		for (String name:getObjektNames()) {
+		sb.append("непосредственно о главных объектах: ");
+		for (String name : getObjektNames()) {
 			sb.append(name);
-			sb.append("; " );
+			sb.append("; ");
 		}
 		names.add(sb.toString());
 		sb = new StringBuilder();
@@ -500,40 +486,44 @@ public class WordGenerator {
 		names.add(sb.toString());
 		createNumericList(names, 1420);
 	}
-	
-	public static void getAlgDepsNames()  {
+
+	private void getAlgDepsNames() {
 		List<AlgDeps> objs = getAlgDeps();
 		StringBuilder sb = new StringBuilder();
 		sb.append("система должна поддерживать арифметическую обработку данных в виде вычислений полей: ");
 		for (AlgDeps obj : objs) {
-			sb.append(" \"" );
+			sb.append(" \"");
 			sb.append(obj.getName());
 			sb.append("\" ");
 		}
-		createHyphenatedList(Arrays.asList(sb.toString(),"система должна поддерживать сортировку, поиск и фильтрация данных:"));
-		createJustifyiedList(Arrays.asList("Здесь вставляется кусок об информационных потребностях из раздела 1.2, только с изменением списков по ГОСТам"));
-		createJustifyiedList( Arrays.asList("",
-				"а) сортировка информации о следующих объектах по их атрибутам: "));
+		createHyphenatedList(
+				Arrays.asList(sb.toString(), "система должна поддерживать сортировку, поиск и фильтрация данных:"));
+		createJustifyiedList(Arrays.asList(
+				"Здесь вставляется кусок об информационных потребностях из раздела 1.2, только с изменением списков по ГОСТам"));
+		createJustifyiedList(Arrays.asList("", "а) сортировка информации о следующих объектах по их атрибутам: "));
 		insertSorts();
-		createJustifyiedList( Arrays.asList("б) поиск информации о следующих объектах по их атрибутам:"));
+		createJustifyiedList(Arrays.asList("б) поиск информации о следующих объектах по их атрибутам:"));
 		insertSearches();
-		createJustifyiedList( Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
+		createJustifyiedList(Arrays.asList("в) фильтрация информации о следующих объектах по их атрибутам: "));
 		insertFilters();
-		createHyphenatedList(Arrays.asList("система должна поддерживать добавление новых данных о (список объектов)"
-				,"система должна поддерживать возможность редактировать информацию о (список объектов)",
-				"система должна поддерживать возможность удалять информацию о (список объектов)","система должна поддерживать следующие часто возникающие запросы:"));
-		
-		createJustifyiedList(Arrays.asList("Здесь вставляется кусок об информационных потребностях из раздела 1.2, только с изменением списков по ГОСТам"));
+		createHyphenatedList(Arrays.asList("система должна поддерживать добавление новых данных о (список объектов)",
+				"система должна поддерживать возможность редактировать информацию о (список объектов)",
+				"система должна поддерживать возможность удалять информацию о (список объектов)",
+				"система должна поддерживать следующие часто возникающие запросы:"));
+
+		createJustifyiedList(Arrays.asList(
+				"Здесь вставляется кусок об информационных потребностях из раздела 1.2, только с изменением списков по ГОСТам"));
 		insertStat();
-		createHyphenatedList(Arrays.asList("система должна поддерживать возможность формирования "
-				+ "произвольных запросов в базы данных язык SQL с поддержкой для пользователя сведения о схеме DB;",
+		createHyphenatedList(Arrays.asList(
+				"система должна поддерживать возможность формирования "
+						+ "произвольных запросов в базы данных язык SQL с поддержкой для пользователя сведения о схеме DB;",
 				"система должна поддерживать подготовку и печать следующих отчетов:"));
 		insertReport();
-		createHyphenatedList(Arrays.asList("система должна реализовывать следующую задачу автоматизации: "
-				,"<здесь Вы должны вставить описание задачи автоматизации>"));
+		createHyphenatedList(Arrays.asList("система должна реализовывать следующую задачу автоматизации: ",
+				"<здесь Вы должны вставить описание задачи автоматизации>"));
 	}
-	
-	public static void insertLinks() {
+
+	private void insertLinks() {
 		List<Link> links = new MysqlProjectDAO().findLinks(projectId);
 		List<String> names = new ArrayList<String>();
 		for (Link link : links) {
@@ -541,8 +531,8 @@ public class WordGenerator {
 		}
 		createHyphenatedList(names);
 	}
-	
-	public static void insertActors() {
+
+	private void insertActors() {
 		List<Actor> actors = new MysqlProjectDAO().findActors(projectId);
 		List<String> names = new ArrayList<String>();
 		for (Actor link : actors) {

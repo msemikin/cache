@@ -811,6 +811,12 @@ public class Server implements IServer{
 		resp.getWriter().print(new Gson().toJson(result));		
 	}
 
+	@Override
+	public void generateDocument(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	
 	

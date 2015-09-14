@@ -457,7 +457,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			Link link = new Link();
 			link.setLinkId(rs.getInt(1));
 			link.getFirstObjName().setName(rs.getString(2));
-			link.getSeondObjName().setName(rs.getString(2));
+			link.getSeondObjName().setName(rs.getString(3));
 			link.setLinkType(rs.getString(4));
 			link.setComment(rs.getString(5));
 			link.setProjectId(rs.getInt(6));

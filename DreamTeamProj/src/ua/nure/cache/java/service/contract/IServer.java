@@ -146,4 +146,7 @@ public interface IServer {
 			throws IOException;
 	void findLink(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException;
+	
+	void generateDocument(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
 }

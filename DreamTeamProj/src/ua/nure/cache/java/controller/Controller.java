@@ -180,7 +180,8 @@ public class Controller {
 			methods.put("/links/all", cardManager.getDeclaredMethod(
 					"findLink", request, response));
 			
-			
+			methods.put("/links/new", cardManager.getDeclaredMethod(
+					"insertLink", request, response));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
