@@ -169,7 +169,7 @@ public class Controller {
 			methods.put("/actors/delete", cardManager.getDeclaredMethod(
 					"deleteActor", request, response));
 			methods.put("/actors/all", cardManager.getDeclaredMethod(
-					"findActors", request, response));
+					"findActor", request, response));
 			
 			methods.put("/links/new", cardManager.getDeclaredMethod(
 					"insertLink", request, response));
