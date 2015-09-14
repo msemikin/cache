@@ -35,11 +35,11 @@ public class WordGenerator {
 	private int projectId = 0;
 
 	private XWPFDocument document;
-
-	public synchronized void generateDoc(int projectId) throws IOException, InvalidFormatException {
+	
+	public synchronized void generateDoc(int projectId, String canonicalName) throws IOException, InvalidFormatException {
 		this.projectId = projectId;
 		document = new XWPFDocument();
-		FileOutputStream out = new FileOutputStream(new File("createparagraph.docx"));
+		FileOutputStream out = new FileOutputStream(new File("report.docx"));
 		generateTitle("1 АНАЛИЗ И КОНЦЕПТАЛЬНОЕ МОДЕЛИРОВАНИЕ ПРЕДМЕТНОЙ ОБЛАСТИ");
 		insertSmallTitle("1.1 Анализ предметной области");
 		insertContent("Здесь можно вставить текст того документа, " + "на основании которого проводился анализ.");
@@ -64,7 +64,7 @@ public class WordGenerator {
 		Arrays.asList("На рисунке 1.1 приведена Use-case  диаграмма системы, "
 				+ "которая отражает функции пользователей в системе, "
 				+ "что можно рассматривать как ее функциональную структуру.", ""));
-		insertImage(""); // test image
+		insertImage(canonicalName+"\\useCase.jpg"); // test image
 		generateTitle("Рисунок 1.1 - Use-case  диаграмма системы");
 		createJustifyiedList(Arrays.asList("", "<здесь могут быть более развернутые пояснения по диаграмме>", "",
 				"Проведем описание объектов предметной области и связей между ними. Основными объектами предметной области являются:"));
@@ -74,7 +74,7 @@ public class WordGenerator {
 		insertObjWithAttr(document);
 
 		createJustifyiedList(Arrays.asList("", "На рисунке 1.2 приведена схема взаимодействия объектов системы.", ""));
-		insertImage("");// test image
+		insertImage(canonicalName+"\\objectRelation.jpg");// test image
 		generateTitle("Рисунок 1.2 -  Схема взаимосвязи объектов предметной области");
 		createJustifyiedList(Arrays.asList("", "Между объектами существуют следующие связи: ", ""));
 
@@ -142,13 +142,13 @@ public class WordGenerator {
 		document.createParagraph().createRun().addBreak(BreakType.PAGE);
 		generateTitle("3 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ");
 		insertSmallTitle("3.1 UML-моделирование");
-		insertImage("");
+		insertImage(canonicalName);
 		createJustifyiedList(Arrays.asList("", "<здесь Вы должны вставить описания и рисунки с диаграммами>"));
 		insertSmallTitle("3.2 Построение ER-диаграммы");
 		createJustifyiedList(
 				Arrays.asList("", "<здесь Вы должны вставить краткое описание, как Вы строили ER-диаграмму>",
 						"На рисунке 3.3 приведена ER-диаграмм для базы данных."));
-		insertImage("");
+		insertImage(canonicalName+"\\er.jpg");
 		generateTitle("Рисунок 3.3 - ER-диаграмма предметной области");
 		document.write(out);
 		out.close();
@@ -188,20 +188,6 @@ public class WordGenerator {
 		run.setFontFamily("Times New Roman");
 		run.setFontSize(14);
 		run.setText(text);
-	}
-
-	private void createNumericList(List<String> items) {
-		for (int i = 1; i <= items.size(); i++) {
-			XWPFParagraph paragraph = document.createParagraph();
-			paragraph.setAlignment(ParagraphAlignment.BOTH);
-			paragraph.setSpacingAfter(0);
-			paragraph.setSpacingBefore(0);
-			paragraph.setIndentationFirstLine(0);
-			XWPFRun run = paragraph.createRun();
-			run.setFontFamily("Times New Roman");
-			run.setFontSize(14);
-			run.setText(i + ") " + items.get(i - 1));
-		}
 	}
 
 	private void createNumericList(List<String> items, int intendation) {
@@ -250,7 +236,7 @@ public class WordGenerator {
 		XWPFParagraph title = document.createParagraph();
 		XWPFRun run = title.createRun();
 		title.setAlignment(ParagraphAlignment.LEFT);
-		String imgFile = "testImage.jpg";
+		String imgFile = imgName;
 		FileInputStream is = new FileInputStream(imgFile);
 		run.addBreak();
 		run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile, Units.toEMU(424), Units.toEMU(236));

@@ -1,10 +1,17 @@
 package ua.nure.cache.java.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.AttributeDAO;
@@ -34,15 +41,19 @@ import ua.nure.cache.java.entity.Resp;
 import ua.nure.cache.java.entity.SrchFltSrt;
 import ua.nure.cache.java.entity.Statistic;
 import ua.nure.cache.java.service.contract.IServer;
+import ua.nure.cache.java.utils.Downloader;
+import ua.nure.cache.java.utils.FileMaker;
+import ua.nure.cache.java.utils.WordGenerator;
 
 import com.google.gson.Gson;
 
-public class Server implements IServer{
+public class Server implements IServer {
 
 	@Override
-	public void getAllObjects(HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+	public void getAllObjects(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findProcectObj(id)));
 	}
@@ -50,15 +61,17 @@ public class Server implements IServer{
 	@Override
 	public void getAllStatistics(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findProjStat(id)));
 	}
 
 	@Override
-	public void getAllReports(HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+	public void getAllReports(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findProjReport(id)));
 	}
@@ -66,15 +79,18 @@ public class Server implements IServer{
 	@Override
 	public void getDiagramByType(String diagramType, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		DiagramDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getDiagramDAO();
+		DiagramDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getDiagramDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
-		resp.getWriter().print(new Gson().toJson(dao.findDiagram(id, diagramType)));
+		resp.getWriter().print(
+				new Gson().toJson(dao.findDiagram(id, diagramType)));
 	}
 
 	@Override
 	public void getInformReqSorts(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findSorts(id)));
 	}
@@ -82,7 +98,8 @@ public class Server implements IServer{
 	@Override
 	public void getInformReqSearches(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findSearches(id)));
 	}
@@ -90,7 +107,8 @@ public class Server implements IServer{
 	@Override
 	public void getInformReqFilters(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findFilters(id)));
 	}
@@ -98,7 +116,8 @@ public class Server implements IServer{
 	@Override
 	public void getAlgorithmicDep(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getProjectDAO();
+		ProjectDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getProjectDAO();
 		Integer id = Integer.parseInt(req.getParameter("projectId"));
 		resp.getWriter().print(new Gson().toJson(dao.findAlgDeps(id)));
 	}
@@ -106,10 +125,12 @@ public class Server implements IServer{
 	@Override
 	public void getObjById(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getObjektDAO();
 		Integer projectId = Integer.parseInt(req.getParameter("projectId"));
 		Integer objectId = Integer.parseInt(req.getParameter("objectId"));
-		resp.getWriter().print(new Gson().toJson(dao.findObjekt(objectId, projectId)));
+		resp.getWriter().print(
+				new Gson().toJson(dao.findObjekt(objectId, projectId)));
 	}
 
 	@Override
@@ -119,14 +140,14 @@ public class Server implements IServer{
 		System.out.println(line);
 		Objekt jsonJavaRootObject = new Gson().fromJson(line, Objekt.class);
 		System.out.println(jsonJavaRootObject.getName());
-		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getObjektDAO();
 		int result = dao.insertObjekt(jsonJavaRootObject);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -138,14 +159,14 @@ public class Server implements IServer{
 			throws IOException {
 		String line = req.getParameter("attribute");
 		Attribute attr = new Gson().fromJson(line, Attribute.class);
-		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getAttributeDAO();
+		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getAttributeDAO();
 		int result = dao.insertAttribute(attr);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -160,17 +181,15 @@ public class Server implements IServer{
 		stat.setProjectId(stat.getProjectId());
 		int result = new MysqlStatisticDAO().insertStatistics(stat);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
 	}
-	
 
 	@Override
 	public void insertReports(HttpServletRequest req, HttpServletResponse resp)
@@ -180,13 +199,13 @@ public class Server implements IServer{
 		System.out.println(line);
 		Report stat = new Gson().fromJson(line, Report.class);
 		stat.setProjectId(stat.getProjectId());
-		int result = new MysqlReportDAO().insertReport(stat);;
+		int result = new MysqlReportDAO().insertReport(stat);
+		;
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -201,11 +220,10 @@ public class Server implements IServer{
 		d.setDiagramType(diagramType);
 		int result = new MysqlDiagramDAO().insertDiagram(d);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -218,13 +236,13 @@ public class Server implements IServer{
 		String line = req.getParameter(whichType);
 		System.out.println(whichType);
 		SrchFltSrt stat = new Gson().fromJson(line, SrchFltSrt.class);
-		int result = new MysqlSrchFltrSrtDAO().insertSrchFltrSrt(stat, whichType);
+		int result = new MysqlSrchFltrSrtDAO().insertSrchFltrSrt(stat,
+				whichType);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -238,11 +256,10 @@ public class Server implements IServer{
 		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
 		int result = new MysqlProjectDAO().insertAlgDeps(deps);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -254,34 +271,34 @@ public class Server implements IServer{
 			throws IOException {
 		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
 		Integer objectId = Integer.valueOf(req.getParameter("objectId"));
-		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getObjektDAO();
 		boolean result = dao.deleteObjekt(objectId, projectId);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void deleteAttribute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		Integer objectId = Integer.valueOf(req.getParameter("attributeId"));
-		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getAttributeDAO();
+		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getAttributeDAO();
 		boolean result = dao.deleteAttribute(objectId);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
@@ -289,13 +306,13 @@ public class Server implements IServer{
 			throws IOException {
 		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
 		Integer statId = Integer.valueOf(req.getParameter("statisticId"));
-		StatisticDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getStatisticDAO();
+		StatisticDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getStatisticDAO();
 		boolean result = dao.deleteStatistic(statId, projectId);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
@@ -306,17 +323,17 @@ public class Server implements IServer{
 			throws IOException {
 		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
 		Integer reportId = Integer.valueOf(req.getParameter("reportId"));
-		ReportDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getReportDAO();
+		ReportDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getReportDAO();
 		boolean result = dao.deleteReport(reportId, projectId);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
@@ -324,30 +341,30 @@ public class Server implements IServer{
 			throws IOException {
 		Integer projectId = Integer.valueOf(req.getParameter("projectId"));
 		Integer diagramId = Integer.valueOf(req.getParameter("diagramId"));
-		DiagramDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getDiagramDAO();
+		DiagramDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getDiagramDAO();
 		boolean result = dao.deleteDiagram(diagramId, projectId);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void deleteSort(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		Integer id = Integer.valueOf(req.getParameter("id"));
-		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
+		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getSrchFltrSrtDAO();
 		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_SORT, id);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
@@ -357,34 +374,34 @@ public class Server implements IServer{
 	public void deleteSearch(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		Integer id = Integer.valueOf(req.getParameter("id"));
-		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
+		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getSrchFltrSrtDAO();
 		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_SEARCH, id);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void deleteFilter(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		Integer id = Integer.valueOf(req.getParameter("id"));
-		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getSrchFltrSrtDAO();
+		SrchFltrSrtDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getSrchFltrSrtDAO();
 		boolean result = dao.deleteSrchFltrSrt(DBQueries.DELETE_FILTER, id);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
@@ -393,18 +410,14 @@ public class Server implements IServer{
 		Integer id = Integer.valueOf(req.getParameter("id"));
 		boolean result = new MysqlProjectDAO().deleteAlgDeps(id);
 		Resp res = new Resp();
-		if (result !=false) {
+		if (result != false) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
 	}
 
-	
-	
-	
 	@Override
 	public void updateObject(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -412,13 +425,13 @@ public class Server implements IServer{
 		System.out.println(line);
 		Objekt jsonJavaRootObject = new Gson().fromJson(line, Objekt.class);
 		System.out.println(jsonJavaRootObject.getName());
-		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getObjektDAO();
+		ObjektDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getObjektDAO();
 		boolean result = dao.updateObjekt(jsonJavaRootObject);
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
@@ -429,18 +442,18 @@ public class Server implements IServer{
 			throws IOException {
 		String line = req.getParameter("attribute");
 		Attribute attr = new Gson().fromJson(line, Attribute.class);
-		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL).getAttributeDAO();
+		AttributeDAO dao = DAOFactory.getDAOFactory(DAOFactory.MYSQL)
+				.getAttributeDAO();
 		int result = dao.updateAttribute(attr);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -451,11 +464,10 @@ public class Server implements IServer{
 		stat.setProjectId(stat.getProjectId());
 		int result = new MysqlStatisticDAO().updateStatistics(stat);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
@@ -468,17 +480,17 @@ public class Server implements IServer{
 		String line = req.getParameter("reports");
 		Report stat = new Gson().fromJson(line, Report.class);
 		stat.setProjectId(stat.getProjectId());
-		int result = new MysqlReportDAO().updateReport(stat);;
+		int result = new MysqlReportDAO().updateReport(stat);
+		;
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -489,15 +501,14 @@ public class Server implements IServer{
 		d.setDiagram(req.getParameter("diagram"));
 		int result = new MysqlDiagramDAO().updateDiagram(d);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -507,15 +518,14 @@ public class Server implements IServer{
 		SrchFltSrt stat = new Gson().fromJson(line, SrchFltSrt.class);
 		int result = new MysqlSrchFltrSrtDAO().updateSort(stat);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -525,15 +535,14 @@ public class Server implements IServer{
 		SrchFltSrt stat = new Gson().fromJson(line, SrchFltSrt.class);
 		int result = new MysqlSrchFltrSrtDAO().updateSearch(stat);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -543,15 +552,14 @@ public class Server implements IServer{
 		SrchFltSrt stat = new Gson().fromJson(line, SrchFltSrt.class);
 		int result = new MysqlSrchFltrSrtDAO().updateFilter(stat);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));				
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -561,15 +569,14 @@ public class Server implements IServer{
 		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
 		int result = new MysqlProjectDAO().updateAlgDeps(deps);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -579,16 +586,15 @@ public class Server implements IServer{
 		Constraint deps = new Gson().fromJson(line, Constraint.class);
 		int result = new MysqlIntegrConstrDAO().insertConstraint(deps);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
-		
+		resp.getWriter().print(new Gson().toJson(res));
+
 	}
 
 	@Override
@@ -600,34 +606,34 @@ public class Server implements IServer{
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));			
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
 	public void deleteAttrConstr(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 		String line = req.getParameter("id");
-		boolean result = new MysqlIntegrConstrDAO().deleteConstraint(Integer.valueOf(line));
+		boolean result = new MysqlIntegrConstrDAO().deleteConstraint(Integer
+				.valueOf(line));
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void findAttrConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		List<Constraint> result = new MysqlIntegrConstrDAO().getConstraint(Integer.valueOf(line));
+		List<Constraint> result = new MysqlIntegrConstrDAO()
+				.getConstraint(Integer.valueOf(line));
 		resp.getWriter().print(new Gson().toJson(result));
 	}
 
@@ -638,16 +644,15 @@ public class Server implements IServer{
 		LinkConstr deps = new Gson().fromJson(line, LinkConstr.class);
 		int result = new MysqlIntegrConstrDAO().insertLinkConstraint(deps);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
@@ -659,36 +664,36 @@ public class Server implements IServer{
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));	
-		
+		resp.getWriter().print(new Gson().toJson(res));
+
 	}
 
 	@Override
 	public void deleteLinkConstr(HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 		String line = req.getParameter("id");
-		boolean result = new MysqlIntegrConstrDAO().deleteLinkConstraint(Integer.valueOf(line));
+		boolean result = new MysqlIntegrConstrDAO()
+				.deleteLinkConstraint(Integer.valueOf(line));
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void findLinkConstr(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		List<LinkConstr> result = new MysqlIntegrConstrDAO().getLinkConstraint(Integer.valueOf(line));
-		resp.getWriter().print(new Gson().toJson(result));		
+		List<LinkConstr> result = new MysqlIntegrConstrDAO()
+				.getLinkConstraint(Integer.valueOf(line));
+		resp.getWriter().print(new Gson().toJson(result));
 	}
 
 	@Override
@@ -698,16 +703,15 @@ public class Server implements IServer{
 		Actor deps = new Gson().fromJson(line, Actor.class);
 		int result = new MysqlProjectDAO().insertActor(deps);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
@@ -719,37 +723,37 @@ public class Server implements IServer{
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));	
-		
+		resp.getWriter().print(new Gson().toJson(res));
+
 	}
 
 	@Override
 	public void deleteActor(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("id");
-		boolean result = new MysqlProjectDAO().deleteActor(Integer.valueOf(line));
+		boolean result = new MysqlProjectDAO().deleteActor(Integer
+				.valueOf(line));
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void findActor(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		List<Actor> result = new MysqlProjectDAO().findActors(Integer.valueOf(line));
+		List<Actor> result = new MysqlProjectDAO().findActors(Integer
+				.valueOf(line));
 		resp.getWriter().print(new Gson().toJson(result));
-		
+
 	}
 
 	@Override
@@ -759,15 +763,14 @@ public class Server implements IServer{
 		Link deps = new Gson().fromJson(line, Link.class);
 		int result = new MysqlProjectDAO().insertLink(deps);
 		Resp res = new Resp();
-		if (result !=-1) {
+		if (result != -1) {
 			res.setId(result);
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));		
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 	@Override
@@ -779,50 +782,63 @@ public class Server implements IServer{
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(new Gson().toJson(res));	
-		
+		resp.getWriter().print(new Gson().toJson(res));
+
 	}
 
 	@Override
 	public void deleteLink(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("id");
-		boolean result = new MysqlProjectDAO().deleteLink(Integer.valueOf(line));
+		boolean result = new MysqlProjectDAO()
+				.deleteLink(Integer.valueOf(line));
 		Resp res = new Resp();
 		if (result) {
 			res.setSuccess(true);
-		}
-		else {
+		} else {
 			res.setSuccess(false);
 		}
 		resp.getWriter().print(new Gson().toJson(res));
-		
+
 	}
 
 	@Override
 	public void findLink(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String line = req.getParameter("projectId");
-		List<Link> result = new MysqlProjectDAO().findLinks(Integer.valueOf(line));
-		resp.getWriter().print(new Gson().toJson(result));		
+		List<Link> result = new MysqlProjectDAO().findLinks(Integer
+				.valueOf(line));
+		resp.getWriter().print(new Gson().toJson(result));
 	}
 
 	@Override
-	public void generateDocument(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public void generateDocument(HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+
+		int projectId = Integer.valueOf(req.getParameter("projectId"));
+		String useCase = req.getParameter("useCase");
+		String objectRelation = req.getParameter("objectRelation");
+		String er = req.getParameter("er");
+		FileMaker fm = new FileMaker();
+		final ServletContext servletContext = req.getSession()
+				.getServletContext();
+		final File tempDirectory = (File) servletContext
+				.getAttribute("javax.servlet.context.tempdir");
+		final String temperotyFilePath = tempDirectory.getAbsolutePath();
+		fm.createNewFile(useCase, temperotyFilePath+"\\useCase.jpg");
+		fm.createNewFile(objectRelation, temperotyFilePath+"\\objectRelation.jpg");
+		fm.createNewFile(er, temperotyFilePath+"\\er.jpg");
+		Downloader loader = new Downloader();
+		try {
+			WordGenerator gen = new WordGenerator();
+			gen.generateDoc(projectId, temperotyFilePath);
+			loader.anotherDownloadMethod("report.docx", resp);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
-
-
-	
-	
-	
-	
-
-	
 
 }

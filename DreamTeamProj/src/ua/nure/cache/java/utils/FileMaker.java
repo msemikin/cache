@@ -10,7 +10,6 @@ public class FileMaker {
 	public void createNewFile(String byteArr, String newFile) {
         try {            
             byte[] imageByteArray = decodeImage(byteArr);
-            // Write a image byte array into file system
             FileOutputStream imageOutFile = new FileOutputStream(
             		newFile);
             imageOutFile.write(imageByteArray);
