@@ -24,23 +24,24 @@ angular.module('db').controller("NavCtrl", function($scope, Config) {
                 objectRelations: '#object-relations',
                 er: '#er'
             },
-            formData = new FormData(),
+            data = {
+                projectId: 0
+            },
             markup;
 
-        formData.append('projectId', 0);
         $.each(diagrams, function(key, value) {
             markup = $('<div>').append($(value).children('svg').clone()).html();
             canvg(canvas, markup);
-            formData.append(key, toBlob(canvas.toDataURL()));
+            console.log(key, value);
+            data[key] = encodeURIComponent(canvas.toDataURL());
             ctx.clearRect(0, 0, $(canvas).width(), $(canvas).height());
         });
+        console.log(data);
 
         $.ajax({
             type: 'POST',
             url: Config.API_PATH + 'project/document/generate',
-            data: formData,
-            processData: false,
-            contentType: false
+            data: data
         }).done(function(response) {
             console.log(response);
         });

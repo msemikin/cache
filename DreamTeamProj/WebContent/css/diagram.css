@@ -22,15 +22,7 @@
 	flex-grow: 1;
 }
 
-.model .figuresBar {
-	border-left: 0;
-	border-right: 0;
-	border-top: 0;
-	border-radius:0px;
-    padding: 15px 0px 15px 15px;
-    margin:0px;
-}
-.figuresBar input {
+.model .toolbox input {
     height: 50px;
     width: 100px;
     margin-right:15px;

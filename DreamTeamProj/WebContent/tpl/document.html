@@ -1,0 +1,25 @@
+<div ng-class="tile" ng-controller="DocumentCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Настройки документа</h3>
+        </div>
+        <div class="toolbox panel panel-default">
+            <a class="btn btn-default input-file" ng-click="showDocInput()">Загрузить документ</a>
+        </div>
+        <div class="file-chooser panel panel-default" ng-show="showDocPanel">
+            <h5 class="info">Выберите документ, который будет основой моделирования базы данных.</h5>
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="doc.name" readonly="true">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Выбрать
+                            <input type="file" fileread="doc">
+                    </span>
+                    <a class="btn btn-default btn-primary btn-upload" ng-disabled="!doc.src" ng-click="uploadDoc()">Подтвердить</a>
+                </span>
+            </div>
+        </div>
+        <div class="panel-body">
+        </div>
+    </div>
+</div>

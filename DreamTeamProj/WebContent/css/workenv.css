@@ -4,6 +4,14 @@
     border-color: cadetblue !important;
 }
 /**/
+.toolbox {
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	border-radius:0px;
+    padding: 15px 0px 15px 15px;
+    margin:0px !important;
+}
 .selects {
     display: flex;
     flex-direction: column;
@@ -356,4 +364,33 @@
     position: absolute;
     margin-top: -39px;
     right: 15px;
+}
+
+/* document */
+.file-chooser {
+    padding: 15px;
+    background-color: white;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    position: absolute;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
