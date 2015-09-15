@@ -169,7 +169,7 @@ public class Controller {
 			methods.put("/actors/delete", cardManager.getDeclaredMethod(
 					"deleteActor", request, response));
 			methods.put("/actors/all", cardManager.getDeclaredMethod(
-					"findActors", request, response));
+					"findActor", request, response));
 			
 			methods.put("/links/new", cardManager.getDeclaredMethod(
 					"insertLink", request, response));
@@ -180,7 +180,8 @@ public class Controller {
 			methods.put("/links/all", cardManager.getDeclaredMethod(
 					"findLink", request, response));
 			
-			
+			methods.put("/document/generate", cardManager.getDeclaredMethod(
+					"generateDocument", request, response));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
