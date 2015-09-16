@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/workenv.css">
     <link rel="stylesheet" type="text/css" href="css/diagram.css">
     <link rel="stylesheet" type="text/css" href="css/figures.css">
+    <link rel="stylesheet" type="text/css" href="css/modals.css">
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap/bootstrap.css.map">
     <!-- <link rel="stylesheet" type="text/css" href="css/lib/bootstrap/bootstrap-theme.min.css">
@@ -25,11 +26,11 @@
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
 
-    <script src="js/lib/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/lib/joint.js" type="text/javascript"></script>
+    <script src="js/lib/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/lib/html2canvas.js" type="text/javascript"></script>
     <script src="js/lib/canvg.js" type="text/javascript"></script>
-    <script src="js/lib/bootstrap-filestyle.js" type="text/javascript"></script>
+    <script src="js/lib/jdoc.js" type="text/javascript"></script>
 
     <script src="js/services/config.js"></script>
     <script src="js/services/diagram-service.js"></script>
@@ -49,6 +50,7 @@
     <script src="js/services/link-constraint-service.js"></script>
     <script src="js/services/attribute-constraint-service.js"></script>
     <script src="js/services/utils-service.js"></script>
+    <script src="js/services/modals-service.js"></script>
 
     <script src="js/factories/data-loader-factory.js"></script>
     <script src="js/factories/common-controller-factory.js"></script>
@@ -69,6 +71,9 @@
     <script src="js/controllers/reports-controller.js"></script>
     <script src="js/controllers/integrity-constraints-controller.js"></script>
     <script src="js/controllers/algorithmic-dependencies-controller.js"></script>
+    <script src="js/controllers/modals-controller.js"></script>
+    <script src="js/controllers/upload-doc-controller.js"></script>
+    <script src="js/controllers/generate-doc-controller.js"></script>
 
     <title>Document &ndash; Student project &ndash; DataBases</title>
 </head>
@@ -93,7 +98,6 @@
                     </ul>
                 </div>
                 <!-- <hr class="divider"></hr> -->
-                <!--TODO-->
                 <div class="oe" ng-include="'tpl/objects-attrs.html'"></div>
             </div>
             <div class="extend-box">
@@ -115,6 +119,7 @@
             </p>
         </div>
         <canvas id="canvas"></canvas>
+        <div ng-include="'modals/modals.html'"></div>
     </div>
 </body>
 

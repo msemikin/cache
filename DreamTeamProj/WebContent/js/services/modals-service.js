@@ -1,5 +1,5 @@
 'use strict';
-angular.module('db').service('Modals', function ($rootScope) {
+angular.module('db').service('Modals', function ($rootScope, $q) {
 
     var modal = {
         deferred: null,
@@ -18,7 +18,7 @@ angular.module('db').service('Modals', function ($rootScope) {
             previousDeferred.reject();
         }
 
-        $rootScope.$emit('', type);
+        $rootScope.$emit('modals.show', type);
 
         return modal.deferred.promise;
     }

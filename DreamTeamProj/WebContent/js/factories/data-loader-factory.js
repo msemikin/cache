@@ -13,7 +13,7 @@ angular.module('db').factory('DataLoader', function($q, $http, Config) {
             if (params) {
                 var base = Config.API_PATH + params.basicPath,
                     loadPath = base + '/all',
-                    createPath = base + params.basicPath + '/new',
+                    createPath = base + '/new',
                     updatePath = base + '/update',
                     removePath = base + '/delete';
                 return {

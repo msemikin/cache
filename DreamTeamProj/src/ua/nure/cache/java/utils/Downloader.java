@@ -24,7 +24,7 @@ public class Downloader {
 
 	public void anotherDownloadMethod(String fileName,
 			HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/docx");
+		response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document; charset=UTF-8");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Cache-Control", "max-age=0");
 		response.setHeader("Content-disposition", "attachment; " + "filename="

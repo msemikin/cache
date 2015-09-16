@@ -9,6 +9,12 @@
 	margin-bottom: 0px !important;
 }
 
+.model.panel.panel-default {
+	border-left: 0;
+	border-right: 0;
+	border-radius: 0px;
+}
+
 .functional-model {
 }
 

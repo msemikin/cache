@@ -54,7 +54,7 @@ public class DBQueries {
 			+ "From algdeps "
 			+ "left join object on algdeps.result_field = object.object_id "
 			+ "left join attribute on attribute.object_id = algdeps.result_field "
-			+ "WHERE OBJECT.project_id = ?";
+			+ "WHERE object.project_id = ?";
 
 	public static final String FIND_SOURCE_FIELDS = " select algdeps.dep_id, sourcefield.varName, "
 			+ "object.object_id,object.objectName,attribute.attr_id,attribute.Name  "
@@ -63,7 +63,7 @@ public class DBQueries {
 			+ "left join sourcefield on depstosourfield.field_id = sourcefield.field_id  "
 			+ "left join attribute on sourcefield.attr_id = attribute.attr_id "
 			+ "left join object on attribute.object_id = object.object_id  "
-			+ "WHERE OBJECT.project_id = ?   ORDER BY dep_id";
+			+ "WHERE object.project_id = ?   ORDER BY dep_id";
 
 	public static final String GET_OBJ_BY_ID = "SELECT object.object_id, objectName, "
 			+ "attribute.attr_id, attribute.Name FROM my_db.object "

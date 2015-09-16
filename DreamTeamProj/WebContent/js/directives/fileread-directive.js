@@ -6,19 +6,13 @@ angular.module('db').directive('fileread', function() {
         },
         link: function(scope, element, attrs) {
             element.bind('change', function(changeEvent) {
-                var reader = new FileReader(),
-                    file = changeEvent.target.files[0];
-                reader.onload = (function(fileObj) {
-                    return function (loadEvent) {
-                        scope.$apply(function() {
-                            scope.fileread = {
-                                name: fileObj.name,
-                                src: loadEvent.target
-                            };
-                        });
+                var file = changeEvent.target.files[0];
+                scope.$apply(function() {
+                    scope.fileread = {
+                        name: file.name,
+                        file: file
                     };
-                }(file));
-                reader.readAsDataURL(file);
+                });
             });
         }
     };

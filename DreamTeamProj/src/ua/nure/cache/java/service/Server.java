@@ -820,7 +820,7 @@ public class Server implements IServer {
 
 		int projectId = Integer.valueOf(req.getParameter("projectId"));
 		String useCase = req.getParameter("useCase");
-		String objectRelation = req.getParameter("objectRelation");
+		String objectRelation = req.getParameter("objectRelations");
 		String er = req.getParameter("er");
 		FileMaker fm = new FileMaker();
 		final ServletContext servletContext = req.getSession()
@@ -828,15 +828,22 @@ public class Server implements IServer {
 		final File tempDirectory = (File) servletContext
 				.getAttribute("javax.servlet.context.tempdir");
 		final String temperotyFilePath = tempDirectory.getAbsolutePath();
-		fm.createNewFile(useCase, temperotyFilePath+"\\useCase.jpg");
-		fm.createNewFile(objectRelation, temperotyFilePath+"\\objectRelation.jpg");
-		fm.createNewFile(er, temperotyFilePath+"\\er.jpg");
+		System.out.println(useCase);
+		System.out.println(objectRelation);
+		System.out.println(er);
+		fm.createNewFile(useCase, temperotyFilePath+"/useCase.jpg");
+		System.out.println(1);
+		fm.createNewFile(objectRelation, temperotyFilePath+"/objectRelation.jpg");
+		System.out.println(2);
+		fm.createNewFile(er, temperotyFilePath+"/er.jpg");
+		System.out.println(3);
 		Downloader loader = new Downloader();
 		try {
 			WordGenerator gen = new WordGenerator();
 			gen.generateDoc(projectId, temperotyFilePath);
 			loader.anotherDownloadMethod("report.docx", resp);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 	}
