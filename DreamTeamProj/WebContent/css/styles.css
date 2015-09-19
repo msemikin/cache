@@ -4,7 +4,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-html, body {
+
+html,
+body {
     margin: 0;
     padding: 0;
     min-height: 100%;
@@ -13,7 +15,22 @@ html, body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
-.header, .footer {
+
+a,
+a:hover,
+a:active,
+a:visited {
+    text-decoration: none;
+}
+
+pure-menu-selected .pure-menu-link .pure-menu-selected .pure-menu-link:visited {
+    text-decoration: none;
+    color: cadetblue !important;
+    font-weight: 700;
+}
+
+.header,
+.footer {
     position: absolute;
     background-color: darkgrey;
     width: 100%;
@@ -22,6 +39,7 @@ html, body {
     -moz-box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.11);
     box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.11);
 }
+
 #background {
     width: 100%;
     height: 100%;
@@ -29,6 +47,7 @@ html, body {
     flex-direction: column;
     align-content: stretch;
 }
+
 .header {
     top: 0px;
     height: 3em;
@@ -37,6 +56,7 @@ html, body {
     flex-direction: row;
     justify-content: space-between;
 }
+
 .footer {
     bottom: 0px;
     order: 3;
@@ -44,6 +64,7 @@ html, body {
     padding-top: 3;
     padding-right: 16;
 }
+
 .main {
     padding-top: 3em;
     padding-bottom: 1.3em;
@@ -55,35 +76,42 @@ html, body {
     flex-direction: row;
     align-items: stretch;
 }
+
 .legal-copyright {
     color: whitesmoke;
     text-align: right;
     font-size: 12;
     margin: 0;
 }
+
 .firstTab {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: stretch;
 }
+
 .custom-restricted-width {
     display: inline-block;
     position: relative;
     height: 48%;
 }
+
 .editTextTabButton {
     flex: 1;
 }
+
 //TODO
 .showTextButton {
     height: 100%;
 }
+
 .openTextButtonLink {
     width: 20px;
     padding: 6;
     margin: 0;
 }
+
 .oe {
     flex: auto;
     display: flex;
@@ -92,6 +120,7 @@ html, body {
     /*margin: 5;*/
     position: relative;
 }
+
 .left-side {
     background-color: white;
     display: flex;
@@ -105,17 +134,21 @@ html, body {
     z-index: 1;
     border-right: 1px solid #ddd;
 }
+
 .add-obj-input {
     margin: 0px;
 }
+
 .extend-box {
     position: relative;
     flex-grow: 5;
     z-index: 0;
 }
+
 .project-menu {
     margin: 0;
 }
+
 .user-block {
     color: #fff;
     background: cadetblue;
@@ -123,15 +156,19 @@ html, body {
     font-size: 19px;
     font-weight: 700;
 }
+
 .add-form {
     margin: 0 5px;
 }
+
 .add-form input {
     width: 70%;
 }
+
 .fullscr-button {
     align-self: center;
 }
+
 .divider {
     margin: 5;
     border: 0;
@@ -139,35 +176,42 @@ html, body {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 .attr-count-td {
     position: relative;
     display: inline-block;
 }
+
 .table-oa {
     flex: auto;
     position: relative;
     width: 100%;
     padding-bottom: 10px;
 }
+
 .table-oa tr {
     width: 100%;
 }
+
 .obj-name-td {
     display: inline-block;
     position: relative;
     width: 85%;
 }
+
 .objects-tr {
     position: relative;
     width: 100%;
     padding: 3 0.4em;
 }
+
 .table-header {
     border-radius: 3px;
     background-color: cadetblue;
     padding: 0.4em;
     color: aliceblue;
 }
+
 .tbody-div {
     overflow-y: auto;
     overflow-x: hidden;
@@ -176,10 +220,12 @@ html, body {
     height: 0;
     overflow: auto;
 }
+
 .object-container {
     flex-grow: 1;
     display: flex;
 }
+
 .object-box {
     flex-grow: 1;
     display: flex;
@@ -192,6 +238,7 @@ html, body {
     -moz-box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.11) !important;
     box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.11) !important;
 }
+
 .attr-box {
     border: 0 !important;
     box-shadow: 1px 1px 15px -2px black !important;
@@ -206,16 +253,19 @@ html, body {
     z-index: 100;
     margin: 0;
 }
+
 .table-attr {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
+
 .elem-name-td {
     display: inline-block;
     position: relative;
     width: 100%;
 }
+
 .user-name-block {
     padding: 0.7em;
     color: #fff;
@@ -224,6 +274,7 @@ html, body {
     font-size: 17px;
     font-weight: 700;
 }
+
 .left-dash-side {
     background-color: white;
     display: flex;
@@ -234,6 +285,7 @@ html, body {
     width: 13em;
     z-index: 2;
 }
+
 .user-logout-block {
     padding: 0.7em;
     color: #fff;
@@ -242,13 +294,16 @@ html, body {
     font-size: 17px;
     font-weight: 700;
 }
+
 .pointer {
     cursor: pointer;
 }
+
 .pure-menu-selected .pure-menu-link {
     color: cadetblue !important;
     font-weight: 700;
 }
+
 
 /* canvas for diagrams export */
 

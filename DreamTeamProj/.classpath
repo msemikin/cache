@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib" sourcepath="WebContent/WEB-INF/lib"/>
+	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib" sourcepath="WebContent/WEB-INF/lib"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Log4j"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson"/>
@@ -16,6 +16,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/DreamTeam"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/DreamTeam"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

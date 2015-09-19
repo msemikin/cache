@@ -73,9 +73,10 @@
     position: absolute;
     left: -9999px;
     top: 60px;
-    padding-top: 6px;
+    padding-top: 0;
     font-size: 13px;
     opacity: 0;
+    z-index: -20;
     -webkit-transition: top 0.2s ease, opacity 0.2s ease-in;
     -moz-transition: top 0.2s ease, opacity 0.2s ease-in;
     -ms-transition: top 0.2s ease, opacity 0.2s ease-in;
@@ -85,9 +86,10 @@
 }
 
 #cssmenu > ul > li:hover > ul {
-    top: 47px;
+    top: 42px;
     left: 0;
     opacity: 1;
+    z-index: -20;
 }
 
 #cssmenu ul ul li .first{

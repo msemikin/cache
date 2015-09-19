@@ -3,3 +3,5 @@
 # Example .gitignore files: https://github.com/github/gitignore
 **/*.swp
 **/*.swo
+/DreamTeamProj/build/
+/DreamTeamProj/WebContent/META-INF/context.xml
