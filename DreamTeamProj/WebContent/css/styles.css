@@ -23,9 +23,10 @@ a:visited {
     text-decoration: none;
 }
 
-pure-menu-selected .pure-menu-link .pure-menu-selected .pure-menu-link:visited {
-    text-decoration: none;
-    color: cadetblue !important;
+.pure-menu-selected .pure-menu-link,
+.pure-menu-selected .pure-menu-link:visited {
+    text-decoration: none; !important
+    color: cadetblue; !important
     font-weight: 700;
 }
 
@@ -297,11 +298,6 @@ pure-menu-selected .pure-menu-link .pure-menu-selected .pure-menu-link:visited {
 
 .pointer {
     cursor: pointer;
-}
-
-.pure-menu-selected .pure-menu-link {
-    color: cadetblue !important;
-    font-weight: 700;
 }
 
 
