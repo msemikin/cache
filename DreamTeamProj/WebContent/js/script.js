@@ -1,7 +1,7 @@
 /*FANTOM DATA*/
-var app = angular.module("db", [], function ($locationProvider) {
-    $locationProvider.html5Mode(true);
+var app = angular.module("db", [], function () {
 });
+
 app.controller("guicontroller", ["$scope", function ($scope) {
     $scope.hideAttrs = function () {
         $(".attr-box").css("visibility", "hidden");
@@ -21,6 +21,7 @@ app.controller("guicontroller", ["$scope", function ($scope) {
     $scope.user = {
         FullName: "Анатолий Иваныч"
     };
+
     $scope.objects = [
         {
             AttrCount: 111,
@@ -106,8 +107,6 @@ app.controller("dashboard", ["$scope", function ($scope, $location) {
         }
     }
     $scope.init = function () {
-        var pId = $location.path().split("/")[3] || "Unknown";
-        console.log(pId);
     }
 }]);
 

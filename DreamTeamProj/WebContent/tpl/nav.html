@@ -8,17 +8,17 @@
                     </a>
                     <ul>
                         <li class=''>
-                            <a href='#' class="first">
+                            <a href='#' class="first" ng-click="saveCurrentProj();">
                                 <span>Сохранить</span>
                             </a>
                         </li>
                         <li class=''>
-                            <a href='dashboard.html#projects' class="second" ng-click="">
+                            <a href='' class="second" ng-click="goURL('settings.html');">
                                 <span>Перейти к другому проекту</span>
                             </a>
                         </li>
                         <li class=''>
-                            <a href='#' class="second" ng-click="generateDoc()">
+                            <a href='#' class="second" ng-click="generateDoc();">
                                 <span>Сгенерировать документ</span>
                             </a>
                         </li>
@@ -36,12 +36,12 @@
                     </a>
                     <ul>
                         <li class=''>
-                            <a href='dashboard.html#user' class="first">
+                            <a href='' class="first" ng-click="goURL('settings.html');">
                                 <span>Редактировать информацию</span>
                             </a>
                         </li>
                         <li class=''>
-                            <a href='#' class="second">
+                            <a href='#' class="second" ng-click="logout();">
                                 <span>Выход</span>
                             </a>
                         </li>
