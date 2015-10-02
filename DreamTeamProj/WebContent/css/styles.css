@@ -268,7 +268,7 @@ a:visited {
 }
 
 .user-name-logout-block {
-    padding: 0.7em 0.7em 0 0.7em;
+    padding: 0.45em 0.7em 0 0.7em;
     color: #fff;
     background: cadetblue;
     font-family: 'Open Sans', Helvetica, sans-serif;
@@ -297,7 +297,8 @@ a:visited {
 }
 
 .settings-main {
-    flex-direction: column; !important
+    flex-direction: column !important;
+    padding-top: 2.625em !important;
 }
 
 .icons-grey {
@@ -310,4 +311,8 @@ a:visited {
 
 .cursor-default {
     cursor: default;
+}
+
+.settings-header {
+    height: 2.625em !important;
 }
