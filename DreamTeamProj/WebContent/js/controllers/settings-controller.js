@@ -6,7 +6,7 @@ angular.module('db').controller("SettingsCtrl", function ($scope, $location, $ro
     $scope.goURL = function(destinationUrl) {
         $window.location.href = destinationUrl;
     };
-    $scope.tab = 1;
+    $scope.tab = 2;
     $scope.changeTab = function(tabVal){
         $scope.tab = tabVal;
     }

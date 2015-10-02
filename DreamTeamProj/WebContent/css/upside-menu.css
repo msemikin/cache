@@ -31,7 +31,7 @@
 
 
 #cssmenu > ul > li > a {
-    padding: 1.4em 0.5em 0 0.9em;
+    padding: 1.1em 0.5em 0 0.9em;
     height: 100%;
     border-right: 1px solid rgba(80, 80, 80, 0.12);
     text-decoration: none;
@@ -61,7 +61,7 @@
     border: 6px solid transparent;
     border-top-color: #d3eced;
     right: 1em;
-    top: 1.6em;
+    top: 1.3em;
 }
 
 #cssmenu > ul > li.has-sub.active > a::after,
@@ -76,7 +76,7 @@
     padding-top: 0;
     font-size: 13px;
     opacity: 0;
-    z-index: -20;
+    z-index: 0;
     -webkit-transition: top 0.2s ease, opacity 0.2s ease-in;
     -moz-transition: top 0.2s ease, opacity 0.2s ease-in;
     -ms-transition: top 0.2s ease, opacity 0.2s ease-in;
@@ -89,7 +89,6 @@
     top: 42px;
     left: 0;
     opacity: 1;
-    z-index: -20;
 }
 
 #cssmenu ul ul li .first{

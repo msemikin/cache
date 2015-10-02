@@ -267,8 +267,8 @@ a:visited {
     width: 100%;
 }
 
-.user-name-block {
-    padding: 0.7em;
+.user-name-logout-block {
+    padding: 0.7em 0.7em 0 0.7em;
     color: #fff;
     background: cadetblue;
     font-family: 'Open Sans', Helvetica, sans-serif;
@@ -277,16 +277,9 @@ a:visited {
 }
 
 
-.user-logout-block {
-    padding: 0.7em;
-    color: #fff;
-    background: cadetblue;
-    font-family: 'Open Sans', Helvetica, sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-}
 
-.pointer {
+
+.cursor-pointer {
     cursor: pointer;
 }
 
@@ -305,4 +298,16 @@ a:visited {
 
 .settings-main {
     flex-direction: column; !important
+}
+
+.icons-grey {
+    color: gray;
+}
+
+.link-nav-block {
+    margin-right: 7px;
+}
+
+.cursor-default {
+    cursor: default;
 }

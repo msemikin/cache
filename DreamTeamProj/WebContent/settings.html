@@ -22,18 +22,20 @@
 <body ng-controller="SettingsCtrl" data-ng-init="init()">
     <div id="background">
         <div id="header" class="header">
-            <div class="user-name-block">
+            <div class="user-name-logout-block cursor-default">
                 {{ user.FullName }}
             </div>
-            <div class="user-logout-block pointer" ng-click="goURL('login/index.html');">Выход</div>
+            <div class="user-name-logout-block cursor-pointer" ng-click="goURL('login.html');">Выход</div>
         </div>
         <div id="main" class="main settings-main">
             <div class="settings-links">
-                <div class="">
-                    <a href="" class="" ng-click="changeTab(1)">Управление проектами</a>
+                <div class="link-nav-block">
+                    <i class="fa fa-home icons-grey"></i>
+                    <a href="" class="" ng-click="changeTab(1)">Главная - Панель инструментов</a>
                 </div>
-                <div ng-show="tab === 2" class="">
-                    <a href="" class="" ng-click="changeTab(2)">Информация студента</a>
+                <div ng-show="tab === 2" class="link-nav-block">
+                    <i class="fa fa-angle-double-right icons-grey"></i>
+                    <a href="" class="" ng-click="changeTab(2)">Управление проектами</a>
                 </div>
             </div>
             <hr class="divider"></hr>
