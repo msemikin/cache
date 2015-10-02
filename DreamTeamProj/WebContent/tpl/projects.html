@@ -1,38 +1,13 @@
-<html ng-app="db" lang="ru">
-
-<head>
-    <meta charset="utf-8">
-    <meta lang="ru">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../css/lib/pure-release-0.6.0/pure-nr.css">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <link rel="stylesheet" type="text/css" href="../css/lib/font-awesome-4.4.0/css/font-awesome.css">
-    <script type="text/javascript" src="../js/lib/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="../js/lib/angular.js"></script>
-    <script type="text/javascript" src="../js/app.js"></script>
-    <script type="text/javascript" src="../js/script.js"></script>
-
-    <!--Online links:
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>-->
-</head>
-
-<body ng-controller="setprojects">
-    <div id="background">
-       222
-        <div class="projects-container">
-            <div class="projects-tr" ng-repeat="project in projects">
-                <div class="projects-title">
-                   {{ project.Title }}
-                </div>
-                <div>
-                    {{ project.DateOfLastChange }}
-                </div>
-            </div>
+<div class="projects-container">
+    <div class="projects-tr" ng-repeat="project in projects">
+        <div class="projects-title">
+            {{ project.Title }}
         </div>
-        <div class="projects-toolbar">
-            олом
+        <div>
+            {{ project.DateOfLastChange }}
         </div>
     </div>
-</body>
-
-</html>
+</div>
+<div class="projects-toolbar">
+    олом
+</div>

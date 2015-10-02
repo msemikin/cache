@@ -11,7 +11,7 @@
                 <div class="attr-count-td">{{obj.attrs.length}}</div>
             </div> -->
             <div class="list-group  objects-select">
-                <a ng-repeat="obj in objects" ng-class="{active: obj.id === object.id && $root.showAttributes}" href="#" ng-click="selectObject(obj); $event.stopPropagation();" class="list-group-item objects-tr">
+                <a ng-repeat="obj in objects" ng-class="{active: obj.id === object.id && $root.showAttributes}" href="" ng-click="selectObject(obj); $event.stopPropagation();" class="list-group-item objects-tr">
                     <div class="obj-name-td">{{obj.name}}</div>
                     <div class="attr-count-td">{{obj.attrs.length}}</div>
                 </a>
@@ -39,7 +39,7 @@
                     <div class="elem-name-td">{{attr.name}}</div>
                 </div> -->
                 <div class="objects-tr list-group objects-select">
-                    <a ng-repeat="attr in object.attrs" href="#" class="list-group-item">{{attr.name}}</a>
+                    <a ng-repeat="attr in object.attrs" href="" class="list-group-item">{{attr.name}}</a>
                 </div>
             </div>
         </div>

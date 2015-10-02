@@ -276,16 +276,6 @@ a:visited {
     font-weight: 700;
 }
 
-.left-dash-side {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    padding: 0;
-    box-shadow: 0px 0px 5px black;
-    width: 13em;
-    z-index: 2;
-}
 
 .user-logout-block {
     padding: 0.7em;
@@ -305,4 +295,14 @@ a:visited {
 
 #canvas {
     display: none;
+}
+
+.settings-links {
+    margin: 10px auto 5px 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.settings-main {
+    flex-direction: column; !important
 }

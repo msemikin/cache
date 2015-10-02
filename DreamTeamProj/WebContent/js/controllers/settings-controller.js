@@ -7,4 +7,7 @@ angular.module('db').controller("SettingsCtrl", function ($scope, $location, $ro
         $window.location.href = destinationUrl;
     };
     $scope.tab = 1;
+    $scope.changeTab = function(tabVal){
+        $scope.tab = tabVal;
+    }
 });

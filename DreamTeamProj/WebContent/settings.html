@@ -27,19 +27,19 @@
             </div>
             <div class="user-logout-block pointer" ng-click="goURL('login/index.html');">Выход</div>
         </div>
-        <div id="main" class="main">
-            <div class="left-dash-side">
-                <div class="pure-menu custom-restricted-width">
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="" class="pure-menu-link" ng-click="tab = 1">Управление проектами</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 2}"><a href="" class="pure-menu-link" ng-click="tab = 2">Информация студента</a></li>
-                    </ul>
+        <div id="main" class="main settings-main">
+            <div class="settings-links">
+                <div class="">
+                    <a href="" class="" ng-click="changeTab(1)">Управление проектами</a>
                 </div>
-                <hr class="divider"></hr>
+                <div ng-show="tab === 2" class="">
+                    <a href="" class="" ng-click="changeTab(2)">Информация студента</a>
+                </div>
             </div>
-            <div class="extend-box" ng-include="included">
-                <div visible="tab === 1" class="tile-container" ng-include="'tpl/projects.html'"></div>
-                <div visible="tab === 2" class="tile-container" ng-include="'tpl/profile.html'"></div>
+            <hr class="divider"></hr>
+            <div class="extend-box">
+                <div ng-show="tab === 1" class="tile-container" ng-include="'tpl/profile.html'"></div>
+                <div ng-show="tab === 2" class="tile-container" ng-include="'tpl/projects.html'"></div>
             </div>
         </div>
         <div id="footer" class="footer">

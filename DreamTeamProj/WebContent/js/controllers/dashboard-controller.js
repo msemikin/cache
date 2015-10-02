@@ -14,7 +14,7 @@ angular.module('db').controller("DashboardCtrl", function ($scope, $location, $r
     };
     $scope.tab = 1;
     $scope.logout = function() {
-        //TODO
+        //TODO session logout
         $scope.goURL('login/index.html');
     }
 });
