@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta lang="ru">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/lib/pure-release-0.6.0/pure-nr.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/lib/font-awesome-4.4.0/css/font-awesome.css">
     <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
@@ -21,30 +20,32 @@
 
 <body ng-controller="SettingsCtrl" data-ng-init="init()">
     <div id="background">
-        <div id="header" class="header">
-            <div class="user-name-block">
+        <div id="header" class="header settings-header">
+            <div class="user-name-logout-block cursor-default">
                 {{ user.FullName }}
             </div>
-            <div class="user-logout-block pointer" ng-click="goURL('login/index.html');">Выход</div>
+            <div class="user-name-logout-block cursor-pointer" ng-click="goURL('login.html');">Выход</div>
         </div>
-        <div id="main" class="main">
-            <div class="left-dash-side">
-                <div class="pure-menu custom-restricted-width">
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="" class="pure-menu-link" ng-click="tab = 1">Управление проектами</a></li>
-                        <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 2}"><a href="" class="pure-menu-link" ng-click="tab = 2">Информация студента</a></li>
-                    </ul>
+        <div id="main" class="main settings-main">
+            <div class="settings-links">
+                <div class="link-nav-block">
+                    <i class="fa fa-home icons-grey"></i>
+                    <a href="" class="" ng-click="changeTab(1)">Главная - Панель инструментов</a>
                 </div>
-                <hr class="divider"></hr>
+                <div ng-show="tab === 2" class="link-nav-block">
+                    <i class="fa fa-angle-double-right icons-grey"></i>
+                    <a href="" class="" ng-click="changeTab(2)">Управление проектами</a>
+                </div>
             </div>
-            <div class="extend-box" ng-include="included">
-                <div visible="tab === 1" class="tile-container" ng-include="'tpl/projects.html'"></div>
-                <div visible="tab === 2" class="tile-container" ng-include="'tpl/profile.html'"></div>
+            <hr class="divider"></hr>
+            <div class="extend-box">
+                <div ng-show="tab === 1" class="tile-container" ng-include="'tpl/profile.html'"></div>
+                <div ng-show="tab === 2" class="tile-container" ng-include="'tpl/projects.html'"></div>
             </div>
         </div>
         <div id="footer" class="footer">
             <p class="legal-copyright">
-                © 2014 DreamTeam! All rights reserved.
+                © 2015 DreamTeam! All rights reserved.
             </p>
         </div>
     </div>
