@@ -1,6 +1,7 @@
 'use strict';
 /* globals joint:true */
-angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop', 'Links', 'Figures', function(configureDiagram, setupDragAndDrop, Links, Figures) {
+angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop', 'Links', 'Figures', function(
+    configureDiagram, setupDragAndDrop, Links, Figures) {
     return {
         /**
          * Constructs and configures a diagram
@@ -14,6 +15,8 @@ angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop',
          * @param  {number|string} params.paper.height [description]
          * @param  {string} params.paper.linkView [description]
          * @param  {array} params.constructors [description]
+         * @param  {string} params.saveUrl [description]
+         * @param  {number} params.saveInterval [description]
          * @return {object}        Diagram object
          */
         setup: function(params) {
@@ -22,7 +25,6 @@ angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop',
                     model: graph,
                     linkView: Links.getLinkView(params.paper.linkView)
                 }));
-
 
             configureDiagram(graph, paper);
             setupDragAndDrop({
@@ -46,11 +48,29 @@ angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop',
                     graph.addCell(figure);
                 },
                 onCellAdd: function(callback) {
-                    graph.on('add', function (cell) {
+                    graph.on('add', function(cell) {
                         if (!cell.isLink()) {
                             callback(cell);
                         }
                     });
+                },
+                export: function() {
+                    graph.trigger('exporting');
+                    console.log('exporting');
+                    return graph.toJSON();
+                },
+                import: function(json) {
+                    graph.fromJSON(json);
+                    graph.trigger('imported');
+                },
+                setId: function(id) {
+                    console.log(paper.id);
+                    console.log(graph.id);
+                    graph.id = id;
+                },
+                getId: function() {
+                    console.log(graph.id);
+                    return graph.id;
                 }
             };
         }

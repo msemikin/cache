@@ -17,12 +17,8 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
 
     $scope.setDestObj = function(object) {
         var dependency = $scope.dependency;
-        var destObj = {
-            id: object.id,
-            name: object.name
-        };
         dependency.resultField = {
-            object: destObj
+            id: object.id
         };
         AlgorithmicDependency.update(dependency).then(function () {
             $scope.sourceVariable = '';
@@ -32,7 +28,7 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
 
     $scope.setDestAttr = function(attr) {
         var dependency = $scope.dependency;
-        dependency.resultField.object.attr = attr;
+        dependency.resultField.attr = attr;
         AlgorithmicDependency.update(dependency).then(function () {
             $scope.sourceVariable = '';
             return updateDependencies(dependency.id);
@@ -94,7 +90,6 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
     $scope.addDependency = function() {
         var dependency = {
             name: $scope.dependencyName,
-            resultField: {},
             sourceFields: [],
             formula: ''
         };

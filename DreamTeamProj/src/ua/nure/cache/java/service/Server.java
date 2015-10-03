@@ -252,7 +252,7 @@ public class Server implements IServer {
 	@Override
 	public void insertAlgDeps(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String line = req.getParameter("algorithmicDependincy");
+		String line = req.getParameter("algorithmicDependency");
 		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
 		int result = new MysqlProjectDAO().insertAlgDeps(deps);
 		Resp res = new Resp();
@@ -565,7 +565,7 @@ public class Server implements IServer {
 	@Override
 	public void updateAlgDep(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String line = req.getParameter("algorithmicDependincy");
+		String line = req.getParameter("algorithmicDependency");
 		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
 		int result = new MysqlProjectDAO().updateAlgDeps(deps);
 		Resp res = new Resp();

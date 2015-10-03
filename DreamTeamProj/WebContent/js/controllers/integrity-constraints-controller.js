@@ -125,6 +125,9 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
             var objectIndex = _.findIndex($scope.objects, {
                 id: object.id
             });
+            if (objectIndex === -1) {
+                return [];
+            }
             return $scope.objects[objectIndex].attrs;
         }
     };

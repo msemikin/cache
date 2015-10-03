@@ -5,7 +5,7 @@
   			auth="Container" 
   			type="javax.sql.DataSource"
 			maxActive="100" maxIdle="30" maxWait="10000"
-			username="root" password=""
+			username="root" password="root"
 			driverClassName="com.mysql.jdbc.Driver"
 			defaultAutoCommit="false"
 			defaultTransactionIsolation="READ_COMMITTED"

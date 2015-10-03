@@ -224,6 +224,7 @@ public class Controller {
 			m.invoke(m.getDeclaringClass().newInstance(), request, response);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | InstantiationException e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 		}
 	}

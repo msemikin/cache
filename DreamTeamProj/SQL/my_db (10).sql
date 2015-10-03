@@ -48,6 +48,7 @@ INSERT INTO `actors` (`actor_id`, `actor_name`, `project_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `algdeps` (
 `dep_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
   `result_field` int(11) DEFAULT NULL,
   `formula` longtext,
   `name` longtext
@@ -736,8 +737,8 @@ ADD CONSTRAINT `vjscxbn` FOREIGN KEY (`project_id`) REFERENCES `project` (`proje
 -- Ограничения внешнего ключа таблицы `algdeps`
 --
 ALTER TABLE `algdeps`
-ADD CONSTRAINT `mykey` FOREIGN KEY (`result_field`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
+ADD CONSTRAINT `mykey` FOREIGN KEY (`result_field`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `algdeps_projectkey_constr` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION; 
 --
 -- Ограничения внешнего ключа таблицы `attrconstr`
 --
