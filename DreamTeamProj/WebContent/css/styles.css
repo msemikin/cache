@@ -25,9 +25,9 @@ a:visited {
 
 .pure-menu-selected .pure-menu-link,
 .pure-menu-selected .pure-menu-link:visited {
-    text-decoration: none; !important
-    color: cadetblue; !important
-    font-weight: 700;
+    text-decoration: none;
+    !important color: cadetblue;
+    !important font-weight: 700;
 }
 
 .header,
@@ -276,9 +276,6 @@ a:visited {
     font-weight: 700;
 }
 
-
-
-
 .cursor-pointer {
     cursor: pointer;
 }
@@ -315,4 +312,19 @@ a:visited {
 
 .settings-header {
     height: 2.625em !important;
+}
+
+.link-nav-block a,
+.link-nav-block a:link,
+.link-nav-block a:visited,
+.link-nav-block a:active {
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 13px;
+    color: dimgrey;
+}
+
+.link-nav-block a:hover {
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 13px;
+    color: darkgray;
 }
