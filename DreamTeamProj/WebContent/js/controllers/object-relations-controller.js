@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module("db");
-app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', '$rootScope', function($scope, Diagram, $rootScope) {
+app.controller("ObjectRelationsCtrl", function($scope, Diagram, $rootScope, $interval, Config, ObjectRelations) {
     var diagram = Diagram.setup({
         name: 'objectRelations',
         diagramSelector: '.object-relations-model',
@@ -16,8 +16,21 @@ app.controller("ObjectRelationsCtrl", ['$scope', 'Diagram', '$rootScope', functi
             figureType: 'Object'
         }]
     });
-
+    ObjectRelations.load().then(function(data) {
+        console.log(data);
+        if (!data.diagram) {
+            ObjectRelations.create(diagram.export()).then(function (data) {
+                diagram.setId(data.id);
+            });
+        } else {
+            diagram.import(JSON.parse(data.diagram));
+            diagram.setId(data.id);
+        }
+        $interval(function () {
+            ObjectRelations.update(diagram.export(), diagram.getId());
+        }, Config.UPDATE_INTERVAL);
+    });
     diagram.onCellAdd(function(cell) {
         $rootScope.$emit('objectRelationsCellAdded', cell);
     });
-}]);
+});

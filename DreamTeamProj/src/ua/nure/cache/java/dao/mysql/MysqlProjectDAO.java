@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.ProjectDAO;
 import ua.nure.cache.java.entity.Actor;
+import ua.nure.cache.java.entity.AddObj;
 import ua.nure.cache.java.entity.AlgDeps;
 import ua.nure.cache.java.entity.Link;
 import ua.nure.cache.java.entity.Objekt;
@@ -243,9 +244,15 @@ public class MysqlProjectDAO implements ProjectDAO {
 		try {
 			pstmt = con.prepareStatement(DBQueries.INSERT_ALG_DEPS,
 					Statement.RETURN_GENERATED_KEYS);
-			pstmt.setInt(1, algDeps.getResultField().getId());
-			pstmt.setString(2, algDeps.getFormula());
-			pstmt.setString(3, algDeps.getName());
+			AddObj resultField = algDeps.getResultField();
+			pstmt.setInt(1, algDeps.getProjectId());
+			if (resultField != null) {
+				pstmt.setInt(2, resultField.getId());
+			} else {
+				pstmt.setNull(2, java.sql.Types.INTEGER);
+			}
+			pstmt.setString(3, algDeps.getFormula());
+			pstmt.setString(4, algDeps.getName());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			}
@@ -272,6 +279,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 				}
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			log.error(e);
 		} finally {
 			MysqlDAOFactory.closeStatement(pstmt);
@@ -356,7 +364,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			}
 			result = deps.getId();
 			for (SourceField o : deps.getSourceFields()) {
-				
+
 				PreparedStatement pstmt2 = con.prepareStatement(
 						"Delete from depstosourfield where dep_id =?",
 						Statement.RETURN_GENERATED_KEYS);
@@ -382,14 +390,14 @@ public class MysqlProjectDAO implements ProjectDAO {
 		}
 		return result;
 	}
-	
+
 	public int insertLink(Link obj) {
 		int result = -1;
 		Connection con = null;
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertLink(con, obj);
-			if (result >0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -416,8 +424,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(5, obj.getProjectId());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
-			}
-			else {
+			} else {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					result = generatedKeys.getInt(1);
@@ -444,10 +451,11 @@ public class MysqlProjectDAO implements ProjectDAO {
 			MysqlDAOFactory.close(con);
 		}
 		return proj;
-		
+
 	}
 
-	private List<Link> findLink(Connection con, int projectId) throws SQLException {
+	private List<Link> findLink(Connection con, int projectId)
+			throws SQLException {
 		PreparedStatement stmt = null;
 		List<Link> proj = new ArrayList<Link>();
 		stmt = con.prepareStatement(DBQueries.GET_LINK);
@@ -496,8 +504,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(1, linkId);
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -541,8 +548,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(6, obj.getLinkId());
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -552,14 +558,14 @@ public class MysqlProjectDAO implements ProjectDAO {
 		}
 		return false;
 	}
-	
+
 	public int insertActor(Actor obj) {
 		int result = -1;
 		Connection con = null;
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertActor(con, obj);
-			if (result >0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -583,8 +589,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(2, obj.getProjectId());
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
-			}
-			else {
+			} else {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					result = generatedKeys.getInt(1);
@@ -611,10 +616,11 @@ public class MysqlProjectDAO implements ProjectDAO {
 			MysqlDAOFactory.close(con);
 		}
 		return proj;
-		
+
 	}
 
-	private List<Actor> findActors(Connection con, int projectId) throws SQLException {
+	private List<Actor> findActors(Connection con, int projectId)
+			throws SQLException {
 		PreparedStatement stmt = null;
 		List<Actor> proj = new ArrayList<Actor>();
 		stmt = con.prepareStatement(DBQueries.GET_ACTOR);
@@ -660,8 +666,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(1, linkId);
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -702,8 +707,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			pstmt.setInt(3, obj.getActorId());
 			if (pstmt.executeUpdate() != 1) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
 		} catch (SQLException e) {

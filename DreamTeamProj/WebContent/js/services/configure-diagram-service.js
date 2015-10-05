@@ -32,8 +32,7 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
             focusedModel = cellModel;
         }
 
-        // some more link initial configuration
-        graph.on('add', function(cell) {
+        function setupLinkingStart(cell) {
             if (!cell.isLink()) {
                 var cellView = paper.findViewByModel(cell);
 
@@ -48,12 +47,20 @@ app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
                     graph.addCell(link);
                     deselect(cell);
                 });
-
-                // fill cell's diagram name
             }
+        }
+
+        graph.on('exporting', function() {
+            deselect(focusedModel);
         });
 
-        paper.on('cell:pointerclick', function(cellView, evt, x, y) {
+        graph.on('imported', function() {
+            _.each(graph.getElements(), setupLinkingStart);
+        });
+
+        graph.on('add', setupLinkingStart);
+
+        paper.on('cell:pointerclick', function(cellView) {
             handleSelect(cellView.model);
         });
 

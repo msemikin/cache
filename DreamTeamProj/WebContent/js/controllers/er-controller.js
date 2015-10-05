@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module('db');
-app.controller("ERCtrl", ['$scope', 'Diagram', '$rootScope', function($scope, Diagram, $rootScope) {
+app.controller("ERCtrl", function($scope, Diagram, $rootScope, $interval, Config, ER) {
     var diagram = Diagram.setup({
         name: 'er',
         diagramSelector: '.er-model',
@@ -22,7 +22,20 @@ app.controller("ERCtrl", ['$scope', 'Diagram', '$rootScope', function($scope, Di
             figureType: 'Association'
         }]
     });
-
+    ER.load().then(function(data) {
+        console.log(data);
+        if (!data.diagram) {
+            ER.create(diagram.export()).then(function (data) {
+                diagram.setId(data.id);
+            });
+        } else {
+            diagram.import(JSON.parse(data.diagram));
+            diagram.setId(data.id);
+        }
+        $interval(function () {
+            ER.update(diagram.export(), diagram.getId());
+        }, Config.UPDATE_INTERVAL);
+    });
     $rootScope.$on('objectRelationsCellAdded', function(event, cell) {
         diagram.bindNewFigure({
             type: 'Entity',
@@ -34,5 +47,4 @@ app.controller("ERCtrl", ['$scope', 'Diagram', '$rootScope', function($scope, Di
             }
         });
     });
-
-}]);
+});

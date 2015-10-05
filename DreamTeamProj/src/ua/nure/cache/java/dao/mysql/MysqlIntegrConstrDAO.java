@@ -46,7 +46,12 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 			pstmt = con.prepareStatement(DBQueries.INSERT_ATTR_CONSTR,
 					Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, constr.getComment());
-			pstmt.setInt(2, constr.getObject().getAttr().getId());
+			AddObj object = constr.getObject();
+			if (object != null) {
+				pstmt.setInt(2, object.getAttr().getId());
+			} else {
+				pstmt.setNull(2, java.sql.Types.INTEGER);
+			}
 			pstmt.setInt(3, constr.getProjectId());
 			pstmt.setString(4, constr.getName());
 			if (pstmt.executeUpdate() != 1) {
@@ -59,6 +64,8 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 				return result;
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("fjdks");
 		} finally {
 			MysqlDAOFactory.closeStatement(pstmt);
 		}

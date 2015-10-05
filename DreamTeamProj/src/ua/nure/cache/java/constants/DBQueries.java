@@ -25,7 +25,7 @@ public class DBQueries {
 			+ "left JOIN attribute ON object.object_id = attribute.object_id "
 			+ "WHERE report.project_id =? ORDER BY report.report_id;";
 
-	public static final String FIND_DIAGRAM_BY_TYPE_PROJ = "Select JSON From diagram where project_id=? AND Type = ?";
+	public static final String FIND_DIAGRAM_BY_TYPE_PROJ = "Select JSON, diagram_id From diagram where project_id=? AND Type = ?";
 
 	public static final String FIND_SEARCH_BY_PROJ_ID = "SELECT search.search_id,object.object_id, "
 			+ "objectName, attribute.attr_id,attribute.Name FROM search "
@@ -54,7 +54,7 @@ public class DBQueries {
 			+ "From algdeps "
 			+ "left join object on algdeps.result_field = object.object_id "
 			+ "left join attribute on attribute.object_id = algdeps.result_field "
-			+ "WHERE object.project_id = ?";
+			+ "WHERE algdeps.project_id = ?";
 
 	public static final String FIND_SOURCE_FIELDS = " select algdeps.dep_id, sourcefield.varName, "
 			+ "object.object_id,object.objectName,attribute.attr_id,attribute.Name  "
@@ -103,7 +103,7 @@ public class DBQueries {
 	public static final String SORT_TO_ATTR = "INSERT INTO sorttoattr VALUES (?,?);";
 	
 	
-	public static final String INSERT_ALG_DEPS ="INSERT INTO `my_db`.`algdeps` (`result_field`, `formula`, `name`) VALUES (?,?,?);";
+	public static final String INSERT_ALG_DEPS ="INSERT INTO `my_db`.`algdeps` (`project_id`, `result_field`, `formula`, `name`) VALUES (?,?,?,?);";
 	
 	public static final String INSERT_SOURCE_FIELD ="INSERT INTO sourcefield (`varName`,`attr_id`) Values(?,?);";
 	
@@ -155,14 +155,14 @@ public class DBQueries {
 	public static final String UPDATE_SF ="UPDATE `my_db`.`sourcefield` SET `varName`=?, `attr_id`=? WHERE `field_id`=?;";
 	
 	
-	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`,'name') VALUES (?, ?, ?,?);";
+	public static final String INSERT_ATTR_CONSTR ="INSERT INTO `my_db`.`attrconstr` (`comment`, `attr_id`, `project_id`,`name`) VALUES (?, ?, ?,?);";
 	
 	public static final String GET_ATTR_CONSTR ="SELECT attrconstr.constr_id,attrconstr.comment,attrconstr.project_id, attrconstr.attr_id, "
 			+ "attribute.name,object.object_id,object.objectName, attrconstr.name "
-			+ "FROM attrconstr  "
+			+ "FROM attrconstr "
 			+ "left join attribute on attrconstr.attr_id = attribute.attr_id "
 			+ "left join object on attribute.object_id = object.object_id "
-			+ "where object.project_id = ?";
+			+ "where attrconstr.project_id = ?";
 	
 	public static final String UPDATE_ATTR_CONSTR ="UPDATE `my_db`.`attrconstr` SET `comment`=?, `attr_id`=?, 'name'=? WHERE `constr_id`=?;";
 	

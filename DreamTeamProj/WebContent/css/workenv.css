@@ -271,7 +271,6 @@
 
 /* algorithmic dependencies */
 .attr-src th {
-    padding-left: 20px !important;
     vertical-align: middle !important;
 }
 .attr-src td {
@@ -368,7 +367,7 @@
 /*integrity*/
 .button-action-constraint {
     position: absolute;
-    margin-top: -39px;
+    margin-top: -34px;
     right: 15px;
 }
 

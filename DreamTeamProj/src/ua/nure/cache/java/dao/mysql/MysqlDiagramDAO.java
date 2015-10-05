@@ -121,6 +121,7 @@ public class MysqlDiagramDAO implements DiagramDAO {
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			proj.setDiagram(rs.getString(1));
+			proj.setId(rs.getInt(2));
 		}
 		MysqlDAOFactory.closeStatement(stmt);
 		return proj;
