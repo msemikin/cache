@@ -9,11 +9,11 @@ angular.module('db').controller("DashboardCtrl", function ($scope, $location, $r
     $rootScope.showAttrs = function () {
         $rootScope.showAttributes = true;
     };
-    $scope.goURL = function(destinationUrl) {
+    $scope.goURL = function (destinationUrl) {
         $window.location.href = destinationUrl;
     };
     $scope.tab = 1;
-    $scope.logout = function() {
+    $scope.logout = function () {
         //TODO session logout
         $scope.goURL('login.html');
     }
