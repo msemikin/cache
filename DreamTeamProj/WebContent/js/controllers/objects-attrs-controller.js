@@ -5,8 +5,6 @@ angular.module('db').controller('ObjectsAttrsCtrl', function (Object, Attribute,
     $scope.objectName = '';
     $scope.attrName = '';
 
-    console.log($rootScope);
-
     function selectObject (object) {
         $scope.object = object;
         $rootScope.showAttrs();

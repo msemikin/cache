@@ -56,7 +56,6 @@ angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop',
                 },
                 export: function() {
                     graph.trigger('exporting');
-                    console.log('exporting');
                     return graph.toJSON();
                 },
                 import: function(json) {
@@ -64,12 +63,9 @@ angular.module('db').service('Diagram', ['configureDiagram', 'setupDragAndDrop',
                     graph.trigger('imported');
                 },
                 setId: function(id) {
-                    console.log(paper.id);
-                    console.log(graph.id);
                     graph.id = id;
                 },
                 getId: function() {
-                    console.log(graph.id);
                     return graph.id;
                 }
             };

@@ -1,0 +1,16 @@
+<div ng-show="addBoxOpened" class="article-add-box" ng-controller="DocumentArticleCtrl">
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">Объект</a></li>
+        <li role="presentation"><a href="#">Атрибут</a></li>
+    </ul>
+    <div class="added-words">
+        <span class="added-word" ng-repeat="addedWord in addedWords">{{addedWord}}</span>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Название</label>
+            <input type="email" class="form-control" placeholder="Название...">
+        </div>
+        <button type="submit" class="btn btn-default">Добавить</button>
+    </form>
+</div>
