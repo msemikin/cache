@@ -1,4 +1,5 @@
 app.controller("setprojects", ["$scope", function ($scope) {
+    //фиктивные данные//
     $scope.projects = [
         {
             DateOfLastChange: 111,
@@ -65,4 +66,15 @@ app.controller("setprojects", ["$scope", function ($scope) {
             Title: "Lacrosse stick"
         }
 		];
+    //фиктивные данные//
+
+    $scope.addProj = function() {
+        //тут понятно
+    }
+    $scope.updateProj = function() {
+        //изменение имени, статуса
+    }
+    $scope.deleteProj = function() {
+        //тут понятно
+    }
 }]);
