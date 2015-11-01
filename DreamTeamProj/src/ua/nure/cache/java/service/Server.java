@@ -841,5 +841,20 @@ public class Server implements IServer {
 			System.out.println(e.getMessage());
 		}
 	}
+	@Override
+	public void insertSourceField(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String line = req.getParameter("algorithmicDependency");
+		AlgDeps deps = new Gson().fromJson(line, AlgDeps.class);
+		int result = new MysqlProjectDAO().insertAlgDeps(deps);
+		Resp res = new Resp();
+		if (result != -1) {
+			res.setId(result);
+			res.setSuccess(true);
+		} else {
+			res.setId(result);
+			res.setSuccess(false);
+		}
+		resp.getWriter().print(new Gson().toJson(res));
+	}
 
 }

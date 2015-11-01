@@ -54,6 +54,9 @@ public interface IServer {
 
 	void insertAlgDeps(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException;
+	
+	void insertSourceField(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException;
 
 	void deleteObject(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException;

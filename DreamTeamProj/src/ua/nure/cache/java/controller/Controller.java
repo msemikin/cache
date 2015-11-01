@@ -88,6 +88,9 @@ public class Controller {
 			methods.put("/algorithmic_dependencies/new", cardManager
 					.getDeclaredMethod("insertAlgDeps",
 							request, response)); 
+			methods.put("algorithmic_dependencies/sourceFields/insert", cardManager
+					.getDeclaredMethod("insertSourceField",
+							request, response)); 
 			
 			
 			methods.put("/objects/delete", cardManager.getDeclaredMethod(
