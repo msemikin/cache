@@ -244,6 +244,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 					int sfId = genKeys.getInt(1);
 					PreparedStatement pstmt2 = con.prepareStatement(DBQueries.INSERT_DEP_TO_SF,
 							Statement.RETURN_GENERATED_KEYS);
+					result = algDeps.getId();
 					pstmt2.setInt(1, algDeps.getId());
 					pstmt2.setInt(2, sfId);
 					pstmt2.executeUpdate();
