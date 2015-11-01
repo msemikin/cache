@@ -16,14 +16,7 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
     $scope.formulaEditing = true;
 
     $scope.setDestObj = function(object) {
-        var dependency = $scope.dependency;
-        dependency.resultField = {
-            id: object.id
-        };
-        AlgorithmicDependency.update(dependency).then(function () {
-            $scope.sourceVariable = '';
-            return updateDependencies(dependency.id);
-        });
+        $scope.dependency.resultField = object;
     };
 
     $scope.setDestAttr = function(attr) {

@@ -79,7 +79,9 @@
                     <div class="constraint-content">
                         <h5>Ограничение:</h5>
                         <div class="constraint">
-                            <textarea class="constraint-text" maxlength="256" id="constrBox" cols="" placeholder="{{tab.changingDescription ? 'Введите описание...' : 'Нет описания...'}}" ng-disabled="!tab.changingDescription" rows="5" ng-model="tab.constraint.description"></textarea>
+                            <textarea class="constraint-text" maxlength="256" id="constrBox" cols=""
+                                    placeholder="{{tab.changingDescription ? 'Введите описание...' : 'Нет описания...'}}"
+                                    ng-disabled="!tab.changingDescription" rows="5" ng-model="tab.constraint.comment"></textarea>
                             <button class="btn btn-default button-action-constraint" ng-hide="tab.changingDescription" ng-click="changeDescription()">Изменить</button>
                             <button class="btn btn-default button-action-constraint" ng-show="tab.changingDescription" ng-click="saveDescription()">Сохранить</button>
                         </div>

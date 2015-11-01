@@ -41,7 +41,7 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
         // constraint is an id
         $scope.tab.constraint = constraint;
         if (constraint) {
-            $scope.tab.changingDescription = !constraint.description;
+            $scope.tab.changingDescription = !constraint.comment;
         }
         return constraint;
     }

@@ -60,26 +60,10 @@
                                 <tbody>
                                     <tr ng-repeat="source in dependency.sourceFields">
                                         <td>
-                                            <!-- <div class="btn-group"> -->
-                                                <!-- <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"> -->
-                                                    {{source.object.name}}
-                                                    <!-- <span class="caret"></span> -->
-                                                <!-- </button> -->
-                                                <!-- <ul class="dropdown-menu">
-                                                    <li><a href="#" ng-repeat="object in objects" ng-click="replaceSourceObj(source, object)">{{object.name}}</a></li>
-                                                </ul>
-                                            </div> -->
+                                            {{source.object.name}}
                                         </td>
                                         <td>
-                                            <!-- <div class="btn-group"> -->
-                                                <!-- <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle"> -->
-                                                    {{source.object.attr.name}}
-                                                    <!-- <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#" ng-repeat="attr in getAttrs(source.object)" ng-click="replaceSourceAttr(source, attr)">{{attr.name}}</a></li>
-                                                </ul>
-                                            </div> -->
+                                            {{source.object.attr.name}}
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="source.variable">
