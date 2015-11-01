@@ -854,7 +854,7 @@ public class Server implements IServer {
 			res.setId(result);
 			res.setSuccess(false);
 		}
-		resp.getWriter().print(String.valueOf(result));
+		resp.getWriter().print(new Gson().toJson(res));
 	}
 
 }
