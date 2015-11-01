@@ -84,10 +84,7 @@ app.factory('CommonCtrlFactory', function(Utils, Object) {
 
         $scope.addObject = function(object) {
             var element = $scope[elementName];
-            var elementObject = $.extend({}, object, {
-                attrs: []
-            });
-            element.objects.push(elementObject);
+            element.objects.push(object);
             dataProvider.update(element).then(function(response) {
                 updateElements(element.id);
             });
