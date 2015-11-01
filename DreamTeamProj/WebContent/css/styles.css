@@ -102,6 +102,25 @@ a:visited {
     flex: 1;
 }
 
+.pure-menu {
+    padding-top: 5px;
+}
+
+.pure-menu-link {
+    height: 32px;
+}
+
+.pure-menu-link::before {
+    color: cadetblue;
+    font-size: 18px;
+    top: 4px;
+    left: 3px;
+    position: relative;
+}
+.pure-menu-link span {
+    font-family: sans-serif
+}
+
 //TODO
 .showTextButton {
     height: 100%;
@@ -136,6 +155,14 @@ a:visited {
     border-right: 1px solid #ddd;
 }
 
+.left-side.shrunk {
+    width: 54px;
+}
+
+.shrunk .not-shrunk-only {
+    display: none;
+}
+
 .add-obj-input {
     margin: 0px;
 }
@@ -148,6 +175,30 @@ a:visited {
 
 .project-menu {
     margin: 0;
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: row;
+    width: 280px;
+}
+
+.menu-shrink-container {
+    flex-grow: 1;
+}
+
+.menu-shrink {
+    display: inline-block;
+    padding-top: 8px;
+    padding-left: 14px;
+    color: white;
+    font-size: 16px;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.menu-shrink > img {
+    height: 25px;
+    width: 25px;
 }
 
 .user-block {

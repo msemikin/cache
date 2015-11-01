@@ -4,6 +4,10 @@
     background-color: cadetblue !important;
     border-color: cadetblue !important;
 }
+.btn-primary {
+    border-color: cadetblue;
+    background-color: cadetblue;
+}
 
 /**/
 

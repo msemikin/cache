@@ -5,12 +5,19 @@
 angular.module('db').directive('documentWord', function () {
     return {
         scope: {
-            id: '='
+            wordId: '='
         },
         link: function (scope, element, attrs, controllers, transclude) {
             scope.word = transclude().text();
+
             element.on('click', function() {
-                scope.$emit('word-clicked', scope.word);
+                var word = {
+                    wordId: scope.wordId,
+                    articleId: scope.articleId,
+                    word: scope.word
+                };
+                console.log(word);
+                scope.$emit('word-clicked', word);
             });
         },
         templateUrl: 'tpl/document-word.html',

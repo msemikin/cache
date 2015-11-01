@@ -21,15 +21,15 @@ angular.module('db').directive('documentArticle', function($compile) {
         return find(root);
     }
 
-    function prepareWord(word) {
-        return '<document-word>' + word + '</document-word>';
+    function prepareWord(word, id) {
+        return '<document-word word-id="' + id + '">' + word + '</document-word>';
     }
 
     function extractWords($node) {
         return _.map(_.filter($node.text().split(' '), function (word) {
             return word;
-        }), function(word) {
-            return prepareWord(word);
+        }), function(word, index) {
+            return prepareWord(word, index);
         });
     }
 
