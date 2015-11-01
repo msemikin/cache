@@ -8,6 +8,7 @@ angular.module('db').controller('ModalsCtrl', function($scope, $rootScope, Modal
 
     $rootScope.$on('modals.show', function (event, modalType) {
         $('#' + modalType).modal('show');
+        $rootScope.$emit('modals.show.' + modalType);
         modal = modalType;
     });
 
