@@ -7,9 +7,9 @@ public class Constraint {
 	
 	private AddObj object;
 	
-	private String comment;
+	private String comment = new String();
 	
-	private String name;
+	private String name = new String();
 
 	public AddObj getObject() {
 		return object;
