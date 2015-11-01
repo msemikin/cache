@@ -51,7 +51,7 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
             variable: $scope.sourceVariable,
             object: $scope.sourceObj
         });
-        AlgorithmicDependency.update(dependency).then(function () {
+        AlgorithmicDependency.insertSourceField(dependency).then(function () {
             resetSource();
             updateDependencies(dependency.id);
             $scope.initDropdowns();
