@@ -141,7 +141,7 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			}
-			PreparedStatement pstmt1 = con.prepareStatement("Delete from stattoobj where statistic_id =?");
+			PreparedStatement pstmt1 = con.prepareStatement("Delete from stattoattr where statistic_id =?");
 			pstmt1.setInt(1, stat.getId());
 			pstmt1.executeUpdate();
 			result = stat.getId();
