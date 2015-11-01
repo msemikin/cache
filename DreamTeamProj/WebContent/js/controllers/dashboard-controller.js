@@ -17,7 +17,7 @@ angular.module('db').controller("DashboardCtrl", function ($scope, $location, $r
         $window.location.href = destinationUrl;
     };
     $scope.tab = 1;
-    $scope.logout = function() {
+    $scope.logout = function () {
         //TODO session logout
         $scope.goURL('login.html');
     }
