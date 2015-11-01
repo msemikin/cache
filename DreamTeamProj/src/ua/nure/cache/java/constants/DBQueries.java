@@ -51,10 +51,10 @@ public class DBQueries {
 
 	public static final String FIND_ALG_DEPS_AND_RES_FIELD = "SELECT algdeps.dep_id, algdeps.formula, "
 			+ "algdeps.result_field,algdeps.name,  "
-			+ "object.objectName, attribute.attr_id,attribute.Name  "
+			+ "object.objectName, object.object_id,attribute.Name  "
 			+ "From algdeps "
-			+ "left join object on algdeps.result_field = object.object_id "
-			+ "left join attribute on attribute.object_id = algdeps.result_field "
+			+ "left join attribute on attribute.attr_id = algdeps.result_field "
+			+ "left join object on attribute.object_id = object.object_id "
 			+ "WHERE algdeps.project_id = ?";
 
 	public static final String FIND_SOURCE_FIELDS = " select algdeps.dep_id, sourcefield.varName, "

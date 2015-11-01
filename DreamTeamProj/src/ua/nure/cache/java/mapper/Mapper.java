@@ -162,10 +162,10 @@ public class Mapper {
 			Attribute attr = new Attribute();
 			alg.setId(rs1.getInt(1));
 			alg.setFormula(rs1.getString(2));
-			obj.setId(rs1.getInt(3));
+			attr.setId(rs1.getInt(3));
 			alg.setName(rs1.getString(4));
 			obj.setName(rs1.getString(5));
-			attr.setId(rs1.getInt(6));
+			obj.setId(rs1.getInt(6));
 			attr.setName(rs1.getString(7));
 			if (algDeps.contains(alg)) {
 				if (attr.getId() != 0) {

@@ -247,7 +247,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 			AddObj resultField = algDeps.getResultField();
 			pstmt.setInt(1, algDeps.getProjectId());
 			if (resultField != null) {
-				pstmt.setInt(2, resultField.getId());
+				pstmt.setInt(2, resultField.getAttr().getId());
 			} else {
 				pstmt.setNull(2, java.sql.Types.INTEGER);
 			}
@@ -355,7 +355,7 @@ public class MysqlProjectDAO implements ProjectDAO {
 		try {
 			pstmt = con.prepareStatement(DBQueries.UPDATE_ALG_DEP,
 					Statement.RETURN_GENERATED_KEYS);
-			pstmt.setInt(1, deps.getResultField().getId());
+			pstmt.setInt(1, deps.getResultField().getAttr().getId());
 			pstmt.setString(2, deps.getFormula());
 			pstmt.setString(3, deps.getName());
 			pstmt.setInt(4, deps.getId());

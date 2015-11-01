@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 01 2015 г., 14:26
+-- Время создания: Ноя 01 2015 г., 15:10
 -- Версия сервера: 5.6.26
 -- Версия PHP: 5.6.12
 
@@ -57,7 +57,15 @@ CREATE TABLE IF NOT EXISTS `algdeps` (
   `result_field` int(11) DEFAULT NULL,
   `formula` longtext,
   `name` longtext
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `algdeps`
+--
+
+INSERT INTO `algdeps` (`dep_id`, `project_id`, `result_field`, `formula`, `name`) VALUES
+(3, 0, 3, 'X+Y', 'SFSDFSD'),
+(4, 0, 4, 'adfa', 'sdfs');
 
 --
 -- Триггеры `algdeps`
@@ -602,7 +610,7 @@ ALTER TABLE `actors`
 -- AUTO_INCREMENT для таблицы `algdeps`
 --
 ALTER TABLE `algdeps`
-  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT для таблицы `attrconstr`
 --
@@ -693,7 +701,7 @@ ALTER TABLE `actors`
 --
 ALTER TABLE `algdeps`
   ADD CONSTRAINT `algdeps_projectkey_constr` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `mykey` FOREIGN KEY (`result_field`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `mykey` FOREIGN KEY (`result_field`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `attrconstr`
