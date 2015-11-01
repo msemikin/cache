@@ -400,7 +400,9 @@ public class MysqlProjectDAO implements ProjectDAO {
 			}
 			result = deps.getId();
 			for (SourceField o : deps.getSourceFields()) {
-
+				if (o.getFiledId() <= 0 ) {
+					continue;
+				}
 				PreparedStatement pstmt2 = con.prepareStatement("Delete from depstosourfield where dep_id =?",
 						Statement.RETURN_GENERATED_KEYS);
 				pstmt2.setInt(1, result);
