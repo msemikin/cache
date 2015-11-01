@@ -87,7 +87,7 @@ public class DBQueries {
 
 	public static final String INSERT_REPORT = "INSERT INTO `my_db`.`report` ( `project_id`, `name`) VALUES (?,?);";
 
-	public static final String INSERT_REP_TO_OBJ = "INSERT INTO `my_db`.`reporttoobject` (`report_id`, `attr_id`) VALUES (?,?);";
+	public static final String INSERT_REP_TO_OBJ = "INSERT INTO `my_db`.`reporttoattr` (`report_id`, `attr_id`) VALUES (?,?);";
 	
 	public static final String INSERT_DIAGRAM = "INSERT INTO `my_db`.`diagram`(`project_id`,`Type`,`JSON`) VALUES (?,?,?);";
 	
