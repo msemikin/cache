@@ -3,6 +3,7 @@
 .active {
     background-color: cadetblue !important;
     border-color: cadetblue !important;
+    color: white !important;
 }
 .btn-primary {
     border-color: cadetblue;
