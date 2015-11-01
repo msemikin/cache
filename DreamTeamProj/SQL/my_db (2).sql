@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 01 2015 г., 15:10
+-- Время создания: Ноя 01 2015 г., 17:50
 -- Версия сервера: 5.6.26
 -- Версия PHP: 5.6.12
 
@@ -93,7 +93,14 @@ CREATE TABLE IF NOT EXISTS `attrconstr` (
   `attr_id` int(11) DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   `name` longtext
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `attrconstr`
+--
+
+INSERT INTO `attrconstr` (`constr_id`, `comment`, `attr_id`, `project_id`, `name`) VALUES
+(2, '', NULL, 0, 'Мое ограничение');
 
 -- --------------------------------------------------------
 
@@ -294,11 +301,11 @@ CREATE TABLE IF NOT EXISTS `report` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `reporttoobject`
+-- Структура таблицы `reporttoattr`
 --
 
-CREATE TABLE IF NOT EXISTS `reporttoobject` (
-  `object_id` int(11) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `reporttoattr` (
+  `attr_id` int(11) DEFAULT NULL,
   `report_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
@@ -368,14 +375,16 @@ CREATE TABLE IF NOT EXISTS `statistic` (
   `statistic_id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
   `name` longtext CHARACTER SET utf8
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Дамп данных таблицы `statistic`
 --
 
 INSERT INTO `statistic` (`statistic_id`, `project_id`, `name`) VALUES
-(14, 0, 'dskfsdf');
+(16, 0, 'Моя статистика'),
+(17, 0, 'Стас'),
+(18, 0, 'ЫВОРЫВОАРЫВ');
 
 -- --------------------------------------------------------
 
@@ -393,10 +402,14 @@ CREATE TABLE IF NOT EXISTS `stattoattr` (
 --
 
 INSERT INTO `stattoattr` (`statistic_id`, `attr_id`) VALUES
-(14, 3),
-(14, 4),
-(14, 5),
-(14, 6);
+(17, 4),
+(17, 3),
+(17, 6),
+(16, 4),
+(16, 3),
+(16, 6),
+(18, 3),
+(18, 6);
 
 -- --------------------------------------------------------
 
@@ -535,11 +548,11 @@ ALTER TABLE `report`
   ADD KEY `FK_REPORT_REFERENCE_PROJECT` (`project_id`);
 
 --
--- Индексы таблицы `reporttoobject`
+-- Индексы таблицы `reporttoattr`
 --
-ALTER TABLE `reporttoobject`
-  ADD KEY `FK_REPORTTO_REFERENCE_OBJECT` (`object_id`),
-  ADD KEY `FK_REPORTTO_REFERENCE_REPORT` (`report_id`);
+ALTER TABLE `reporttoattr`
+  ADD KEY `FK_REPORTTO_REFERENCE_REPORT` (`report_id`),
+  ADD KEY `FK_REPORTTO_REFERENCE_OBJECT_idx` (`attr_id`);
 
 --
 -- Индексы таблицы `search`
@@ -615,7 +628,7 @@ ALTER TABLE `algdeps`
 -- AUTO_INCREMENT для таблицы `attrconstr`
 --
 ALTER TABLE `attrconstr`
-  MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `constr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `attribute`
 --
@@ -680,7 +693,7 @@ ALTER TABLE `sourcefield`
 -- AUTO_INCREMENT для таблицы `statistic`
 --
 ALTER TABLE `statistic`
-  MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `statistic_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT для таблицы `student`
 --
@@ -783,11 +796,11 @@ ALTER TABLE `report`
   ADD CONSTRAINT `FK_REPORT_REFERENCE_PROJECT` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `reporttoobject`
+-- Ограничения внешнего ключа таблицы `reporttoattr`
 --
-ALTER TABLE `reporttoobject`
-  ADD CONSTRAINT `FK_REPORTTO_REFERENCE_OBJECT` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_REPORTTO_REFERENCE_REPORT` FOREIGN KEY (`report_id`) REFERENCES `report` (`report_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `reporttoattr`
+  ADD CONSTRAINT `FK_REPORTTO_REFERENCE_REPORT` FOREIGN KEY (`report_id`) REFERENCES `report` (`report_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dfsfsf` FOREIGN KEY (`attr_id`) REFERENCES `attribute` (`attr_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `search`

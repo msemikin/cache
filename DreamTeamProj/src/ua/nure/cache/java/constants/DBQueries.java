@@ -11,7 +11,7 @@ public class DBQueries {
 			+ "where project_id = ? ";
 
 	public static final String FIND_STATISTICS_PROJ = "SELECT statistic.statistic_id ,statistic.name, "
-			+ "object.objectName, attribute.attr_id,attribute.Name  "
+			+ "object.objectName, attribute.attr_id,attribute.Name, object.object_id  "
 			+ "from statistic "
 			+ "left JOIN stattoattr ON stattoattr.statistic_id = statistic.statistic_id  "
 			+ "left JOIN attribute ON stattoattr.attr_id = attribute.attr_id  "
@@ -19,11 +19,11 @@ public class DBQueries {
 			+ "WHERE statistic.project_id =? "
 			+ "ORDER BY statistic.statistic_id;";
 
-	public static final String FIND_REPORT_PROJ = "SELECT report.report_id ,report.name, object.object_id,object.objectName, attribute.attr_id,attribute.Name "
+	public static final String FIND_REPORT_PROJ = "SELECT report.report_id ,report.name, object.object_id,object.objectName, attribute.attr_id,attribute.Name  "
 			+ "from report  "
-			+ "left JOIN reporttoobject ON report.report_id = reporttoobject.report_id "
-			+ "left JOIN object ON reporttoobject.object_id = object.object_id "
-			+ "left JOIN attribute ON object.object_id = attribute.object_id "
+			+ "left JOIN reporttoattr ON report.report_id = reporttoattr.report_id "
+			+ "left JOIN attribute ON reporttoattr.attr_id = attribute.attr_id  "
+			+ "left JOIN object ON attribute.object_id = object.object_id  "
 			+ "WHERE report.project_id =? ORDER BY report.report_id;";
 
 	public static final String FIND_DIAGRAM_BY_TYPE_PROJ = "Select JSON, diagram_id From diagram where project_id=? AND Type = ?";
@@ -87,7 +87,7 @@ public class DBQueries {
 
 	public static final String INSERT_REPORT = "INSERT INTO `my_db`.`report` ( `project_id`, `name`) VALUES (?,?);";
 
-	public static final String INSERT_REP_TO_OBJ = "INSERT INTO `my_db`.`reporttoobject` (`report_id`, `object_id`) VALUES (?,?);";
+	public static final String INSERT_REP_TO_OBJ = "INSERT INTO `my_db`.`reporttoobject` (`report_id`, `attr_id`) VALUES (?,?);";
 	
 	public static final String INSERT_DIAGRAM = "INSERT INTO `my_db`.`diagram`(`project_id`,`Type`,`JSON`) VALUES (?,?,?);";
 	
