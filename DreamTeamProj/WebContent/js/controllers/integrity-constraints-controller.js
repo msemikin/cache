@@ -78,9 +78,9 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
             id: object.id,
             name: object.name
         };
-        $scope.tab.dataProvider.update(constraint).then(function(response) {
-            updateConstraints(constraint.id);
-        });
+        // $scope.tab.dataProvider.update(constraint).then(function(response) {
+        //     updateConstraints(constraint.id);
+        // });
     };
 
     $scope.selectFirstObject = function(object) {
