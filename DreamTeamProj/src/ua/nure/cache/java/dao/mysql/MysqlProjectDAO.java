@@ -297,26 +297,26 @@ public class MysqlProjectDAO implements ProjectDAO {
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			}
-			ResultSet generatedKeys = pstmt.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				result = generatedKeys.getInt(1);
-				for (SourceField o : algDeps.getSourceFields()) {
-					PreparedStatement pstmt1 = con.prepareStatement(DBQueries.INSERT_SOURCE_FIELD,
-							Statement.RETURN_GENERATED_KEYS);
-					pstmt1.setString(1, o.getVariable());
-					pstmt1.setInt(2, o.getObject().getAttr().getId());
-					pstmt1.executeUpdate();
-					ResultSet genKeys = pstmt1.getGeneratedKeys();
-					if (genKeys.next()) {
-						int sfId = genKeys.getInt(1);
-						PreparedStatement pstmt2 = con.prepareStatement(DBQueries.INSERT_DEP_TO_SF,
-								Statement.RETURN_GENERATED_KEYS);
-						pstmt2.setInt(1, result);
-						pstmt2.setInt(2, sfId);
-						pstmt2.executeUpdate();
-					}
-				}
-			}
+//			ResultSet generatedKeys = pstmt.getGeneratedKeys();
+//			if (generatedKeys.next()) {
+//				result = generatedKeys.getInt(1);
+//				for (SourceField o : algDeps.getSourceFields()) {
+//					PreparedStatement pstmt1 = con.prepareStatement(DBQueries.INSERT_SOURCE_FIELD,
+//							Statement.RETURN_GENERATED_KEYS);
+//					pstmt1.setString(1, o.getVariable());
+//					pstmt1.setInt(2, o.getObject().getAttr().getId());
+//					pstmt1.executeUpdate();
+//					ResultSet genKeys = pstmt1.getGeneratedKeys();
+//					if (genKeys.next()) {
+//						int sfId = genKeys.getInt(1);
+//						PreparedStatement pstmt2 = con.prepareStatement(DBQueries.INSERT_DEP_TO_SF,
+//								Statement.RETURN_GENERATED_KEYS);
+//						pstmt2.setInt(1, result);
+//						pstmt2.setInt(2, sfId);
+//						pstmt2.executeUpdate();
+//					}
+//				}
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			log.error(e);
