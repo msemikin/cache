@@ -1,4 +1,4 @@
-# POST ../DreamTeamProj/project/objects/byId (тестил, работает)
+# POST ../DreamTeamProj/project/objects/byId
 
 ## Request
 ```
@@ -23,7 +23,7 @@
 ```
 
 -----------------------------------------------------
-# POST /project/objects/all (тестил)
+# POST /project/objects/all
 
 ## Request
 ```
@@ -52,12 +52,12 @@
 
 ## Request
 ```
-data : {
-				objeсt : JSON.stringify({
-					projectId : 1,
-					name : "some object"
-				})
-		},
+{
+	objeсt : JSON.stringify({
+		projectId : 1,
+		name : "some object"
+	})
+},
 ```
 
 ## Response
@@ -75,13 +75,13 @@ data : {
 
 ## Request
 ```
-data : {
-            attribute : JSON.stringify({
-            projectId : 1,
-            objectId : 1,
-            name : "some attribute"
-            })
-    },
+{
+	attribute : JSON.stringify({
+		projectId : 1,
+		objectId : 1,
+		name : "some attribute"
+	})
+}
 ```
 
 ## Response
@@ -98,13 +98,13 @@ data : {
 ### тоже самое для остальных запросов 
 ## Request
 ```
-data : {
-			objeсt : JSON.stringify({
-				"projectId" : 0,
-				"id" : 1,
-				"name" : "some dsfsobject"
-			})
-		},
+{
+	objeсt : JSON.stringify({
+		"projectId" : 0,
+		"id" : 1,
+		"name" : "some dsfsobject"
+	})
+}
 ```
 
 ## Response
@@ -173,7 +173,7 @@ data : {
 ```
 
 -----------------------------------------------------
-# POST /project/statistics/all //tested
+# POST /project/statistics/all
 
 ## Request
 ```
@@ -193,27 +193,29 @@ data : {
 		"attrs": [{
 			"id":"1",
 			"name":"attribute's name"
-		}			
-		]	
+		}]	
     }]  
   }]  
 }  
 ```
 
 -----------------------------------------------------
-# POST /project/statistics/new //тестил
+# POST /project/statistics/new
 
 ## Request
 ```
-data : {
-			"statistic" : JSON.stringify({
-				"projectId" : 0,
-				"name" : "some name",
-				"objects" : [ {
-					id : 2
-				} ]
-			})
-		},  
+{
+	"statistic" : JSON.stringify({
+		"projectId" : 0,
+		"name" : "some name",
+		"objects" : [{
+			id : 2,
+			attrs: [{
+				id: 1
+			}]
+		}]
+	})
+} 
 ```
 
 ## Response
@@ -228,11 +230,10 @@ data : {
 
 ## Request
 ```
-data : {
-				"projectId" : 0,
-				"statisticId":8
-
-		},  
+{
+	"projectId": 0,
+	"statisticId": 8
+}  
 ```
 
 ## Response
@@ -243,20 +244,23 @@ data : {
 }
 ```
 -----------------------------------------------------
-# POST /project/statistics/update //тестил
+# POST /project/statistics/update
 
 ## Request
 ```
 data : {
-			"statistic" : JSON.stringify({
-				"projectId" : 0,
-				"id":2,
-				"name" : "some name",
-				"objects" : [ {
-					id : 3
-				} ]
-			})
-		},
+	"statistic" : JSON.stringify({
+		"projectId" : 0,
+		"id":2,
+		"name" : "some name",
+		"objects" : [{
+			id : 3,
+			attrs: [{
+				id: 2
+			}]
+		}]
+	})
+},
 ```
 
 ## Response
