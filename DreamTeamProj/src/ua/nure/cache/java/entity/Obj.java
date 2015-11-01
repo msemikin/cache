@@ -2,6 +2,7 @@ package ua.nure.cache.java.entity;
 
 
 public class Obj {
+	
 	private int id;
 	
 	private String name;

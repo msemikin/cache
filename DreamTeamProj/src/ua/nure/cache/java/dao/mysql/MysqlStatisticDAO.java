@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import ua.nure.cache.java.constants.DBQueries;
 import ua.nure.cache.java.dao.StatisticDAO;
+import ua.nure.cache.java.entity.Attribute;
 import ua.nure.cache.java.entity.Objekt;
 import ua.nure.cache.java.entity.Statistic;
 
@@ -23,7 +24,7 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = insertStatistics(con, stat);
-			if (result>0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -37,13 +38,11 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		return result;
 	}
 
-	private int insertStatistics(Connection con, Statistic stat)
-			throws SQLException {
+	private int insertStatistics(Connection con, Statistic stat) throws SQLException {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
-			pstmt = con.prepareStatement(DBQueries.INSERT_STATISTIC,
-					Statement.RETURN_GENERATED_KEYS);
+			pstmt = con.prepareStatement(DBQueries.INSERT_STATISTIC, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, stat.getProjectId());
 			pstmt.setString(2, stat.getName());
 			if (pstmt.executeUpdate() != 1) {
@@ -54,12 +53,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 
 				result = generatedKeys.getInt(1);
 				for (Objekt obj : stat.getObjects()) {
-					PreparedStatement stmt = con.prepareStatement(
-							DBQueries.INSERT_STAT_TO_OBJ,
-							Statement.RETURN_GENERATED_KEYS);
-					stmt.setInt(1, result);
-					stmt.setInt(2, obj.getId());
-					stmt.executeUpdate();
+					for (Attribute attr : obj.getAttrs()) {
+						PreparedStatement stmt = con.prepareStatement(DBQueries.INSERT_STAT_TO_ATTR,
+								Statement.RETURN_GENERATED_KEYS);
+						stmt.setInt(1, result);
+						stmt.setInt(2, attr.getId());
+						stmt.executeUpdate();
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -91,13 +91,11 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		return result;
 	}
 
-	private boolean deleteStatistic(Connection con, int statId, int projectId)
-			throws SQLException {
+	private boolean deleteStatistic(Connection con, int statId, int projectId) throws SQLException {
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		try {
-			pstmt = con.prepareStatement(DBQueries.DELETE_STATISTIC,
-					Statement.RETURN_GENERATED_KEYS);
+			pstmt = con.prepareStatement(DBQueries.DELETE_STATISTIC, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, statId);
 			pstmt.setInt(2, projectId);
 			if (pstmt.executeUpdate() != 1) {
@@ -119,7 +117,7 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		try {
 			con = MysqlDAOFactory.getConnection();
 			result = updateStatistics(con, stat);
-			if (result>0) {
+			if (result > 0) {
 				con.commit();
 			} else {
 				MysqlDAOFactory.roolback(con);
@@ -137,8 +135,7 @@ public class MysqlStatisticDAO implements StatisticDAO {
 		PreparedStatement pstmt = null;
 		int result = -1;
 		try {
-			pstmt = con.prepareStatement(DBQueries.UPDATE_STATISTIC,
-					Statement.RETURN_GENERATED_KEYS);
+			pstmt = con.prepareStatement(DBQueries.UPDATE_STATISTIC, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, stat.getName());
 			pstmt.setInt(2, stat.getId());
 			if (pstmt.executeUpdate() != 1) {
@@ -149,12 +146,13 @@ public class MysqlStatisticDAO implements StatisticDAO {
 			pstmt1.executeUpdate();
 			result = stat.getId();
 			for (Objekt obj : stat.getObjects()) {
-				PreparedStatement stmt = con.prepareStatement(
-						DBQueries.INSERT_STAT_TO_OBJ,
-						Statement.RETURN_GENERATED_KEYS);
-				stmt.setInt(1, stat.getId());
-				stmt.setInt(2, obj.getId());
-				stmt.executeUpdate();
+				for (Attribute attr : obj.getAttrs()) {
+					PreparedStatement stmt = con.prepareStatement(DBQueries.INSERT_STAT_TO_ATTR,
+							Statement.RETURN_GENERATED_KEYS);
+					stmt.setInt(1, stat.getId());
+					stmt.setInt(2, attr.getId());
+					stmt.executeUpdate();
+				}
 			}
 		} catch (SQLException e) {
 			log.error(e);

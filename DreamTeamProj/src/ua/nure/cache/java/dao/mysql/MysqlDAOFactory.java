@@ -41,6 +41,7 @@ public class MysqlDAOFactory extends DAOFactory {
 		Connection con = null;
 		try {
 			con = getDataSource().getConnection();
+			con.setAutoCommit(false);
 		} catch (Exception e) {
 			con = getExceptCon();
 		}
@@ -56,6 +57,7 @@ public class MysqlDAOFactory extends DAOFactory {
 	    try {
 	        dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_db?characterEncoding=utf8"
 	        		, "root","");
+	        dbConnection.setAutoCommit(false);
 	        return dbConnection;
 	    } catch (SQLException e) {
 	        System.out.println(e.getMessage());

@@ -10,11 +10,12 @@ public class DBQueries {
 			+ "attribute on attribute.object_id = object.object_id "
 			+ "where project_id = ? ";
 
-	public static final String FIND_STATISTICS_PROJ = "SELECT statistic.statistic_id ,statistic.name, object.objectName, attribute.attr_id,attribute.Name "
+	public static final String FIND_STATISTICS_PROJ = "SELECT statistic.statistic_id ,statistic.name, "
+			+ "object.objectName, attribute.attr_id,attribute.Name  "
 			+ "from statistic "
-			+ "left JOIN stattoobj ON stattoobj.statistic_id = statistic.statistic_id "
-			+ "left JOIN object ON stattoobj.object_id = object.object_id "
-			+ "left JOIN attribute ON object.object_id = attribute.object_id "
+			+ "left JOIN stattoattr ON stattoattr.statistic_id = statistic.statistic_id  "
+			+ "left JOIN attribute ON stattoattr.attr_id = attribute.attr_id  "
+			+ "left JOIN object ON attribute.object_id = object.object_id "
 			+ "WHERE statistic.project_id =? "
 			+ "ORDER BY statistic.statistic_id;";
 
@@ -82,7 +83,7 @@ public class DBQueries {
 			+ "(`project_id`,`name`) "
 			+ "VALUES (?,?);";
 	
-	public static final String INSERT_STAT_TO_OBJ = "INSERT INTO `my_db`.`stattoobj` (`statistic_id`, `object_id`) VALUES (?,?);";
+	public static final String INSERT_STAT_TO_ATTR = "INSERT INTO `my_db`.`stattoattr` (`statistic_id`, `attr_id`) VALUES (?,?);";
 
 	public static final String INSERT_REPORT = "INSERT INTO `my_db`.`report` ( `project_id`, `name`) VALUES (?,?);";
 
