@@ -881,6 +881,37 @@ data : {
 }  
 ```
 -----------------------------------------------------
+# POST /project/algorithmic_dependencies/sourceFields/insert //tested 
+
+## Request
+```
+data : {
+					"algorithmicDependincy" : JSON.stringify({
+						"id":8,
+						"projectId" : 0,
+						
+						"sourceFields" : [ {
+							"fieldId" : 11,
+							"variable" : "W",
+							"object" : {
+								"id" : 3,
+								"attr" : {
+									"id" : 3
+								}
+							}
+						} ]
+					})
+				},
+```
+
+## Response
+```
+{  
+  "success": true,
+  "id": "1"
+}  
+```
+-----------------------------------------------------
 
 -----------------------------------------------------
 
