@@ -110,6 +110,7 @@ public class MysqlIntegrConstrDAO implements IntegrityConstrDAO {
 				return result;
 			}
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		} finally {
 			MysqlDAOFactory.closeStatement(pstmt);
 		}

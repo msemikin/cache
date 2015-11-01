@@ -165,7 +165,7 @@ public class DBQueries {
 			+ "left join object on attribute.object_id = object.object_id "
 			+ "where attrconstr.project_id = ?";
 	
-	public static final String UPDATE_ATTR_CONSTR ="UPDATE `my_db`.`attrconstr` SET `comment`=?, `attr_id`=?, 'name'=? WHERE `constr_id`=?;";
+	public static final String UPDATE_ATTR_CONSTR ="UPDATE `my_db`.`attrconstr` SET `comment`=?, `attr_id`=?, name=? WHERE `constr_id`=?;";
 	
 	public static final String DELETE_ATTR_CONSTR ="DELETE FROM `my_db`.`attrconstr` WHERE `constr_id`=?;";
 	
