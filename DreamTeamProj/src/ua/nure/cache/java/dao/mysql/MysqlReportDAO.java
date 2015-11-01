@@ -140,7 +140,7 @@ public class MysqlReportDAO implements ReportDAO {
 			if (pstmt.executeUpdate() != 1) {
 				return -1;
 			}
-			PreparedStatement pstmt1 = con.prepareStatement("Delete from reporttoobject where report_id =?");
+			PreparedStatement pstmt1 = con.prepareStatement("Delete from reporttoattr where report_id =?");
 			pstmt1.setInt(1, stat.getId());
 			pstmt1.executeUpdate();
 			result = stat.getId();
