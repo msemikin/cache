@@ -69,8 +69,7 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
 
     $scope.addObject = function(object) {
         var statistic = $scope.statistic;
-        var statisticObject = $.extend({}, object, {attrs: []});
-        statistic.objects.push(statisticObject);
+        statistic.objects.push(object);
         Statistic.update(statistic).then(function(response) {
             updateStatistics(statistic.id);
         });
