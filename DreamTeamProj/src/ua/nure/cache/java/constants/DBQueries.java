@@ -11,7 +11,7 @@ public class DBQueries {
 			+ "where project_id = ? ";
 
 	public static final String FIND_STATISTICS_PROJ = "SELECT statistic.statistic_id ,statistic.name, "
-			+ "object.objectName, attribute.attr_id,attribute.Name  "
+			+ "object.objectName, attribute.attr_id,attribute.Name, object.object_id  "
 			+ "from statistic "
 			+ "left JOIN stattoattr ON stattoattr.statistic_id = statistic.statistic_id  "
 			+ "left JOIN attribute ON stattoattr.attr_id = attribute.attr_id  "

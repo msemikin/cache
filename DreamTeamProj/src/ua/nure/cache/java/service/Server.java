@@ -823,7 +823,6 @@ public class Server implements IServer {
 		final File tempDirectory = (File) servletContext
 				.getAttribute("javax.servlet.context.tempdir");
 		final String temperotyFilePath = tempDirectory.getAbsolutePath();
-		System.out.println(useCase);
 		System.out.println(objectRelation);
 		System.out.println(er);
 		fm.createNewFile(useCase, temperotyFilePath+"/useCase.jpg");

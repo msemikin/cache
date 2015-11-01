@@ -210,7 +210,6 @@ public class Controller {
 	public static void routeIt(String url, HttpServletRequest request,
 			HttpServletResponse response) {
 		Method m = get(url);
-		System.out.println(url);
 		if (m == null) {
 			return;
 		}

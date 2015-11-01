@@ -53,7 +53,7 @@ public class Mapper {
 			objekt.setName(rs.getString(3));
 			attr.setId(rs.getInt(4));
 			attr.setName(rs.getString(5));
-
+			objekt.setId(rs.getInt(6));
 			if (statLst.contains(stat)) {
 				Statistic stItem = statLst.get(statLst.lastIndexOf(stat));
 				if (stItem.getObjects().contains(objekt)) {
