@@ -11,7 +11,7 @@ angular.module('db').controller("SettingsCtrl", function ($scope, $location, $ro
         $scope.tab = tabVal;
     }
     $scope.$on('$locationChangeSuccess',
-        function (event, newUrl, oldUrl) {
+        function () {
             if ($location.hash() == "projects") $scope.changeTab(2);
         });
 });
