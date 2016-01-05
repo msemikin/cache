@@ -1,0 +1,93 @@
+<div class="tile" ng-controller="AttributeConstraintsCtrl">
+    <div class="content-box">
+        <div class="content-header">
+            <div class="btn-group buttonsBar">
+                <button class="btn btn-default" ng-class="{ active: tab.name === 'attribute'}" ng-click="selectTab('attribute')"> Атрибуты </button>
+                <button class="btn btn-default" ng-class="{ active: tab.name === 'link'}" ng-click="selectTab('link')"> Связи </button>
+            </div>
+        </div>
+        <div class="box with-header">
+            <div class="col-xs-1 panel panel-default namePanel">
+                <div class="panel-heading ">
+                    <h3 class="panel-title h2">{{tab.listHeadText}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group objects-select">
+                        <a ng-repeat="c in tab.constraints" ng-class="{active: c.id == tab.constraint.id}" href="#" ng-click="selectConstraint(c)" class="list-group-item">{{c.name}}</a>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Название..." ng-model="tab.constraintName" ng-keypress="onKeypress($event)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="addConstraint()">+</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default detailsPanel">
+                <div class="panel-heading ">
+                    <h3 class="panel-title">{{tab.detailsHeadText}}</h3>
+                </div>
+                <div class="panel-body" ng-show="tab.constraint">
+                    <div class="form-group" ng-show="tab.name === 'attribute'">
+                        <div class="btn-group">
+                            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                {{tab.constraint.object.name ? tab.constraint.object.name : 'Выберите объект'}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" ng-repeat="object in objects" ng-click="selectObject(object)">{{object.name}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group" ng-show="tab.constraint.object">
+                            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                {{tab.constraint.object.attr.name ? tab.constraint.object.attr.name : 'Выберите атрибут'}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" ng-repeat="attr in getAttrs(tab.constraint.object)" ng-click="selectAttr(attr)">{{attr.name}}</a></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-default btn-small button-delete-constraint">
+                            <span class="badge">x</span>
+                        </button>
+                    </div>
+                    <div class="form-group" ng-show="tab.name === 'link'">
+                        <div class="btn-group">
+                            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                {{tab.constraint.firstObject ? tab.constraint.firstObject.name : 'Выберите объект'}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" ng-repeat="object in objects" ng-click="selectFirstObject(object)">{{object.name}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group" ng-show="tab.constraint.firstObject">
+                            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                {{tab.constraint.secondObject ? tab.constraint.secondObject.name : 'Выберите объект'}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" ng-repeat="object in objects" ng-click="selectSecondObject(object)">{{object.name}}</a></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-default btn-small button-delete-constraint">
+                            <span class="badge">x</span>
+                        </button>
+                    </div>
+                    <div class="constraint-content">
+                        <h5>Ограничение:</h5>
+                        <div class="constraint">
+                            <textarea class="constraint-text" maxlength="256" id="constrBox" cols=""
+                                    placeholder="{{tab.changingDescription ? 'Введите описание...' : 'Нет описания...'}}"
+                                    ng-disabled="!tab.changingDescription" rows="5" ng-model="tab.constraint.comment"></textarea>
+                            <button class="btn btn-default button-action-constraint" ng-hide="tab.changingDescription" ng-click="changeDescription()">Изменить</button>
+                            <button class="btn btn-default button-action-constraint" ng-show="tab.changingDescription" ng-click="saveDescription()">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

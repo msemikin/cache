@@ -5,3 +5,10 @@
 **/*.swo
 /DreamTeamProj/build/
 /DreamTeamProj/WebContent/META-INF/context.xml
+/DreamTeamProj/src/main/webapp/WEB-INF/classes
+/DreamTeamProj/target
+/.idea
+/DreamTeamProj/.settings
+node_modules
+bower_components
+static
