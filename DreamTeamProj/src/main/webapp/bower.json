@@ -32,5 +32,19 @@
     "spin.js": "~2.3.2",
     "jquery-file-download": "~1.4.4",
     "angular-bootstrap": "~0.14.3"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.css",
+        "less/bootstrap.less"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css"
+      ]
+    }
   }
 }

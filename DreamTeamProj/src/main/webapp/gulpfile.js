@@ -1,87 +1,115 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
-    jshint = require('gulp-jshint'),
     concat = require('gulp-concat'),
     clean = require('gulp-clean'),
+    ngAnnotate = require('gulp-ng-annotate'),
+    eslint = require('gulp-eslint'),
+    mainBowerFiles = require('main-bower-files'),
+    gulpFilter = require('gulp-filter'),
+    print = require('gulp-print'),
     wiredep = require('wiredep').stream,
-    ngAnnotate = require('gulp-ng-annotate');
-
-var embedlr = require('gulp-embedlr'),
-    refresh = require('gulp-livereload'),
-    lrserver = require('tiny-lr')(),
-    express = require('express'),
-    livereload = require('connect-livereload'),
+    inject = require('gulp-inject'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
+    browserSync = require('browser-sync'),
 
-    livereloadport = 35729,
-    serverport = 5000;
-
-var server = express();
-server.use(livereload({port: livereloadport}));
-server.use(express.static('./dist'));
-server.all('/*', function(req, res) {
-    res.sendfile('index.html', { root: 'dist' });
-});
-
-var distPath = '../WEB-INF/static';
+    serverport = 5000,
+    distPath = './WEB-INF/static';
 
 gulp.task('lint', function() {
     gulp.src('./app/scripts/**/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(eslint({
+            extends: 'eslint:recommended',
+            rules: {
+                'strict': [2, 'global']
+            },
+            globals: {
+                jQuery: false,
+                window: false,
+                angular: false,
+                '$': false,
+                '_': false,
+                canvg: false,
+                Ladda: false
+            },
+            envs: [
+                'browser'
+            ]
+        }))
+        .pipe(eslint.formatEach('compact', process.stderr));
+});
+
+gulp.task('vendor', function() {
+    var jsFilter = gulpFilter(['**/*.js'], {restore: true});
+    var stylesFilter = gulpFilter([ '**/*.css'], {restore: true});
+
+    gulp.src(mainBowerFiles())
+        .pipe(jsFilter)
+        .pipe(concat('vendor.js'))
+        .pipe(gulp.dest(distPath + '/js/'))
+        .pipe(jsFilter.restore)
+        .pipe(stylesFilter)
+        .pipe(print())
+        .pipe(concat('vendor.css'))
+        .pipe(gulp.dest(distPath + '/css'));
 });
 
 gulp.task('scripts', function() {
-    gulp.src(['app/scripts/app.js', 'app/scripts/**/*.js'])
+    gulp.src(['app/scripts/**/*.js'])
         .pipe(ngAnnotate())
-        .pipe(concat('bundle.js'))
-        .pipe(gulp.dest(distPath + '/js'))
-        .pipe(refresh(lrserver));
+        .pipe(gulp.dest(distPath + '/scripts'));
+    browserSync.reload();
+});
+
+gulp.task('copy-bower', function() {
+    gulp.src(['app/bower_components/**/*'])
+        .pipe(gulp.dest(distPath + '/bower_components'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'], [
-        'lint',
-        'scripts'
-    ]);
+    gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'], ['lint', 'scripts']);
+    gulp.watch('app/styles/**/*.scss', ['styles']);
+    gulp.watch(['app/**/*.html'], ['views']);
 });
 
-gulp.task('index', function() {
-    gulp.src('app/index.html')
-        .pipe(wiredep())
+gulp.task('inject', ['copy-bower'], function() {
+    var sources = gulp.src(['./app/scripts/**/*.js'], {relative: true});
+    gulp.src('./app/index.html')
+        .pipe(wiredep({
+            exclude: [/underscore/]
+        }))
+        .pipe(inject(sources, {ignorePath: 'app/', addRootSlash: false}))
         .pipe(gulp.dest(distPath + '/'));
+    browserSync.reload();
 });
 
-gulp.task('views', ['index'], function() {
-    gulp.src('app/views/**/*')
-        .pipe(gulp.dest(distPath + '/views/'))
-        .pipe(refresh(lrserver));
+gulp.task('views', ['inject'], function() {
+    gulp.src('app/**/*.html')
+        .pipe(gulp.dest(distPath + '/'));
+    browserSync.reload();
 });
 
-gulp.watch(['app/index.html', 'app/views/**/*.html'], ['views']);
 
-gulp.task('serve', function() {
-    // Start webserver
-    server.listen(serverport);
-    // Start live reload
-    lrserver.listen(livereloadport);
-    // Run the watch task, to keep taps on changes
+gulp.task('serve', ['styles', 'views',  'scripts', 'watch'], function() {
+    browserSync.init({
+        server: {
+            baseDir: distPath
+        }
+    });
 });
 
 // Styles task
 gulp.task('styles', function() {
     gulp.src('app/styles/*.scss')
-        // The onerror handler prevents Gulp from crashing when you make a mistake in your SASS
         .pipe(sass().on('error', sass.logError))
-        // Optionally add autoprefixer
         .pipe(autoprefixer("last 2 versions", "> 1%", "ie 8"))
-        // These last two should look familiar now :)
         .pipe(concat('main.css'))
         .pipe(gulp.dest(distPath + '/css/'))
-        .pipe(refresh(lrserver));
+        .pipe(browserSync.stream());
 });
 
-gulp.watch('app/styles/**/*.scss', ['styles']);
+gulp.task('clean', function() {
+    gulp.src(distPath + '/').pipe(clean());
+});
 
-gulp.task('develop', ['styles', 'scripts', 'views', 'lint', 'serve']);
+gulp.task('develop', ['serve'], function() {});

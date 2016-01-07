@@ -26,8 +26,8 @@ a:visited {
 .pure-menu-selected .pure-menu-link,
 .pure-menu-selected .pure-menu-link:visited {
     text-decoration: none;
-    !important color: cadetblue;
-    !important font-weight: 700;
+    color: cadetblue !important ;
+    font-weight: 700 !important;
 }
 
 .header,

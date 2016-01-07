@@ -2,7 +2,6 @@
 <html ng-app="db" lang="en">
 
 <head>
-    <base href="/DreamTeamProj/">
     <meta charset="utf-8">
     <meta lang="ru">
     <meta name="description" content="A tool for studying DataBases.">
@@ -19,13 +18,14 @@
     <div id="background">
         <div ng-include="'templates/nav.html'" class="header"></div>
         <div id="main" class="main" ui-view></div>
-        <div ng-include="'templates/footer.html" id="footer" class="footer"></div>
+        <div ng-include="'templates/footer.html'" id="footer" class="footer"></div>
     </div>
-
-    <script type="javascript" src="js/bundle.js"></script>
 
     <!-- bower:js -->
     <!-- endbower -->
+
+    <!-- inject:js -->
+    <!-- endinject -->
 </body>
 
 </html>
