@@ -12,6 +12,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync'),
+    modRewrite = require('connect-modrewrite'),
 
     serverport = 5000,
     distPath = './WEB-INF/static';
@@ -58,7 +59,6 @@ gulp.task('scripts', function() {
     gulp.src(['app/scripts/**/*.js'])
         .pipe(ngAnnotate())
         .pipe(gulp.dest(distPath + '/scripts'));
-    browserSync.reload();
 });
 
 gulp.task('copy-bower', function() {
@@ -67,7 +67,7 @@ gulp.task('copy-bower', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'], ['lint', 'scripts']);
+    gulp.watch(['app/scripts/**/*.js'], ['lint', 'scripts']);
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch(['app/**/*.html'], ['views']);
 });
@@ -80,7 +80,6 @@ gulp.task('inject', ['copy-bower'], function() {
         }))
         .pipe(inject(sources, {ignorePath: 'app/', addRootSlash: false}))
         .pipe(gulp.dest(distPath + '/'));
-    browserSync.reload();
 });
 
 gulp.task('views', ['inject'], function() {
@@ -93,9 +92,17 @@ gulp.task('views', ['inject'], function() {
 gulp.task('serve', ['styles', 'views',  'scripts', 'watch'], function() {
     browserSync.init({
         server: {
-            baseDir: distPath
+            baseDir: distPath,
+            middleware: [
+                modRewrite([
+                    '!\\.\\w+$ /index.html [L]'
+                ])
+            ]
         }
     });
+
+    gulp.watch(distPath + '/**/*.js').on('change', browserSync.reload);
+    gulp.watch(distPath + '/**/*.html').on('change', browserSync.reload);
 });
 
 // Styles task

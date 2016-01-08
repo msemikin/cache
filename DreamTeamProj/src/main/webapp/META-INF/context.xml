@@ -1,7 +1,7 @@
 <Context>
   <Resource
   global="jdbc/my_db"
-   name="jdbc/my_db"
+   fullname="jdbc/my_db"
   			auth="Container" 
   			type="javax.sql.DataSource"
 			maxActive="100" maxIdle="30" maxWait="10000"

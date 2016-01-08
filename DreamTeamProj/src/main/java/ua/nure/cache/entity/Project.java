@@ -1,47 +1,70 @@
 package ua.nure.cache.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table(name = "project")
 public class Project {
 
-	private int projectId;
-	
-	private List<Objekt> objects = new ArrayList<Objekt>();
-	
-	private List<Report> reports = new ArrayList<Report>();
-	
-	private Diagram diagram;
+	@Id
+	@Column(name = "project_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	private int id;
 
-	public int getProjectId() {
-		return projectId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "owner_id")
+	private User owner;
+
+	@Column(name = "title")
+	private String title;
+
+	@Column(name = "is_ready")
+	private boolean isReady;
+
+	@Column(name = "is_sent")
+	private boolean isSent;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public List<Objekt> getObjects() {
-		return objects;
+	public User getOwner() {
+		return owner;
 	}
 
-	public void setObjects(List<Objekt> objects) {
-		this.objects = objects;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
-	public List<Report> getReports() {
-		return reports;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public Diagram getDiagram() {
-		return diagram;
+	public boolean isReady() {
+		return isReady;
 	}
 
-	public void setDiagram(Diagram diagram) {
-		this.diagram = diagram;
+	public void setReady(boolean ready) {
+		isReady = ready;
+	}
+
+	public boolean isSent() {
+		return isSent;
+	}
+
+	public void setSent(boolean sent) {
+		isSent = sent;
 	}
 }

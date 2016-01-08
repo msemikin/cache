@@ -1,14 +1,32 @@
 package ua.nure.cache.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "diagram")
 public class Diagram {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "diagram_id")
 	private int id;
-	
+
+	@Column(name = "diagram")
 	private String diagram;
-	
-	private String diagramType;
-	
+
+	@Column(name = "type")
+	private String type;
+
+	@Column(name = "project_id")
 	private int projectId;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getDiagram() {
 		return diagram;
@@ -18,12 +36,12 @@ public class Diagram {
 		this.diagram = diagram;
 	}
 
-	public String getDiagramType() {
-		return diagramType;
+	public String getType() {
+		return type;
 	}
 
-	public void setDiagramType(String diagramType) {
-		this.diagramType = diagramType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public int getProjectId() {
@@ -32,13 +50,5 @@ public class Diagram {
 
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 }

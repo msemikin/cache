@@ -3,9 +3,9 @@ package ua.nure.cache.entity;
 public class Link {
 	private int linkId;
 	
-	private Objekt firstObjName = new Objekt();
+	private Element firstObjName = new Element();
 	
-	private Objekt seondObjName = new Objekt();
+	private Element seondObjName = new Element();
 	
 	private String linkType;
 	
@@ -21,19 +21,19 @@ public class Link {
 		this.linkId = linkId;
 	}
 
-	public Objekt getFirstObjName() {
+	public Element getFirstObjName() {
 		return firstObjName;
 	}
 
-	public void setFirstObjName(Objekt firstObjName) {
+	public void setFirstObjName(Element firstObjName) {
 		this.firstObjName = firstObjName;
 	}
 
-	public Objekt getSeondObjName() {
+	public Element getSeondObjName() {
 		return seondObjName;
 	}
 
-	public void setSeondObjName(Objekt seondObjName) {
+	public void setSeondObjName(Element seondObjName) {
 		this.seondObjName = seondObjName;
 	}
 
@@ -60,6 +60,7 @@ public class Link {
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
+
 	public String returnDesr() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("для связи объекта \"");

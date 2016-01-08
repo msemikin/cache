@@ -1,28 +1,31 @@
 package ua.nure.cache.entity;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table
 public class Report {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	@Column(name = "name")
 	private String name;
-	
+
+	@Column(name = "projectId")
 	private int projectId;
-	
-	private List<Objekt> objects = new ArrayList<Objekt>();
-	
-	@Override
-	public boolean equals(Object obj) {
-		Report stat = (Report)obj;
-		if (stat.getId() == this.id) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "reporttoattr", joinColumns = {
+			@JoinColumn(name = "report_id", nullable = false, updatable = false) },
+			inverseJoinColumns = {
+					@JoinColumn(name = "attr_id", nullable = false, updatable = false)
+			})
+	private Set<Element> elements = new HashSet<>();
 
 	public int getId() {
 		return id;
@@ -40,27 +43,30 @@ public class Report {
 		this.name = name;
 	}
 
-	public List<Objekt> getObjects() {
-		return objects;
-	}
-
-	public void setObjects(List<Objekt> objects) {
-		this.objects = objects;
-		if (projectId != 0) {
-			for (Objekt o : this.getObjects()) {
-				o.setProjectId(projectId);
-			}
-		}
-	}
-
 	public int getProjectId() {
 		return projectId;
 	}
 
 	public void setProjectId(int projectId) {
-		for (Objekt o : this.getObjects()) {
-			o.setProjectId(projectId);
-		}
 		this.projectId = projectId;
+	}
+
+	public Set<Element> getElements() {
+		return elements;
+	}
+
+	public void setElements(Set<Element> elements) {
+		this.elements = elements;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Report stat = (Report)obj;
+		if (stat.getId() == this.id) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

@@ -1,26 +1,30 @@
 package ua.nure.cache.entity;
 
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+
+@Entity
+@Table(name = "actor")
 public class Actor {
-	private int actorId;
-	
-	private String actorName;
-	
+
+	@Id
+	@Column(name = "actor_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "project_id")
 	private int projectId;
 
-	public int getActorId() {
-		return actorId;
+	public String getName() {
+		return name;
 	}
 
-	public void setActorId(int actorId) {
-		this.actorId = actorId;
-	}
-
-	public String getActorName() {
-		return actorName;
-	}
-
-	public void setActorName(String actorName) {
-		this.actorName = actorName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getProjectId() {
@@ -30,5 +34,12 @@ public class Actor {
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

@@ -1,41 +1,54 @@
-<div ng-controller="RegisterCtrl">
-    <div id="login-header">
-        <h1 class="text-center">Cache</h1><hr/>
-        <h4 class="text-center">Register</h4><hr/>
-    </div>
-    <div class="front panel">
-        <form action="" id="login_form" method="post">
-            <div class="form-group">
-                <label class="control-label" for="email">Имя:</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                    <input name="name" type="text" id="name" class="form-control" value="" autofocus="autofocus" tabindex="1" placeholder="Имя" />
+<div id="login" ng-controller="RegisterCtrl">
+    <div id="login-panel">
+        <div id="login-header">
+            <h1 class="text-center">Cache</h1>
+            <hr/>
+            <h4 class="text-center">Register</h4>
+            <hr/>
+        </div>
+        <div class="front panel">
+            <form action="" id="login_form" method="post">
+                <div class="form-group">
+                    <label class="control-label" for="email">Имя:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                        <input fullname="fullname" type="text" id="fullname" class="form-control"
+                               autofocus="autofocus" tabindex="1" placeholder="Имя"
+                               ng-model="data.fullname"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="email">Адрес E-mail:</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                    <input name="email" type="text" id="email" class="form-control" value="" autofocus="autofocus" tabindex="1" placeholder="test@example.com" />
+                <div class="form-group">
+                    <label class="control-label" for="email">Адрес E-mail:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                        <input name="email" type="text" id="email" class="form-control" value=""
+                               autofocus="autofocus" tabindex="1" placeholder="test@example.com"
+                               ng-model="data.email"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="passwd">
-                    Пароль:
-                </label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                    <input name="passwd" type="password" id="passwd" class="form-control" value="" tabindex="2" placeholder="Пароль" />
+                <div class="form-group">
+                    <label class="control-label" for="password">
+                        Пароль:
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                        <input name="password" type="password" id="password" class="form-control" tabindex="2"
+                               ng-model="data.password" placeholder="Пароль"/>
+                    </div>
                 </div>
-            </div>
-            <div class="panel-footer bord-trans">
-                <button name="submitLogin" type="submit" tabindex="4" class="btn btn-default btn-lg btn-block ladda-button" data-style="slide-up" data-spinner-color="black">
+                <div class="panel-footer bord-trans">
+                    <button fullname="submitLogin" type="submit" tabindex="4"
+                            class="btn btn-default btn-lg btn-block ladda-button" data-style="slide-up"
+                            data-spinner-color="black">
                     <span class="ladda-label">
                         <i class="icon-check text-success"></i>
                         Войти
                     </span>
-                </button>
-            </div>
-        </form>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

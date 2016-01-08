@@ -1,13 +1,23 @@
 package ua.nure.cache.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "attribute")
 public class Attribute {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	@Column(name = "name")
 	private String name;
-	
-	private int objectId;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "element_id")
+	private Element element;
+
+	@Column(name = "project_id")
 	private int projectId;
 
 	public int getId() {
@@ -26,12 +36,12 @@ public class Attribute {
 		this.name = name;
 	}
 
-	public int getObjectId() {
-		return objectId;
+	public Element getElement() {
+		return element;
 	}
 
-	public void setObjectId(int objectId) {
-		this.objectId = objectId;
+	public void setElement(Element element) {
+		this.element = element;
 	}
 
 	public int getProjectId() {

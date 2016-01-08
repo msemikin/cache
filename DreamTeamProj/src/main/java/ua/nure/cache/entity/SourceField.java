@@ -1,44 +1,64 @@
 package ua.nure.cache.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "sourcefield")
 public class SourceField {
-		
-		private int fieldId;
-		
-		private String variable;
-		
-		private AddObj object;
-		
-		@Override
-		public boolean equals(Object obj) {
-			SourceField o = (SourceField) obj;
-			if (o.getVariable().equals(this.getVariable())) {
-				return true;
-			}
-			return false;
-		}
 
-		public String getVariable() {
-			return variable;
-		}
+    @Id
+    @Column(name = "field_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int fieldId;
 
-		public void setVariable(String variable) {
-			this.variable = variable;
-		}
+    @Column(name = "name")
+    private String variable;
 
-		public AddObj getObject() {
-			return object;
-		}
+    @JoinColumn(name = "attr_id")
+    private Attribute attribute;
 
-		public void setObject(AddObj object) {
-			this.object = object;
-		}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dep_id")
+    private AlgDep algDep;
 
-		public int getFiledId() {
-			return fieldId;
-		}
+    public int getFieldId() {
+        return fieldId;
+    }
 
-		public void setFiledId(int filedId) {
-			this.fieldId = filedId;
-		}
-		
+    public void setFieldId(int fieldId) {
+        this.fieldId = fieldId;
+    }
+
+    public String getVariable() {
+        return variable;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+    }
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
+
+    public AlgDep getAlgDep() {
+        return algDep;
+    }
+
+    public void setAlgDep(AlgDep algDep) {
+        this.algDep = algDep;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        SourceField o = (SourceField) obj;
+        if (o.getVariable().equals(this.getVariable())) {
+            return true;
+        }
+        return false;
+    }
 }

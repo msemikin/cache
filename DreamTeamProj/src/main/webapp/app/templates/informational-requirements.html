@@ -2,9 +2,9 @@
     <div class="content-box">
         <div class="content-header">
             <div class="btn-group buttonsBar">
-                <button class="btn btn-default" ng-class="{ active: tab.name === 'search'}" ng-click="selectTab('search')"> Поиск </button>
-                <button class="btn btn-default" ng-class="{ active: tab.name === 'sort'}" ng-click="selectTab('sort')"> Сортировкa </button>
-                <button class="btn btn-default" ng-class="{ active: tab.name === 'filter'}" ng-click="selectTab('filter')"> Фильтрация </button>
+                <button class="btn btn-default" ng-class="{ active: tab.fullname === 'search'}" ng-click="selectTab('search')"> Поиск </button>
+                <button class="btn btn-default" ng-class="{ active: tab.fullname === 'sort'}" ng-click="selectTab('sort')"> Сортировкa </button>
+                <button class="btn btn-default" ng-class="{ active: tab.fullname === 'filter'}" ng-click="selectTab('filter')"> Фильтрация </button>
             </div>
         </div>
         <div class="box with-header">
@@ -13,8 +13,8 @@
                     <h3 class="panel-title h2">{{tab.objectHeadText}}</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="list-group objects-select">
-                        <a ng-repeat="r in tab.requirements" ng-class="{active: r.id == tab.requirement.id}" href="#" ng-click="selectRequirement(r)" class="list-group-item">{{r.object.name}}</a>
+                    <div class="list-group elements-select">
+                        <a ng-repeat="r in tab.requirements" ng-class="{active: r.id == tab.requirement.id}" href="#" ng-click="selectRequirement(r)" class="list-group-item">{{r.object.fullname}}</a>
                     </div>
                 </div>
                 <div class="panel-footer" ng-show="availableObjects.length">
@@ -25,7 +25,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="obj in availableObjects"><a ng-click="addRequirement(obj)" role="menuitem" tabindex="-1" href="#">{{obj.name}}</a></li>
+                                <li role="presentation" ng-repeat="obj in availableObjects"><a ng-click="addRequirement(obj)" role="menuitem" tabindex="-1" href="#">{{obj.fullname}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                 <div class="panel-body" ng-show="tab.requirement">
                     <ul class="list-group">
                         <li ng-repeat="attr in tab.requirement.object.attrs" class="list-group-item">
-                            {{attr.name}}
+                            {{attr.fullname}}
                             <span ng-click="removeAttr(attr)" class="badge">x</span>
                         </li>
                     </ul>
@@ -49,7 +49,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation" ng-repeat="attr in availableAttrs"><a role="menuitem" ng-click="addAttr(attr)" tabindex="-1" href="#">{{attr.name}}</a></li>
+                                <li role="presentation" ng-repeat="attr in availableAttrs"><a role="menuitem" ng-click="addAttr(attr)" tabindex="-1" href="#">{{attr.fullname}}</a></li>
                             </ul>
                         </div>
                     </div>

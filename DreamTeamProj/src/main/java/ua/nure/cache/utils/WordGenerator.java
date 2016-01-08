@@ -16,19 +16,10 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import ua.nure.cache.dao.mysql.MysqlIntegrConstrDAO;
-import ua.nure.cache.dao.mysql.MysqlProjectDAO;
-import ua.nure.cache.entity.Actor;
-import ua.nure.cache.entity.AlgDeps;
-import ua.nure.cache.entity.Attribute;
-import ua.nure.cache.entity.Constraint;
-import ua.nure.cache.entity.Link;
-import ua.nure.cache.entity.LinkConstr;
-import ua.nure.cache.entity.Objekt;
-import ua.nure.cache.entity.Report;
-import ua.nure.cache.entity.SourceField;
-import ua.nure.cache.entity.SrchFltSrt;
-import ua.nure.cache.entity.Statistic;
+import ua.nure.cache.dao.legacy.mysql.MysqlIntegrConstrDAO;
+import ua.nure.cache.dao.legacy.mysql.MysqlProjectDAO;
+import ua.nure.cache.entity.*;
+import ua.nure.cache.entity.AlgDep;
 
 public class WordGenerator {
 
@@ -100,7 +91,7 @@ public class WordGenerator {
 				Arrays.asList("", "В предметной области для работы необходимы ряд документов, например: "));
 		insertReport();
 
-		// AlgDeps
+		// AlgDep
 		createJustifyiedList(Arrays.asList("",
 				"При представлении информации пользователю некоторые порции "
 						+ "информации требуют математической (или алгоритмической) обработки. "
@@ -243,23 +234,23 @@ public class WordGenerator {
 		run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile, Units.toEMU(424), Units.toEMU(236));
 	}
 
-	private List<Objekt> getObj() {
+	private List<Element> getObj() {
 		return new MysqlProjectDAO().findProcectObj(projectId);
 	}
 
 	private List<String> getObjektNames() {
-		List<Objekt> objs = getObj();
+		List<Element> objs = getObj();
 		List<String> names = new ArrayList<String>();
-		for (Objekt obj : objs) {
+		for (Element obj : objs) {
 			names.add(obj.getName());
 		}
 		return names;
 	}
 
 	private void insertObjWithAttr(XWPFDocument document) {
-		List<Objekt> objs = getObj();
+		List<Element> objs = getObj();
 		List<String> names = new ArrayList<String>();
-		for (Objekt obj : objs) {
+		for (Element obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getName());
@@ -274,14 +265,14 @@ public class WordGenerator {
 		createJustifyiedList(names);
 	}
 
-	private List<LinkConstr> getLinkConstrs() {
+	private List<LinkConstraint> getLinkConstrs() {
 		return new MysqlIntegrConstrDAO().getLinkConstraint(projectId);
 	}
 
 	private void insertIntegrConstr() {
-		List<LinkConstr> objs = getLinkConstrs();
+		List<LinkConstraint> objs = getLinkConstrs();
 		List<String> names = new ArrayList<String>();
-		for (LinkConstr obj : objs) {
+		for (LinkConstraint obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("—Между \"");
 			sb.append(obj.getFirstObject().getName());
@@ -295,22 +286,22 @@ public class WordGenerator {
 		createJustifyiedList(names);
 	}
 
-	private List<SrchFltSrt> getSorts() {
+	private List<InformationalRequirement> getSorts() {
 		return new MysqlProjectDAO().findSorts(projectId);
 	}
 
-	private List<SrchFltSrt> getSearches() {
+	private List<InformationalRequirement> getSearches() {
 		return new MysqlProjectDAO().findSearches(projectId);
 	}
 
-	private List<SrchFltSrt> getFilters() {
+	private List<InformationalRequirement> getFilters() {
 		return new MysqlProjectDAO().findFilters(projectId);
 	}
 
 	private void insertSorts() {
-		List<SrchFltSrt> objs = getSorts();
+		List<InformationalRequirement> objs = getSorts();
 		List<String> names = new ArrayList<String>();
-		for (SrchFltSrt obj : objs) {
+		for (InformationalRequirement obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getObject().getName());
@@ -326,9 +317,9 @@ public class WordGenerator {
 	}
 
 	private void insertSearches() {
-		List<SrchFltSrt> objs = getSearches();
+		List<InformationalRequirement> objs = getSearches();
 		List<String> names = new ArrayList<String>();
-		for (SrchFltSrt obj : objs) {
+		for (InformationalRequirement obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getObject().getName());
@@ -344,9 +335,9 @@ public class WordGenerator {
 	}
 
 	private void insertFilters() {
-		List<SrchFltSrt> objs = getFilters();
+		List<InformationalRequirement> objs = getFilters();
 		List<String> names = new ArrayList<String>();
-		for (SrchFltSrt obj : objs) {
+		for (InformationalRequirement obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getObject().getName());
@@ -373,7 +364,7 @@ public class WordGenerator {
 			sb.append("Статистика \"");
 			sb.append(obj.getName());
 			sb.append("\", которая содержит следующую информацию: ");
-			for (Objekt o : obj.getObjects()) {
+			for (Element o : obj.getObjects()) {
 				sb.append("атрибуты: ");
 				for (Attribute a : o.getAttrs()) {
 					sb.append("\"");
@@ -401,7 +392,7 @@ public class WordGenerator {
 			sb.append("Документ \"");
 			sb.append(obj.getName());
 			sb.append("\", который содержит следующую информацию: ");
-			for (Objekt o : obj.getObjects()) {
+			for (Element o : obj.getElements()) {
 				sb.append("атрибуты: ");
 				for (Attribute a : o.getAttrs()) {
 					sb.append("\"");
@@ -417,14 +408,14 @@ public class WordGenerator {
 		createHyphenatedList(names);
 	}
 
-	private List<AlgDeps> getAlgDeps() {
+	private List<AlgDep> getAlgDeps() {
 		return new MysqlProjectDAO().findAlgDeps(projectId);
 	}
 
 	private void insertAlgDeps() {
-		List<AlgDeps> objs = getAlgDeps();
+		List<AlgDep> objs = getAlgDeps();
 		List<String> names = new ArrayList<String>();
-		for (AlgDeps obj : objs) {
+		for (AlgDep obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Атрибут \"");
 			sb.append(obj.getResultField().getAttr().getName());
@@ -475,10 +466,10 @@ public class WordGenerator {
 	}
 
 	private void getAlgDepsNames() {
-		List<AlgDeps> objs = getAlgDeps();
+		List<AlgDep> objs = getAlgDeps();
 		StringBuilder sb = new StringBuilder();
 		sb.append("система должна поддерживать арифметическую обработку данных в виде вычислений полей: ");
-		for (AlgDeps obj : objs) {
+		for (AlgDep obj : objs) {
 			sb.append(" \"");
 			sb.append(obj.getName());
 			sb.append("\" ");
@@ -523,7 +514,7 @@ public class WordGenerator {
 		List<Actor> actors = new MysqlProjectDAO().findActors(projectId);
 		List<String> names = new ArrayList<String>();
 		for (Actor link : actors) {
-			names.add(link.getActorName());
+			names.add(link.getName());
 		}
 		createHyphenatedList(names);
 	}

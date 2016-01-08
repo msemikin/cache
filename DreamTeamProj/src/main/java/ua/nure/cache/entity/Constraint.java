@@ -1,30 +1,33 @@
 package ua.nure.cache.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Constraint {
-	private int projectId;
-	
+
+	@Id
+	@Column(name = "constr_id")
 	private int id;
-	
-	private AddObj object;
-	
-	private String comment = new String();
-	
-	private String name = new String();
 
-	public AddObj getObject() {
-		return object;
+	@Column(name = "project_id")
+	private int projectId;
+
+	@JoinColumn(name = "attr_id")
+	private Attribute object;
+
+	@Column(name = "comment")
+	private String comment;
+
+	@Column(name = "name")
+	private String name;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setObject(AddObj object) {
-		this.object = object;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getProjectId() {
@@ -35,12 +38,20 @@ public class Constraint {
 		this.projectId = projectId;
 	}
 
-	public int getId() {
-		return id;
+	public Attribute getObject() {
+		return object;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setObject(Attribute object) {
+		this.object = object;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public String getName() {

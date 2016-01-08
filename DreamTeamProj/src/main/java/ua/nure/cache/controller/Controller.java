@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ua.nure.cache.constants.DiagrTypes;
-import ua.nure.cache.service.Server;
+import ua.nure.cache.service.legacy.Server;
 
 public class Controller {
 	private static Logger log = Logger.getLogger(Controller.class);

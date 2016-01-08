@@ -5,15 +5,18 @@
   <artifactId>dbproj</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>dbproj Maven Webapp</name>
+  <fullname>dbproj Maven Webapp</fullname>
   <url>http://maven.apache.org</url>
 
   <properties>
       <jdk.version>1.8</jdk.version>
       <spring.version>4.2.4.RELEASE</spring.version>
+      <spring.security.version>4.0.3.RELEASE</spring.security.version>
       <junit.version>4.11</junit.version>
       <poi.version>3.13</poi.version>
       <tomcat.version>8.0.0-RC1</tomcat.version>
+      <hibernate.version>5.0.6.Final</hibernate.version>
+      <joda-time.version>2.9.1</joda-time.version>
   </properties>
 
   <dependencies>
@@ -47,6 +50,42 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+
+    <!-- Spring Security -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+          <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+          <version>${spring.security.version}</version>
+      </dependency>
+
+    <!-- Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
     </dependency>
 
     <dependency>
@@ -116,6 +155,20 @@
       <artifactId>tomcat-util</artifactId>
       <version>${tomcat.version}</version>
         <scope>provided</scope>
+    </dependency>
+
+    <!-- Joda-Time -->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${joda-time.version}</version>
+    </dependency>
+
+    <!-- To map JodaTime with database type -->
+    <dependency>
+      <groupId>org.jadira.usertype</groupId>
+      <artifactId>usertype.core</artifactId>
+      <version>5.0.0.GA</version>
     </dependency>
 
   </dependencies>

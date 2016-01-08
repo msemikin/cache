@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta lang="ru">
-    <meta name="description" content="A tool for studying DataBases.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta fullname="description" content="A tool for studying DataBases.">
+    <meta fullname="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document &ndash; Student project &ndash; DataBases</title>
 
     <link rel="stylesheet" href="css/main.css" />
@@ -14,11 +14,10 @@
     <!-- endbower -->
 </head>
 
-<body ng-controller="DashboardCtrl" data-ng-init="init()" ng-click="hideAttrs();">
+<body ng-controller="AppCtrl">
     <div id="background">
-        <div ng-include="'templates/nav.html'" class="header"></div>
+        <div ng-include="'templates/header.html'" class="header"></div>
         <div id="main" class="main" ui-view></div>
-        <div ng-include="'templates/footer.html'" id="footer" class="footer"></div>
     </div>
 
     <!-- bower:js -->
