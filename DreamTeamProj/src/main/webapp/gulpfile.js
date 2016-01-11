@@ -1,25 +1,15 @@
 var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    concat = require('gulp-concat'),
-    clean = require('gulp-clean'),
-    ngAnnotate = require('gulp-ng-annotate'),
-    eslint = require('gulp-eslint'),
+    plugins = require('gulp-load-plugins')(),
     mainBowerFiles = require('main-bower-files'),
-    gulpFilter = require('gulp-filter'),
-    print = require('gulp-print'),
     wiredep = require('wiredep').stream,
-    inject = require('gulp-inject'),
-    sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync'),
     modRewrite = require('connect-modrewrite'),
 
-    serverport = 5000,
     distPath = './WEB-INF/static';
 
 gulp.task('lint', function() {
     gulp.src('./app/scripts/**/*.js')
-        .pipe(eslint({
+        .pipe(plugins.eslint({
             extends: 'eslint:recommended',
             rules: {
                 'strict': [2, 'global']
@@ -37,12 +27,12 @@ gulp.task('lint', function() {
                 'browser'
             ]
         }))
-        .pipe(eslint.formatEach('compact', process.stderr));
+        .pipe(plugins.eslint.formatEach('compact', process.stderr));
 });
 
 gulp.task('vendor', function() {
-    var jsFilter = gulpFilter(['**/*.js'], {restore: true});
-    var stylesFilter = gulpFilter([ '**/*.css'], {restore: true});
+    var jsFilter = plugins.filter(['**/*.js'], {restore: true});
+    var stylesFilter = plugins.filter([ '**/*.css'], {restore: true});
 
     gulp.src(mainBowerFiles())
         .pipe(jsFilter)
@@ -50,14 +40,14 @@ gulp.task('vendor', function() {
         .pipe(gulp.dest(distPath + '/js/'))
         .pipe(jsFilter.restore)
         .pipe(stylesFilter)
-        .pipe(print())
-        .pipe(concat('vendor.css'))
+        .pipe(plugins.print())
+        .pipe(plugins.concat('vendor.css'))
         .pipe(gulp.dest(distPath + '/css'));
 });
 
 gulp.task('scripts', function() {
-    gulp.src(['app/scripts/**/*.js'])
-        .pipe(ngAnnotate())
+    return gulp.src(['app/scripts/**/*.js'])
+        .pipe(plugins.ngAnnotate())
         .pipe(gulp.dest(distPath + '/scripts'));
 });
 
@@ -67,10 +57,13 @@ gulp.task('copy-bower', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['app/scripts/**/*.js'], ['lint', 'scripts']);
+    gulp.watch(['app/scripts/**/*.js'], ['js-watch']);
     gulp.watch('app/styles/**/*.scss', ['styles']);
-    gulp.watch(['app/**/*.html'], ['views']);
+    gulp.watch(['app/**/*.html'], ['html-watch']);
 });
+
+gulp.task('js-watch', ['lint', 'scripts'], browserSync.reload);
+gulp.task('html-watch', ['views'], browserSync.reload);
 
 gulp.task('inject', ['copy-bower'], function() {
     var sources = gulp.src(['./app/scripts/**/*.js'], {relative: true});
@@ -78,14 +71,13 @@ gulp.task('inject', ['copy-bower'], function() {
         .pipe(wiredep({
             exclude: [/underscore/]
         }))
-        .pipe(inject(sources, {ignorePath: 'app/', addRootSlash: false}))
+        .pipe(plugins.inject(sources, {ignorePath: 'app/', addRootSlash: false}))
         .pipe(gulp.dest(distPath + '/'));
 });
 
 gulp.task('views', ['inject'], function() {
-    gulp.src('app/**/*.html')
+    return gulp.src('app/**/*.html')
         .pipe(gulp.dest(distPath + '/'));
-    browserSync.reload();
 });
 
 
@@ -100,17 +92,14 @@ gulp.task('serve', ['styles', 'views',  'scripts', 'watch'], function() {
             ]
         }
     });
-
-    gulp.watch(distPath + '/**/*.js').on('change', browserSync.reload);
-    gulp.watch(distPath + '/**/*.html').on('change', browserSync.reload);
 });
 
 // Styles task
 gulp.task('styles', function() {
     gulp.src('app/styles/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer("last 2 versions", "> 1%", "ie 8"))
-        .pipe(concat('main.css'))
+        .pipe(plugins.sass().on('error', plugins.sass.logError))
+        .pipe(plugins.autoprefixer("last 2 versions", "> 1%", "ie 8"))
+        .pipe(plugins.concat('main.css'))
         .pipe(gulp.dest(distPath + '/css/'))
         .pipe(browserSync.stream());
 });
