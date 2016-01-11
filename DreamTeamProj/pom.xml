@@ -5,7 +5,7 @@
   <artifactId>dbproj</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <fullname>dbproj Maven Webapp</fullname>
+  <name>dbproj Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
   <properties>

@@ -1,5 +1,11 @@
 package ua.nure.cache.utils;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.util.Units;
+import org.apache.poi.xwpf.usermodel.*;
+import ua.nure.cache.dao.DAOFactory;
+import ua.nure.cache.entity.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,28 +13,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.util.Units;
-import org.apache.poi.xwpf.usermodel.BreakType;
-import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-
-import ua.nure.cache.dao.legacy.mysql.MysqlIntegrConstrDAO;
-import ua.nure.cache.dao.legacy.mysql.MysqlProjectDAO;
-import ua.nure.cache.entity.*;
-import ua.nure.cache.entity.AlgDep;
+import java.util.stream.Collectors;
 
 public class WordGenerator {
 
-	private int projectId = 0;
-
 	private XWPFDocument document;
-	
-	public synchronized void generateDoc(int projectId, String canonicalName) throws IOException, InvalidFormatException {
-		this.projectId = projectId;
+	private final DAOFactory daoFactory;
+	private final Project project;
+
+	public WordGenerator(DAOFactory daoFactory, Project project) {
+		this.daoFactory = daoFactory;
+		this.project = project;
+	}
+
+
+	public synchronized void generateDoc(final String canonicalName) throws IOException, InvalidFormatException {
 		document = new XWPFDocument();
 		FileOutputStream out = new FileOutputStream(new File("report.docx"));
 		generateTitle("1 АНАЛИЗ И КОНЦЕПТАЛЬНОЕ МОДЕЛИРОВАНИЕ ПРЕДМЕТНОЙ ОБЛАСТИ");
@@ -61,7 +60,7 @@ public class WordGenerator {
 		createJustifyiedList(Arrays.asList("", "<здесь могут быть более развернутые пояснения по диаграмме>", "",
 				"Проведем описание объектов предметной области и связей между ними. Основными объектами предметной области являются:"));
 		// Objects
-		createHyphenatedList(getObjektNames());
+		createHyphenatedList(getElementNames());
 		// Objects avec attributes
 		insertObjWithAttr(document);
 
@@ -89,7 +88,7 @@ public class WordGenerator {
 		// Отчет
 		createJustifyiedList(
 				Arrays.asList("", "В предметной области для работы необходимы ряд документов, например: "));
-		insertReport();
+		insertReports();
 
 		// AlgDep
 		createJustifyiedList(Arrays.asList("",
@@ -234,22 +233,17 @@ public class WordGenerator {
 		run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile, Units.toEMU(424), Units.toEMU(236));
 	}
 
-	private List<Element> getObj() {
-		return new MysqlProjectDAO().findProcectObj(projectId);
-	}
-
-	private List<String> getObjektNames() {
-		List<Element> objs = getObj();
-		List<String> names = new ArrayList<String>();
-		for (Element obj : objs) {
-			names.add(obj.getName());
-		}
-		return names;
+	private List<String> getElementNames() {
+		return daoFactory.getElementDAO()
+				.getByProject(this.project.getId())
+				.stream().map(Element::getName)
+				.collect(Collectors.toList());
 	}
 
 	private void insertObjWithAttr(XWPFDocument document) {
-		List<Element> objs = getObj();
-		List<String> names = new ArrayList<String>();
+		List<Element> objs = daoFactory.getElementDAO()
+				.getByProject(this.project.getId());
+		List<String> names = new ArrayList<>();
 		for (Element obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
@@ -266,18 +260,19 @@ public class WordGenerator {
 	}
 
 	private List<LinkConstraint> getLinkConstrs() {
-		return new MysqlIntegrConstrDAO().getLinkConstraint(projectId);
+		return this.daoFactory.getProjectDependentDAO(LinkConstraint.class)
+				.getByProject(this.project.getId());
 	}
 
 	private void insertIntegrConstr() {
 		List<LinkConstraint> objs = getLinkConstrs();
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (LinkConstraint obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("—Между \"");
-			sb.append(obj.getFirstObject().getName());
+			sb.append(obj.getFirstElement().getName());
 			sb.append("\" и \"");
-			sb.append(obj.getSecondObj().getName());
+			sb.append(obj.getSecondElement().getName());
 			sb.append("\" связь \"");
 			sb.append(obj.getComment());
 			sb.append("\" ");
@@ -287,26 +282,29 @@ public class WordGenerator {
 	}
 
 	private List<InformationalRequirement> getSorts() {
-		return new MysqlProjectDAO().findSorts(projectId);
+		return this.daoFactory.getInfReqDAO()
+				.getProjectSorts(project.getId());
 	}
 
 	private List<InformationalRequirement> getSearches() {
-		return new MysqlProjectDAO().findSearches(projectId);
+		return this.daoFactory.getInfReqDAO()
+				.getProjectSearches(project.getId());
 	}
 
 	private List<InformationalRequirement> getFilters() {
-		return new MysqlProjectDAO().findFilters(projectId);
+		return this.daoFactory.getInfReqDAO()
+				.getProjectFilters(project.getId());
 	}
 
 	private void insertSorts() {
 		List<InformationalRequirement> objs = getSorts();
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (InformationalRequirement obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
-			sb.append(obj.getObject().getName());
+			sb.append(new ArrayList<>(obj.getAttributes()).get(0).getName());
 			sb.append("\" по атрибутам: ");
-			for (Attribute attr : obj.getObject().getAttrs()) {
+			for (Attribute attr : obj.getAttributes()) {
 				sb.append("\"");
 				sb.append(attr.getName());
 				sb.append("\"; ");
@@ -322,9 +320,9 @@ public class WordGenerator {
 		for (InformationalRequirement obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
-			sb.append(obj.getObject().getName());
+			sb.append(this.extractElement(obj).getName());
 			sb.append("\" по атрибутам: ");
-			for (Attribute attr : obj.getObject().getAttrs()) {
+			for (Attribute attr : obj.getAttributes()) {
 				sb.append("\"");
 				sb.append(attr.getName());
 				sb.append("\"; ");
@@ -340,9 +338,9 @@ public class WordGenerator {
 		for (InformationalRequirement obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
-			sb.append(obj.getObject().getName());
+			sb.append(this.extractElement(obj));
 			sb.append("\" по атрибутам: ");
-			for (Attribute attr : obj.getObject().getAttrs()) {
+			for (Attribute attr : obj.getAttributes()) {
 				sb.append("\"");
 				sb.append(attr.getName());
 				sb.append("\"; ");
@@ -353,7 +351,8 @@ public class WordGenerator {
 	}
 
 	private List<Statistic> getStats() {
-		return new MysqlProjectDAO().findProjStat(projectId);
+		return this.daoFactory.getProjectDependentDAO(Statistic.class)
+				.getByProject(project.getId());
 	}
 
 	private void insertStat() {
@@ -364,7 +363,7 @@ public class WordGenerator {
 			sb.append("Статистика \"");
 			sb.append(obj.getName());
 			sb.append("\", которая содержит следующую информацию: ");
-			for (Element o : obj.getObjects()) {
+			for (Element o : obj.getElements()) {
 				sb.append("атрибуты: ");
 				for (Attribute a : o.getAttrs()) {
 					sb.append("\"");
@@ -381,12 +380,13 @@ public class WordGenerator {
 	}
 
 	private List<Report> getReports() {
-		return new MysqlProjectDAO().findProjReport(projectId);
+		return this.daoFactory.getProjectDependentDAO(Report.class)
+				.getByProject(project.getId());
 	}
 
-	private void insertReport() {
+	private void insertReports() {
 		List<Report> objs = getReports();
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (Report obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Документ \"");
@@ -409,7 +409,8 @@ public class WordGenerator {
 	}
 
 	private List<AlgDep> getAlgDeps() {
-		return new MysqlProjectDAO().findAlgDeps(projectId);
+		return this.daoFactory.getProjectDependentDAO(AlgDep.class)
+				.getByProject(project.getId());
 	}
 
 	private void insertAlgDeps() {
@@ -418,16 +419,16 @@ public class WordGenerator {
 		for (AlgDep obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Атрибут \"");
-			sb.append(obj.getResultField().getAttr().getName());
+			sb.append(obj.getResultField().getName());
 			sb.append("\", который вычисляется на основании следующих атрибутов по формуле: ");
 			sb.append(obj.getFormula());
 			sb.append(" где ");
 			for (SourceField sf : obj.getSourceFields()) {
 				sb.append(sf.getVariable());
 				sb.append(" - \"");
-				sb.append(sf.getObject().getAttr().getName());
+				sb.append(sf.getAttribute().getName());
 				sb.append("\" из \"");
-				sb.append(sf.getObject().getName());
+				sb.append(sf.getAttribute().getName());
 				sb.append("\"; ");
 			}
 			names.add(sb.toString());
@@ -436,14 +437,15 @@ public class WordGenerator {
 	}
 
 	private void insertAttrConstr() {
-		List<Constraint> objs = new MysqlIntegrConstrDAO().getConstraint(projectId);
-		List<String> names = new ArrayList<String>();
+		List<Constraint> objs = this.daoFactory.getProjectDependentDAO(Constraint.class)
+				.getByProject(project.getId());
+		List<String> names = new ArrayList<>();
 		for (Constraint obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Для объекта  \"");
-			sb.append(obj.getObject().getName());
+			sb.append(obj.getAttribute().getName());
 			sb.append("\", атрибут  \"");
-			sb.append(obj.getObject().getAttr().getName());
+			sb.append(obj.getAttribute().getName());
 			sb.append("\" является уникальным");
 			names.add(sb.toString());
 		}
@@ -454,7 +456,7 @@ public class WordGenerator {
 		StringBuilder sb = new StringBuilder();
 		List<String> names = new ArrayList<String>();
 		sb.append("непосредственно о главных объектах: ");
-		for (String name : getObjektNames()) {
+		for (String name : getElementNames()) {
 			sb.append(name);
 			sb.append("; ");
 		}
@@ -496,26 +498,29 @@ public class WordGenerator {
 				"система должна поддерживать возможность формирования "
 						+ "произвольных запросов в базы данных язык SQL с поддержкой для пользователя сведения о схеме DB;",
 				"система должна поддерживать подготовку и печать следующих отчетов:"));
-		insertReport();
+		insertReports();
 		createHyphenatedList(Arrays.asList("система должна реализовывать следующую задачу автоматизации: ",
 				"<здесь Вы должны вставить описание задачи автоматизации>"));
 	}
 
 	private void insertLinks() {
-		List<Link> links = new MysqlProjectDAO().findLinks(projectId);
-		List<String> names = new ArrayList<String>();
-		for (Link link : links) {
-			names.add(link.returnDesr());
-		}
+		List<Link> links = this.daoFactory.getProjectDependentDAO(Link.class)
+				.getByProject(project.getId());
+
+		List<String> names = links.stream()
+				.map(Link::returnDesr).collect(Collectors.toList());
+
 		createHyphenatedList(names);
 	}
 
 	private void insertActors() {
-		List<Actor> actors = new MysqlProjectDAO().findActors(projectId);
-		List<String> names = new ArrayList<String>();
-		for (Actor link : actors) {
-			names.add(link.getName());
-		}
-		createHyphenatedList(names);
+		List<Actor> actors = this.daoFactory.getProjectDependentDAO(Actor.class)
+				.getByProject(project.getId());
+		createHyphenatedList(actors.stream().map(Actor::getName)
+				.collect(Collectors.toList()));
+	}
+
+	private Element extractElement(final InformationalRequirement requirement) {
+		return new ArrayList<>(requirement.getAttributes()).get(0).getElement();
 	}
 }

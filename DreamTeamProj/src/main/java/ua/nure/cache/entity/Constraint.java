@@ -38,7 +38,7 @@ public class Constraint {
 		this.projectId = projectId;
 	}
 
-	public Attribute getObject() {
+	public Attribute getAttribute() {
 		return object;
 	}
 

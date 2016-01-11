@@ -1,11 +1,26 @@
 package ua.nure.cache.entity;
 
 import javax.persistence.*;
+import javax.sound.midi.MidiDevice;
 import java.util.Set;
 
 @Entity
 @Table(name = "inforeq")
 public class InformationalRequirement {
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public static enum Type {
+		SEARCH,
+		FILTER,
+		SORT;
+	}
 
 	@Id
 	@Column(name = "inforeq_id")
@@ -16,6 +31,18 @@ public class InformationalRequirement {
 
 	@OneToMany(mappedBy = "informationalRequirement")
 	private Set<Attribute> attributes;
+
+	@Column(name = "type")
+	private Type type;
+
+	public InformationalRequirement() {}
+
+	public InformationalRequirement(int id, int projectId, Set<Attribute> attributes, Type type) {
+		this.id = id;
+		this.projectId = projectId;
+		this.attributes = attributes;
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;

@@ -819,7 +819,7 @@ public class Server implements IServer {
 		fm.createNewFile(er, temperotyFilePath+"/er.jpg");
 		Downloader loader = new Downloader();
 		try {
-			WordGenerator gen = new WordGenerator();
+			WordGenerator gen = new WordGenerator(daoFactory, project);
 			gen.generateDoc(projectId, temperotyFilePath);
 			loader.anotherDownloadMethod("report.docx", resp);
 		} catch (Exception e) {

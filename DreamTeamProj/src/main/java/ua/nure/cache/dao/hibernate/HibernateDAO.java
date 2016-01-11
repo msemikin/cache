@@ -4,9 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ua.nure.cache.dao.DAO;
 
+import java.util.List;
+
 public class HibernateDAO<T> implements DAO<T> {
 
-    private final Class<T> classInstance;
+    protected final Class<T> classInstance;
     private final SessionFactory sessionFactory;
 
     public HibernateDAO(Class<T> classInstance, SessionFactory sessionFactory) {
@@ -16,6 +18,11 @@ public class HibernateDAO<T> implements DAO<T> {
 
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();
+    }
+
+    @Override
+    public List<T> getAll() {
+        return (List<T>) this.getSession().createCriteria(this.classInstance).list();
     }
 
     @Override

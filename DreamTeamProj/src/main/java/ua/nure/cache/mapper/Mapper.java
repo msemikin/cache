@@ -204,7 +204,7 @@ public class Mapper {
 //							.get(proj.get(proj.lastIndexOf(alg))
 //									.getSourceFields().lastIndexOf(sf));
 //					if (attr.getId() != 0) {
-//						temp.getObject().setAttr(attr);
+//						temp.getAttribute().setAttr(attr);
 //					}
 //					proj.get(proj.lastIndexOf(alg))
 //							.getSourceFields()
