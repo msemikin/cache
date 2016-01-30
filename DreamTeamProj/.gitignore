@@ -1,2 +1,3 @@
 /bin/
 .idea/
+/src/main/resources/application.properties
