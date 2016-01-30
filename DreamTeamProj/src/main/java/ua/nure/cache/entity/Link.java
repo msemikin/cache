@@ -1,16 +1,31 @@
 package ua.nure.cache.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "link")
 public class Link {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "link_id")
 	private int linkId;
-	
-	private Element firstObjName = new Element();
-	
-	private Element seondObjName = new Element();
-	
-	private String linkType;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "first_el_id")
+	private Element firstElement;
+
+	@ManyToOne
+	@JoinColumn(name = "second_el_id")
+	private Element secondElement;
+
+	@Column(name = "type")
+	private String type;
+
+	@Column(name = "comment")
 	private String comment;
-	
+
+	@Column(name = "project_id")
 	private int projectId;
 
 	public int getLinkId() {
@@ -21,28 +36,28 @@ public class Link {
 		this.linkId = linkId;
 	}
 
-	public Element getFirstObjName() {
-		return firstObjName;
+	public Element getFirstElement() {
+		return firstElement;
 	}
 
-	public void setFirstObjName(Element firstObjName) {
-		this.firstObjName = firstObjName;
+	public void setFirstElement(Element firstElement) {
+		this.firstElement = firstElement;
 	}
 
-	public Element getSeondObjName() {
-		return seondObjName;
+	public Element getSecondElement() {
+		return secondElement;
 	}
 
-	public void setSeondObjName(Element seondObjName) {
-		this.seondObjName = seondObjName;
+	public void setSecondElement(Element secondElement) {
+		this.secondElement = secondElement;
 	}
 
-	public String getLinkType() {
-		return linkType;
+	public String getType() {
+		return type;
 	}
 
-	public void setLinkType(String linkType) {
-		this.linkType = linkType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getComment() {
@@ -64,51 +79,51 @@ public class Link {
 	public String returnDesr() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("для связи объекта \"");
-		sb.append(this.firstObjName).append("\"");
+		sb.append(this.firstElement).append("\"");
 		sb.append(" и объекта \"");
-		sb.append(this.seondObjName).append("\"");
-		if (linkType.equals("1:M")) {
+		sb.append(this.secondElement).append("\"");
+		if (type.equals("1:M")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(", т.е. связь типа «один-ко-многим»;");
 		}
-		else if (linkType.equals("1:1")) {
+		else if (type.equals("1:1")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(", т.е. связь типа «один-ко-одному»;");
 		}
-		else if (linkType.equals("M:1")) {
+		else if (type.equals("M:1")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(", т.е. связь типа «один-ко-многим»;");
 		}
-		else if (linkType.equals("M:M")) {
+		else if (type.equals("M:M")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.seondObjName).append("\"");
+			sb.append(this.secondElement).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.firstObjName).append("\"");
+			sb.append(this.firstElement).append("\"");
 			sb.append(", т.е. связь типа «многие-ко-многим»;");
 		}
 		return sb.toString();

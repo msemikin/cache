@@ -1,6 +1,8 @@
 package ua.nure.cache.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nure.cache.dao.DAOFactory;
 import ua.nure.cache.dao.UserDAO;
 import ua.nure.cache.entity.User;
@@ -8,6 +10,8 @@ import ua.nure.cache.entity.UserRole;
 import ua.nure.cache.entity.UserRoles;
 import ua.nure.cache.exception.AccountException;
 
+@Service
+@Transactional
 public class AccountService {
 
     @Autowired

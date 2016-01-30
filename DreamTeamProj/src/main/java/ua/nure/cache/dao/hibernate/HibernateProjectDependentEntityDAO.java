@@ -2,6 +2,7 @@ package ua.nure.cache.dao.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nure.cache.dao.ProjectDependentEntityDAO;
 
 import java.util.List;

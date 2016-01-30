@@ -10,7 +10,7 @@ public class Element {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "object_id")
+	@Column(name = "element_id")
 	private int id;
 
 	@Column(name = "name")

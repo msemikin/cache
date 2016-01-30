@@ -1,15 +1,15 @@
 <Context>
-  <Resource
-  global="jdbc/my_db"
-   fullname="jdbc/my_db"
-  			auth="Container" 
-  			type="javax.sql.DataSource"
+	<Resource
+			global="jdbc/my_db"
+			name="jdbc/my_db"
+			auth="Container"
+			type="javax.sql.DataSource"
 			maxActive="100" maxIdle="30" maxWait="10000"
 			username="root" password="Qrj8XUPLSPD7SsRZ"
 			driverClassName="com.mysql.jdbc.Driver"
 			defaultAutoCommit="false"
 			defaultTransactionIsolation="READ_COMMITTED"
 			url="jdbc:mysql://localhost:3306/my_db?characterEncoding=utf8">
-			</Resource>
-			
+	</Resource>
+
 </Context>

@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class PreProcessFilter
@@ -24,6 +25,13 @@ public class PreProcessFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+
+		HttpServletResponse servletResponse = (HttpServletResponse) response;
+		servletResponse.setHeader("Access-Control-Allow-Origin", "*");
+		servletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+		servletResponse.setHeader("Access-Control-Allow-Headers", "x-requested-with, X-Auth-Token, Content-Type");
+		servletResponse.setHeader("Access-Control-Max-Age", "3600");
+
 		chain.doFilter(request, response);
 	}
 

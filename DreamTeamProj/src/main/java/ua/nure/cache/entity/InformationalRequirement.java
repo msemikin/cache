@@ -19,17 +19,21 @@ public class InformationalRequirement {
 	public static enum Type {
 		SEARCH,
 		FILTER,
-		SORT;
+		SORT
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "inforeq_id")
 	private int id;
 
 	@Column(name = "project_id")
 	private int projectId;
 
-	@OneToMany(mappedBy = "informationalRequirement")
+	@ManyToMany()
+	@JoinTable(name = "inforeq_attr",
+			joinColumns = @JoinColumn(name = "inforeq_id"),
+			inverseJoinColumns = @JoinColumn(name = "attr_id"))
 	private Set<Attribute> attributes;
 
 	@Column(name = "type")

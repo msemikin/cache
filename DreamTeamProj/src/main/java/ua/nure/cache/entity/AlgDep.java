@@ -21,6 +21,7 @@ public class AlgDep {
 	@Column(name = "name")
 	private String name;
 
+	@ManyToOne
 	@JoinColumn(name = "element_id")
 	private Attribute resultField;
 

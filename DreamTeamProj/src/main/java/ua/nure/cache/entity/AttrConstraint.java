@@ -3,16 +3,17 @@ package ua.nure.cache.entity;
 import javax.persistence.*;
 
 @Entity
-@Table
-public class Constraint {
+@Table(name = "attrconstraint")
+public class AttrConstraint {
 
 	@Id
-	@Column(name = "constr_id")
+	@Column(name = "constraint_id")
 	private int id;
 
 	@Column(name = "project_id")
 	private int projectId;
 
+	@ManyToOne
 	@JoinColumn(name = "attr_id")
 	private Attribute object;
 

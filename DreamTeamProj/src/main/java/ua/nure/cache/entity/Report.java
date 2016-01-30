@@ -11,12 +11,13 @@ public class Report {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "report_id")
 	private int id;
 
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "projectId")
+	@Column(name = "project_id")
 	private int projectId;
 
 	@ManyToMany(fetch = FetchType.LAZY)

@@ -14,6 +14,7 @@ public class SourceField {
     @Column(name = "name")
     private String variable;
 
+    @ManyToOne
     @JoinColumn(name = "attr_id")
     private Attribute attribute;
 

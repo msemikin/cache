@@ -11,7 +11,7 @@ public class Diagram {
 	@Column(name = "diagram_id")
 	private int id;
 
-	@Column(name = "diagram")
+	@Column(name = "JSON")
 	private String diagram;
 
 	@Column(name = "type")

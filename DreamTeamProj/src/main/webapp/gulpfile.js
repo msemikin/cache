@@ -45,9 +45,15 @@ gulp.task('vendor', function() {
         .pipe(gulp.dest(distPath + '/css'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts', ['lint', 'copy-bower'], function() {
     return gulp.src(['app/scripts/**/*.js'])
+        .pipe(plugins.plumber())
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.babel({
+            presets: ['es2015']
+        }))
         .pipe(plugins.ngAnnotate())
+        .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest(distPath + '/scripts'));
 });
 
@@ -57,21 +63,33 @@ gulp.task('copy-bower', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['app/scripts/**/*.js'], ['js-watch']);
+    gulp.watch(['app/scripts/**/*.js', 'app/app.js'], ['js-watch']);
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch(['app/**/*.html'], ['html-watch']);
 });
 
-gulp.task('js-watch', ['lint', 'scripts'], browserSync.reload);
+gulp.task('js-watch', ['scripts'], browserSync.reload);
 gulp.task('html-watch', ['views'], browserSync.reload);
 
 gulp.task('inject', ['copy-bower'], function() {
     var sources = gulp.src(['./app/scripts/**/*.js'], {relative: true});
     gulp.src('./app/index.html')
         .pipe(wiredep({
-            exclude: [/underscore/]
+            exclude: [/underscore/],
+            //fileTypes: {
+            //    html: {
+            //        replace: {
+            //            js: '<script src="static/{{filePath}}"></script>',
+            //            css: '<link rel="stylesheet" href="static/{{filePath}}" />'
+            //        }
+            //    }
+            //}
         }))
-        .pipe(plugins.inject(sources, {ignorePath: 'app/', addRootSlash: false}))
+        .pipe(plugins.inject(sources, {
+            ignorePath: 'app/',
+            addRootSlash: false,
+            //addPrefix: 'static'
+        }))
         .pipe(gulp.dest(distPath + '/'));
 });
 

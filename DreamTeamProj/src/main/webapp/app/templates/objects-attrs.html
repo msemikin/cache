@@ -2,20 +2,20 @@
     <div class="object-box panel panel-default">
         <!-- <div class="table-oa"> -->
         <div class="elements-tr table-header panel-heading">
-            <h3 class="obj-fullname-td panel-title">Объекты:</h3>
+            <h3 class="obj-name-td panel-title">Объекты:</h3>
             <h3 class="attr-count-td panel-title" title="Количество атрибутов в объекте">...</h3>
         </div>
         <div class="tbody-div panel-body">
             <!-- <div class="elements-tr pointer" ng-repeat="obj in elements" ng-class="{'selected': obj.id === object.id}" ng-click="selectObject(obj); $event.stopPropagation();">
-                <div class="obj-fullname-td">{{obj.fullname}}</div>
+                <div class="obj-name-td">{{obj.name}}</div>
                 <div class="attr-count-td">{{obj.attrs.length}}</div>
             </div> -->
             <div class="list-group  elements-select">
                 <a ng-repeat="obj in elements" ng-class="{active: obj.id === object.id && $root.showAttributes}" href="" ng-click="selectObject(obj); $event.stopPropagation();" class="list-group-item elements-tr">
-                    <div class="obj-fullname-td">{{obj.fullname}}</div>
+                    <div class="obj-name-td">{{obj.name}}</div>
                     <div class="attr-count-td">{{obj.attrs.length}}</div>
                 </a>
-                    <!-- {{obj.fullname}}</a> -->
+                    <!-- {{obj.name}}</a> -->
             </div>
         </div>
         <!-- </div> -->
@@ -31,21 +31,21 @@
     <div class="attr-box panel panel-default" ng-show="$root.showAttributes" ng-click="$event.stopPropagation();">
         <div class="table-attr">
             <div class="elements-tr table-header panel-heading">
-                <h3 class="elem-fullname-td panel-title">Атрибуты:</h3>
+                <h3 class="elem-name-td panel-title">Атрибуты:</h3>
             </div>
             <!--TODO-->
             <div class="tbody-div panel-body">
                 <!-- <div class="elements-tr pointer" ng-repeat="attr in object.attrs">
-                    <div class="elem-fullname-td">{{attr.fullname}}</div>
+                    <div class="elem-name-td">{{attr.name}}</div>
                 </div> -->
                 <div class="elements-tr list-group elements-select">
-                    <a ng-repeat="attr in object.attrs" href="" class="list-group-item">{{attr.fullname}}</a>
+                    <a ng-repeat="attr in object.attrs" href="" class="list-group-item">{{attr.name}}</a>
                 </div>
             </div>
         </div>
         <div class="add-obj-input panel-footer" id="addElemInput">
             <!-- <form class="pure-form add-form">
-                <input type="text" placeholder="Element fullname">
+                <input type="text" placeholder="Element name">
                 <button type="button" class="button-success pure-button" ng-click="addAttr()">
                     <i class="fa fa-plus"></i> Add
                 </button>
@@ -61,12 +61,12 @@
     <!-- <div class="object-box">
         <div class="table-oa">
             <div class="elements-tr table-header">
-                <div class="obj-fullname-td">Объекты:</div>
+                <div class="obj-name-td">Объекты:</div>
                 <div class="attr-count-td">...</div>
             </div>
             <div class="tbody-div">
                 <div class="elements-tr pointer" ng-repeat="obj in elements" ng-class="{'selected': obj.id === object.id}" ng-click="selectObject(obj); $event.stopPropagation();">
-                    <div class="obj-fullname-td">{{obj.fullname}}</div>
+                    <div class="obj-name-td">{{obj.name}}</div>
                     <div class="attr-count-td">{{obj.attrs.length}}</div>
                 </div>
             </div>
@@ -83,17 +83,17 @@
     <div class="attr-box" ng-show="$root.showAttributes">
         <div class="table-attr">
             <div class="elements-tr table-header">
-                <div class="elem-fullname-td">Атрибуты:</div>
+                <div class="elem-name-td">Атрибуты:</div>
             </div>
             <div class="tbody-div">
                 <div class="elements-tr pointer" ng-repeat="attr in object.attrs">
-                    <div class="elem-fullname-td">{{attr.fullname}}</div>
+                    <div class="elem-name-td">{{attr.name}}</div>
                 </div>
             </div>
         </div>
         <div class="add-obj-input" id="addElemInput">
             <form class="pure-form add-form">
-                <input type="text" placeholder="Element fullname">
+                <input type="text" placeholder="Element name">
                 <button type="button" class="button-success pure-button" ng-click="addAttr()">
                     <i class="fa fa-plus"></i> Add
                 </button>

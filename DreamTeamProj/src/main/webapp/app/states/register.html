@@ -1,51 +1,78 @@
 <div id="login" ng-controller="RegisterCtrl">
     <div id="login-panel">
         <div id="login-header">
-            <h1 class="text-center">Cache</h1>
+            <h1 class="text-center">DB</h1>
             <hr/>
-            <h4 class="text-center">Register</h4>
+            <h4 class="text-center">Регистрация</h4>
             <hr/>
         </div>
         <div class="front panel">
-            <form action="" id="login_form" method="post">
-                <div class="form-group">
+            <form name="registerForm">
+                <div class="form-group" ng-class="{'has-error': hasErrors('fullname')}">
                     <label class="control-label" for="email">Имя:</label>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                        <input fullname="fullname" type="text" id="fullname" class="form-control"
-                               autofocus="autofocus" tabindex="1" placeholder="Имя"
-                               ng-model="data.fullname"
-                        />
+                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                        <input name="fullname" type="text" id="fullname" class="form-control"
+                               autofocus="autofocus" tabindex="1" placeholder="Имя" required
+                               ng-minlength="3" ng-maxlength="100"
+                               ng-model="data.fullname"/>
                     </div>
+
+                    <span class="help-block" ng-show="hasErrors('fullname')"
+                          ng-messages="registerForm.fullname.$error">
+                        <p ng-message="minlength">Your name is too short.</span>
+                        <p ng-message="maxlength">Your name is too long.</p>
+                        <p ng-message="required">Your name is required.</p>
+                    </span>
+
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-error': hasErrors('email')}">
                     <label class="control-label" for="email">Адрес E-mail:</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                        <input name="email" type="text" id="email" class="form-control" value=""
-                               autofocus="autofocus" tabindex="1" placeholder="test@example.com"
-                               ng-model="data.email"
-                        />
+                        <input name="email" type="email" id="email" class="form-control" value=""
+                               autofocus="autofocus" tabindex="1" placeholder="test@example.com" required
+                               ng-model="data.email"/>
                     </div>
+                    <span class="help-block" ng-show="hasErrors('email')"
+                          ng-messages="registerForm.email.$error">
+                        <p ng-message="email">Invalid format.</p>
+                        <p ng-message="required">Your email is required.</p>
+                    </span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-error': hasErrors('password')}">
                     <label class="control-label" for="password">
                         Пароль:
                     </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
                         <input name="password" type="password" id="password" class="form-control" tabindex="2"
-                               ng-model="data.password" placeholder="Пароль"/>
+                               ng-model="data.password" placeholder="Пароль" required ng-minlength="6"/>
                     </div>
+                    <span class="help-block" ng-show="hasErrors('password')"
+                          ng-messages="registerForm.password.$error">
+                        <p ng-message="minlength">Provided password is too short.</p>
+                        <p ng-message="required">Your password is required.</p>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">
+                        Повторите пароль:
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                        <input name="passwordRe" type="password" id="passwordRe" class="form-control" tabindex="2"
+                               ng-model="data.passwordRe" placeholder="Повторите пароль"/>
+                    </div>
+                    <span class="help-block"></span>
                 </div>
                 <div class="panel-footer bord-trans">
-                    <button fullname="submitLogin" type="submit" tabindex="4"
-                            class="btn btn-default btn-lg btn-block ladda-button" data-style="slide-up"
-                            data-spinner-color="black">
-                    <span class="ladda-label">
-                        <i class="icon-check text-success"></i>
-                        Войти
-                    </span>
+                    <button name="submitLogin" tabindex="4"
+                            ladda="registering"
+                            class="btn btn-default btn-lg btn-block ladda-button"
+                            data-style="slide-up" ng-disabled="registerForm.$invalid"
+                            data-spinner-color="black" ng-click="submitRegister()">
+                        Регистрация
                     </button>
                 </div>
             </form>

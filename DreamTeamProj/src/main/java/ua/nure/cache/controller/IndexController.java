@@ -1,26 +1,17 @@
 package ua.nure.cache.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class IndexController {
 
-    static class Test {
-        private String name = "Index";
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+    @RequestMapping(value = "/")
+    public String index() {
+        return "redirect:/web/index.html";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public Test testAction() {
-        return new Test();
-    }
 }

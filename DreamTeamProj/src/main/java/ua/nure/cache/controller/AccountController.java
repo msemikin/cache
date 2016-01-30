@@ -1,6 +1,7 @@
 package ua.nure.cache.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class AccountController {
     private AccountService accountService;
 
     @RequestMapping(value = "/account/student/register", method = RequestMethod.POST)
-    public User registerUser(final User user) {
+    public User registerUser(@RequestBody final User user) {
         return this.accountService.registerStudent(user);
     }
 

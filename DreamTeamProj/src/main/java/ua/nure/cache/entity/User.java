@@ -2,6 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,10 @@ public class User {
 	private String password;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<UserRole> roles;
+	private Set<UserRole> roles = new HashSet<>();
+
+	public User() {
+	}
 
 	public int getId() {
 		return id;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta lang="ru">
-    <meta fullname="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/lib/font-awesome-4.4.0/css/font-awesome.css">
     <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
@@ -23,10 +23,10 @@
 <body ng-controller="SettingsCtrl">
     <div id="background">
         <div id="header" class="header settings-header">
-            <div class="user-fullname-logout-block cursor-default">
+            <div class="user-name-logout-block cursor-default">
                 {{ user.FullName }}
             </div>
-            <div class="user-fullname-logout-block cursor-pointer" ng-click="goURL('login.html');">Выход</div>
+            <div class="user-name-logout-block cursor-pointer" ng-click="goURL('login.html');">Выход</div>
         </div>
         <div id="main" class="main settings-main">
             <div class="settings-links">

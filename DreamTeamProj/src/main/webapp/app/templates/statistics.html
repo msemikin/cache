@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <div class="list-group elements-select">
-                    <a ng-repeat="s in statistics" ng-class="{active: s.id === statistic.id}" href="#" ng-click="selectStatistic(s)" class="list-group-item">{{s.fullname}}</a>
+                    <a ng-repeat="s in statistics" ng-class="{active: s.id === statistic.id}" href="#" ng-click="selectStatistic(s)" class="list-group-item">{{s.name}}</a>
                 </div>
             </div>
             <div class="panel-footer">
@@ -25,12 +25,12 @@
             <div class="panel-body" ng-show="statistic">
                 <div ng-repeat="object in statistic.elements" class="panel panel-default">
                     <div class="panel-body stat-object">
-                        <h4>{{object.fullname}}</h4>
+                        <h4>{{object.name}}</h4>
                         <span ng-click="removeObject(object)" class="badge">x</span>
 
                         <ul class="list-group">
                             <li ng-repeat="attr in object.attrs" class="list-group-item">
-                                {{attr.fullname}}
+                                {{attr.name}}
                                 <span ng-click="removeAttr(object, attr)" class="badge">x</span>
                             </li>
                         </ul>
@@ -43,7 +43,7 @@
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                     <li role="presentation" ng-repeat="attr in availableAttrs[object.id]">
                                         <a role="menuitem" ng-click="addAttr(object, attr)" tabindex="-1" href="#">
-                                                    {{attr.fullname}}
+                                                    {{attr.name}}
                                                 </a>
                                     </li>
                                 </ul>
@@ -60,7 +60,7 @@
                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                             <li role="presentation" ng-repeat="object in availableObjects">
                                 <a role="menuitem" ng-click="addObject(object)" tabindex="-1" href="#">
-                                            {{object.fullname}}
+                                            {{object.name}}
                                         </a>
                             </li>
                         </ul>

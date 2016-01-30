@@ -4,21 +4,22 @@ package ua.nure.cache.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "linkconstr")
+@Table(name = "linkconstraint")
 public class LinkConstraint {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "constr_id")
+	@Column(name = "constraint_id")
 	private int id;
 
-	@Id
 	@Column(name = "project_id")
 	private int projectId;
 
+	@ManyToOne
 	@JoinColumn(name = "first_element")
 	private Element firstElement;
 
+	@ManyToOne
 	@JoinColumn(name = "second_element")
 	private Element secondElement;
 

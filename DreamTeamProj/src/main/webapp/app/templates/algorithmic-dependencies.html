@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <div class="list-group  elements-select">
-                    <a ng-repeat="d in dependencies" ng-class="{active: d.id === dependency.id}" href="#" ng-click="selectDependency(d)" class="list-group-item">{{d.fullname}}</a>
+                    <a ng-repeat="d in dependencies" ng-class="{active: d.id === dependency.id}" href="#" ng-click="selectDependency(d)" class="list-group-item">{{d.name}}</a>
                 </div>
             </div>
             <div class="panel-footer">
@@ -27,20 +27,20 @@
                     <h4>Результирующий атрибут</h4>
                     <div class="btn-group">
                         <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                            {{dependency.resultField.fullname ? dependency.resultField.fullname : 'Выберите объект'}}
+                            {{dependency.resultField.name ? dependency.resultField.name : 'Выберите объект'}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" ng-repeat="object in elements" ng-click="setDestObj(object)">{{object.fullname}}</a></li>
+                            <li><a href="#" ng-repeat="object in elements" ng-click="setDestObj(object)">{{object.name}}</a></li>
                         </ul>
                     </div>
-                    <div class="btn-group" ng-show="dependency.resultField.fullname">
+                    <div class="btn-group" ng-show="dependency.resultField.name">
                         <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                            {{dependency.resultField.attr ? dependency.resultField.attr.fullname : 'Выберите атрибут'}}
+                            {{dependency.resultField.attr ? dependency.resultField.attr.name : 'Выберите атрибут'}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" ng-repeat="attr in getAttrs(dependency.resultField)" ng-click="setDestAttr(attr)">{{attr.fullname}}</a></li>
+                            <li><a href="#" ng-repeat="attr in getAttrs(dependency.resultField)" ng-click="setDestAttr(attr)">{{attr.name}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -60,10 +60,10 @@
                                 <tbody>
                                     <tr ng-repeat="source in dependency.sourceFields">
                                         <td>
-                                            {{source.object.fullname}}
+                                            {{source.object.name}}
                                         </td>
                                         <td>
-                                            {{source.object.attr.fullname}}
+                                            {{source.object.attr.name}}
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="source.variable">
@@ -83,22 +83,22 @@
                                         <td>
                                             <div class="btn-group">
                                                 <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                                    {{sourceObj ? sourceObj.fullname : 'Выберите объект'}}
+                                                    {{sourceObj ? sourceObj.name : 'Выберите объект'}}
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#" ng-repeat="object in elements" ng-click="setSourceObj(object)">{{object.fullname}}</a></li>
+                                                    <li><a href="#" ng-repeat="object in elements" ng-click="setSourceObj(object)">{{object.name}}</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="btn-group" ng-show="sourceObj">
                                                 <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                                    {{sourceObj.attr ? sourceObj.attr.fullname : 'Выберите атрибут'}}
+                                                    {{sourceObj.attr ? sourceObj.attr.name : 'Выберите атрибут'}}
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#" ng-repeat="attr in getAttrs(sourceObj)" ng-click="setSourceAttr(attr)">{{attr.fullname}}</a></li>
+                                                    <li><a href="#" ng-repeat="attr in getAttrs(sourceObj)" ng-click="setSourceAttr(attr)">{{attr.name}}</a></li>
                                                 </ul>
                                             </div>
                                         </td>

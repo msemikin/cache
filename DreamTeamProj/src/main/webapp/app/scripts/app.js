@@ -1,7 +1,9 @@
 'use strict';
 angular.module("db", [
-    'ui.router'
-]).config(function($stateProvider, $urlRouterProvider) {
+    'ui.router',
+    'angular-ladda',
+    'ngMessages'
+]).config(function($stateProvider) {
     $stateProvider
         .state('register', {
             url: '/register',

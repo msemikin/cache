@@ -437,10 +437,10 @@ public class WordGenerator {
 	}
 
 	private void insertAttrConstr() {
-		List<Constraint> objs = this.daoFactory.getProjectDependentDAO(Constraint.class)
+		List<AttrConstraint> objs = this.daoFactory.getProjectDependentDAO(AttrConstraint.class)
 				.getByProject(project.getId());
 		List<String> names = new ArrayList<>();
-		for (Constraint obj : objs) {
+		for (AttrConstraint obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Для объекта  \"");
 			sb.append(obj.getAttribute().getName());
