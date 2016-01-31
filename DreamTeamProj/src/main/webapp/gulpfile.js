@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    plugins = require('gulp-load-plugins')(),
+    $ = require('gulp-load-plugins')(),
     mainBowerFiles = require('main-bower-files'),
     wiredep = require('wiredep').stream,
     browserSync = require('browser-sync'),
@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 
 gulp.task('lint', function() {
     gulp.src('./app/scripts/**/*.js')
-        .pipe(plugins.eslint({
+        .pipe($.eslint({
             extends: 'eslint:recommended',
             rules: {
                 'strict': [2, 'global']
@@ -27,38 +27,38 @@ gulp.task('lint', function() {
                 'browser'
             ]
         }))
-        .pipe(plugins.eslint.formatEach('compact', process.stderr));
+        .pipe($.eslint.formatEach('compact', process.stderr));
 });
 
 gulp.task('vendor', function() {
-    var jsFilter = plugins.filter(['**/*.js'], {restore: true});
-    var stylesFilter = plugins.filter([ '**/*.css'], {restore: true});
+    var jsFilter = $.filter(['**/*.js'], {restore: true});
+    var stylesFilter = $.filter([ '**/*.css'], {restore: true});
 
-    gulp.src(mainBowerFiles())
+    return gulp.src(mainBowerFiles())
         .pipe(jsFilter)
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest(distPath + '/js/'))
         .pipe(jsFilter.restore)
         .pipe(stylesFilter)
-        .pipe(plugins.print())
-        .pipe(plugins.concat('vendor.css'))
+        .pipe($.print())
+        .pipe($.concat('vendor.css'))
         .pipe(gulp.dest(distPath + '/css'));
 });
 
-gulp.task('scripts', ['lint', 'copy-bower'], function() {
+gulp.task('scripts', ['inject'], function() {
     return gulp.src(['app/scripts/**/*.js'])
-        .pipe(plugins.plumber())
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.babel({
-            presets: ['es2015']
-        }))
-        .pipe(plugins.ngAnnotate())
-        .pipe(plugins.sourcemaps.write())
+        .pipe($.plumber())
+        .pipe($.sourcemaps.init())
+        //.pipe($.babel({
+        //    presets: ['es2015']
+        //}))
+        .pipe($.ngAnnotate())
+        .pipe($.sourcemaps.write())
         .pipe(gulp.dest(distPath + '/scripts'));
 });
 
 gulp.task('copy-bower', function() {
-    gulp.src(['app/bower_components/**/*'])
+    return gulp.src(['app/bower_components/**/*'])
         .pipe(gulp.dest(distPath + '/bower_components'));
 });
 
@@ -73,7 +73,7 @@ gulp.task('html-watch', ['views'], browserSync.reload);
 
 gulp.task('inject', ['copy-bower'], function() {
     var sources = gulp.src(['./app/scripts/**/*.js'], {relative: true});
-    gulp.src('./app/index.html')
+    return gulp.src('./app/index.html')
         .pipe(wiredep({
             exclude: [/underscore/],
             //fileTypes: {
@@ -85,16 +85,16 @@ gulp.task('inject', ['copy-bower'], function() {
             //    }
             //}
         }))
-        .pipe(plugins.inject(sources, {
+        .pipe($.inject(sources, {
             ignorePath: 'app/',
-            addRootSlash: false,
+            //addRootSlash: false,
             //addPrefix: 'static'
         }))
         .pipe(gulp.dest(distPath + '/'));
 });
 
 gulp.task('views', ['inject'], function() {
-    return gulp.src('app/**/*.html')
+    return gulp.src(['app/**/*.html', '!app/index.html'])
         .pipe(gulp.dest(distPath + '/'));
 });
 
@@ -105,25 +105,31 @@ gulp.task('serve', ['styles', 'views',  'scripts', 'watch'], function() {
             baseDir: distPath,
             middleware: [
                 modRewrite([
-                    '!\\.\\w+$ /index.html [L]'
+                    '^[^\\.]*$ /index.html [L]'
                 ])
             ]
         }
     });
 });
 
-// Styles task
 gulp.task('styles', function() {
-    gulp.src('app/styles/*.scss')
-        .pipe(plugins.sass().on('error', plugins.sass.logError))
-        .pipe(plugins.autoprefixer("last 2 versions", "> 1%", "ie 8"))
-        .pipe(plugins.concat('main.css'))
-        .pipe(gulp.dest(distPath + '/css/'))
-        .pipe(browserSync.stream());
+    return gulp.src('app/styles/**/*.scss')
+        .pipe($.sourcemaps.init())
+        .pipe($.sass().on('error', $.sass.logError))
+        .pipe($.autoprefixer("last 2 versions", "> 1%", "ie 8"))
+        .pipe($.concat('main.css'))
+        //.pipe($.uncss({
+        //    html: ['app/index.html', 'app/states/**/*.html', 'app/templates/**/*.html'],
+        //    report: true
+        //}))
+        .pipe($.sourcemaps.write())
+        .pipe($.print())
+        .pipe(gulp.dest(distPath + '/css'))
+        .pipe(browserSync.stream())
 });
 
 gulp.task('clean', function() {
-    gulp.src(distPath + '/').pipe(clean());
+    return gulp.src(distPath + '/').pipe(clean());
 });
 
 gulp.task('develop', ['serve'], function() {});

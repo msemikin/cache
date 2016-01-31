@@ -27,9 +27,10 @@ public class PreProcessFilter implements Filter {
 		response.setCharacterEncoding("utf-8");
 
 		HttpServletResponse servletResponse = (HttpServletResponse) response;
-		servletResponse.setHeader("Access-Control-Allow-Origin", "*");
+		servletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 		servletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
-		servletResponse.setHeader("Access-Control-Allow-Headers", "x-requested-with, X-Auth-Token, Content-Type");
+		servletResponse.setHeader("Access-Control-Allow-Headers", "x-requested-with, X-Auth-Token, Content-Type, origin, accept");
+		servletResponse.setHeader("Access-Control-Allow-Credentials", "true");
 		servletResponse.setHeader("Access-Control-Max-Age", "3600");
 
 		chain.doFilter(request, response);

@@ -1,0 +1,26 @@
+.extend-box {
+  position: relative;
+  flex-grow: 5;
+  z-index: 0;
+}
+
+.menu-shrink-container {
+  flex-grow: 1;
+}
+
+.menu-shrink {
+  display: inline-block;
+  padding-top: 8px;
+  padding-left: 14px;
+  color: white;
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.menu-shrink > img {
+  height: 25px;
+  width: 25px;
+}
+

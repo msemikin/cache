@@ -1,4 +1,5 @@
-angular.module('db').controller('RegisterCtrl', function($scope, http) {
+'use strict'
+angular.module('db').controller('RegisterCtrl', function($scope, http, AuthService, $state) {
 
     $scope.data = {
         fullname: '',
@@ -7,18 +8,20 @@ angular.module('db').controller('RegisterCtrl', function($scope, http) {
     };
     $scope.registering = false;
 
-    $scope.submitRegister = function() {
+    $scope.register = function() {
         $scope.registering = true;
         http.post('account/student/register', $scope.data)
             .then(function() {
-                console.log('registered', arguments);
                 $scope.registering = false;
+                return AuthService.login($scope.data.email, $scope.data.password);
+            })
+            .then(function() {
+                $state.go('dashboard');
             });
     };
 
     $scope.hasErrors = function(field) {
         var field = $scope.registerForm[field];
-        console.log(field);
         return field.$touched && !field.$valid;
     };
 

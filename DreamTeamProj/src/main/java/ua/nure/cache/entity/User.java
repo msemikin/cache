@@ -1,5 +1,7 @@
 package ua.nure.cache.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.util.HashSet;
@@ -20,6 +22,7 @@ public class User {
 	@Column(name = "email")
 	private String email;
 
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 

@@ -21,7 +21,7 @@ public class AccountController {
         return this.accountService.registerStudent(user);
     }
 
-    @RequestMapping(value = "/account", method = RequestMethod.POST)
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
     public User account(final Principal principal) {
         return this.accountService.getUserByEmail(principal.getName());
     }

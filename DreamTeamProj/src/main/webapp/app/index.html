@@ -3,6 +3,7 @@
 
 <head>
     <!--<base href="/web/">-->
+    <base href="/">
     <meta charset="utf-8">
     <meta lang="ru">
     <meta name="description" content="A tool for studying DataBases.">
@@ -10,16 +11,15 @@
     <title>Document &ndash; Student project &ndash; DataBases</title>
 
     <link rel="stylesheet" href="css/main.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <!-- bower:css -->
     <!-- endbower -->
 </head>
 
 <body ng-controller="AppCtrl">
-    <div id="background">
-        <div ng-include="'templates/header.html'" class="header"></div>
-        <div id="main" class="main" ui-view></div>
-    </div>
+    <div ng-include="'templates/header.html'" class="header"></div>
+    <div class="main" class="main" ui-view></div>
 
     <!-- bower:js -->
     <!-- endbower -->

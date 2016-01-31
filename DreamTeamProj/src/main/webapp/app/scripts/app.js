@@ -2,8 +2,12 @@
 angular.module("db", [
     'ui.router',
     'angular-ladda',
-    'ngMessages'
-]).config(function($stateProvider) {
+    'ngMessages',
+    'validation.match'
+]).config(function($stateProvider, $httpProvider) {
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.withCredentials = true;
+
     $stateProvider
         .state('register', {
             url: '/register',
@@ -15,7 +19,7 @@ angular.module("db", [
         })
         .state('dashboard', {
             url: '/dashboard',
-            templateUrl: 'states/project.html'
+            templateUrl: 'states/dashboard.html'
         })
         .state('project', {
             url: '/projects/:id',
