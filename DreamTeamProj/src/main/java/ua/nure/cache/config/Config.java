@@ -1,6 +1,6 @@
 package ua.nure.cache.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.Resource;
@@ -50,6 +50,7 @@ public class Config extends WebMvcConfigurerAdapter {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new Hibernate5Module());
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         messageConverter.setObjectMapper(mapper);
         return messageConverter;
