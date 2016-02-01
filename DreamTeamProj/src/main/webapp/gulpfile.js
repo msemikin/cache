@@ -75,8 +75,8 @@ gulp.task('inject', ['copy-bower'], function() {
     var sources = gulp.src(['./app/scripts/**/*.js'], {relative: true});
     return gulp.src('./app/index.html')
         .pipe(wiredep({
-            exclude: [/underscore/],
-            //fileTypes: {
+            exclude: [/underscore/]
+            //,fileTypes: {
             //    html: {
             //        replace: {
             //            js: '<script src="static/{{filePath}}"></script>',
@@ -86,8 +86,8 @@ gulp.task('inject', ['copy-bower'], function() {
             //}
         }))
         .pipe($.inject(sources, {
-            ignorePath: 'app/',
-            //addRootSlash: false,
+            ignorePath: 'app/'
+            //,addRootSlash: false,
             //addPrefix: 'static'
         }))
         .pipe(gulp.dest(distPath + '/'));
@@ -133,3 +133,5 @@ gulp.task('clean', function() {
 });
 
 gulp.task('develop', ['serve'], function() {});
+
+gulp.task('default', ['serve']);
