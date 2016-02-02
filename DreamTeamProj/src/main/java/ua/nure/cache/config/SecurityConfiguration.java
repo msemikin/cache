@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.*;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -40,6 +41,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SimpleUrlAuthenticationFailureHandler();
     }
 
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new RestLogoutSuccessHandler();
+    }
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -61,6 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("email").passwordParameter("password")
                 .and()
+                    .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler())
+                .and()
 					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 					.csrf().csrfTokenRepository(csrfTokenRepository())
 					.requireCsrfProtectionMatcher(this::checkNeedCsrf);
@@ -75,8 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private boolean checkNeedCsrf(final HttpServletRequest request) {
         Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
         RegexRequestMatcher apiMatcher = new RegexRequestMatcher(
-                "(/account/.*/register)" +
-                "|(/login)", null);
+                        "(/account/.*/register)" +
+                        "|(/login)|(/logout)", null);
 
         // No CSRF due to allowedMethod
         if(allowedMethods.matcher(request.getMethod()).matches())

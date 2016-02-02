@@ -1,5 +1,5 @@
-'use strict'
-angular.module('db').controller('RegisterCtrl', function($scope, http, AuthService, $state) {
+'use strict';
+angular.module('db').controller('RegisterCtrl', function($scope, http, AuthService, $state, $timeout) {
 
     $scope.data = {
         fullname: '',
@@ -16,7 +16,12 @@ angular.module('db').controller('RegisterCtrl', function($scope, http, AuthServi
                 return AuthService.login($scope.data.email, $scope.data.password);
             })
             .then(function() {
-                $state.go('dashboard');
+                $timeout(function() {
+                    $state.go('dashboard');
+                });
+            })
+            .catch(function(error) {
+                console.log(error);
             });
     };
 

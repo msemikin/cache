@@ -1,5 +1,5 @@
 'use strict';
-angular.module('db').controller('LoginCtrl', function($scope, AuthService, $state) {
+angular.module('db').controller('LoginCtrl', function($scope, AuthService, $state, $timeout) {
     $scope.data = {
         email: '',
         password: ''
@@ -16,10 +16,10 @@ angular.module('db').controller('LoginCtrl', function($scope, AuthService, $stat
         $scope.loggingIn = true;
         return AuthService.login($scope.data.email, $scope.data.password)
             .then(function() {
-                $scope.loggingIn = false;
-            })
-            .then(function() {
-                $state.go('dashboard');
+                $timeout(function() {
+                    $scope.loggingIn = false;
+                    $state.go('dashboard');
+                });
             });
     };
 });

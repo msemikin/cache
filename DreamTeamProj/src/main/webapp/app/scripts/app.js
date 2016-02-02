@@ -4,6 +4,6 @@ angular.module("db", [
     'angular-ladda',
     'ngMessages',
     'validation.match'
-]).run(function($state) {
-    $state.go('login');
+]).run(function($state, AuthService) {
+    AuthService.authenticate();
 });
