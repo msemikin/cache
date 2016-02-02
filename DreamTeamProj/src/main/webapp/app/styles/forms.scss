@@ -1,4 +1,76 @@
+@import 'shared/palette';
+
 .btn-primary {
   border-color: cadetblue;
   background-color: cadetblue;
 }
+
+div.form-group {
+  margin-bottom: 20px;
+}
+
+span.input-group-addon, input.form-control {
+  border: 0;
+  border-bottom: 2px solid $color-primary;
+  background-color: white;
+  border-radius: 0px;
+  box-shadow: none !important;
+  transition: border-color 0.3s ease-in;
+
+  &:focus {
+    box-shadow: none;
+    border-color: $color-primary;
+  }
+}
+
+span.input-group-addon {
+  color: $color-primary;
+}
+
+label.control-label {
+  color: $label-color;
+}
+
+div.has-error {
+  .input-group-addon,
+  .form-control,
+  .help-block {
+    color: $color-error, ;
+  }
+
+  span.input-group-addon {
+    background-color: white;
+  }
+
+  .form-control, .input-group-addon {
+    border-color: $color-error;
+
+    &:focus {
+      border-color: $color-error;
+    }
+  }
+
+  .control-label {
+    color: $label-color;
+  }
+}
+
+.ladda-button {
+  border-radius: 3px;
+  transition: background-color 0.3s ease-in;
+
+  &:hover {
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.2);
+  }
+}
+
+.ladda-button.ladda-button--primary {
+  background: $color-primary;
+  color: white;
+
+  &:hover {
+    background-color: lighten($color-primary, 5%);
+    color: white;
+  }
+}
+
