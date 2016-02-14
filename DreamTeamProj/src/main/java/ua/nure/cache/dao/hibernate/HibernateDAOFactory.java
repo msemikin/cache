@@ -38,5 +38,8 @@ public class HibernateDAOFactory implements DAOFactory {
         return new HibernateProjectDependentEntityDAO<>(classInstance, this.sessionFactory);
     }
 
-
+    @Override
+    public ProjectDAO getProjectDAO() {
+        return new HibernateProjectDAO(this.sessionFactory);
+    }
 }

@@ -1,0 +1,23 @@
+@import '../shared/palette';
+
+.modal--error__head {
+  padding: 10px;
+  background-color: $color-error;
+  color: white;
+}
+
+.modal--error__title {
+  font-size: 18px;
+}
+
+div.modal--error__footer {
+  padding: 10px;
+  text-align: center;
+}
+
+.modal--error__message {
+  text-align: center;
+  margin: 0px;
+  font-size: 13px;
+  //color: $color-error;
+}

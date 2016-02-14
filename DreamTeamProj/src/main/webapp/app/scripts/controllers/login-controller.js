@@ -1,5 +1,15 @@
 'use strict';
-angular.module('db').controller('LoginCtrl', function($scope, AuthService, $state, $timeout) {
+angular.module('db').controller('LoginCtrl', function($scope, AuthService, $state, $timeout, ErrorModal) {
+
+    function showError(error) {
+        $scope.loggingIn = false;
+        if(error && error.status === 401) {
+            ErrorModal.showError('Wrong credentials!');
+            return;
+        }
+        ErrorModal.showError(error.message || 'Unknown error!');
+    }
+
     $scope.data = {
         email: '',
         password: ''
@@ -20,6 +30,8 @@ angular.module('db').controller('LoginCtrl', function($scope, AuthService, $stat
                     $scope.loggingIn = false;
                     $state.go('dashboard');
                 });
-            });
+            })
+            .catch(showError);
+
     };
 });

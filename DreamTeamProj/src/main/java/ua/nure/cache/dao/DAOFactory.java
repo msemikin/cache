@@ -11,4 +11,6 @@ public interface DAOFactory {
     InfReqDAO getInfReqDAO();
 
     <T> ProjectDependentEntityDAO<T> getProjectDependentDAO(final Class<T> classInstance);
+
+    ProjectDAO getProjectDAO();
 }

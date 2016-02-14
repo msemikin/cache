@@ -18,3 +18,10 @@
     cursor: inherit;
     display: block;
 }
+div.modal-content {
+    border-radius: 0px;
+}
+div.modal-footer {
+    border: 0;
+    padding: 0 15px;
+}

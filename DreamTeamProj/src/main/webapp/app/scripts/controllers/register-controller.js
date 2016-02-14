@@ -1,5 +1,5 @@
 'use strict';
-angular.module('db').controller('RegisterCtrl', function($scope, http, AuthService, $state, $timeout) {
+angular.module('db').controller('RegisterCtrl', function($scope, http, AuthService, $state, $timeout, ErrorModal) {
 
     $scope.data = {
         fullname: '',
@@ -8,11 +8,18 @@ angular.module('db').controller('RegisterCtrl', function($scope, http, AuthServi
     };
     $scope.registering = false;
 
+    function showError(error) {
+        if(error && error.status === 401) {
+            ErrorModal.showError('Wrong credentials!');
+            return;
+        }
+        ErrorModal.showError(error.data.message || 'Unknown error!');
+    }
+
     $scope.register = function() {
         $scope.registering = true;
         http.post('account/student/register', $scope.data)
             .then(function() {
-                $scope.registering = false;
                 return AuthService.login($scope.data.email, $scope.data.password);
             })
             .then(function() {
@@ -20,8 +27,9 @@ angular.module('db').controller('RegisterCtrl', function($scope, http, AuthServi
                     $state.go('dashboard');
                 });
             })
-            .catch(function(error) {
-                console.log(error);
+            .catch(showError)
+            .finally(function() {
+                $scope.registering = false;
             });
     };
 

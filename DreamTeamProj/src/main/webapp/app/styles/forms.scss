@@ -55,13 +55,18 @@ div.has-error {
   }
 }
 
-.ladda-button {
-  border-radius: 3px;
+button.ladda-button {
+  border-radius: 0px;
   transition: background-color 0.3s ease-in;
 
   &:hover {
     box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.2);
   }
+}
+
+.ladda-label {
+  font-size: 13px;
+  text-transform: uppercase;
 }
 
 .ladda-button.ladda-button--primary {
@@ -72,5 +77,40 @@ div.has-error {
     background-color: lighten($color-primary, 5%);
     color: white;
   }
+}
+
+.md-button {
+  padding: 6px;
+  margin: 6px 8px 6px 0px;
+  min-width: 88px;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration:none;
+  border: none;
+  outline: none;
+  background-color: rgba(158, 158, 158, 0.2);
+}
+
+.md-button--primary {
+  background-color: $color-primary;
+}
+
+.md-button:not([disabled]):hover {
+  background-color: rgba(158, 158, 158, 0.2);
+}
+.md-button[disabled] {
+  color : rgba(0, 0, 0, 0.26);
+  background-color: transparent;
+}
+
+.md-button--flat {
+  background-color: white;
+  min-width: 0px;
+}
+
+.md-button--flat--primary {
+  color: $color-primary;
 }
 

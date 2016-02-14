@@ -3,7 +3,8 @@ angular.module("db", [
     'ui.router',
     'angular-ladda',
     'ngMessages',
-    'validation.match'
+    'validation.match',
+    'ui.bootstrap'
 ]).config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
