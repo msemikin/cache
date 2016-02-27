@@ -1,10 +1,7 @@
 package ua.nure.cache.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Table(name = "project")
@@ -12,7 +9,7 @@ public class Project {
 
 	@Id
 	@Column(name = "project_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -22,11 +19,17 @@ public class Project {
 	@Column(name = "title")
 	private String title;
 
+	@Column(name = "description")
+	private String description;
+
 	@Column(name = "is_ready")
 	private boolean isReady;
 
 	@Column(name = "is_sent")
 	private boolean isSent;
+
+	@Column(name = "edited")
+	private Date edited;
 
 	public int getId() {
 		return id;
@@ -66,5 +69,21 @@ public class Project {
 
 	public void setSent(boolean sent) {
 		isSent = sent;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+
+	public Date getEdited() {
+		return edited;
+	}
+
+	public void setEdited(final Date edited) {
+		this.edited = edited;
 	}
 }

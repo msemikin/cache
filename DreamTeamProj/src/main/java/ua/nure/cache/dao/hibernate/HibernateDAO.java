@@ -46,8 +46,8 @@ public class HibernateDAO<T> implements DAO<T> {
     }
 
     @Override
-    public void delete(T entity) {
-        getSession().delete(entity);
+    public void delete(int id) {
+        getSession().delete(getSession().get(this.classInstance, id));
     }
 
 }

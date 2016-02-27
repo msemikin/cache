@@ -1,4 +1,5 @@
-/* UPLOAD DOC MODAL */
+@import 'shared/palette';
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -23,5 +24,34 @@ div.modal-content {
 }
 div.modal-footer {
     border: 0;
-    padding: 0 15px;
+    padding: 10px;
 }
+
+h3.modal-title {
+    font-size: 20px;
+    color: $color-primary;
+}
+
+// ERROR MODAL
+
+.modal--error__head {
+    padding: 10px;
+    background-color: $color-error;
+    color: white;
+}
+
+.modal--error__title {
+    font-size: 18px;
+}
+
+div.modal--error__footer {
+    text-align: center;
+}
+
+.modal--error__message {
+    text-align: center;
+    margin: 0px;
+    font-size: 13px;
+}
+
+// PROJECT MODAL

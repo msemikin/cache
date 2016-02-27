@@ -2,6 +2,7 @@ package ua.nure.cache.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -60,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/web/**", "/account/**/register", "/index.html", "/login").permitAll()
+                    .antMatchers(HttpMethod.OPTIONS).permitAll()
                     .anyRequest().authenticated()
                 .and().formLogin()
                     .successHandler(authenticationSuccessHandler())
@@ -68,10 +70,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .usernameParameter("email").passwordParameter("password")
                 .and()
                     .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler())
-                .and()
-					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-					.csrf().csrfTokenRepository(csrfTokenRepository())
-					.requireCsrfProtectionMatcher(this::checkNeedCsrf);
+                .and().csrf().disable();
+//                .and()
+//					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+//					.csrf().csrfTokenRepository(csrfTokenRepository())
+//					.requireCsrfProtectionMatcher(this::checkNeedCsrf);
     }
 
     private CsrfTokenRepository csrfTokenRepository() {

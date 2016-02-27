@@ -200,6 +200,7 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
+                    <contextReloadable>true</contextReloadable>
                     <server>
                         <id>my-tomcat</id>
                         <username>manager</username>

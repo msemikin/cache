@@ -1,27 +1,63 @@
-/**
- * Created by Max on 01.02.2016.
- */
+'use strict';
 angular.module('db')
-    .config(function($stateProvider, $httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        $httpProvider.defaults.withCredentials = true;
+    .config(function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/dashboard");
+
+        var notAuth = function(AuthService, $q, $state, $timeout) {
+            var deferred = $q.defer();
+            $timeout(function() {
+                AuthService.authenticated()
+                    .then(function() {
+                        $state.go('dashboard');
+                        deferred.reject();
+                    }, function() {
+                        deferred.resolve();
+                    });
+            });
+            return deferred.promise;
+        };
+        var auth = function(AuthService, $q, $state, $timeout) {
+            var deferred = $q.defer();
+            $timeout(function() {
+                AuthService.authenticated()
+                    .then(function() {
+                        deferred.resolve();
+                    }, function() {
+                        $state.go('login');
+                        deferred.reject();
+                    });
+            });
+            return deferred.promise;
+        };
 
         $stateProvider
             .state('register', {
                 url: '/register',
-                templateUrl: 'states/register.html'
+                templateUrl: 'states/register.html',
+                resolve: {
+                    notAuth: notAuth
+                }
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'states/login.html'
+                templateUrl: 'states/login.html',
+                resolve: {
+                    notAuth: notAuth
+                }
             })
             .state('dashboard', {
                 url: '/dashboard',
-                templateUrl: 'states/dashboard.html'
+                templateUrl: 'states/dashboard.html',
+                resolve: {
+                    auth: auth
+                }
             })
             .state('project', {
                 url: '/projects/:id',
-                templateUrl: 'states/project.html'
+                templateUrl: 'states/project.html',
+                resolve: {
+                    auth: auth
+                }
             })
             .state('project.document', {
                 url: '/projects/:id/document',

@@ -34,7 +34,9 @@
     "angular-bootstrap": "~0.14.3",
     "angular-ladda": "~0.3.1",
     "angular-messages": "~1.4.9",
-    "angular-validation-match": "~1.7.1"
+    "angular-validation-match": "~1.7.1",
+    "restangular": "~1.5.2",
+    "angular-elastic": "~2.5.1"
   },
   "overrides": {
     "bootstrap": {

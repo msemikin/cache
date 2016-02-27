@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h3 class="modal-title">Create project</h3>
+</div>
+<div class="modal-body">
+    <form name="projectForm" role="form">
+        <div class="form-group" ng-class="{'has-error': hasErrors('title')}">
+            <label class="control-label" for="title">Название:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                <input name="title" type="title" id="title" class="form-control" value=""
+                       autofocus="autofocus" tabindex="1" placeholder="Название" required
+                       ng-model="project.title"/>
+            </div>
+            <span class="help-block" ng-show="hasErrors('title')"
+                  ng-messages="projectForm.title.$error">
+                <p ng-message="required">Title is required.</p>
+            </span>
+        </div>
+        <div class="form-group" ng-class="{'has-error': hasErrors('description')}">
+            <label class="control-label" for="description">Описание:</label>
+            <textarea msd-elastic rows="2" name="description" id="description" class="form-control" value=""
+                   autofocus="autofocus" tabindex="2" placeholder="Описание" required
+                   ng-model="project.description"/>
+            <span class="help-block" ng-show="hasErrors('description')"
+                  ng-messages="projectForm.description.$error">
+                <p ng-message="required">Description is required.</p>
+            </span>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="md-button md-button--flat"
+            type="button" ng-click="cancel()">Cancel</button>
+    <button class="md-button md-button--flat md-button--flat--primary"
+            type="button" ng-click="create()" ng-disabled="projectForm.$invalid || creating">{{ creating ? 'Creating...' : 'Create' }}</button>
+</div>

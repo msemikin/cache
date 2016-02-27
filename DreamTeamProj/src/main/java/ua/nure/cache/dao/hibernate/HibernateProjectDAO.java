@@ -16,7 +16,7 @@ public class HibernateProjectDAO extends HibernateDAO<Project> implements Projec
 	public Collection<Project> getProjectsByUser(final int userId) {
 		return this.getSession()
 				.createCriteria(this.classInstance)
-				.add(Restrictions.eq("user_id", userId))
+				.add(Restrictions.eq("owner.id", userId))
 				.list();
 	}
 }

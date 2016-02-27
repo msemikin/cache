@@ -3,7 +3,7 @@
     <div class="projects">
         <div class="project-card" ng-repeat="project in projects" ui-sref="project">
             <div class="project-card__info">
-                <div class="project-card__title">{{project.name}}</div>
+                <div class="project-card__title">{{project.title}}</div>
                 <div class="project-card__description">{{project.description}}</div>
                 <div class="project-card__edited">{{project.date | date}}</div>
             </div>
@@ -12,7 +12,7 @@
                 <span class="project-card__action">Remove</span>
             </div>
         </div>
-        <div class="project-card project-card--new">
+        <div class="project-card project-card--new" ng-click="createProject()">
             <span class="project-card__message"><i class="fa fa-plus"/> Create new</span>
         </div>
     </div>
