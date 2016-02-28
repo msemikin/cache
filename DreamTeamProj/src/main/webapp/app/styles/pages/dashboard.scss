@@ -47,6 +47,9 @@
 
 .project-card__info {
   padding: 20px 15px;
+  height: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-card__title {

@@ -8,8 +8,8 @@
                 <div class="project-card__edited">{{project.date | date}}</div>
             </div>
             <div class="project-card__actions">
-                <span class="project-card__action">Edit</span>
-                <span class="project-card__action">Remove</span>
+                <span class="project-card__action" ng-click="editProject($event, project)">Edit</span>
+                <span class="project-card__action" ng-click="removeProject($event, project)">Remove</span>
             </div>
         </div>
         <div class="project-card project-card--new" ng-click="createProject()">

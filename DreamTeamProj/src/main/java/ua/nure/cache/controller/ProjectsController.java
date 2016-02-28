@@ -25,8 +25,8 @@ public class ProjectsController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public void createProject(final @RequestBody Project project) {
-		this.projectsService.create(project);
+	public void createProject(final @RequestBody Project project, final Principal principal) {
+		this.projectsService.create(project, principal.getName());
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

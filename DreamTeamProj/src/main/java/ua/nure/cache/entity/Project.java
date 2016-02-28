@@ -1,6 +1,7 @@
 package ua.nure.cache.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Entity
@@ -13,19 +14,26 @@ public class Project {
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	@JoinColumn(name = "owner_id")
 	private User owner;
 
 	@Column(name = "title")
+	@Size(max = 64)
+	@NotNull
 	private String title;
 
 	@Column(name = "description")
+	@NotNull
+	@Size(max = 255)
 	private String description;
 
 	@Column(name = "is_ready")
+	@NotNull
 	private boolean isReady;
 
 	@Column(name = "is_sent")
+	@NotNull
 	private boolean isSent;
 
 	@Column(name = "edited")

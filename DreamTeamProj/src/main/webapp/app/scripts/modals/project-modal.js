@@ -10,6 +10,7 @@ angular.module('db').service('ProjectModal', function ($uibModal) {
                         title: '',
                         description: ''
                     };
+                    $scope.mode = 'create';
 
                     $scope.create = function () {
                         $scope.creating = true;
@@ -35,6 +36,39 @@ angular.module('db').service('ProjectModal', function ($uibModal) {
                 }
             });
             return modalInstance;
+        },
+        editProject: function (project) {
+            return $uibModal.open({
+                animation: true,
+                templateUrl: 'modals/project-modal.html',
+                controller: function($scope, $uibModalInstance, Restangular, ErrorModal) {
+                    $scope.project = project;
+                    $scope.mode = 'edit';
+
+                    $scope.update = function () {
+                        $scope.updating = true;
+                        return $scope.project.put()
+                            .then(function() {
+                                $uibModalInstance.close();
+                            })
+                            .catch(function(err) {
+                                ErrorModal.showError('Error creating project');
+                            })
+                            .finally(function () {
+                                $scope.creating = false;
+                            });
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+
+                    $scope.hasErrors = function(field) {
+                        var field = $scope.projectForm[field];
+                        return field.$touched && !field.$valid;
+                    };
+                }
+            });
         }
     };
 });

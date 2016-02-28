@@ -3,8 +3,8 @@ package ua.nure.cache.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.nure.cache.dao.DAOFactory;
-import ua.nure.cache.entity.Project;
+import ua.nure.cache.dao.*;
+import ua.nure.cache.entity.*;
 
 import java.util.Collection;
 
@@ -26,4 +26,10 @@ public class ProjectsServiceImpl extends GenericServiceImpl<Project> implements 
 		return daoFactory.getProjectDAO().getProjectsByUser(userId);
 	}
 
+	@Override
+	public void create(final Project project, final String ownerEmail) {
+		final User owner = daoFactory.getUserDAO().findUserByEmail(ownerEmail);
+		project.setOwner(owner);
+		this.create(project);
+	}
 }
