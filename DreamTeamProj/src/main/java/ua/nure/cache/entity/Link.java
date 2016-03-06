@@ -2,7 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "link")
 public class Link {
 
@@ -13,11 +13,11 @@ public class Link {
 
 	@ManyToOne
 	@JoinColumn(name = "first_el_id")
-	private Element firstElement;
+	private Entity firstEntity;
 
 	@ManyToOne
 	@JoinColumn(name = "second_el_id")
-	private Element secondElement;
+	private Entity secondEntity;
 
 	@Column(name = "type")
 	private String type;
@@ -36,20 +36,20 @@ public class Link {
 		this.linkId = linkId;
 	}
 
-	public Element getFirstElement() {
-		return firstElement;
+	public Entity getFirstEntity() {
+		return firstEntity;
 	}
 
-	public void setFirstElement(Element firstElement) {
-		this.firstElement = firstElement;
+	public void setFirstEntity(Entity firstEntity) {
+		this.firstEntity = firstEntity;
 	}
 
-	public Element getSecondElement() {
-		return secondElement;
+	public Entity getSecondEntity() {
+		return secondEntity;
 	}
 
-	public void setSecondElement(Element secondElement) {
-		this.secondElement = secondElement;
+	public void setSecondEntity(Entity secondEntity) {
+		this.secondEntity = secondEntity;
 	}
 
 	public String getType() {
@@ -79,51 +79,51 @@ public class Link {
 	public String returnDesr() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("для связи объекта \"");
-		sb.append(this.firstElement).append("\"");
+		sb.append(this.firstEntity).append("\"");
 		sb.append(" и объекта \"");
-		sb.append(this.secondElement).append("\"");
+		sb.append(this.secondEntity).append("\"");
 		if (type.equals("1:M")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(", т.е. связь типа «один-ко-многим»;");
 		}
 		else if (type.equals("1:1")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(", т.е. связь типа «один-ко-одному»;");
 		}
 		else if (type.equals("M:1")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(" может существовать только один объект   \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(", т.е. связь типа «один-ко-многим»;");
 		}
 		else if (type.equals("M:M")) {
 			sb.append(" справедливо, что для одного объекта \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(", и наоборот, для одного объекта \"");
-			sb.append(this.secondElement).append("\"");
+			sb.append(this.secondEntity).append("\"");
 			sb.append(" может существовать много объектов  \"");
-			sb.append(this.firstElement).append("\"");
+			sb.append(this.firstEntity).append("\"");
 			sb.append(", т.е. связь типа «многие-ко-многим»;");
 		}
 		return sb.toString();

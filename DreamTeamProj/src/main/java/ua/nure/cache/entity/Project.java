@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "project")
 public class Project {
 

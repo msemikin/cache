@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('db');
 app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint, LinkConstraint, Object) {
-    $scope.objects = [];
+    $scope.entities = [];
     var tabs = {
         attribute: {
             name: 'attribute',
@@ -33,7 +33,7 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
 
     function updateObjects() {
         return Object.load().then(function(data) {
-            $scope.objects = data;
+            $scope.entities = data;
         });
     }
 
@@ -72,28 +72,28 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
             });
     };
 
-    $scope.selectObject = function(object) {
+    $scope.selectObject = function(entity) {
         var constraint = $scope.tab.constraint;
-        constraint.object = {
-            id: object.id,
-            name: object.name
+        constraint.entity = {
+            id: entity.id,
+            name: entity.name
         };
         // $scope.tab.dataProvider.update(constraint).then(function(response) {
         //     updateConstraints(constraint.id);
         // });
     };
 
-    $scope.selectFirstObject = function(object) {
+    $scope.selectFirstObject = function(entity) {
         var constraint = $scope.tab.constraint;
-        constraint.firstObject = object;
+        constraint.firstObject = entity;
         $scope.tab.dataProvider.update(constraint).then(function(response) {
             updateConstraints(constraint.id);
         });
     };
 
-    $scope.selectSecondObject = function(object) {
+    $scope.selectSecondObject = function(entity) {
         var constraint = $scope.tab.constraint;
-        constraint.secondObject = object;
+        constraint.secondObject = entity;
         $scope.tab.dataProvider.update(constraint).then(function(response) {
             updateConstraints(constraint.id);
         });
@@ -101,7 +101,7 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
 
     $scope.selectAttr = function(attr) {
         var constraint = $scope.tab.constraint;
-        constraint.object.attr = attr;
+        constraint.entity.attr = attr;
         $scope.tab.dataProvider.update(constraint).then(function(response) {
             updateConstraints(constraint.id);
         });
@@ -120,15 +120,15 @@ app.controller('AttributeConstraintsCtrl', function($scope, AttributeConstraint,
         }
     };
 
-    $scope.getAttrs = function(object) {
-        if (object) {
-            var objectIndex = _.findIndex($scope.objects, {
-                id: object.id
+    $scope.getAttrs = function(entity) {
+        if (entity) {
+            var entityIndex = _.findIndex($scope.entities, {
+                id: entity.id
             });
-            if (objectIndex === -1) {
+            if (entityIndex === -1) {
                 return [];
             }
-            return $scope.objects[objectIndex].attrs;
+            return $scope.entities[entityIndex].attrs;
         }
     };
 

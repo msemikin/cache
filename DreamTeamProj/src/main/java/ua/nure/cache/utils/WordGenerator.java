@@ -234,17 +234,17 @@ public class WordGenerator {
 	}
 
 	private List<String> getElementNames() {
-		return daoFactory.getElementDAO()
+		return daoFactory.getEntityDAO()
 				.getByProject(this.project.getId())
-				.stream().map(Element::getName)
+				.stream().map(Entity::getName)
 				.collect(Collectors.toList());
 	}
 
 	private void insertObjWithAttr(XWPFDocument document) {
-		List<Element> objs = daoFactory.getElementDAO()
+		List<Entity> objs = daoFactory.getEntityDAO()
 				.getByProject(this.project.getId());
 		List<String> names = new ArrayList<>();
-		for (Element obj : objs) {
+		for (Entity obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getName());
@@ -270,9 +270,9 @@ public class WordGenerator {
 		for (LinkConstraint obj : objs) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("—Между \"");
-			sb.append(obj.getFirstElement().getName());
+			sb.append(obj.getFirstEntity().getName());
 			sb.append("\" и \"");
-			sb.append(obj.getSecondElement().getName());
+			sb.append(obj.getSecondEntity().getName());
 			sb.append("\" связь \"");
 			sb.append(obj.getComment());
 			sb.append("\" ");
@@ -363,7 +363,7 @@ public class WordGenerator {
 			sb.append("Статистика \"");
 			sb.append(obj.getName());
 			sb.append("\", которая содержит следующую информацию: ");
-			for (Element o : obj.getElements()) {
+			for (Entity o : obj.getEntities()) {
 				sb.append("атрибуты: ");
 				for (Attribute a : o.getAttrs()) {
 					sb.append("\"");
@@ -392,7 +392,7 @@ public class WordGenerator {
 			sb.append("Документ \"");
 			sb.append(obj.getName());
 			sb.append("\", который содержит следующую информацию: ");
-			for (Element o : obj.getElements()) {
+			for (Entity o : obj.getEntities()) {
 				sb.append("атрибуты: ");
 				for (Attribute a : o.getAttrs()) {
 					sb.append("\"");
@@ -520,7 +520,7 @@ public class WordGenerator {
 				.collect(Collectors.toList()));
 	}
 
-	private Element extractElement(final InformationalRequirement requirement) {
-		return new ArrayList<>(requirement.getAttributes()).get(0).getElement();
+	private Entity extractElement(final InformationalRequirement requirement) {
+		return new ArrayList<>(requirement.getAttributes()).get(0).getEntity();
 	}
 }

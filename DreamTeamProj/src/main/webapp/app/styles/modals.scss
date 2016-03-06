@@ -32,26 +32,39 @@ h3.modal-title {
     color: $color-primary;
 }
 
-// ERROR MODAL
+// GENERIC SELECTORS
 
-.modal--error__head {
+.modal--custom__head {
     padding: 10px;
-    background-color: $color-error;
-    color: white;
 }
 
-.modal--error__title {
+.modal--custom__title {
     font-size: 18px;
 }
 
-div.modal--error__footer {
+div.modal--custom__footer {
     text-align: center;
 }
 
-.modal--error__message {
+.modal--custom__message {
     text-align: center;
     margin: 0px;
     font-size: 13px;
 }
 
-// PROJECT MODAL
+// ERROR MODAL
+
+.modal--error__head {
+    @extend .modal--custom__head;
+    background-color: $color-error;
+    color: white;
+}
+
+// CONFIRM MODAL
+
+.modal--confirm__head {
+    @extend .modal--custom__head;
+    background-color: $color-primary;
+    color: white;
+}
+

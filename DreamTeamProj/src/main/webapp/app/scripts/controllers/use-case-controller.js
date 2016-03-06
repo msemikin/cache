@@ -1,6 +1,7 @@
 'use strict';
 var app = angular.module('db');
-app.controller('UsecaseCtrl', function($scope, Diagram, UseCase, $interval, Config, Actor) {
+app.controller('UsecaseCtrl', function($scope, Diagram, $interval, Config, Restangular) {
+    var baseUsecase = $scope.baseProject.one('diagrams', 'use-case');
     var diagram = Diagram.setup({
         name: 'usecase',
         diagramSelector: '.functional-model',
@@ -19,7 +20,7 @@ app.controller('UsecaseCtrl', function($scope, Diagram, UseCase, $interval, Conf
             figureType: 'Service'
         }]
     });
-    UseCase.load().then(function(data) {
+    baseUsecase.get().then(function(data) {
         console.log(data);
         if (!data.diagram) {
             UseCase.create(diagram.export()).then(function (data) {

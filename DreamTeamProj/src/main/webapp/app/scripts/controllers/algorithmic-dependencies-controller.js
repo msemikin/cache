@@ -11,12 +11,12 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
     $scope.dependencyName = '';
     $scope.sourceVariable = '';
     $scope.sourceObj = null;
-    $scope.objects = [];
+    $scope.entities = [];
     $scope.dependencies = [];
     $scope.formulaEditing = true;
 
-    $scope.setDestObj = function(object) {
-        $scope.dependency.resultField = object;
+    $scope.setDestObj = function(entity) {
+        $scope.dependency.resultField = entity;
     };
 
     $scope.setDestAttr = function(attr) {
@@ -28,10 +28,10 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
         });
     };
 
-    $scope.setSourceObj = function(object) {
+    $scope.setSourceObj = function(entity) {
         var sourceObj = {
-            id: object.id,
-            name: object.name
+            id: entity.id,
+            name: entity.name
         };
         $scope.sourceObj = sourceObj;
     };
@@ -49,7 +49,7 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
         var dependency = $scope.dependency;
         dependency.sourceFields.push({
             variable: $scope.sourceVariable,
-            object: $scope.sourceObj
+            entity: $scope.sourceObj
         });
         AlgorithmicDependency.insertSourceField(dependency).then(function () {
             resetSource();
@@ -58,14 +58,14 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
         });
     };
 
-    $scope.replaceSourceObj = function (source, object) {
+    $scope.replaceSourceObj = function (source, entity) {
         var dependency = $scope.dependency;
         var sourceIndex = _.findIndex(dependency.sourceFields, {variable: source.variable});
         var sourceObj = {
-            id: object.id,
-            name: object.name
+            id: entity.id,
+            name: entity.name
         };
-        dependency.sourceFields[sourceIndex].object = sourceObj;
+        dependency.sourceFields[sourceIndex].entity = sourceObj;
         AlgorithmicDependency.update(dependency).then(function () {
             return updateDependencies(dependency.id);
         });
@@ -74,7 +74,7 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
     $scope.replaceSourceAttr = function (source, attr) {
         var dependency = $scope.dependency;
         var sourceIndex = _.findIndex(dependency.sourceFields, {variable: source.variable});
-        dependency.sourceFields[sourceIndex].object.attr = attr;
+        dependency.sourceFields[sourceIndex].entity.attr = attr;
         AlgorithmicDependency.update(dependency).then(function () {
             return updateDependencies(dependency.id);
         });
@@ -105,14 +105,14 @@ app.controller('AlgorithmicDependenciesCtrl', ['$scope', 'AlgorithmicDependency'
 
     function updateObjects() {
         return Object.load().then(function(data) {
-            $scope.objects = data;
+            $scope.entities = data;
         });
     }
 
-    $scope.getAttrs = function (object) {
-        if (object) {
-            var objectIndex = _.findIndex($scope.objects, {id: object.id});
-            return objectIndex === -1 ? null : $scope.objects[objectIndex].attrs;
+    $scope.getAttrs = function (entity) {
+        if (entity) {
+            var entityIndex = _.findIndex($scope.entities, {id: entity.id});
+            return entityIndex === -1 ? null : $scope.entities[entityIndex].attrs;
         }
     };
 

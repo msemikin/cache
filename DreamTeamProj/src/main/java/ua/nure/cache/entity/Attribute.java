@@ -2,7 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "attribute")
 public class Attribute {
 
@@ -15,7 +15,7 @@ public class Attribute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "element_id")
-	private Element element;
+	private Entity entity;
 
 	@Column(name = "project_id")
 	private int projectId;
@@ -36,12 +36,12 @@ public class Attribute {
 		this.name = name;
 	}
 
-	public Element getElement() {
-		return element;
+	public Entity getEntity() {
+		return entity;
 	}
 
-	public void setElement(Element element) {
-		this.element = element;
+	public void setEntity(Entity entity) {
+		this.entity = entity;
 	}
 
 	public int getProjectId() {

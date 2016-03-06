@@ -9,26 +9,26 @@ import ua.nure.cache.entity.*;
 
 public class Mapper {
 
-	public static List<Element> unmapProjObj(ResultSet rs) throws SQLException {
-		List<Element> obj = new ArrayList<Element>();
+	public static List<Entity> unmapProjObj(ResultSet rs) throws SQLException {
+		List<Entity> obj = new ArrayList<Entity>();
 		while (rs.next()) {
-			Element element = new Element();
-			element.setId(rs.getInt(1));
-			element.setName(rs.getString(2));
+			Entity entity = new Entity();
+			entity.setId(rs.getInt(1));
+			entity.setName(rs.getString(2));
 			Attribute attr = new Attribute();
 			attr.setId(rs.getInt(3));
 			attr.setName(rs.getString(4));
-			if (element.getId() == 0) {
+			if (entity.getId() == 0) {
 				continue;
 			}
 
-			if (obj.contains(element) && attr.getId() != 0) {
-				obj.get(obj.lastIndexOf(element)).getAttrs().add(attr);
+			if (obj.contains(entity) && attr.getId() != 0) {
+				obj.get(obj.lastIndexOf(entity)).getAttrs().add(attr);
 			} else {
 				if (attr.getId() != 0) {
-					element.getAttrs().add(attr);
+					entity.getAttrs().add(attr);
 				}
-				obj.add(element);
+				obj.add(entity);
 			}
 		}
 		return obj;
@@ -41,36 +41,36 @@ public class Mapper {
 			Statistic stat = new Statistic();
 			stat.setId(rs.getInt(1));
 			stat.setName(rs.getString(2));
-			Element element = new Element();
+			Entity entity = new Entity();
 			Attribute attr = new Attribute();
-			element.setName(rs.getString(3));
+			entity.setName(rs.getString(3));
 			attr.setId(rs.getInt(4));
 			attr.setName(rs.getString(5));
-			element.setId(rs.getInt(6));
+			entity.setId(rs.getInt(6));
 			if (statLst.contains(stat)) {
 				Statistic stItem = statLst.get(statLst.lastIndexOf(stat));
-//				if (stItem.getObjects().contains(element)) {
+//				if (stItem.getObjects().contains(entity)) {
 //					if (attr.getId() != 0) {
 //						stItem.getObjects()
-//								.get(stItem.getObjects().lastIndexOf(element))
+//								.get(stItem.getObjects().lastIndexOf(entity))
 //								.getAttrs().add(attr);
 //						statLst.set(statLst.lastIndexOf(stat), stItem);
 //					}
 //				} else {
 //					if (attr.getId() != 0) {
-//						element.getAttrs().add(attr);
+//						entity.getAttrs().add(attr);
 //					}
-//					if (element.getName() != null) {
-////						stItem.getObjects().add(element);
+//					if (entity.getName() != null) {
+////						stItem.getObjects().add(entity);
 //					}
 //					statLst.set(statLst.lastIndexOf(stat), stItem);
 //				}
 			} else {
 				if (attr.getId() != 0) {
-					element.getAttrs().add(attr);
+					entity.getAttrs().add(attr);
 				}
-//				if (element.getName() != null) {
-//					stat.getObjects().add(element);
+//				if (entity.getName() != null) {
+//					stat.getObjects().add(entity);
 //				}
 				statLst.add(stat);
 			}
@@ -85,37 +85,37 @@ public class Mapper {
 			Report stat = new Report();
 			stat.setId(rs.getInt(1));
 			stat.setName(rs.getString(2));
-			Element element = new Element();
+			Entity entity = new Entity();
 			Attribute attr = new Attribute();
-			element.setId(rs.getInt(3));
-			element.setName(rs.getString(4));
+			entity.setId(rs.getInt(3));
+			entity.setName(rs.getString(4));
 			attr.setId(rs.getInt(5));
 			attr.setName(rs.getString(6));
 
 			if (statLst.contains(stat)) {
 				Report stItem = statLst.get(statLst.lastIndexOf(stat));
-				if (stItem.getElements().contains(element)) {
+				if (stItem.getEntities().contains(entity)) {
 					if (attr.getId() != 0) {
-//						stItem.getElements()
-//								.get(stItem.getElements().lastIndexOf(element))
+//						stItem.getEntities()
+//								.get(stItem.getEntities().lastIndexOf(entity))
 //								.getAttrs().add(attr);
 					}
 					statLst.set(statLst.lastIndexOf(stat), stItem);
 				} else {
 					if (attr.getId() != 0) {
-						element.getAttrs().add(attr);
+						entity.getAttrs().add(attr);
 					}
-					if (element.getName() != null) {
-						stItem.getElements().add(element);
+					if (entity.getName() != null) {
+						stItem.getEntities().add(entity);
 					}
 					statLst.set(statLst.lastIndexOf(stat), stItem);
 				}
 			} else {
 				if (attr.getId() != 0) {
-					element.getAttrs().add(attr);
+					entity.getAttrs().add(attr);
 				}
-				if (element.getName() != null) {
-					stat.getElements().add(element);
+				if (entity.getName() != null) {
+					stat.getEntities().add(entity);
 				}
 				statLst.add(stat);
 			}
@@ -128,18 +128,18 @@ public class Mapper {
 		List<InformationalRequirement> statLst = new ArrayList<InformationalRequirement>();
 		while (rs.next()) {
 			InformationalRequirement o = new InformationalRequirement();
-			Element element = new Element();
+			Entity entity = new Entity();
 			Attribute attr = new Attribute();
 			o.setId(rs.getInt(1));
-			element.setId(rs.getInt(2));
-			element.setName(rs.getString(3));
+			entity.setId(rs.getInt(2));
+			entity.setName(rs.getString(3));
 			attr.setId(rs.getInt(4));
 			attr.setName(rs.getString(5));
 			if (attr.getId() != 0) {
-				element.getAttrs().add(attr);
+				entity.getAttrs().add(attr);
 			}
-			if (element.getName() != null) {
-//				o.setObject(element);
+			if (entity.getName() != null) {
+//				o.setObject(entity);
 			}
 			statLst.add(o);
 		}
@@ -227,8 +227,8 @@ public class Mapper {
 		return null;
 	}
 
-	public static Element unmapObj(ResultSet rs) throws SQLException {
-		Element obj = new Element();
+	public static Entity unmapObj(ResultSet rs) throws SQLException {
+		Entity obj = new Entity();
 		while (rs.next()) {
 			obj.setId(rs.getInt(1));
 			obj.setName(rs.getString(2));

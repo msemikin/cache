@@ -3,7 +3,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "linkconstraint")
 public class LinkConstraint {
 
@@ -17,11 +17,11 @@ public class LinkConstraint {
 
 	@ManyToOne
 	@JoinColumn(name = "first_element")
-	private Element firstElement;
+	private Entity firstEntity;
 
 	@ManyToOne
 	@JoinColumn(name = "second_element")
-	private Element secondElement;
+	private Entity secondEntity;
 
 	@JoinColumn(name = "comment")
 	private String comment;
@@ -45,20 +45,20 @@ public class LinkConstraint {
 		this.projectId = projectId;
 	}
 
-	public Element getFirstElement() {
-		return firstElement;
+	public Entity getFirstEntity() {
+		return firstEntity;
 	}
 
-	public void setFirstElement(Element firstElement) {
-		this.firstElement = firstElement;
+	public void setFirstEntity(Entity firstEntity) {
+		this.firstEntity = firstEntity;
 	}
 
-	public Element getSecondElement() {
-		return secondElement;
+	public Entity getSecondEntity() {
+		return secondEntity;
 	}
 
-	public void setSecondElement(Element secondElement) {
-		this.secondElement = secondElement;
+	public void setSecondEntity(Entity secondEntity) {
+		this.secondEntity = secondEntity;
 	}
 
 	public String getComment() {

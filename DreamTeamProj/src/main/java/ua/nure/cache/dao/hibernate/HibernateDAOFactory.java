@@ -3,9 +3,8 @@ package ua.nure.cache.dao.hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ua.nure.cache.dao.*;
+import ua.nure.cache.entity.*;
 
 @Component
 public class HibernateDAOFactory implements DAOFactory {
@@ -24,8 +23,8 @@ public class HibernateDAOFactory implements DAOFactory {
     }
 
     @Override
-    public ElementDAO getElementDAO() {
-        return new HibernateElementDAO(sessionFactory);
+    public ProjectDependentEntityDAO<Entity> getEntityDAO() {
+        return this.getProjectDependentDAO(Entity.class);
     }
 
     @Override

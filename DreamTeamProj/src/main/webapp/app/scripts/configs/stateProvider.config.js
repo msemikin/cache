@@ -55,44 +55,49 @@ angular.module('db')
             .state('project', {
                 url: '/projects/:id',
                 templateUrl: 'states/project.html',
+                controller: 'ProjectCtrl',
+                redirectTo: 'project.document',
                 resolve: {
-                    auth: auth
+                    auth: auth,
+                    project: function (Restangular, $stateParams) {
+                        return Restangular.one('projects', $stateParams.id);
+                    }
                 }
             })
             .state('project.document', {
-                url: '/projects/:id/document',
-                templateUrl: 'templates/document.html'
+                url: '/document',
+                templateUrl: 'templates/document.html',
             })
             .state('project.useCase', {
-                url: '/projects/:id/use-case',
+                url: '/use-case',
                 templateUrl: 'templates/use-case.html'
             })
             .state('project.objectRelations', {
-                url: '/projects/:id/object-relations',
+                url: '/object-relations',
                 templateUrl: 'templates/object-relations.html'
             })
             .state('project.er', {
-                url: '/projects/:id/er',
+                url: '/er',
                 templateUrl: 'templates/er.html'
             })
             .state('project.informationalRequirements', {
-                url: '/projects/:id/informational-requirements',
+                url: '/informational-requirements',
                 templateUrl: 'templates/informational-requirements.html'
             })
             .state('project.statistics', {
-                url: '/projects/:id/statistics',
+                url: '/statistics',
                 templateUrl: 'templates/statistics.html'
             })
             .state('project.reports', {
-                url: '/projects/:id/reports',
+                url: '/reports',
                 templateUrl: 'templates/reports.html'
             })
             .state('project.algorithmicDependencies', {
-                url: '/projects/:id/algorithmic-dependencies',
+                url: '/algorithmic-dependencies',
                 templateUrl: 'templates/algorithmic-dependencies.html'
             })
             .state('project.integrityConstraints', {
-                url: '/projects/:id/integrityConstraints',
+                url: '/integrityConstraints',
                 templateUrl: 'templates/integrity-constraints.html'
             });
     });

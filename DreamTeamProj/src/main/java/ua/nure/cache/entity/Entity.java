@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "element")
-public class Element {
+@javax.persistence.Entity
+@Table(name = "entity")
+public class Entity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "element_id")
+	@Column(name = "entity_id")
 	private int id;
 
 	@Column(name = "name")
@@ -19,7 +19,7 @@ public class Element {
 	@Column(name = "project_id")
 	private int projectId;
 
-	@OneToMany(mappedBy = "element")
+	@OneToMany(mappedBy = "entity")
 	private Set<Attribute> attrs = new HashSet<>();
 
 	public int getId() {

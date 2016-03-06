@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `document` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `element`
+-- Структура таблицы `entity`
 --
 
 CREATE TABLE IF NOT EXISTS `element` (
@@ -384,9 +384,9 @@ ALTER TABLE `document`
   ADD KEY `FK_DOCUMENT_REFERENCE_PROJECT` (`project_id`);
 
 --
--- Индексы таблицы `element`
+-- Индексы таблицы `entity`
 --
-ALTER TABLE `element`
+ALTER TABLE `entity`
   ADD PRIMARY KEY (`element_id`),
   ADD KEY `FK_OBJECT_REFERENCE_PROJECT` (`project_id`);
 
@@ -511,9 +511,9 @@ ALTER TABLE `diagram`
 ALTER TABLE `document`
   MODIFY `docment_id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT для таблицы `element`
+-- AUTO_INCREMENT для таблицы `entity`
 --
-ALTER TABLE `element`
+ALTER TABLE `entity`
   MODIFY `element_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `group`
@@ -593,7 +593,7 @@ ALTER TABLE `attrconstraint`
 -- Ограничения внешнего ключа таблицы `attribute`
 --
 ALTER TABLE `attribute`
-  ADD CONSTRAINT `FK_ATTRIBUT_REFERENCE_OBJECT` FOREIGN KEY (`element_id`) REFERENCES `element` (`element_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_ATTRIBUT_REFERENCE_OBJECT` FOREIGN KEY (`element_id`) REFERENCES `entity` (`element_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `attribute_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`);
 
 --
@@ -616,9 +616,9 @@ ALTER TABLE `document`
   ADD CONSTRAINT `document_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`);
 
 --
--- Ограничения внешнего ключа таблицы `element`
+-- Ограничения внешнего ключа таблицы `entity`
 --
-ALTER TABLE `element`
+ALTER TABLE `entity`
   ADD CONSTRAINT `element_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`);
 
 --
@@ -631,7 +631,7 @@ ALTER TABLE `inforeq`
 -- Ограничения внешнего ключа таблицы `link`
 --
 ALTER TABLE `link`
-  ADD CONSTRAINT `dsfsdfgdfdf` FOREIGN KEY (`first_el_id`) REFERENCES `element` (`element_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `dsfsdfgdfdf` FOREIGN KEY (`first_el_id`) REFERENCES `entity` (`element_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `dsfsdfsdfvcx` FOREIGN KEY (`second_el_id`) REFERENCES `element` (`element_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `link_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`);
 
@@ -639,7 +639,7 @@ ALTER TABLE `link`
 -- Ограничения внешнего ключа таблицы `linkconstraint`
 --
 ALTER TABLE `linkconstraint`
-  ADD CONSTRAINT `dsfsdfs` FOREIGN KEY (`first_element`) REFERENCES `element` (`element_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `dsfsdfs` FOREIGN KEY (`first_element`) REFERENCES `entity` (`element_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `dsfsdfsds` FOREIGN KEY (`second_element`) REFERENCES `element` (`element_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `linkconstraint_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`);
 

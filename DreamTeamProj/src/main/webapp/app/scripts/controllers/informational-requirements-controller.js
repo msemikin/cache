@@ -4,7 +4,7 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
     var tabs = {
         search: {
             name: 'search',
-            objectHeadText: 'Объекты поиска',
+            entityHeadText: 'Объекты поиска',
             attrsHeadText: 'Атрибуты для поиска',
             dataProvider: Search,
             requirements: [],
@@ -12,7 +12,7 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
         },
         sort: {
             name: 'sort',
-            objectHeadText: 'Объекты сортировки',
+            entityHeadText: 'Объекты сортировки',
             attrsHeadText: 'Атрибуты для сортировки',
             dataProvider: Sort,
             requirements: [],
@@ -20,7 +20,7 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
         },
         filter: {
             name: 'filter',
-            objectHeadText: 'Объекты  фильтрации',
+            entityHeadText: 'Объекты  фильтрации',
             attrsHeadText: 'Атрибуты для фильтрации',
             dataProvider: Filter,
             requirements: [],
@@ -31,7 +31,7 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
     // $(document).ready(function() {
     //     $('.dropdown-toggle').dropdown();
     // });
-    $scope.objects = [];
+    $scope.entities = [];
     $scope.selectTab = function(name) {
         $scope.tab = tabs[name];
         updateRequirements();
@@ -40,7 +40,7 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
 
     function updateObjects() {
         return Object.load().then(function(data) {
-            $scope.objects = data;
+            $scope.entities = data;
         });
     }
 
@@ -60,15 +60,15 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
     updateObjects().then(updateRequirements);
 
     function getObject(requirement) {
-        var objectIndex = _.findIndex($scope.objects, {
-            id: requirement.object.id
+        var entityIndex = _.findIndex($scope.entities, {
+            id: requirement.entity.id
         });
-        return $scope.objects[objectIndex];
+        return $scope.entities[entityIndex];
     }
 
-    // function handleObjectLoad(object) {
-    //     $scope.object = object;
-    //     return object;
+    // function handleObjectLoad(entity) {
+    //     $scope.entity = entity;
+    //     return entity;
     // }
     //
 
@@ -81,27 +81,27 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
     }
 
     function fillAvailableAttrs(requirement) {
-        var object = getObject(requirement);
-        $scope.availableAttrs = Utils.difference(object.attrs, $scope.tab.requirement.object.attrs);
+        var entity = getObject(requirement);
+        $scope.availableAttrs = Utils.difference(entity.attrs, $scope.tab.requirement.entity.attrs);
     }
 
     function fillAvailableObjects(requirements) {
         var requirementObjects = _.map(requirements, function(requirement) {
-            return requirement.object;
+            return requirement.entity;
         });
-        $scope.availableObjects = Utils.difference($scope.objects, requirementObjects);
+        $scope.availableObjects = Utils.difference($scope.entities, requirementObjects);
         return requirements;
     }
 
     $scope.selectRequirement = selectRequirement;
-    $scope.addRequirement = function(object) {
+    $scope.addRequirement = function(entity) {
         var requirementObj = {
-            id: object.id,
-            name: object.name,
+            id: entity.id,
+            name: entity.name,
             attrs: []
         };
         $scope.tab.dataProvider.create({
-                object: requirementObj
+                entity: requirementObj
             })
             .then(function(response) {
                 return updateRequirements(response.id);
@@ -110,7 +110,7 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
 
     $scope.addAttr = function(attr) {
         var requirement = $scope.tab.requirement;
-        requirement.object.attrs.push(attr);
+        requirement.entity.attrs.push(attr);
         $scope.tab.dataProvider.update(requirement).then(function(response) {
             updateRequirements(requirement.id);
         });
@@ -118,10 +118,10 @@ angular.module('db').controller('InformationalRequirementsCtrl', ['$scope', 'Obj
 
     $scope.removeAttr = function(attr) {
         var requirement = $scope.tab.requirement;
-        var index = _.findIndex(requirement.object.attrs, {
+        var index = _.findIndex(requirement.entity.attrs, {
             id: attr.id
         });
-        requirement.object.attrs.splice(index, 1);
+        requirement.entity.attrs.splice(index, 1);
         $scope.tab.dataProvider.update(requirement).then(function(response) {
             updateRequirements(requirement.id);
         });

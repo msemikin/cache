@@ -7,63 +7,63 @@ app.factory('CommonCtrlFactory', function(Utils, Object) {
      * @param  {[type]} params.$scope    [description]
      * @param  {[type]} params.Element [description]
      * @param  {[type]} params.listName [description]
-     * @param  {[type]} params.elementName [description]
+     * @param  {[type]} params.entityName [description]
      * @return {[type]}           [description]
      */
     return function(params) {
         var listName = params.listName,
-            elementName = params.elementName,
+            entityName = params.entityName,
             $scope = params.$scope,
             dataProvider = params.dataProvider;
 
-        params.$scope.objects = [];
+        params.$scope.entities = [];
         params.$scope[listName] = [];
-        $scope[elementName] = null;
-        $scope.elementName = null;
+        $scope[entityName] = null;
+        $scope.entityName = null;
         $scope.availableAttrs = {};
 
         function updateObjects() {
             return Object.load().then(function(data) {
-                $scope.objects = data;
+                $scope.entities = data;
             });
         }
 
-        function fillAvailableAttrs(element) {
-            var elementObjects = element.objects;
-            _.each(elementObjects, function(elementObject) {
-                var originalObject = _.findWhere($scope.objects, {
-                    id: elementObject.id
+        function fillAvailableAttrs(entity) {
+            var entityObjects = entity.entities;
+            _.each(entityObjects, function(entityObject) {
+                var originalObject = _.findWhere($scope.entities, {
+                    id: entityObject.id
                 });
                 if (originalObject) {
-                    $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, elementObject.attrs);
+                    $scope.availableAttrs[originalObject.id] = Utils.difference(originalObject.attrs, entityObject.attrs);
                 }
             });
         }
 
-        function fillAvailableObjects(element) {
-            $scope.availableObjects = Utils.difference($scope.objects, element.objects);
-            return element;
+        function fillAvailableObjects(entity) {
+            $scope.availableObjects = Utils.difference($scope.entities, entity.entities);
+            return entity;
         }
 
-        function selectElement(element) {
-            // element is an id
-            $scope[elementName] = element;
-            if (element) {
-                fillAvailableObjects(element);
-                fillAvailableAttrs(element);
+        function selectElement(entity) {
+            // entity is an id
+            $scope[entityName] = entity;
+            if (entity) {
+                fillAvailableObjects(entity);
+                fillAvailableAttrs(entity);
             }
-            return element;
+            return entity;
         }
 
-        function updateElements(elementId) {
+        function updateElements(entityId) {
             return dataProvider.load()
-                .then(function(elements) {
-                    var element = typeof elementId === 'number' ? _.findWhere(elements, {
-                        id: elementId
-                    }) : elements[0];
-                    $scope[listName] = elements;
-                    selectElement(element);
-                    return element;
+                .then(function(entities) {
+                    var entity = typeof entityId === 'number' ? _.findWhere(entities, {
+                        id: entityId
+                    }) : entities[0];
+                    $scope[listName] = entities;
+                    selectElement(entity);
+                    return entity;
                 });
         }
 
@@ -71,58 +71,58 @@ app.factory('CommonCtrlFactory', function(Utils, Object) {
         $scope.selectElement = selectElement;
 
         $scope.addElement = function() {
-            var element = {
-                name: $scope.elementName,
-                objects: []
+            var entity = {
+                name: $scope.entityName,
+                entities: []
             };
-            dataProvider.create(element)
+            dataProvider.create(entity)
                 .then(function(response) {
-                    $scope[elementName] = '';
+                    $scope[entityName] = '';
                     return updateElements(response.id);
                 });
         };
 
-        $scope.addObject = function(object) {
-            var element = $scope[elementName];
-            element.objects.push(object);
-            dataProvider.update(element).then(function(response) {
-                updateElements(element.id);
+        $scope.addObject = function(entity) {
+            var entity = $scope[entityName];
+            entity.entities.push(entity);
+            dataProvider.update(entity).then(function(response) {
+                updateElements(entity.id);
             });
         };
 
-        $scope.addAttr = function(object, attr) {
-            var element = $scope[elementName];
-            var objectIndex = _.findIndex(element.objects, {
-                id: object.id
+        $scope.addAttr = function(entity, attr) {
+            var entity = $scope[entityName];
+            var entityIndex = _.findIndex(entity.entities, {
+                id: entity.id
             });
-            element.objects[objectIndex].attrs.push(attr);
-            dataProvider.update(element).then(function(response) {
-                updateElements(element.id);
+            entity.entities[entityIndex].attrs.push(attr);
+            dataProvider.update(entity).then(function(response) {
+                updateElements(entity.id);
             });
         };
 
-        $scope.removeAttr = function(object, attr) {
-            var element = $scope[elementName];
-            var objectIndex = _.findIndex(element.objects, {
-                id: object.id
+        $scope.removeAttr = function(entity, attr) {
+            var entity = $scope[entityName];
+            var entityIndex = _.findIndex(entity.entities, {
+                id: entity.id
             });
-            var attrIndex = _.findIndex(element.objects[objectIndex].attrs, {
+            var attrIndex = _.findIndex(entity.entities[entityIndex].attrs, {
                 id: attr.id
             });
-            element.objects[objectIndex].attrs.splice(attrIndex, 1);
-            dataProvider.update(element).then(function(response) {
-                updateElements(element.id);
+            entity.entities[entityIndex].attrs.splice(attrIndex, 1);
+            dataProvider.update(entity).then(function(response) {
+                updateElements(entity.id);
             });
         };
 
-        $scope.removeObject = function(object) {
-            var element = $scope[elementName];
-            var objectIndex = _.findIndex(element.objects, {
-                id: object.id
+        $scope.removeObject = function(entity) {
+            var entity = $scope[entityName];
+            var entityIndex = _.findIndex(entity.entities, {
+                id: entity.id
             });
-            element.objects.splice(objectIndex, 1);
-            dataProvider.update(element).then(function(response) {
-                updateElements(element.id);
+            entity.entities.splice(entityIndex, 1);
+            dataProvider.update(entity).then(function(response) {
+                updateElements(entity.id);
             });
         };
 

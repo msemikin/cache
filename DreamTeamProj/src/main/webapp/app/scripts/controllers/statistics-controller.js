@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('db');
 app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', function($scope, Statistic, Object, Utils) {
-    $scope.objects = [];
+    $scope.entities = [];
     $scope.statistics = [];
     $scope.statistic = null;
     $scope.statisticName = null;
@@ -9,14 +9,14 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
 
     function updateObjects() {
         return Object.load().then(function(data) {
-            $scope.objects = data;
+            $scope.entities = data;
         });
     }
 
     function fillAvailableAttrs(statistic) {
-        var statisticObjects = statistic.objects;
+        var statisticObjects = statistic.entities;
         _.each(statisticObjects, function(statisticObject) {
-            var originalObject = _.findWhere($scope.objects, {
+            var originalObject = _.findWhere($scope.entities, {
                 id: statisticObject.id
             });
             if (originalObject) {
@@ -26,7 +26,7 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
     }
 
     function fillAvailableObjects(statistic) {
-        $scope.availableObjects = Utils.difference($scope.objects, statistic.objects);
+        $scope.availableObjects = Utils.difference($scope.entities, statistic.entities);
         return statistic;
     }
 
@@ -58,7 +58,7 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
     $scope.addStatistic = function() {
         var statistic = {
             name: $scope.statisticName,
-            objects: []
+            entities: []
         };
         Statistic.create(statistic)
             .then(function(response) {
@@ -67,45 +67,45 @@ app.controller('StatisticsCtrl', ['$scope', 'Statistic', 'Object', 'Utils', func
             });
     };
 
-    $scope.addObject = function(object) {
+    $scope.addObject = function(entity) {
         var statistic = $scope.statistic;
-        statistic.objects.push(object);
+        statistic.entities.push(entity);
         Statistic.update(statistic).then(function(response) {
             updateStatistics(statistic.id);
         });
     };
 
-    $scope.addAttr = function(object, attr) {
+    $scope.addAttr = function(entity, attr) {
         var statistic = $scope.statistic;
-        var objectIndex = _.findIndex(statistic.objects, {
-            id: object.id
+        var entityIndex = _.findIndex(statistic.entities, {
+            id: entity.id
         });
-        statistic.objects[objectIndex].attrs.push(attr);
+        statistic.entities[entityIndex].attrs.push(attr);
         Statistic.update(statistic).then(function(response) {
             updateStatistics(statistic.id);
         });
     };
 
-    $scope.removeAttr = function(object, attr) {
+    $scope.removeAttr = function(entity, attr) {
         var statistic = $scope.statistic;
-        var objectIndex = _.findIndex(statistic.objects, {
-            id: object.id
+        var entityIndex = _.findIndex(statistic.entities, {
+            id: entity.id
         });
-        var attrIndex = _.findIndex(statistic.objects[objectIndex].attrs, {
+        var attrIndex = _.findIndex(statistic.entities[entityIndex].attrs, {
             id: attr.id
         });
-        statistic.objects[objectIndex].attrs.splice(attrIndex, 1);
+        statistic.entities[entityIndex].attrs.splice(attrIndex, 1);
         Statistic.update(statistic).then(function(response) {
             updateStatistics(statistic.id);
         });
     };
 
-    $scope.removeObject = function(object) {
+    $scope.removeObject = function(entity) {
         var statistic = $scope.statistic;
-        var objectIndex = _.findIndex(statistic.objects, {
-            id: object.id
+        var entityIndex = _.findIndex(statistic.entities, {
+            id: entity.id
         });
-        statistic.objects.splice(objectIndex, 1);
+        statistic.entities.splice(entityIndex, 1);
         Statistic.update(statistic).then(function(response) {
             updateStatistics(statistic.id);
         });

@@ -1,12 +1,10 @@
 package ua.nure.cache.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "statistic")
 public class Statistic {
 
@@ -27,7 +25,7 @@ public class Statistic {
 			inverseJoinColumns = {
 					@JoinColumn(name = "attr_id", nullable = false, updatable = false)
 			})
-	private Set<Element> elements = new HashSet<>();
+	private Set<Entity> entities = new HashSet<>();
 
 	public int getId() {
 		return id;
@@ -53,12 +51,12 @@ public class Statistic {
 		this.projectId = projectId;
 	}
 
-	public Set<Element> getElements() {
-		return elements;
+	public Set<Entity> getEntities() {
+		return entities;
 	}
 
-	public void setElements(Set<Element> elements) {
-		this.elements = elements;
+	public void setEntities(Set<Entity> entities) {
+		this.entities = entities;
 	}
 
 	@Override

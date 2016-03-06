@@ -1,0 +1,42 @@
+<div ng-controller="EntitiesAttrsCtrl" class="panel panel-default tool-panel">
+    <div class="panel-heading tool-panel__heading">
+        <h3 class="tool-panel__title panel-title">
+            <span class="fa fa-arrow-left tool-panel__back" ng-click="deselectEntity()" ng-show="entity"></span>
+            {{entity ? 'Атрибуты ' + entity.name : 'Объекты'}}
+            <span class="fa fa-minus tool-panel__minify" ng-click="toggleShowPanel('objects')"></span>
+        </h3>
+    </div>
+    <div class="panel-body tool-panel__body">
+        <div class="list-group list-group--scrollable" ng-hide="entity">
+            <a ng-repeat="ent in entities" href=""
+               ng-click="selectObject(ent); $event.stopPropagation();" class="list-group-item entity">
+                <div class="obj-name-td">{{ent.name}}</div>
+                <div class="attr-count-td">{{ent.attrs.length}}</div>
+            </a>
+            <div class="list-group__no-items" ng-hide="entities.length">
+                <span class="no-items__text">Пока ни одного объекта</span>
+            </div>
+        </div>
+        <div class="list-group list-group--scrollable" ng-show="entity">
+            <a ng-repeat="attr in entity.attrs" href="" class="list-group-item">{{attr.name}}</a>
+            <div class="list-group__no-items" ng-hide="attrs.length">
+                <span class="no-items__text">Пока ни одного атрибута</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tool-panel__footer panel-footer">
+        <div class="form form--inline" ng-hide="entity">
+            <input type="text" class="form-control" placeholder="Название объекта" ng-model="entityName"
+                   ng-keypress="onKeypress($event, addEntity)">
+            <button class="md-button md-button--inline md-button--inline--primary" type="button" ng-click="addEntity()">
+                Add</button>
+        </div>
+        <div class="form form--inline" ng-show="entity">
+            <input type="text" class="form-control" placeholder="Название атрибута" ng-model="attrName"
+                   ng-keypress="onKeypress($event, addAttr)">
+            <button class="md-button md-button--inline md-button--inline--primary" type="button" ng-click="addAttr()">
+                Add</button>
+        </div>
+    </div>
+</div>

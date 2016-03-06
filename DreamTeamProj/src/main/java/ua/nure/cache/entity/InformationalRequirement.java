@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.sound.midi.MidiDevice;
 import java.util.Set;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "inforeq")
 public class InformationalRequirement {
 

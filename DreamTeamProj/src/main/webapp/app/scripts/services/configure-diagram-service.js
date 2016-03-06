@@ -3,7 +3,7 @@
 var app = angular.module('db');
 app.service('configureDiagram', ['Figures', 'Links', function(Figures, Links) {
     /**
-     * Configuration of a diagram and figures on it with access to the graph and paper objects
+     * Configuration of a diagram and figures on it with access to the graph and paper elements
      * @param  {[type]} graph [description]
      * @param  {[type]} paper [description]
      * @return {[type]}       [description]

@@ -1,0 +1,27 @@
+{
+  "extends": "google",
+  "rules": {
+    "camelcase": [0, {"properties": "never"}],
+    "space-before-function-paren": 0,
+    "require-jsdoc": 0,
+    "no-unused-expressions": [2, {
+      "allowTernary": true,
+      "allowShortCircuit": true
+    }],
+    "max-len": 0,
+    "indent": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "$": false,
+    "window": false,
+    "document": false,
+    "io": false,
+    "angular": false,
+    "_": false
+  }
+}

@@ -28,7 +28,6 @@
     "html2canvas": "~0.4.1",
     "angular-ui-router": "ui-router#~0.2.15",
     "ladda": "~0.9.8",
-    "pure": "purecss#~0.6.0",
     "spin.js": "~2.3.2",
     "jquery-file-download": "~1.4.4",
     "angular-bootstrap": "~0.14.3",

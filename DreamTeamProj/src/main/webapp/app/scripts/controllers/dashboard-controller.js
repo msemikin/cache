@@ -1,25 +1,35 @@
 'use strict';
-angular.module('db').controller('DashboardCtrl', function ($scope, Restangular, ProjectModal) {
+angular.module('db').controller('DashboardCtrl', function ($scope, Restangular, ProjectModal, ConfirmModal) {
     var baseProjects = Restangular.all('projects');
     $scope.loadingProjects = true;
 
-    function updateProjects () {
-        baseProjects.getList().then(function(projects) {
+    function reloadProjects() {
+        $scope.loadingProjects = true;
+        baseProjects.getList().then(function (projects) {
             $scope.projects = projects;
             $scope.loadingProjects = false;
         });
     }
-    updateProjects();
 
-    $scope.createProject = function() {
-        ProjectModal.createProject().result.then(updateProjects);
+    reloadProjects();
+
+    $scope.createProject = function () {
+        ProjectModal.createProject().result.then(reloadProjects);
     };
 
-    function editProject (project) {
-        ProjectModal.editProject(project).result.then(updateProjects);
+    function editProject(project) {
+        ProjectModal.editProject(project).result.then(reloadProjects);
+    }
+
+    function removeProject(project) {
+        ConfirmModal.show('Are you sure you want to remove this project?')
+            .result.then(function () {
+                project.remove().then(reloadProjects);
+            });
     }
 
     $scope.editProject = dontPropagateDecorator(editProject);
+    $scope.removeProject = dontPropagateDecorator(removeProject);
 
 
     function dontPropagateDecorator(func) {

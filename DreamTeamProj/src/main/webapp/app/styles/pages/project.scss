@@ -1,8 +1,29 @@
-.extend-box {
-  position: relative;
-  flex-grow: 5;
-  z-index: 0;
+@import '../shared/palette';
+
+// LEFT SIDE
+
+.left-side {
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  padding: 0;
+  box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.11);
+  width: 250px;
+  z-index: 1;
+  border-right: 1px solid #ddd;
 }
+
+.left-side.shrunk {
+  width: 54px;
+}
+
+.shrunk .not-shrunk-only {
+  display: none;
+}
+
+// LEFT SIDE MENU
 
 .menu-shrink-container {
   flex-grow: 1;
@@ -24,3 +45,178 @@
   width: 25px;
 }
 
+.menu {
+  display: inline-block;
+  position: relative;
+}
+
+.menu__list {
+  list-style: none;
+  padding: 20px 0px;
+  margin: 0;
+}
+
+.menu__item {
+  transition: border-left-width 0.1s;
+  border-left: 0px solid $color-primary;
+  padding: 10px;
+  color: $color-primary;
+
+}
+
+.menu__item:hover {
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+
+.menu__link {
+  &:hover, &:visited, &:active, &:focus {
+    text-decoration: none;
+    color: $color-primary;
+  }
+}
+
+.menu__item--selected {
+  border-left-width: 6px;
+  background-color: #F5F5F5;
+}
+
+// EXTEND BOX
+
+.extend-box {
+  position: relative;
+  flex-grow: 5;
+  z-index: 0;
+  background: #eeeded;
+}
+
+// tool panel menu
+
+// tool panels
+
+.panels {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 70px;
+  bottom: 0;
+}
+
+.panels-menu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+ul.panels-menu__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  background-color: white;
+  border-radius: 3px;
+  height: auto;
+  position: relative;
+
+  .tooltip {
+    margin-top: 6px;
+    margin-left: -48px;
+  }
+}
+
+.panels-menu__item {
+  padding: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #F5F5F5;
+  }
+}
+
+.panels-menu__item--selected {
+  color: $color-primary;
+}
+
+div.tool-panel.panel {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 300px;
+  border: 0;
+}
+
+div.tool-panel__heading.panel-heading {
+  border: 0;
+  color: white;
+  background-color: $color-primary;
+  padding: 15px;
+}
+
+div.tool-panel__body {
+  display: flex;
+  padding: 0;
+  flex: 2;
+}
+
+div.tool-panel__footer.panel-footer {
+  background-color: white;
+}
+
+.tool-panel__back {
+  cursor: pointer;
+  &::before {
+    margin-right: 5px;
+  }
+}
+
+.tool-panel__minify {
+  cursor: pointer;
+  float: right;
+  &::before {
+    margin-right: 5px;
+  }
+}
+
+.list-group-item.entity {
+  border-left: 0;
+  border-right: 0;
+  &:first-child {
+    border-top: 0;
+  }
+  &:last-child {
+    border-bottom: 0;
+  }
+  &.active {
+    background-color: $color-primary;
+    border-color: $color-primary;
+
+    &:hover, &:focus {
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+  }
+}
+
+.list-group.list-group--scrollable {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-group__no-items {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.no-items__text {
+  width: 100%;
+  text-align: center;
+  color: #9E9E9E;
+}

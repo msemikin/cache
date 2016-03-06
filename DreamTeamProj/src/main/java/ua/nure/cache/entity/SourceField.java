@@ -2,7 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "sourcefield")
 public class SourceField {
 

@@ -1,58 +1,65 @@
-<div class="ProjectCtrl">
-    <div class="left-side" ng-class="{'shrunk' : shrunk}">
-        <div class="pure-menu custom-restricted-width">
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-file" ui-sref="project.document">
-                        <span class="not-shrunk-only">Документ</span>
-                    </a>
-                </li>
-                <!-- <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Объекты и атрибуты</a></li> -->
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-cog" ui-sref="project.useCase">
-                        <span class="not-shrunk-only">Диаграмма Use-Case</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-cog" ui-sref="project.objectRelations">
-                        <span class="not-shrunk-only">Диаграмма взаимодействия</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-cog" ui-sref="project.er">
-                        <span class="not-shrunk-only">ER диаграмма</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-info-sign" ui-sref="project.informationalRequirements">
-                        <span class="not-shrunk-only">Информационные потребности</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-cog" ui-sref="project.statistics">
-                        <span class="not-shrunk-only">Статистики</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-cog" ui-sref="project.reports">
-                        <span class="not-shrunk-only">Отчеты</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-cog" ui-sref="project.algorithmicDependencies">
-                        <span class="not-shrunk-only">Алгоритмические зависимости</span>
-                    </a>
-                </li>
-                <li class="pure-menu-item" ui-sref-active="pure-menu-selected">
-                    <a href="" class="pure-menu-link glyphicon glyphicon-lock" ui-sref="project.integrityConstraints">
-                        <span class="not-shrunk-only">Ограничения целостности</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="oe" ng-hide="shrunk" ng-include="'templates/elements-attrs.html'"></div>
+<div class="left-side" ng-class="{'shrunk' : shrunk}">
+    <div class="menu">
+        <ul class="menu__list">
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.document">
+                <a href="" class="menu__link glyphicon glyphicon-file">
+                    <span class="not-shrunk-only">Документ</span>
+                </a>
+            </li>
+            <!-- <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Объекты и атрибуты</a></li> -->
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.useCase">
+                <a href="" class="menu__link glyphicon glyphicon-cog">
+                    <span class="not-shrunk-only">Диаграмма Use-Case</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.objectRelations">
+                <a href="" class="menu__link glyphicon glyphicon-cog">
+                    <span class="not-shrunk-only">Диаграмма взаимодействия</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.er">
+                <a href="" class="menu__link glyphicon glyphicon-cog">
+                    <span class="not-shrunk-only">ER диаграмма</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.informationalRequirements">
+                <a href="" class="menu__link glyphicon glyphicon-info-sign">
+                    <span class="not-shrunk-only">Информационные потребности</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.statistics">
+                <a href="" class="menu__link glyphicon glyphicon-cog">
+                    <span class="not-shrunk-only">Статистики</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.reports">
+                <a href="" class="menu__link glyphicon glyphicon-cog">
+                    <span class="not-shrunk-only">Отчеты</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.algorithmicDependencies">
+                <a href="" class="menu__link glyphicon glyphicon-cog">
+                    <span class="not-shrunk-only">Алгоритмические зависимости</span>
+                </a>
+            </li>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.integrityConstraints">
+                <a href="" class="menu__link glyphicon glyphicon-lock">
+                    <span class="not-shrunk-only">Ограничения целостности</span>
+                </a>
+            </li>
+        </ul>
     </div>
-    <div class="extend-box">
-        <div class="tile-container" ui-view></div>
-    </div>
+</div>
+<div class="extend-box">
+    <div class="tile-container" ui-view></div>
+</div>
+<div class="panels-menu">
+    <ul class="panels-menu__list">
+        <li ng-class="{'panels-menu__item--selected': activePanels.objects}"
+            class="panels-menu__item fa fa-lg fa-list" ng-click="toggleShowPanel('objects')"
+            uib-tooltip="Объекты и атрибуты" tooltip-placement="left"></li>
+    </ul>
+</div>
+<div class="panels">
+    <div ng-show="activePanels.objects" ng-include="'templates/entities-attrs.html'"></div>
 </div>

@@ -10,11 +10,11 @@
         <div class="box with-header">
             <div class="col-xs-1 panel panel-default namePanel">
                 <div class="panel-heading ">
-                    <h3 class="panel-title h2">{{tab.objectHeadText}}</h3>
+                    <h3 class="panel-title h2">{{tab.entityHeadText}}</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="list-group elements-select">
-                        <a ng-repeat="r in tab.requirements" ng-class="{active: r.id == tab.requirement.id}" href="#" ng-click="selectRequirement(r)" class="list-group-item">{{r.object.name}}</a>
+                    <div class="list-group entities-select">
+                        <a ng-repeat="r in tab.requirements" ng-class="{active: r.id == tab.requirement.id}" href="#" ng-click="selectRequirement(r)" class="list-group-item">{{r.entity.name}}</a>
                     </div>
                 </div>
                 <div class="panel-footer" ng-show="availableObjects.length">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="panel-body" ng-show="tab.requirement">
                     <ul class="list-group">
-                        <li ng-repeat="attr in tab.requirement.object.attrs" class="list-group-item">
+                        <li ng-repeat="attr in tab.requirement.entity.attrs" class="list-group-item">
                             {{attr.name}}
                             <span ng-click="removeAttr(attr)" class="badge">x</span>
                         </li>

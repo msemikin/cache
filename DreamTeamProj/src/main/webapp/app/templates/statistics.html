@@ -5,7 +5,7 @@
                 <h3 class="panel-title h2">Статистика</h3>
             </div>
             <div class="panel-body">
-                <div class="list-group elements-select">
+                <div class="list-group entities-select">
                     <a ng-repeat="s in statistics" ng-class="{active: s.id === statistic.id}" href="#" ng-click="selectStatistic(s)" class="list-group-item">{{s.name}}</a>
                 </div>
             </div>
@@ -23,26 +23,26 @@
                 <h3 class="panel-title">Детали статистики</h3>
             </div>
             <div class="panel-body" ng-show="statistic">
-                <div ng-repeat="object in statistic.elements" class="panel panel-default">
+                <div ng-repeat="entity in statistic.entities" class="panel panel-default">
                     <div class="panel-body stat-object">
-                        <h4>{{object.name}}</h4>
-                        <span ng-click="removeObject(object)" class="badge">x</span>
+                        <h4>{{entity.name}}</h4>
+                        <span ng-click="removeObject(entity)" class="badge">x</span>
 
                         <ul class="list-group">
-                            <li ng-repeat="attr in object.attrs" class="list-group-item">
+                            <li ng-repeat="attr in entity.attrs" class="list-group-item">
                                 {{attr.name}}
-                                <span ng-click="removeAttr(object, attr)" class="badge">x</span>
+                                <span ng-click="removeAttr(entity, attr)" class="badge">x</span>
                             </li>
                         </ul>
-                        <div class="btn-group" ng-show="availableAttrs[object.id].length">
+                        <div class="btn-group" ng-show="availableAttrs[entity.id].length">
                             <div class="dropdown attrDropup" ng-click="initDropdowns()">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
                                     <span>Добавить атрибут</span>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                    <li role="presentation" ng-repeat="attr in availableAttrs[object.id]">
-                                        <a role="menuitem" ng-click="addAttr(object, attr)" tabindex="-1" href="#">
+                                    <li role="presentation" ng-repeat="attr in availableAttrs[entity.id]">
+                                        <a role="menuitem" ng-click="addAttr(entity, attr)" tabindex="-1" href="#">
                                                     {{attr.name}}
                                                 </a>
                                     </li>
@@ -58,9 +58,9 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                            <li role="presentation" ng-repeat="object in availableObjects">
-                                <a role="menuitem" ng-click="addObject(object)" tabindex="-1" href="#">
-                                            {{object.name}}
+                            <li role="presentation" ng-repeat="entity in availableObjects">
+                                <a role="menuitem" ng-click="addObject(entity)" tabindex="-1" href="#">
+                                            {{entity.name}}
                                         </a>
                             </li>
                         </ul>

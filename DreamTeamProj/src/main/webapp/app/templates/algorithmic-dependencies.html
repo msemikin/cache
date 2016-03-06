@@ -5,7 +5,7 @@
                 <h3 class="panel-title h2">Зависимость</h3>
             </div>
             <div class="panel-body">
-                <div class="list-group  elements-select">
+                <div class="list-group  entitys-select">
                     <a ng-repeat="d in dependencies" ng-class="{active: d.id === dependency.id}" href="#" ng-click="selectDependency(d)" class="list-group-item">{{d.name}}</a>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" ng-repeat="object in elements" ng-click="setDestObj(object)">{{object.name}}</a></li>
+                            <li><a href="#" ng-repeat="entity in entities" ng-click="setDestObj(entity)">{{entity.name}}</a></li>
                         </ul>
                     </div>
                     <div class="btn-group" ng-show="dependency.resultField.name">
@@ -60,10 +60,10 @@
                                 <tbody>
                                     <tr ng-repeat="source in dependency.sourceFields">
                                         <td>
-                                            {{source.object.name}}
+                                            {{source.entity.name}}
                                         </td>
                                         <td>
-                                            {{source.object.attr.name}}
+                                            {{source.entity.attr.name}}
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="source.variable">
@@ -87,7 +87,7 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#" ng-repeat="object in elements" ng-click="setSourceObj(object)">{{object.name}}</a></li>
+                                                    <li><a href="#" ng-repeat="entity in entities" ng-click="setSourceObj(entity)">{{entity.name}}</a></li>
                                                 </ul>
                                             </div>
                                         </td>

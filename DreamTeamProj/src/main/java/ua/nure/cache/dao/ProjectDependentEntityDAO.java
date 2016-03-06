@@ -6,4 +6,5 @@ public interface ProjectDependentEntityDAO<T> extends DAO<T> {
 
     List<T> getByProject(final int projectId);
 
+    T getByProject(final int projectId, final int id);
 }

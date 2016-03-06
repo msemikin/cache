@@ -2,7 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "diagram")
 public class Diagram {
 

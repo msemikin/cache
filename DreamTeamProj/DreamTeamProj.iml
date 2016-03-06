@@ -45,6 +45,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/static" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/app/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/app/scripts/lib" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
