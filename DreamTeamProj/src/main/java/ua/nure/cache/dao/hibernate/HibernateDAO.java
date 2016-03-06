@@ -1,10 +1,7 @@
 package ua.nure.cache.dao.hibernate;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import ua.nure.cache.dao.DAO;
 
 import java.util.List;

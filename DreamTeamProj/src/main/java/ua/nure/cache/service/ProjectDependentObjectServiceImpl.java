@@ -1,12 +1,11 @@
 package ua.nure.cache.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.nure.cache.dao.*;
 
 import java.util.Collection;
 
+@Transactional
 public class ProjectDependentObjectServiceImpl<T> extends GenericServiceImpl<T> implements ProjectDependentObjectService<T> {
 
 	private final DAOFactory daoFactory;

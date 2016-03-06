@@ -9,15 +9,15 @@ import ua.nure.cache.service.*;
 @RequestMapping(value = "/projects/{projectId}/objects/{objectId}/attrs")
 public class AttributesController {
 
-	private final AttributesService attributesService;
+	private final AttributesService attributesServiceImpl;
 
 	@Autowired
-	public AttributesController(final AttributesService attributesService) {
-		this.attributesService = attributesService;
+	public AttributesController(final AttributesService attributesServiceImpl) {
+		this.attributesServiceImpl = attributesServiceImpl;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public Attribute addAttribute(@RequestBody final Attribute attribute, @PathVariable("objectId") final int objectId) {
-		return attributesService.create(attribute);
+		return attributesServiceImpl.create(attribute);
 	}
 }

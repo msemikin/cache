@@ -3,7 +3,6 @@
 // LEFT SIDE
 
 .left-side {
-  height: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -48,6 +47,7 @@
 .menu {
   display: inline-block;
   position: relative;
+  flex: 1;
 }
 
 .menu__list {
@@ -183,6 +183,8 @@ div.tool-panel__footer.panel-footer {
 .list-group-item.entity {
   border-left: 0;
   border-right: 0;
+  min-height: 38px;
+
   &:first-child {
     border-top: 0;
   }
@@ -201,8 +203,8 @@ div.tool-panel__footer.panel-footer {
 }
 
 .list-group.list-group--scrollable {
-  flex: 1;
-  min-height: 0;
+  flex: 1 1 auto;
+  min-height: 0px;
   overflow: auto;
   margin-bottom: 0;
   display: flex;
@@ -211,12 +213,26 @@ div.tool-panel__footer.panel-footer {
 
 .list-group__no-items {
   display: flex;
-  flex: 1;
   align-items: center;
+  flex: 1;
 }
 
 .no-items__text {
   width: 100%;
   text-align: center;
   color: #9E9E9E;
+}
+
+.menu-shrink {
+  border-top: 1px solid #f5f5f5;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  color: $color-primary;
+  cursor: pointer;
+
+  i {
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -8,38 +8,39 @@ import ua.nure.cache.service.*;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("/projects/{projectId}/entities")
 public class EntitiesController {
 
-	private final EntitiesService entitiesService;
+	private final EntitiesService entitiesServiceImpl;
 
 	@Autowired
-	public EntitiesController(final EntitiesService entitiesService) {
-		this.entitiesService = entitiesService;
+	public EntitiesController(final EntitiesService entitiesServiceImpl) {
+		this.entitiesServiceImpl = entitiesServiceImpl;
 	}
 
-	@RequestMapping(value = "/projects/{projectId}/entities", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	Collection<Entity> getEntities(@PathVariable("projectId") final int projectId) {
-		return entitiesService.getByProject(projectId);
+		return entitiesServiceImpl.getByProject(projectId);
 	}
 
-	@RequestMapping(value = "/projects/{projectId}/entities", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	Entity createEntity(@RequestBody final Entity entity, @PathVariable("projectId") final int projectId) {
-		return entitiesService.create(entity);
+		return entitiesServiceImpl.create(entity);
 	}
 
-	@RequestMapping(value = "/projects/{projectId}/entities/{entityId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{entityId}", method = RequestMethod.GET)
 	Entity getEntity(@PathVariable("projectId") final int projectId, @PathVariable("entityId") final int entityId) {
-		return entitiesService.getByProject(projectId, entityId);
+		return entitiesServiceImpl.getByProject(projectId, entityId);
 	}
 
-	@RequestMapping(value = "/projects/{projectId}/entities/{entityId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{entityId}", method = RequestMethod.DELETE)
 	void deleteEntity(@PathVariable("projectId") final int projectId, @PathVariable("entityId") final int entityId) {
-		entitiesService.delete(entityId);
+		entitiesServiceImpl.delete(entityId);
 	}
 
-	@RequestMapping(value = "/projects/{projectId}/entities/{entityId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{entityId}", method = RequestMethod.PUT)
 	Entity updateEntity(@PathVariable("projectId") final int projectId, @PathVariable("entityId") final int entityId,
 			@RequestBody final Entity entity) {
-		return entitiesService.update(entity);
+		return entitiesServiceImpl.update(entity);
 	}
 }
