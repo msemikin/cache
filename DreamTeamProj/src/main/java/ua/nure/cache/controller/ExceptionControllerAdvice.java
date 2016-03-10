@@ -11,7 +11,7 @@ import ua.nure.cache.exception.ErrorResponse;
 @ControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler({ RuntimeException.class })
+	@ExceptionHandler({ RuntimeException.class, Exception.class })
 	public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e, WebRequest request) {
 		e.printStackTrace();
 		return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),

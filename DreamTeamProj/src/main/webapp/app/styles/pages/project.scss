@@ -1,4 +1,5 @@
 @import '../shared/palette';
+@import '../shared/animations';
 
 // LEFT SIDE
 
@@ -12,37 +13,14 @@
   width: 250px;
   z-index: 1;
   border-right: 1px solid #ddd;
+  transition: width 0.3s;
 }
 
 .left-side.shrunk {
   width: 54px;
 }
 
-.shrunk .not-shrunk-only {
-  display: none;
-}
-
 // LEFT SIDE MENU
-
-.menu-shrink-container {
-  flex-grow: 1;
-}
-
-.menu-shrink {
-  display: inline-block;
-  padding-top: 8px;
-  padding-left: 14px;
-  color: white;
-  font-size: 16px;
-  height: 100%;
-  width: 100%;
-  cursor: pointer;
-}
-
-.menu-shrink > img {
-  height: 25px;
-  width: 25px;
-}
 
 .menu {
   display: inline-block;
@@ -59,9 +37,9 @@
 .menu__item {
   transition: border-left-width 0.1s;
   border-left: 0px solid $color-primary;
-  padding: 10px;
+  line-height: 24px;
+  padding: 7px 15px;
   color: $color-primary;
-
 }
 
 .menu__item:hover {
@@ -73,6 +51,27 @@
   &:hover, &:visited, &:active, &:focus {
     text-decoration: none;
     color: $color-primary;
+  }
+  i {
+    margin-right: 8px;
+    font-size: 15px;
+  }
+}
+
+.menu__item__text, .menu__link {
+  font-size: 13px;
+  line-height: 13px;
+  height: 13px;
+}
+
+.menu__item__text {
+  display: inline-block;
+  opacity: 1;
+  animation: appear .3s ease-in-out;
+
+  .shrunk &, .shrunk-remove & {
+    display: none;
+    opacity: 0;
   }
 }
 
@@ -89,8 +88,6 @@
   z-index: 0;
   background: #eeeded;
 }
-
-// tool panel menu
 
 // tool panels
 
@@ -129,6 +126,16 @@ ul.panels-menu__list {
   padding: 20px;
   cursor: pointer;
 
+  &:last-of-type {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  &:first-of-type {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
   &:hover {
     background-color: #F5F5F5;
   }
@@ -146,6 +153,7 @@ div.tool-panel.panel {
   margin: 0;
   height: 300px;
   border: 0;
+  position: relative;
 }
 
 div.tool-panel__heading.panel-heading {
@@ -153,6 +161,9 @@ div.tool-panel__heading.panel-heading {
   color: white;
   background-color: $color-primary;
   padding: 15px;
+  min-height: 47px;
+  z-index: 1;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.16)
 }
 
 div.tool-panel__body {
@@ -163,6 +174,11 @@ div.tool-panel__body {
 
 div.tool-panel__footer.panel-footer {
   background-color: white;
+  box-shadow: 0px -3px 6px -1px rgba(0, 0, 0, 0.16);
+}
+
+.tool-panel--entities__footer {
+  min-height: 54px;
 }
 
 .tool-panel__back {
@@ -180,26 +196,32 @@ div.tool-panel__footer.panel-footer {
   }
 }
 
-.list-group-item.entity {
+.list-group-item.entity, .list-group-item.attr{
   border-left: 0;
   border-right: 0;
   min-height: 38px;
+  display: flex;
+  position: static;
 
-  &:first-child {
+  &:first-of-type {
     border-top: 0;
   }
-  &:last-child {
+  &:last-of-type {
     border-bottom: 0;
   }
-  &.active {
-    background-color: $color-primary;
-    border-color: $color-primary;
+}
 
-    &:hover, &:focus {
-      background-color: $color-primary;
-      border-color: $color-primary;
-    }
-  }
+.entity__name, .attr__name {
+  flex-grow: 1;
+}
+
+.entity__attrs-count {
+  margin-right: 20px;
+}
+
+.entity__action.entity__action--remove, .attr__action.attr__action--remove {
+  color: $color-danger;
+  font-size: 17px;
 }
 
 .list-group.list-group--scrollable {
@@ -227,12 +249,16 @@ div.tool-panel__footer.panel-footer {
   border-top: 1px solid #f5f5f5;
   padding: 10px;
   display: flex;
-  align-items: center;
+  font-size: 16px;
   color: $color-primary;
   cursor: pointer;
+  flex-direction: column;
 
   i {
-    width: 100%;
-    text-align: center;
+    align-self: center;
+    transition: transform 0.3s ease-out;
+    .shrunk & {
+      transform: rotate(180deg)
+    }
   }
 }

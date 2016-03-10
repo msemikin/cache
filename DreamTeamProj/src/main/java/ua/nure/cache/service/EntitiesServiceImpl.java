@@ -12,6 +12,12 @@ public class EntitiesServiceImpl extends ProjectDependentObjectServiceImpl<Entit
 
 	@Autowired
 	public EntitiesServiceImpl(final DAOFactory daoFactory) {
-		super(Entity.class, daoFactory);
+		super(daoFactory.getEntityDAO());
+	}
+
+	@Override
+	public Entity update(final Entity entity) {
+		entity.getAttrs().forEach(attr -> attr.setEntity(entity));
+		return super.update(entity);
 	}
 }

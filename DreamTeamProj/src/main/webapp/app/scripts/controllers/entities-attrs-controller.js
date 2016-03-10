@@ -7,52 +7,57 @@ angular.module('db').controller('EntitiesAttrsCtrl', function ($scope, $rootScop
     $scope.entityName = '';
     $scope.attrName = '';
 
-    function selectObject (entity) {
-        $scope.entity = entity;
+    function updateEntities() {
+        baseEntities.getList().then(entities => {
+            $scope.entities = entities;
+        });
     }
-    function updateObjects(entityId) {
-        return baseEntities.getList()
-            .then(function(entities) {
-                $scope.entities = entities;
 
-                var entity = typeof entityId === 'number' ? _.findWhere(entities, {
-                    id: entityId
-                }) : undefined;
-                return entity;
-            })
-            .then(selectObject);
-    }
     $scope.addEntity = function () {
         var entity = {
             name: $scope.entityName,
             projectId: $scope.baseProject.id
         };
         $scope.entityName = '';
-        baseEntities.post(entity).then(function (response) {
-            updateObjects(response.id);
+        baseEntities.post(entity).then(function (entity) {
+            $scope.entities.push(entity);
+            $scope.entity = entity;
         });
     };
     $scope.addAttr = function () {
-        var entity = $scope.entity;
         var attr = {
-            entityId: entity.id,
             name: $scope.attrName
         };
-        entity.attrs.push(attr);
-        Attribute.create(attr).then(function () {
-            updateObjects(entity.id);
-            $scope.attrName = '';
-        });
+        $scope.entity.attrs.push(attr);
+        $scope.attrName = '';
+        $scope.entity.put().then(selectUpdated);
     };
     $scope.onKeypress = function(event, callback) {
         if (event.keyCode === 13) {
             callback();
         }
     };
-    $scope.selectObject = selectObject;
     $scope.deselectEntity = function () {
         $scope.entity = null;
     };
 
-    updateObjects();
+    $scope.removeEntity = function (ent) {
+        ent.remove().then(updateEntities);
+    };
+    $scope.removeAttr = function (attr) {
+        $scope.entity.attrs = _.without($scope.entity.attrs, attr);
+        $scope.entity.put().then(selectUpdated);
+    };
+
+    $scope.selectEntity = function (entity) {
+        $scope.entity = entity;
+    };
+
+    function selectUpdated(entity) {
+        var index = _.findIndex($scope.entities, {id: entity.id})
+        $scope.entities[index] = entity;
+        $scope.entity = entity;
+    }
+
+    updateEntities();
 });

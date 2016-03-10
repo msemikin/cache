@@ -6,7 +6,9 @@ angular.module("db", [
     'validation.match',
     'ui.bootstrap',
     'restangular',
-    'monospaced.elastic'
+    'monospaced.elastic',
+    'ngAnimate',
+    'ngDragDrop'
 ]).config(function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;

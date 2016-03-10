@@ -26,7 +26,7 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserRole> roles = new HashSet<>();
 
 	public User() {

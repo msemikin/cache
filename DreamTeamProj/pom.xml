@@ -105,6 +105,8 @@
             <version>2.5</version>
         </dependency>
 
+        <!-- Logging -->
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -213,9 +215,27 @@
                         <password>pass</password>
                     </server>
                     <port>8888</port>
+                    <systemProperties>
+                        <log4j.configuration>file:src/main/resources/log4j.properties</log4j.configuration>
+                    </systemProperties>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                        <version>1.2.17</version>
+                    </dependency>
+                </dependencies>
             </plugin>
-
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>${project.build.directory}</targetPath>
+                <includes>
+                    <include>log4j.properties</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>

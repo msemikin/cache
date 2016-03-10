@@ -13,5 +13,5 @@ public interface DAOFactory {
 
     ProjectDAO getProjectDAO();
 
-    ProjectDependentEntityDAO<Entity> getEntityDAO();
+    EntitiesDAO getEntityDAO();
 }

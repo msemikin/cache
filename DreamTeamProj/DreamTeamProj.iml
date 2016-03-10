@@ -29,6 +29,7 @@
         <sourceRoots>
           <root url="file://$MODULE_DIR$/src/main/java" />
           <root url="file://$MODULE_DIR$/src/main/resources" />
+          <root url="file://$MODULE_DIR$/target/classes" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -43,11 +44,18 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/target/classes" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/static" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/app/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/app/scripts/lib" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/node_modules" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/target/apache-tomcat-maven-plugin" />
+      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/dbproj" />
+      <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/target/maven-status" />
+      <excludeFolder url="file://$MODULE_DIR$/target/surefire" />
+      <excludeFolder url="file://$MODULE_DIR$/target/tomcat" />
     </content>
     <orderEntry type="module-library" exported="">
       <library name="lib">

@@ -19,7 +19,7 @@ public class Entity {
 	@Column(name = "project_id")
 	private int projectId;
 
-	@OneToMany(mappedBy = "entity")
+	@OneToMany(mappedBy = "entity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Attribute> attrs = new HashSet<>();
 
 	public int getId() {

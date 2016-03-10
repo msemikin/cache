@@ -8,22 +8,20 @@ import java.util.Collection;
 @Transactional
 public class ProjectDependentObjectServiceImpl<T> extends GenericServiceImpl<T> implements ProjectDependentObjectService<T> {
 
-	private final DAOFactory daoFactory;
-	private final Class<T> classInstance;
+	private final ProjectDependentEntityDAO<T> dao;
 
-	public ProjectDependentObjectServiceImpl(Class<T> instance, final DAOFactory daoFactory) {
-		super(daoFactory.getProjectDependentDAO(instance));
-		this.classInstance = instance;
-		this.daoFactory = daoFactory;
+	public ProjectDependentObjectServiceImpl(final ProjectDependentEntityDAO dao) {
+		super(dao);
+		this.dao = dao;
 	}
 
 	@Override
 	public Collection<T> getByProject(final int projectId) {
-		return daoFactory.getProjectDependentDAO(classInstance).getByProject(projectId);
+		return dao.getByProject(projectId);
 	}
 
 	@Override
 	public T getByProject(final int projectId, final int id) {
-		return daoFactory.getProjectDependentDAO(classInstance).getByProject(projectId, id);
+		return dao.getByProject(projectId, id);
 	}
 }

@@ -1,55 +1,72 @@
-<div class="left-side" ng-class="{'shrunk' : shrunk}">
+<div class="left-side" ng-class="{'shrunk': shrunk}">
     <div class="menu">
         <ul class="menu__list">
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.document">
-                <a href="" class="menu__link glyphicon glyphicon-file">
-                    <span class="not-shrunk-only">Документ</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.document"
+                uib-tooltip="Документ" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-file-text fa-fw"></i>
+                    <span class="menu__item__text">Документ</span>
                 </a>
             </li>
-            <!-- <li class="pure-menu-item" ng-class="{'pure-menu-selected': tab === 1}"><a href="#" class="pure-menu-link" ng-click="tab = 2">Объекты и атрибуты</a></li> -->
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.useCase">
-                <a href="" class="menu__link glyphicon glyphicon-cog">
-                    <span class="not-shrunk-only">Диаграмма Use-Case</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.useCase"
+                uib-tooltip="Диаграмма Use-Case" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-user fa-fw"></i>
+                    <span class="menu__item__text">Диаграмма Use-Case</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.objectRelations">
-                <a href="" class="menu__link glyphicon glyphicon-cog">
-                    <span class="not-shrunk-only">Диаграмма взаимодействия</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.objectRelations"
+                uib-tooltip="Диаграмма взаимодействия" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-arrows-h fa-fw"></i>
+                    <span class="menu__item__text">Диаграмма взаимодействия</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.er">
-                <a href="" class="menu__link glyphicon glyphicon-cog">
-                    <span class="not-shrunk-only">ER диаграмма</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.informationalRequirements"
+                uib-tooltip="Информационные потребности" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-info-circle fa-fw"></i>
+                    <span class="menu__item__text">Инф. потребности</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.informationalRequirements">
-                <a href="" class="menu__link glyphicon glyphicon-info-sign">
-                    <span class="not-shrunk-only">Информационные потребности</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.statistics"
+                uib-tooltip="Статистики" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-bar-chart fa-fw"></i>
+                    <span class="menu__item__text">Статистики</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.statistics">
-                <a href="" class="menu__link glyphicon glyphicon-cog">
-                    <span class="not-shrunk-only">Статистики</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.reports"
+                uib-tooltip="Отчеты" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-newspaper-o fa-fw"></i>
+                    <span class="menu__item__text">Отчеты</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.reports">
-                <a href="" class="menu__link glyphicon glyphicon-cog">
-                    <span class="not-shrunk-only">Отчеты</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.algorithmicDependencies"
+                uib-tooltip="Алгоритмические зависимости" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-superscript fa-fw"></i>
+                    <span class="menu__item__text">Алгоритм. зависимости</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.algorithmicDependencies">
-                <a href="" class="menu__link glyphicon glyphicon-cog">
-                    <span class="not-shrunk-only">Алгоритмические зависимости</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.integrityConstraints"
+                uib-tooltip="Ограничения целостности" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-database fa-fw"></i>
+                    <span class="menu__item__text">Ограничения целостности</span>
                 </a>
             </li>
-            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.integrityConstraints">
-                <a href="" class="menu__link glyphicon glyphicon-lock">
-                    <span class="not-shrunk-only">Ограничения целостности</span>
+            <li class="menu__item" ui-sref-active="menu__item--selected" ui-sref="project.er"
+                uib-tooltip="ER диаграмма" tooltip-placement="right" tooltip-enable="shrunk">
+                <a href="" class="menu__link">
+                    <i class="fa fa-table fa-fw"></i>
+                    <span class="menu__item__text">ER диаграмма</span>
                 </a>
             </li>
         </ul>
     </div>
-    <div class="menu-shrink">
+    <div class="menu-shrink" ng-click="shrunk = !shrunk">
         <i class="fa fa-chevron-left"></i>
     </div>
 </div>
@@ -64,5 +81,5 @@
     </ul>
 </div>
 <div class="panels">
-    <div ng-show="activePanels.objects" ng-include="'templates/entities-attrs.html'"></div>
+    <div ng-show="activePanels.objects" jqyoui-draggable ng-include="'templates/entities-attrs.html'"></div>
 </div>

@@ -1,5 +1,7 @@
 package ua.nure.cache.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @javax.persistence.Entity
@@ -8,17 +10,16 @@ public class Attribute {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "attr_id")
 	private int id;
 
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "element_id")
 	private Entity entity;
-
-	@Column(name = "project_id")
-	private int projectId;
 
 	public int getId() {
 		return id;
@@ -42,13 +43,5 @@ public class Attribute {
 
 	public void setEntity(Entity entity) {
 		this.entity = entity;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 }

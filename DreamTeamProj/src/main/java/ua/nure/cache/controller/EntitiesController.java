@@ -18,12 +18,12 @@ public class EntitiesController {
 		this.entitiesServiceImpl = entitiesServiceImpl;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	Collection<Entity> getEntities(@PathVariable("projectId") final int projectId) {
 		return entitiesServiceImpl.getByProject(projectId);
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	Entity createEntity(@RequestBody final Entity entity, @PathVariable("projectId") final int projectId) {
 		return entitiesServiceImpl.create(entity);
 	}

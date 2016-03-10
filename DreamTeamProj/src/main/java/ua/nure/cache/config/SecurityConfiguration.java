@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/web/**", "/account/**/register", "/index.html", "/login").permitAll()
+                    .antMatchers("/hello", "/web/**", "/account/**/register", "/index.html", "/login").permitAll()
                     .antMatchers(HttpMethod.OPTIONS).permitAll()
                     .anyRequest().authenticated()
                 .and().formLogin()

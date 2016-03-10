@@ -28,8 +28,7 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 	}
 
 	@Override
-	public void read(final int id) {
-		dao.read(id);
+	public T read(final int id) {
+		return dao.read(id);
 	}
-
 }

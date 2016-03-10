@@ -47,9 +47,11 @@ public class Config extends WebMvcConfigurerAdapter {
     @Bean
     public MappingJackson2HttpMessageConverter jacksonMessageConverter(){
         MappingJackson2HttpMessageConverter messageConverter = new  MappingJackson2HttpMessageConverter();
+        Hibernate5Module hibernate5Module = new Hibernate5Module();
+        hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new Hibernate5Module());
+        mapper.registerModule(hibernate5Module);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         messageConverter.setObjectMapper(mapper);
