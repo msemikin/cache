@@ -47,4 +47,8 @@ public class HibernateDAO<T> implements DAO<T> {
         getSession().delete(getSession().get(this.classInstance, id));
     }
 
+    @Override
+    public T merge(final T entity) {
+        return (T)getSession().merge(entity);
+    }
 }

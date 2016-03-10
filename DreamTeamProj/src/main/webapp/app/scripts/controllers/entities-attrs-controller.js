@@ -30,7 +30,7 @@ angular.module('db').controller('EntitiesAttrsCtrl', function ($scope, $rootScop
         };
         $scope.entity.attrs.push(attr);
         $scope.attrName = '';
-        $scope.entity.put().then(selectUpdated);
+        $scope.entity.put.then(selectUpdated);
     };
     $scope.onKeypress = function(event, callback) {
         if (event.keyCode === 13) {

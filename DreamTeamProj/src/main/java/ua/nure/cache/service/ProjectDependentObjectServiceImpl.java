@@ -24,4 +24,8 @@ public class ProjectDependentObjectServiceImpl<T> extends GenericServiceImpl<T> 
 	public T getByProject(final int projectId, final int id) {
 		return dao.getByProject(projectId, id);
 	}
+
+	public ProjectDependentEntityDAO<T> getDao() {
+		return dao;
+	}
 }

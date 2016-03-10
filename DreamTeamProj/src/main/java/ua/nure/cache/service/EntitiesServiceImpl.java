@@ -18,6 +18,6 @@ public class EntitiesServiceImpl extends ProjectDependentObjectServiceImpl<Entit
 	@Override
 	public Entity update(final Entity entity) {
 		entity.getAttrs().forEach(attr -> attr.setEntity(entity));
-		return super.update(entity);
+		return this.getDao().merge(entity);
 	}
 }
