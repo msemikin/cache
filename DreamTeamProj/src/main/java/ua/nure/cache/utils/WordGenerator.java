@@ -6,10 +6,7 @@ import org.apache.poi.xwpf.usermodel.*;
 import ua.nure.cache.dao.DAOFactory;
 import ua.nure.cache.entity.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -228,9 +225,13 @@ public class WordGenerator {
 		XWPFRun run = title.createRun();
 		title.setAlignment(ParagraphAlignment.LEFT);
 		String imgFile = imgName;
-		FileInputStream is = new FileInputStream(imgFile);
-		run.addBreak();
-		run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile, Units.toEMU(424), Units.toEMU(236));
+		try {
+			FileInputStream is = new FileInputStream(imgFile);
+			run.addBreak();
+			run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, imgFile, Units.toEMU(424), Units.toEMU(236));
+		}catch (FileNotFoundException ex) {
+
+		}
 	}
 
 	private List<String> getElementNames() {
