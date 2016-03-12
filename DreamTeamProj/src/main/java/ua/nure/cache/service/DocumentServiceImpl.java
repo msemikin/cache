@@ -1,5 +1,6 @@
 package ua.nure.cache.service;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,19 @@ import java.io.IOException;
 public class DocumentServiceImpl implements DocumentService {
     @Autowired
     private DAOFactory factory;
-
-    public void generateDocument() {
-        Project project = factory.getDAO(Project.class).read(3);
+    private static Logger logger = Logger.getLogger(DocumentServiceImpl.class);
+    public void generateDocument(int projectId) {
+        Project project = factory.getDAO(Project.class).read(projectId);
+        if (project==null) {
+            System.out.println("The project is null");
+            logger.info("The project is null");
+            return;
+        }
+        System.out.println("Here 1");
         WordGenerator generator = new WordGenerator(factory,project);
         try {
             generator.generateDoc("noname");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidFormatException e) {
+        } catch (IOException | InvalidFormatException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,5 @@
 package ua.nure.cache.service;
 
 public interface DocumentService {
-    void generateDocument();
+    void generateDocument(int projectId);
 }

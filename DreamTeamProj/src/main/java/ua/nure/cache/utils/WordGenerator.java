@@ -244,6 +244,7 @@ public class WordGenerator {
 	private void insertObjWithAttr(XWPFDocument document) {
 		List<Entity> objs = daoFactory.getEntityDAO()
 				.getByProject(this.project.getId());
+
 		List<String> names = new ArrayList<>();
 		for (Entity obj : objs) {
 			StringBuilder sb = new StringBuilder();
