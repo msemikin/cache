@@ -9,7 +9,7 @@ public class LinkConstraint {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "constraint_id")
+	@Column(name = "constr_id")
 	private int id;
 
 	@Column(name = "project_id")

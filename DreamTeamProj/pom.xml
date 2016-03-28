@@ -105,8 +105,6 @@
             <version>2.5</version>
         </dependency>
 
-        <!-- Logging -->
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -153,7 +151,12 @@
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
             <version>2.4.0</version>
-            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
         </dependency>
 
         <dependency>
@@ -169,6 +172,12 @@
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- JODConverter-->
+        <dependency>
+            <groupId>com.artofsolving</groupId>
+            <artifactId>jodconverter</artifactId>
+            <version>2.2.1</version>
+        </dependency>
 
 
         <!-- Joda-Time -->
@@ -183,6 +192,17 @@
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
             <version>5.0.0.GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.18</version>
         </dependency>
 
     </dependencies>
@@ -226,6 +246,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
         </plugins>
         <resources>
             <resource>
