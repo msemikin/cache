@@ -49,6 +49,7 @@
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/app/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/app/scripts/lib" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/webapp/pdfjs/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/target/apache-tomcat-maven-plugin" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/dbproj" />

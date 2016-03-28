@@ -1,9 +1,7 @@
 <div ng-class="tile" class="panel panel-default tile-doc" ng-controller="DocumentCtrl">
-    <!--<div class="panel-heading">-->
-        <!--<h3 class="panel-title">Настройки документа</h3>-->
-    <!--</div>-->
-    <div class="panel-body doc-content">
-        <div class="document-grid-container">
+    <iframe class="pdf-viewer" src="/pdfjs/web/viewer.html"></iframe>
+    <!--<div class="panel-body doc-content">-->
+        <!--<div class="document-grid-container">-->
             <!--<div class="panel panel-default article-add-box" ng-controller="DocumentArticleCtrl">-->
                 <!--<div class="panel-heading">-->
                     <!--Добавить объект-->
@@ -31,6 +29,6 @@
                     <!--<button type="button" class="btn btn-primary">Добавить</button>-->
                 <!--</div>-->
             <!--</div>-->
-            <div id="doc-content-frame" source-document></div>
-        </div>
+            <!--<div id="doc-content-frame" source-document></div>-->
+        <!--</div>-->
 </div>

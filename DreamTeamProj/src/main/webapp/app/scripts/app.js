@@ -8,7 +8,8 @@ angular.module("db", [
     'restangular',
     'monospaced.elastic',
     'ngAnimate',
-    'ngDragDrop'
+    'ngDragDrop',
+    'pdf'
 ]).config(function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
@@ -18,7 +19,7 @@ angular.module("db", [
     $rootScope.$on('$stateChangeStart', function(evt, to, params) {
         if (to.redirectTo) {
             evt.preventDefault();
-            $state.go(to.redirectTo, params)
-        }
-    });
+            $state.go(to.redirectTo, params);
+        };
+    })
 });

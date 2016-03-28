@@ -189,7 +189,6 @@
 
     <build>
         <finalName>dbproj</finalName>
-
         <plugins>
             <!-- Set JDK Compiler Level -->
             <plugin>

@@ -18,8 +18,8 @@ gulp.task('lint', function() {
                 jQuery: false,
                 window: false,
                 angular: false,
-                '$': false,
-                '_': false,
+                $: false,
+                _: false,
                 canvg: false,
                 Ladda: false
             },
@@ -62,10 +62,16 @@ gulp.task('copy-bower', function() {
         .pipe(gulp.dest(distPath + '/bower_components'));
 });
 
+gulp.task('pdfjs', function () {
+    return gulp.src('pdfjs/**/*')
+        .pipe(gulp.dest(distPath + '/pdfjs'));
+});
+
 gulp.task('watch', function() {
     gulp.watch(['app/scripts/**/*.js', 'app/app.js'], ['js-watch']);
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch(['app/**/*.html'], ['html-watch']);
+    gulp.watch(['pdfjs/**/*', '!pdfjs/node_modules/**/*'], ['pdfjs']);
 });
 
 gulp.task('js-watch', ['scripts'], browserSync.reload);
@@ -98,8 +104,7 @@ gulp.task('views', ['inject'], function() {
         .pipe(gulp.dest(distPath + '/'));
 });
 
-
-gulp.task('serve', ['styles', 'views',  'scripts', 'watch'], function() {
+gulp.task('serve', ['styles', 'views',  'scripts', 'watch', 'pdfjs'], function() {
     browserSync.init({
         server: {
             baseDir: distPath,

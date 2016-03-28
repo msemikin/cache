@@ -21,6 +21,7 @@ public class Config extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/web/static/**").addResourceLocations("/WEB-INF/static/");
+        registry.addResourceHandler("/docs/**").addResourceLocations("/WEB-INF/docs/");
         registry.addResourceHandler("/", "/web/**", "/web").addResourceLocations("/WEB-INF/static/index.html")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {

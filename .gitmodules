@@ -1,0 +1,3 @@
+[submodule "DreamTeamProj/src/main/webapp/pdfjs"]
+	path = DreamTeamProj/src/main/webapp/pdfjs
+	url = git@github.com:caliber01/db-pdfjs.git

@@ -31,14 +31,13 @@ angular.module('db').controller('DashboardCtrl', function ($scope, Restangular, 
     $scope.editProject = dontPropagateDecorator(editProject);
     $scope.removeProject = dontPropagateDecorator(removeProject);
 
-
     function dontPropagateDecorator(func) {
         return function () {
             var args = Array.prototype.slice.call(arguments);
             var $event = args[0];
             $event.stopPropagation();
             return func.apply(null, args.slice(1));
-        }
+        };
     }
-
 });
+
