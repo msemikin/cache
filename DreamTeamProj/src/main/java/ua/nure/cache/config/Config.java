@@ -6,9 +6,11 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
+import javax.servlet.MultipartConfigElement;
 import java.io.IOException;
 import java.util.List;
 
@@ -57,5 +59,13 @@ public class Config extends WebMvcConfigurerAdapter {
 
         messageConverter.setObjectMapper(mapper);
         return messageConverter;
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+        commonsMultipartResolver.setDefaultEncoding("utf-8");
+        commonsMultipartResolver.setMaxUploadSize(50000000);
+        return commonsMultipartResolver;
     }
 }
