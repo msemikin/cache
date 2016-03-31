@@ -4,15 +4,14 @@ angular.module('db').controller("ProjectCtrl", function ($scope, $location, $roo
         objects: true
     };
 
-    $scope.baseProject = project;
+    $rootScope.baseProject = _.extend(project, {
+        documents: [{
+            id: 1,
+            name: 'Solution 1'
+        }]
+    });
 
     $scope.shrunk = false;
-    $rootScope.hideAttrs = function () {
-        $rootScope.showAttributes = false;
-    };
-    $rootScope.showAttrs = function () {
-        $rootScope.showAttributes = true;
-    };
     $rootScope.$on('shrink-menu', function () {
         $scope.shrunk = !$scope.shrunk;
     });

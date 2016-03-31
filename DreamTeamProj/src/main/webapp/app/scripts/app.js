@@ -8,7 +8,9 @@ angular.module("db", [
     'restangular',
     'monospaced.elastic',
     'ngAnimate',
-    'ngDragDrop'
+    'ngDragDrop',
+    'ngFileUpload',
+    'ngProgress'
 ]).config(function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
