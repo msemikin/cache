@@ -3,6 +3,7 @@ package ua.nure.cache.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @javax.persistence.Entity
 @Table(name = "attribute")

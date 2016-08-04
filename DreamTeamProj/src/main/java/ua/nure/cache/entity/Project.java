@@ -2,6 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @javax.persistence.Entity

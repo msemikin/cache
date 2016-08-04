@@ -8,7 +8,7 @@ angular.module('db').controller('EntitiesAttrsCtrl', function ($scope, $rootScop
     $scope.attrName = '';
 
     function updateEntities() {
-        baseEntities.getList().then(entities => {
+        baseEntities.getList().then(function(entities) {
             $scope.entities = entities;
         });
     }

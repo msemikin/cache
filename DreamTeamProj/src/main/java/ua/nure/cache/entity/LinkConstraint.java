@@ -2,6 +2,7 @@ package ua.nure.cache.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @javax.persistence.Entity
 @Table(name = "linkconstraint")

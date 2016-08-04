@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.nure.cache.dao.DAOFactory;
 import ua.nure.cache.entity.User;
 import ua.nure.cache.entity.UserRole;
+import ua.nure.cache.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private DAOFactory userDAO;
+    private UserRepository userRepository;
 
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        User user = userDAO.getUserDAO().findUserByEmail(email);
+        User user = userRepository.findUserByEmail(email);
         if(user == null){
             throw new UsernameNotFoundException("Username not found");
         }

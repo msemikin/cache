@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_role")

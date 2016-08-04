@@ -2,6 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 import javax.sound.midi.MidiDevice;
+import java.io.Serializable;
 import java.util.Set;
 
 @javax.persistence.Entity

@@ -2,6 +2,7 @@ package ua.nure.cache.entity;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,26 +3,44 @@ package ua.nure.cache.utils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
-import ua.nure.cache.dao.DAOFactory;
 import ua.nure.cache.entity.*;
+import ua.nure.cache.repository.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WordGenerator {
 
 	private XWPFDocument document;
-	private final DAOFactory daoFactory;
 	private final Project project;
 
-	public WordGenerator(DAOFactory daoFactory, Project project) {
-		this.daoFactory = daoFactory;
-		this.project = project;
-	}
+	private final EntityRepository entityRepository;
+	private final LinkConstraintRepository linkConstraintRepository;
+	private final InformationalRequirementRepository informationalRequirementRepository;
+	private final ActorRepository actorRepository;
+    private final LinkRepository linkRepository;
+    private final AttrConstraintRepository attrConstraintRepository;
+    private final AlgDepRepository algDepRepository;
+    private final ReportRepository reportRepository;
+    private final StatisticRepository statisticRepository;
 
+	public WordGenerator(Project project,
+                         EntityRepository entityRepository, LinkConstraintRepository linkConstraintRepository, InformationalRequirementRepository informationalRequirementRepository, ActorRepository actorRepository, LinkRepository linkRepository, AttrConstraintRepository attrConstraintRepository, AlgDepRepository algDepRepository, ReportRepository reportRepository, StatisticRepository statisticRepository) {
+		this.project = project;
+		this.entityRepository = entityRepository;
+		this.linkConstraintRepository = linkConstraintRepository;
+		this.informationalRequirementRepository = informationalRequirementRepository;
+		this.actorRepository = actorRepository;
+		this.linkRepository = linkRepository;
+		this.attrConstraintRepository = attrConstraintRepository;
+        this.algDepRepository = algDepRepository;
+        this.reportRepository = reportRepository;
+        this.statisticRepository = statisticRepository;
+    }
 
 	public synchronized void generateDoc(final String canonicalName) throws IOException, InvalidFormatException {
 		document = new XWPFDocument();
@@ -235,18 +253,15 @@ public class WordGenerator {
 	}
 
 	private List<String> getElementNames() {
-		return daoFactory.getEntityDAO()
-				.getByProject(this.project.getId())
-				.stream().map(Entity::getName)
+		return entityRepository.findByProjectId(this.project.getId())
+				.map(Entity::getName)
 				.collect(Collectors.toList());
 	}
 
 	private void insertObjWithAttr(XWPFDocument document) {
-		List<Entity> objs = daoFactory.getEntityDAO()
-				.getByProject(this.project.getId());
+		Stream<Entity> objs = entityRepository.findByProjectId(this.project.getId());
 
-		List<String> names = new ArrayList<>();
-		for (Entity obj : objs) {
+		List<String> names = objs.map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getName());
@@ -256,20 +271,17 @@ public class WordGenerator {
 				sb.append(attr.getName());
 				sb.append("\"; ");
 			}
-			names.add(sb.toString());
-		}
+			return sb.toString();
+		}).collect(Collectors.toList());
 		createJustifyiedList(names);
 	}
 
-	private List<LinkConstraint> getLinkConstrs() {
-		return this.daoFactory.getProjectDependentDAO(LinkConstraint.class)
-				.getByProject(this.project.getId());
+	private Stream<LinkConstraint> getLinkConstrs() {
+		return linkConstraintRepository.findByProjectId(this.project.getId());
 	}
 
 	private void insertIntegrConstr() {
-		List<LinkConstraint> objs = getLinkConstrs();
-		List<String> names = new ArrayList<>();
-		for (LinkConstraint obj : objs) {
+		List<String> names = getLinkConstrs().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("—Между \"");
 			sb.append(obj.getFirstEntity().getName());
@@ -278,89 +290,70 @@ public class WordGenerator {
 			sb.append("\" связь \"");
 			sb.append(obj.getComment());
 			sb.append("\" ");
-			names.add(sb.toString());
-		}
+			return sb.toString();
+		}).collect(Collectors.toList());
 		createJustifyiedList(names);
 	}
 
-	private List<InformationalRequirement> getSorts() {
-		return this.daoFactory.getInfReqDAO()
-				.getProjectSorts(project.getId());
-	}
-
-	private List<InformationalRequirement> getSearches() {
-		return this.daoFactory.getInfReqDAO()
-				.getProjectSearches(project.getId());
-	}
-
-	private List<InformationalRequirement> getFilters() {
-		return this.daoFactory.getInfReqDAO()
-				.getProjectFilters(project.getId());
-	}
-
 	private void insertSorts() {
-		List<InformationalRequirement> objs = getSorts();
-		List<String> names = new ArrayList<>();
-		for (InformationalRequirement obj : objs) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Объект \"");
-			sb.append(new ArrayList<>(obj.getAttributes()).get(0).getName());
-			sb.append("\" по атрибутам: ");
-			for (Attribute attr : obj.getAttributes()) {
-				sb.append("\"");
-				sb.append(attr.getName());
-				sb.append("\"; ");
-			}
-			names.add(sb.toString());
-		}
+		List<String> names = informationalRequirementRepository
+                .findByType(InformationalRequirement.Type.SORT.toString())
+                .map(obj -> {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Объект \"");
+                    sb.append(new ArrayList<>(obj.getAttributes()).get(0).getName());
+                    sb.append("\" по атрибутам: ");
+                    for (Attribute attr : obj.getAttributes()) {
+                        sb.append("\"");
+                        sb.append(attr.getName());
+                        sb.append("\"; ");
+                    }
+                    return sb.toString();
+                })
+                .collect(Collectors.toList());
 		createNumericList(names, 1420);
 	}
 
 	private void insertSearches() {
-		List<InformationalRequirement> objs = getSearches();
-		List<String> names = new ArrayList<String>();
-		for (InformationalRequirement obj : objs) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Объект \"");
-			sb.append(this.extractElement(obj).getName());
-			sb.append("\" по атрибутам: ");
-			for (Attribute attr : obj.getAttributes()) {
-				sb.append("\"");
-				sb.append(attr.getName());
-				sb.append("\"; ");
-			}
-			names.add(sb.toString());
-		}
+        List<String> names = informationalRequirementRepository
+                .findByType(InformationalRequirement.Type.FILTER.toString())
+                .map(obj -> {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Объект \"");
+                    sb.append(this.extractElement(obj).getName());
+                    sb.append("\" по атрибутам: ");
+                    for (Attribute attr : obj.getAttributes()) {
+                        sb.append("\"");
+                        sb.append(attr.getName());
+                        sb.append("\"; ");
+                    }
+                    return sb.toString();
+                })
+                .collect(Collectors.toList());
 		createNumericList(names, 1420);
 	}
 
 	private void insertFilters() {
-		List<InformationalRequirement> objs = getFilters();
-		List<String> names = new ArrayList<String>();
-		for (InformationalRequirement obj : objs) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Объект \"");
-			sb.append(this.extractElement(obj));
-			sb.append("\" по атрибутам: ");
-			for (Attribute attr : obj.getAttributes()) {
-				sb.append("\"");
-				sb.append(attr.getName());
-				sb.append("\"; ");
-			}
-			names.add(sb.toString());
-		}
+		List<String> names = informationalRequirementRepository
+                .findByType(InformationalRequirement.Type.FILTER.toString())
+                .map(obj -> {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Объект \"");
+                    sb.append(this.extractElement(obj));
+                    sb.append("\" по атрибутам: ");
+                    for (Attribute attr : obj.getAttributes()) {
+                        sb.append("\"");
+                        sb.append(attr.getName());
+                        sb.append("\"; ");
+                    }
+                    return sb.toString();
+                })
+                .collect(Collectors.toList());
 		createNumericList(names, 1420);
 	}
 
-	private List<Statistic> getStats() {
-		return this.daoFactory.getProjectDependentDAO(Statistic.class)
-				.getByProject(project.getId());
-	}
-
 	private void insertStat() {
-		List<Statistic> objs = getStats();
-		List<String> names = new ArrayList<String>();
-		for (Statistic obj : objs) {
+		List<String> names = statisticRepository.findByProjectId(project.getId()).map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Статистика \"");
 			sb.append(obj.getName());
@@ -376,20 +369,13 @@ public class WordGenerator {
 				sb.append(o.getName());
 				sb.append("\";");
 			}
-			names.add(sb.toString());
-		}
+			return sb.toString();
+		}).collect(Collectors.toList());
 		createHyphenatedList(names);
 	}
 
-	private List<Report> getReports() {
-		return this.daoFactory.getProjectDependentDAO(Report.class)
-				.getByProject(project.getId());
-	}
-
 	private void insertReports() {
-		List<Report> objs = getReports();
-		List<String> names = new ArrayList<>();
-		for (Report obj : objs) {
+		List<String> names = reportRepository.findByProjectId(this.project.getId()).map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Документ \"");
 			sb.append(obj.getName());
@@ -405,20 +391,13 @@ public class WordGenerator {
 				sb.append(o.getName());
 				sb.append("\";");
 			}
-			names.add(sb.toString());
-		}
+			return sb.toString();
+		}).collect(Collectors.toList());
 		createHyphenatedList(names);
 	}
 
-	private List<AlgDep> getAlgDeps() {
-		return this.daoFactory.getProjectDependentDAO(AlgDep.class)
-				.getByProject(project.getId());
-	}
-
 	private void insertAlgDeps() {
-		List<AlgDep> objs = getAlgDeps();
-		List<String> names = new ArrayList<String>();
-		for (AlgDep obj : objs) {
+		final List<String> names = algDepRepository.findByProjectId(project.getId()).map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Атрибут \"");
 			sb.append(obj.getResultField().getName());
@@ -433,30 +412,27 @@ public class WordGenerator {
 				sb.append(sf.getAttribute().getName());
 				sb.append("\"; ");
 			}
-			names.add(sb.toString());
-		}
+            return sb.toString();
+		}).collect(Collectors.toList());
 		createHyphenatedList(names);
 	}
 
 	private void insertAttrConstr() {
-		List<AttrConstraint> objs = this.daoFactory.getProjectDependentDAO(AttrConstraint.class)
-				.getByProject(project.getId());
-		List<String> names = new ArrayList<>();
-		for (AttrConstraint obj : objs) {
+		List<String> names = attrConstraintRepository.findByProjectId(project.getId()).map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Для объекта  \"");
 			sb.append(obj.getAttribute().getName());
 			sb.append("\", атрибут  \"");
 			sb.append(obj.getAttribute().getName());
 			sb.append("\" является уникальным");
-			names.add(sb.toString());
-		}
+            return sb.toString();
+		}).collect(Collectors.toList());
 		createHyphenatedList(names);
 	}
 
 	private void doSmth() {
 		StringBuilder sb = new StringBuilder();
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		sb.append("непосредственно о главных объектах: ");
 		for (String name : getElementNames()) {
 			sb.append(name);
@@ -470,14 +446,13 @@ public class WordGenerator {
 	}
 
 	private void getAlgDepsNames() {
-		List<AlgDep> objs = getAlgDeps();
 		StringBuilder sb = new StringBuilder();
 		sb.append("система должна поддерживать арифметическую обработку данных в виде вычислений полей: ");
-		for (AlgDep obj : objs) {
+		algDepRepository.findByProjectId(this.project.getId()).forEach(obj -> {
 			sb.append(" \"");
 			sb.append(obj.getName());
 			sb.append("\" ");
-		}
+		});
 		createHyphenatedList(
 				Arrays.asList(sb.toString(), "система должна поддерживать сортировку, поиск и фильтрация данных:"));
 		createJustifyiedList(Arrays.asList(
@@ -506,19 +481,16 @@ public class WordGenerator {
 	}
 
 	private void insertLinks() {
-		List<Link> links = this.daoFactory.getProjectDependentDAO(Link.class)
-				.getByProject(project.getId());
+		Stream<Link> links = linkRepository.findByProjectId(project.getId());
 
-		List<String> names = links.stream()
-				.map(Link::returnDesr).collect(Collectors.toList());
+		List<String> names = links.map(Link::returnDesr).collect(Collectors.toList());
 
 		createHyphenatedList(names);
 	}
 
 	private void insertActors() {
-		List<Actor> actors = this.daoFactory.getProjectDependentDAO(Actor.class)
-				.getByProject(project.getId());
-		createHyphenatedList(actors.stream().map(Actor::getName)
+		Stream<Actor> actors = actorRepository.findByProjectId(this.project.getId());
+		createHyphenatedList(actors.map(Actor::getName)
 				.collect(Collectors.toList()));
 	}
 

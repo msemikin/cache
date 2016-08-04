@@ -1,5 +1,9 @@
 package ua.nure.cache.filters;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -7,13 +11,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet Filter implementation class PreProcessFilter
- */
-@WebFilter("/PreProcessFilter")
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class PreProcessFilter implements Filter {
 
     public PreProcessFilter() {

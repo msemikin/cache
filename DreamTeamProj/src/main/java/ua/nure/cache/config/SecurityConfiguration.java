@@ -13,15 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
-import ua.nure.cache.filters.CsrfHeaderFilter;
 import ua.nure.cache.security.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebSecurity
@@ -71,35 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler())
                 .and().csrf().disable();
-//                .and()
-//					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-//					.csrf().csrfTokenRepository(csrfTokenRepository())
-//					.requireCsrfProtectionMatcher(this::checkNeedCsrf);
     }
 
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
-    }
-
-    private boolean checkNeedCsrf(final HttpServletRequest request) {
-        Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
-        RegexRequestMatcher apiMatcher = new RegexRequestMatcher(
-                        "(/account/.*/register)" +
-                        "|(/login)|(/logout)", null);
-
-        // No CSRF due to allowedMethod
-        if(allowedMethods.matcher(request.getMethod()).matches())
-            return false;
-
-        // No CSRF due to api call
-        if(apiMatcher.matches(request))
-            return false;
-
-        // CSRF for everything else that is not an API call or an allowedMethod
-        return true;
-    }
 
     @Bean
     	public PasswordEncoder passwordEncoder() {

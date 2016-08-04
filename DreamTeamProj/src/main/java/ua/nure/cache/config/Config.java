@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.util.List;
 
 @Configuration
-@ComponentScan(basePackages = { "ua.nure.cache" })
-@Import({ HibernateConfig.class, SecurityConfiguration.class })
-@EnableWebMvc
 public class Config extends WebMvcConfigurerAdapter {
 
     @Override
@@ -39,23 +36,23 @@ public class Config extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(jacksonMessageConverter());
-        super.configureMessageConverters(converters);
-    }
-
-    @Bean
-    public MappingJackson2HttpMessageConverter jacksonMessageConverter(){
-        MappingJackson2HttpMessageConverter messageConverter = new  MappingJackson2HttpMessageConverter();
-        Hibernate5Module hibernate5Module = new Hibernate5Module();
-        hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(hibernate5Module);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        messageConverter.setObjectMapper(mapper);
-        return messageConverter;
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(jacksonMessageConverter());
+//        super.configureMessageConverters(converters);
+//    }
+//
+//    @Bean
+//    public MappingJackson2HttpMessageConverter jacksonMessageConverter(){
+//        MappingJackson2HttpMessageConverter messageConverter = new  MappingJackson2HttpMessageConverter();
+//        Hibernate5Module hibernate5Module = new Hibernate5Module();
+//        hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.registerModule(hibernate5Module);
+//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//        messageConverter.setObjectMapper(mapper);
+//        return messageConverter;
+//    }
 }

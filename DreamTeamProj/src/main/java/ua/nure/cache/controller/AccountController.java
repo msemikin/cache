@@ -6,12 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ua.nure.cache.entity.User;
+import ua.nure.cache.repository.UserRepository;
 import ua.nure.cache.service.AccountService;
 
 import java.security.Principal;
 
 @RestController
 public class AccountController {
+
+    @Autowired
+    private UserRepository repository;
 
     @Autowired
     private AccountService accountService;
@@ -23,6 +27,6 @@ public class AccountController {
 
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public User account(final Principal principal) {
-        return this.accountService.getUserByEmail(principal.getName());
+        return repository.findUserByEmail(principal.getName());
     }
 }
