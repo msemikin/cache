@@ -42,8 +42,10 @@ public class WordGenerator {
         this.statisticRepository = statisticRepository;
     }
 
-	public synchronized void generateDoc(final String canonicalName) throws IOException, InvalidFormatException {
-		document = new XWPFDocument();
+	public synchronized void generateDoc() throws IOException, InvalidFormatException {
+		File file = new File("template.docx");
+		FileInputStream fis = new FileInputStream(file);
+		document = new XWPFDocument(fis);
 		FileOutputStream out = new FileOutputStream(new File("report.docx"));
 		generateTitle("1 АНАЛИЗ И КОНЦЕПТАЛЬНОЕ МОДЕЛИРОВАНИЕ ПРЕДМЕТНОЙ ОБЛАСТИ");
 		insertSmallTitle("1.1 Анализ предметной области");
@@ -69,7 +71,7 @@ public class WordGenerator {
 		Arrays.asList("На рисунке 1.1 приведена Use-case  диаграмма системы, "
 				+ "которая отражает функции пользователей в системе, "
 				+ "что можно рассматривать как ее функциональную структуру.", ""));
-		insertImage(canonicalName+"/useCase.jpg"); // test image
+		insertImage("useCase.jpg"); // test image
 
 		generateTitle("Рисунок 1.1 - Use-case  диаграмма системы");
 		createJustifyiedList(Arrays.asList("", "<здесь могут быть более развернутые пояснения по диаграмме>", "",
@@ -80,7 +82,7 @@ public class WordGenerator {
 		insertObjWithAttr(document);
 
 		createJustifyiedList(Arrays.asList("", "На рисунке 1.2 приведена схема взаимодействия объектов системы.", ""));
-		insertImage(canonicalName+"/objectRelation.jpg");// test image
+		insertImage("objectRelation.jpg");// test image
 		generateTitle("Рисунок 1.2 -  Схема взаимосвязи объектов предметной области");
 		createJustifyiedList(Arrays.asList("", "Между объектами существуют следующие связи: ", ""));
 
@@ -148,13 +150,13 @@ public class WordGenerator {
 		document.createParagraph().createRun().addBreak(BreakType.PAGE);
 		generateTitle("3 ПРОЕКТИРОВАНИЕ БАЗЫ ДАННЫХ");
 		insertSmallTitle("3.1 UML-моделирование");
-		insertImage(canonicalName+"/er.jpg");
+		insertImage("er.jpg");
 		createJustifyiedList(Arrays.asList("", "<здесь Вы должны вставить описания и рисунки с диаграммами>"));
 		insertSmallTitle("3.2 Построение ER-диаграммы");
 		createJustifyiedList(
 				Arrays.asList("", "<здесь Вы должны вставить краткое описание, как Вы строили ER-диаграмму>",
 						"На рисунке 3.3 приведена ER-диаграмм для базы данных."));
-		insertImage(canonicalName+"/er.jpg");
+		insertImage("er.jpg");
 		generateTitle("Рисунок 3.3 - ER-диаграмма предметной области");
 		document.write(out);
 		out.close();
