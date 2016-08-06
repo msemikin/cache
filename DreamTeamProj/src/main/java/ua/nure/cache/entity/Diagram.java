@@ -18,8 +18,8 @@ public class Diagram {
 	@Column(name = "type")
 	private String type;
 
-	@Column(name = "project_id")
-	private int projectId;
+	@ManyToOne
+	private Project project;
 
 	public int getId() {
 		return id;
@@ -45,11 +45,11 @@ public class Diagram {
 		this.type = type;
 	}
 
-	public int getProjectId() {
-		return projectId;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

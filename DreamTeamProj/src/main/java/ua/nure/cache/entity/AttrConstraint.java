@@ -1,7 +1,6 @@
 package ua.nure.cache.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @javax.persistence.Entity
 @Table(name = "attrconstraint")
@@ -10,9 +9,6 @@ public class AttrConstraint {
 	@Id
 	@Column(name = "constraint_id")
 	private int id;
-
-	@Column(name = "project_id")
-	private int projectId;
 
 	@ManyToOne
 	@JoinColumn(name = "attr_id")
@@ -24,20 +20,15 @@ public class AttrConstraint {
 	@Column(name = "name")
 	private String name;
 
+	@ManyToOne
+	private Project project;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public Attribute getAttribute() {
@@ -62,5 +53,13 @@ public class AttrConstraint {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

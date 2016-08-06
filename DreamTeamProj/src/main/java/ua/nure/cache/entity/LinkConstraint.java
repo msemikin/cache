@@ -13,9 +13,6 @@ public class LinkConstraint {
 	@Column(name = "constr_id")
 	private int id;
 
-	@Column(name = "project_id")
-	private int projectId;
-
 	@ManyToOne
 	@JoinColumn(name = "first_element")
 	private Entity firstEntity;
@@ -30,20 +27,15 @@ public class LinkConstraint {
 	@JoinColumn(name = "name")
 	private String name;
 
+	@ManyToOne
+	private Project project;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public Entity getFirstEntity() {
@@ -76,5 +68,13 @@ public class LinkConstraint {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

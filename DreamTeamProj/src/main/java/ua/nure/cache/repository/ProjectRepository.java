@@ -5,7 +5,7 @@ import ua.nure.cache.entity.Project;
 
 import java.util.stream.Stream;
 
-public interface ProjectRepository extends CrudRepository<Project, Long> {
+public interface ProjectRepository extends CrudRepository<Project, Integer> {
 
     Stream<Project> findByOwnerEmail(final String email);
 

@@ -16,9 +16,6 @@ public class AlgDep {
 	@Column(name = "dep_id")
 	private int id;
 
-	@Column(name = "project_id")
-	private int projectId;
-
 	@Column(name = "name")
 	private String name;
 
@@ -32,20 +29,15 @@ public class AlgDep {
 	@Column(name = "formula")
 	private String formula;
 
+	@ManyToOne
+	private Project project;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public String getName() {
@@ -89,4 +81,11 @@ public class AlgDep {
 		return false;
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 }

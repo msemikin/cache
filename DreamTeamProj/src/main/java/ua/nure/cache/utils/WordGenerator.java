@@ -3,6 +3,8 @@ package ua.nure.cache.utils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.nure.cache.entity.*;
 import ua.nure.cache.repository.*;
 
@@ -18,28 +20,8 @@ public class WordGenerator {
 	private XWPFDocument document;
 	private final Project project;
 
-	private final EntityRepository entityRepository;
-	private final LinkConstraintRepository linkConstraintRepository;
-	private final InformationalRequirementRepository informationalRequirementRepository;
-	private final ActorRepository actorRepository;
-    private final LinkRepository linkRepository;
-    private final AttrConstraintRepository attrConstraintRepository;
-    private final AlgDepRepository algDepRepository;
-    private final ReportRepository reportRepository;
-    private final StatisticRepository statisticRepository;
-
-	public WordGenerator(Project project,
-                         EntityRepository entityRepository, LinkConstraintRepository linkConstraintRepository, InformationalRequirementRepository informationalRequirementRepository, ActorRepository actorRepository, LinkRepository linkRepository, AttrConstraintRepository attrConstraintRepository, AlgDepRepository algDepRepository, ReportRepository reportRepository, StatisticRepository statisticRepository) {
-		this.project = project;
-		this.entityRepository = entityRepository;
-		this.linkConstraintRepository = linkConstraintRepository;
-		this.informationalRequirementRepository = informationalRequirementRepository;
-		this.actorRepository = actorRepository;
-		this.linkRepository = linkRepository;
-		this.attrConstraintRepository = attrConstraintRepository;
-        this.algDepRepository = algDepRepository;
-        this.reportRepository = reportRepository;
-        this.statisticRepository = statisticRepository;
+	public WordGenerator(final Project project) {
+    	this.project = project;
     }
 
 	public synchronized void generateDoc() throws IOException, InvalidFormatException {
@@ -255,15 +237,13 @@ public class WordGenerator {
 	}
 
 	private List<String> getElementNames() {
-		return entityRepository.findByProjectId(this.project.getId())
+		return this.project.getEntities().stream()
 				.map(Entity::getName)
 				.collect(Collectors.toList());
 	}
 
 	private void insertObjWithAttr(XWPFDocument document) {
-		Stream<Entity> objs = entityRepository.findByProjectId(this.project.getId());
-
-		List<String> names = objs.map(obj -> {
+		List<String> names = this.project.getEntities().stream().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Объект \"");
 			sb.append(obj.getName());
@@ -278,12 +258,8 @@ public class WordGenerator {
 		createJustifyiedList(names);
 	}
 
-	private Stream<LinkConstraint> getLinkConstrs() {
-		return linkConstraintRepository.findByProjectId(this.project.getId());
-	}
-
 	private void insertIntegrConstr() {
-		List<String> names = getLinkConstrs().map(obj -> {
+		List<String> names = this.project.getLinkConstraints().stream().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("—Между \"");
 			sb.append(obj.getFirstEntity().getName());
@@ -298,8 +274,9 @@ public class WordGenerator {
 	}
 
 	private void insertSorts() {
-		List<String> names = informationalRequirementRepository
-                .findByType(InformationalRequirement.Type.SORT.toString())
+		List<String> names = this.project.getInformationalRequirements()
+				.stream()
+				.filter(infReq -> infReq.getType().equals(InformationalRequirement.Type.SORT))
                 .map(obj -> {
                     StringBuilder sb = new StringBuilder();
                     sb.append("Объект \"");
@@ -317,8 +294,9 @@ public class WordGenerator {
 	}
 
 	private void insertSearches() {
-        List<String> names = informationalRequirementRepository
-                .findByType(InformationalRequirement.Type.FILTER.toString())
+        List<String> names = this.project.getInformationalRequirements()
+                .stream()
+                .filter(infReq -> infReq.getType().equals(InformationalRequirement.Type.SEARCH))
                 .map(obj -> {
                     StringBuilder sb = new StringBuilder();
                     sb.append("Объект \"");
@@ -336,8 +314,9 @@ public class WordGenerator {
 	}
 
 	private void insertFilters() {
-		List<String> names = informationalRequirementRepository
-                .findByType(InformationalRequirement.Type.FILTER.toString())
+        List<String> names = this.project.getInformationalRequirements()
+                .stream()
+                .filter(infReq -> infReq.getType().equals(InformationalRequirement.Type.FILTER))
                 .map(obj -> {
                     StringBuilder sb = new StringBuilder();
                     sb.append("Объект \"");
@@ -355,7 +334,7 @@ public class WordGenerator {
 	}
 
 	private void insertStat() {
-		List<String> names = statisticRepository.findByProjectId(project.getId()).map(obj -> {
+		List<String> names = project.getStatistics().stream().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Статистика \"");
 			sb.append(obj.getName());
@@ -377,7 +356,7 @@ public class WordGenerator {
 	}
 
 	private void insertReports() {
-		List<String> names = reportRepository.findByProjectId(this.project.getId()).map(obj -> {
+		List<String> names = project.getReports().stream().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Документ \"");
 			sb.append(obj.getName());
@@ -399,7 +378,7 @@ public class WordGenerator {
 	}
 
 	private void insertAlgDeps() {
-		final List<String> names = algDepRepository.findByProjectId(project.getId()).map(obj -> {
+		final List<String> names = project.getAlgDeps().stream().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Атрибут \"");
 			sb.append(obj.getResultField().getName());
@@ -420,7 +399,7 @@ public class WordGenerator {
 	}
 
 	private void insertAttrConstr() {
-		List<String> names = attrConstraintRepository.findByProjectId(project.getId()).map(obj -> {
+		List<String> names = project.getAttrConstraints().stream().map(obj -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Для объекта  \"");
 			sb.append(obj.getAttribute().getName());
@@ -450,7 +429,7 @@ public class WordGenerator {
 	private void getAlgDepsNames() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("система должна поддерживать арифметическую обработку данных в виде вычислений полей: ");
-		algDepRepository.findByProjectId(this.project.getId()).forEach(obj -> {
+		project.getAlgDeps().forEach(obj -> {
 			sb.append(" \"");
 			sb.append(obj.getName());
 			sb.append("\" ");
@@ -483,16 +462,16 @@ public class WordGenerator {
 	}
 
 	private void insertLinks() {
-		Stream<Link> links = linkRepository.findByProjectId(project.getId());
-
-		List<String> names = links.map(Link::returnDesr).collect(Collectors.toList());
-
+		List<String> names = this.project.getLinks().stream()
+                .map(Link::returnDesr)
+                .collect(Collectors.toList());
 		createHyphenatedList(names);
 	}
 
 	private void insertActors() {
-		Stream<Actor> actors = actorRepository.findByProjectId(this.project.getId());
-		createHyphenatedList(actors.map(Actor::getName)
+
+		createHyphenatedList(this.project.getActors().stream()
+                .map(Actor::getName)
 				.collect(Collectors.toList()));
 	}
 

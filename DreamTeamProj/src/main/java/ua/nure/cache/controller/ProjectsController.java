@@ -35,7 +35,7 @@ public class ProjectsController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteProject(final @PathVariable(value = "id") Long id) {
+	public void deleteProject(final @PathVariable(value = "id") int id) {
 	    projectRepository.delete(id);
 	}
 

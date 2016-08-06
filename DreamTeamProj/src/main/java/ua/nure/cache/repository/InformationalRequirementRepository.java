@@ -6,8 +6,7 @@ import ua.nure.cache.entity.InformationalRequirement;
 import java.util.stream.Stream;
 
 public interface InformationalRequirementRepository
-        extends CrudRepository<InformationalRequirement, Long>,
-        ProjectDependentRepository<InformationalRequirement> {
+        extends CrudRepository<InformationalRequirement, Integer> {
 
     Stream<InformationalRequirement> findByType(final String type);
 

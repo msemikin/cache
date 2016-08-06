@@ -10,6 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>ua.nure.cache.Application</start-class>
         <java.version>1.8</java.version>
         <poi.version>3.14</poi.version>
         <hibernate.version>5.0.6.Final</hibernate.version>

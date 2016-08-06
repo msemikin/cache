@@ -17,8 +17,8 @@ public class Actor {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "project_id")
-	private int projectId;
+	@ManyToOne
+	private Project project;
 
 	public String getName() {
 		return name;
@@ -28,19 +28,19 @@ public class Actor {
 		this.name = name;
 	}
 
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
-	}
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

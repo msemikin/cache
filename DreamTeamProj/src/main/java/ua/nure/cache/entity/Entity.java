@@ -17,11 +17,11 @@ public class Entity {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "project_id")
-	private int projectId;
-
 	@OneToMany(mappedBy = "entity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Attribute> attrs = new HashSet<>();
+
+	@ManyToOne
+	private Project project;
 
 	public int getId() {
 		return id;
@@ -39,19 +39,19 @@ public class Entity {
 		this.name = name;
 	}
 
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
-	}
-
 	public Set<Attribute> getAttrs() {
 		return attrs;
 	}
 
 	public void setAttrs(Set<Attribute> attrs) {
 		this.attrs = attrs;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

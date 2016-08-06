@@ -17,9 +17,6 @@ public class Report {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "project_id")
-	private int projectId;
-
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reporttoattr", joinColumns = {
 			@JoinColumn(name = "report_id", nullable = false, updatable = false) },
@@ -27,6 +24,9 @@ public class Report {
 					@JoinColumn(name = "attr_id", nullable = false, updatable = false)
 			})
 	private Set<Entity> entities = new HashSet<>();
+
+	@ManyToOne
+	private Project project;
 
 	public int getId() {
 		return id;
@@ -42,14 +42,6 @@ public class Report {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public Set<Entity> getEntities() {
@@ -69,5 +61,13 @@ public class Report {
 		else {
 			return false;
 		}
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

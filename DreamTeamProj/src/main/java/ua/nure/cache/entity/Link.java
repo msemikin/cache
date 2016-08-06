@@ -26,8 +26,8 @@ public class Link {
 	@Column(name = "comment")
 	private String comment;
 
-	@Column(name = "project_id")
-	private int projectId;
+	@ManyToOne
+	private Project project;
 
 	public int getLinkId() {
 		return linkId;
@@ -67,14 +67,6 @@ public class Link {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public String returnDesr() {
@@ -128,5 +120,13 @@ public class Link {
 			sb.append(", т.е. связь типа «многие-ко-многим»;");
 		}
 		return sb.toString();
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

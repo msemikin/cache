@@ -17,9 +17,6 @@ public class Statistic {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "project_id")
-	private int projectId;
-
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "stattoattr", joinColumns = {
 			@JoinColumn(name = "statistic_id", nullable = false, updatable = false) },
@@ -27,6 +24,9 @@ public class Statistic {
 					@JoinColumn(name = "attr_id", nullable = false, updatable = false)
 			})
 	private Set<Entity> entities = new HashSet<>();
+
+	@ManyToOne
+	private Project project;
 
 	public int getId() {
 		return id;
@@ -42,14 +42,6 @@ public class Statistic {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public Set<Entity> getEntities() {
@@ -70,4 +62,11 @@ public class Statistic {
 		}
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 }

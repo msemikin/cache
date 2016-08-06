@@ -5,6 +5,6 @@ import ua.nure.cache.entity.Entity;
 
 import java.util.stream.Stream;
 
-public interface EntityRepository extends CrudRepository<Entity, Long>, ProjectDependentRepository<Entity> {
+public interface EntityRepository extends CrudRepository<Entity, Integer> {
 
 }

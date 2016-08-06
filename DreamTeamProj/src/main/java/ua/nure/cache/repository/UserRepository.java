@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import ua.nure.cache.entity.User;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Integer> {
     User findUserByEmail(String email);
 
     @Query("select count(u) > 0 from User u where u.email = ?1")

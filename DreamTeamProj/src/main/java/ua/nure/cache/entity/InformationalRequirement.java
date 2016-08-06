@@ -17,6 +17,14 @@ public class InformationalRequirement {
 		this.type = type;
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	public static enum Type {
 		SEARCH,
 		FILTER,
@@ -28,9 +36,6 @@ public class InformationalRequirement {
 	@Column(name = "inforeq_id")
 	private int id;
 
-	@Column(name = "project_id")
-	private int projectId;
-
 	@ManyToMany()
 	@JoinTable(name = "inforeq_attr",
 			joinColumns = @JoinColumn(name = "inforeq_id"),
@@ -40,14 +45,8 @@ public class InformationalRequirement {
 	@Column(name = "type")
 	private Type type;
 
-	public InformationalRequirement() {}
-
-	public InformationalRequirement(int id, int projectId, Set<Attribute> attributes, Type type) {
-		this.id = id;
-		this.projectId = projectId;
-		this.attributes = attributes;
-		this.type = type;
-	}
+	@ManyToOne
+	private Project project;
 
 	public int getId() {
 		return id;
@@ -55,14 +54,6 @@ public class InformationalRequirement {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public Set<Attribute> getAttributes() {

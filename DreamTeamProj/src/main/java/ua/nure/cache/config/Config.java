@@ -1,18 +1,15 @@
 package ua.nure.cache.config;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
-import javax.servlet.MultipartConfigElement;
 import java.io.IOException;
-import java.util.List;
 
 @Configuration
 public class Config extends WebMvcConfigurerAdapter {
@@ -36,33 +33,5 @@ public class Config extends WebMvcConfigurerAdapter {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(jacksonMessageConverter());
-        super.configureMessageConverters(converters);
-    }
-
-    @Bean
-    public MappingJackson2HttpMessageConverter jacksonMessageConverter(){
-        MappingJackson2HttpMessageConverter messageConverter = new  MappingJackson2HttpMessageConverter();
-        Hibernate5Module hibernate5Module = new Hibernate5Module();
-        hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(hibernate5Module);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        messageConverter.setObjectMapper(mapper);
-        return messageConverter;
-    }
-
-    @Bean
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setDefaultEncoding("utf-8");
-        commonsMultipartResolver.setMaxUploadSize(50000000);
-        return commonsMultipartResolver;
     }
 }
