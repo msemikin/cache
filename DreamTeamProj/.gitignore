@@ -1,6 +1,0 @@
-/bin/
-.idea/
-/src/main/resources/application.properties
-*.lvimrc
-node_modules
-docs

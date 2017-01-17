@@ -1,18 +1,5 @@
-/DreamTeamProj/src/main/resources/application.properties
-# https://git-scm.com/docs/gitignore
-# https://help.github.com/articles/ignoring-files
-# Example .gitignore files: https://github.com/github/gitignore
-**/*.swp
-**/*.swo
-*.log
-*.log.*
-*.iml
-/DreamTeamProj/build/
-/DreamTeamProj/WebContent/META-INF/context.xml
-/DreamTeamProj/src/main/webapp/WEB-INF/classes
-/DreamTeamProj/target
-/.idea
-/DreamTeamProj/.settings
-node_modules
-bower_components
-static
+.idea/
+src/main/resources/application.properties
+docs
+target
+*.docx
