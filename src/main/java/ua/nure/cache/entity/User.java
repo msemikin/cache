@@ -1,10 +1,10 @@
 package ua.nure.cache.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +27,8 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@JsonProperty
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<UserRole> roles = new HashSet<>();
 
 	public User() {
